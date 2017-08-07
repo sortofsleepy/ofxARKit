@@ -41,7 +41,7 @@ class ARProcessor {
     
     
     // Converts the CVPixelBufferIndex into a OpenGL texture
-    CVOpenGLESTextureRef createTextureFromPixelBuffer(CVPixelBufferRef pixelBuffer,int planeIndex);
+    CVOpenGLESTextureRef createTextureFromPixelBuffer(CVPixelBufferRef pixelBuffer,int planeIndex,GLenum format=GL_LUMINANCE,int width=0,int height=0);
   
     std::string vertex_shader = STRINGIFY(
                                           attribute vec2 position;

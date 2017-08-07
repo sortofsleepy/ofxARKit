@@ -3,33 +3,40 @@ precision highp float;
 // this is the yyuv texture from ARKit
 uniform sampler2D yMap;
 uniform sampler2D uvMap;
-uniform sampler2D testImage;
-
-uniform float testVal;
 varying vec2 vUv;
-uniform vec2 resolution;
-uniform mat4 rotationMatrix;
 
-varying float val;
+
+/**
+     We want to take the camera input and properly convert to RGB. This was done with the help of
+ GPUImage project
+ https://github.com/BradLarson/GPUImage
+ 
+ Specifically between these couple files
+ https://github.com/BradLarson/GPUImage/blob/167b0389bc6e9dc4bb0121550f91d8d5d6412c53/framework/Source/GPUImageColorConversion.m
+ https://github.com/BradLarson/GPUImage/blob/167b0389bc6e9dc4bb0121550f91d8d5d6412c53/framework/Source/GPUImageVideoCamera.m
+ */
 void main(){
  
     // flip uvs so image isn't inverted.
-    vec2 uv = vec2(vUv.s,1.0 - vUv.t);
+    vec2 textureCoordinate = vec2(vUv.s,1.0 - vUv.t);
     
-    vec4 capturedImageTextureY = texture2D(yMap, uv);
-    vec4 capturedImageTextureCbCr = texture2D(uvMap, uv);
-    
-    mat4 transform = mat4(
-                          1.0000, 1.0000, 1.0000, 0.0000,
-                          0.0000, -0.3441, 1.7720, 0.0000,
-                          1.4020, -0.7141, 0.0000, 0.0000,
-                          -0.7010, 0.5291, -0.8860, 1.0000
-                          );
+    // Using BT.709 which is the standard for HDTV
+    mat3 colorConversionMatrix = mat3(
+                                      1.164,  1.164, 1.164,
+                                      0.0, -0.213, 2.112,
+                                      1.793, -0.533,   0.0
+                                      );
     
     
-    vec4 ycbr = vec4(capturedImageTextureY.r,capturedImageTextureCbCr.rg,1.);
+    mediump vec3 yuv;
+    lowp vec3 rgb;
     
-    gl_FragColor = ycbr * transform;
+    yuv.x = texture2D(yMap, textureCoordinate).r - (16.0/255.0);
+    yuv.yz = texture2D(uvMap, textureCoordinate).ra - vec2(0.5, 0.5);
+  
+    rgb = colorConversionMatrix * yuv;
+
+    gl_FragColor = vec4(rgb,1.);
 }
 
 

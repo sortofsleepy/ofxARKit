@@ -23,7 +23,7 @@ void ARProcessor::setup(){
     // setup plane and shader in order to draw the camera feed
     cameraPlane = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
     cameraShader.load("shaders/camera.vert","shaders/camera.frag");
-    
+
     yTexture = NULL;
     CbCrTexture = NULL;
     
@@ -38,22 +38,26 @@ void ARProcessor::setup(){
     }
 }
 
-CVOpenGLESTextureRef ARProcessor::createTextureFromPixelBuffer(CVPixelBufferRef pixelBuffer,int planeIndex){
+CVOpenGLESTextureRef ARProcessor::createTextureFromPixelBuffer(CVPixelBufferRef pixelBuffer,int planeIndex,GLenum format,int width,int height){
     CVOpenGLESTextureRef texture = NULL;
     
-    const size_t width = CVPixelBufferGetWidthOfPlane(pixelBuffer, planeIndex);
-    const size_t height = CVPixelBufferGetHeightOfPlane(pixelBuffer, planeIndex);
+    if(width == 0 || height == 0){
+        //width = (int)CVPixelBufferGetWidthOfPlane(pixelBuffer, planeIndex);
+        //height = (int)CVPixelBufferGetHeightOfPlane(pixelBuffer, planeIndex);
+        width = (int) CVPixelBufferGetWidth(pixelBuffer);
+        height = (int) CVPixelBufferGetHeight(pixelBuffer);
+    }
     
     CVReturn err = noErr;
-    err =CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
+    err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
                                                       _videoTextureCache,
                                                       pixelBuffer,
                                                       NULL,
                                                       GL_TEXTURE_2D,
-                                                      GL_LUMINANCE,
+                                                      format,
                                                       width,
                                                       height,
-                                                      GL_LUMINANCE,
+                                                      format,
                                                       GL_UNSIGNED_BYTE,
                                                       planeIndex,
                                                       &texture);
@@ -99,9 +103,11 @@ void ARProcessor::update(){
         
         
         if (CVPixelBufferGetPlaneCount(pixelBuffer) >= 2) {
+            CVPixelBufferLockBaseAddress(pixelBuffer, 0);
+        
             
             // ========= RELEASE DATA PREVIOUSLY HELD ================= //
-            CVPixelBufferLockBaseAddress(pixelBuffer, 0);
+           
             CVBufferRelease(yTexture);
             CVBufferRelease(CbCrTexture);
             
@@ -114,15 +120,19 @@ void ARProcessor::update(){
             
             // ========= BUILD CAMERA TEXTURES ================= //
             yTexture = createTextureFromPixelBuffer(pixelBuffer, 0);
-            CbCrTexture = createTextureFromPixelBuffer(pixelBuffer, 1);
+            
+            int width = (int) CVPixelBufferGetWidth(pixelBuffer);
+            int height = (int) CVPixelBufferGetHeight(pixelBuffer);
+            
+            CbCrTexture = createTextureFromPixelBuffer(pixelBuffer, 1,GL_LUMINANCE_ALPHA,width / 2, height / 2);
             
             
             // correct texture wrap and filtering of Y texture
             glBindTexture(CVOpenGLESTextureGetTarget(yTexture), CVOpenGLESTextureGetName(yTexture));
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+            //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+            //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
             glBindTexture(CVOpenGLESTextureGetTarget(yTexture), 0);
             
             
@@ -130,8 +140,8 @@ void ARProcessor::update(){
             glBindTexture(CVOpenGLESTextureGetTarget(CbCrTexture), CVOpenGLESTextureGetName(CbCrTexture));
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+            //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+            //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
             
             glBindTexture(CVOpenGLESTextureGetTarget(CbCrTexture), 0);
             

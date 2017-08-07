@@ -29,7 +29,7 @@ void ofApp::setup() {
     
     processor.setup();
  
-    GL_LUMINANCE
+    
     
 
 }

@@ -8,7 +8,7 @@
 #import "OFAppViewController.h"
 #import "ofApp.h"
 
-@interface MyAppViewController() <ARSessionDelegate>
+@interface MyAppViewController()
 @property (nonatomic, strong) ARSession *session;
 @end
 
@@ -18,7 +18,7 @@
 - (void)loadView {
     [super loadView];
     self.session = [ARSession new];
-    self.session.delegate = self;
+    //self.session.delegate = self;
     
     ARWorldTrackingSessionConfiguration *configuration = [ARWorldTrackingSessionConfiguration new];
     
