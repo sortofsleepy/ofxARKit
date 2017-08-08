@@ -14,8 +14,18 @@ ARProcessor::ARProcessor(ARSession * session){
     this->session = session;
 }
 
+ARProcessor::~ARProcessor(){
+    pauseSession();
+    session = nullptr;
+}
+
 void ARProcessor::pauseSession(){
     [session pause];
+}
+
+void ARProcessor::startSession(){
+   // ARWorldTrackingSessionConfiguration *configuration = [ARWorldTrackingSessionConfiguration new];
+    
 }
 
 void ARProcessor::addAnchor(){
@@ -100,6 +110,16 @@ void ARProcessor::drawCameraFrame(){
     draw();
 }
 
+// borrowed from https://github.com/wdlindmeier/Cinder-Metal/blob/master/include/MetalHelpers.hpp
+template <typename T, typename U >
+const U static inline convert( const T & t )
+{
+    U tmp;
+    memcpy(&tmp, &t, sizeof(U));
+    U ret = tmp;
+    return ret;
+}
+
 void ARProcessor::update(){
     
     // if we haven't set a session - just stop things here. 
@@ -110,8 +130,8 @@ void ARProcessor::update(){
     currentFrame = session.currentFrame;
     
     // update matrices from camera
-    cameraTransform = currentFrame.camera.transform;
-    cameraProjection = currentFrame.camera.projection;
+    cameraTransform = convert<matrix_float4x4,ofMatrix4x4>(currentFrame.camera.transform);
+    cameraProjection = convert<matrix_float4x4,ofMatrix4x4>(currentFrame.camera.projectionMatrix);
     
     // only act if we have the current frame
     if(currentFrame){
@@ -138,6 +158,12 @@ void ARProcessor::update(){
     
     // Periodic texture cache flush every frame
     CVOpenGLESTextureCacheFlush(_videoTextureCache, 0);
+}
+
+void ARProcessor::updatePlanes(){
+    if(currentFrame){
+        
+    }
 }
 
 void ARProcessor::buildCameraFrame(CVPixelBufferRef pixelBuffer){

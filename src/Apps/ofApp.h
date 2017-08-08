@@ -40,7 +40,7 @@ public:
     // ====== AR STUFF ======== //
     ARSession * session;
     
-    ARProcessor processor;
+    ARRef processor;
    
     /*
      int32_t cameraWidth;

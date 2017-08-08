@@ -25,9 +25,9 @@ void ofApp::setup() {
     
  
    
-    processor = ARProcessor(session);
+    processor = ARProcessor::create(session);
     
-    processor.setup();
+    processor->setup();
  
     
     
@@ -37,7 +37,7 @@ void ofApp::setup() {
 //--------------------------------------------------------------
 void ofApp::update(){
   
-    processor.update();
+    processor->update();
 
 }
 
@@ -47,7 +47,7 @@ void ofApp::update(){
 void ofApp::draw() {
     ofEnableAlphaBlending();
     
-    processor.draw();
+    processor->draw();
   
     
     

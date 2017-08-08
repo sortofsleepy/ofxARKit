@@ -20,7 +20,11 @@
     self.session = [ARSession new];
     //self.session.delegate = self;
     
+    // TODO should be ARWorldTrackingConfiguration now but not in current API(might need to re-download sdk)
     ARWorldTrackingSessionConfiguration *configuration = [ARWorldTrackingSessionConfiguration new];
+
+    // setup horizontal plane detection
+    configuration.planeDetection = ARPlaneDetectionHorizontal;
     
     [self.session runWithConfiguration:configuration];
 

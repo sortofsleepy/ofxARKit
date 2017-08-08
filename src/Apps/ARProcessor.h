@@ -10,8 +10,11 @@
 
 #include "ofMain.h"
 #include "ofxiOS.h"
+#include <memory>
 #include <ARKit/ARKit.h>
 #define STRINGIFY(A) #A
+
+typedef std::shared_ptr<class ARProcessor>ARRef;
 
 /**
      Processing class to help deal with ARKit stuff like grabbing and converting the camera feed,
@@ -123,9 +126,20 @@ class ARProcessor {
 public:
     ARProcessor();
     ARProcessor(ARSession * session);
+    ~ARProcessor();
     
+    static ARRef create(ARSession * session){
+        return ARRef(new ARProcessor(session));
+    }
+    static ARRef create(){
+        return ARRef(new ARProcessor());
+    }
+    
+    
+    void updatePlanes();
     void addAnchor();
     void pauseSession();
+    void startSession();
     
     void setup();
     void update();
