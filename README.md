@@ -29,7 +29,7 @@ To initialize the ARKit framework it's just a few lines
 
    self.session = [ARSession new];
     
-    // TODO should be ARWorldTrackingConfiguration now but not in current API(might need to re-download sdk)
+    // ARWorldTrackingSessionConfiguration has been deprecated and should now be ARWorldTrackingConfiguration - still using here cause I     //haven't updated the framework yet.
     ARWorldTrackingSessionConfiguration *configuration = [ARWorldTrackingSessionConfiguration new];
 
     // setup horizontal plane detection
