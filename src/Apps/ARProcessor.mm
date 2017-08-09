@@ -29,14 +29,15 @@ void ARProcessor::startSession(){
 }
 
 void ARProcessor::addAnchor(){
-   
+    ARFrame * frame = [session currentFrame];
+    
     // Create anchor using the camera's current position
-    if (currentFrame) {
+    if (frame) {
         
         // Create a transform with a translation of 0.2 meters in front of the camera
         matrix_float4x4 translation = matrix_identity_float4x4;
         translation.columns[3].z = -0.2;
-        matrix_float4x4 transform = matrix_multiply(currentFrame.camera.transform, translation);
+        matrix_float4x4 transform = matrix_multiply(frame.camera.transform, translation);
         
         // Add a new anchor to the session
         ARAnchor *anchor = [[ARAnchor alloc] initWithTransform:transform];
