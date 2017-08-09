@@ -21,6 +21,12 @@ To initialize the ARKit framework it's just a few lines
       @property (nonatomic, strong) ARSession *session;
     @end
 
+
+    // then somewhere in your implementation block...
+    // official example shows you ought to declare the session in viewWillLoad and initialize in viewWillAppear, but 
+    // that can result in tracking performance degradation in my experience (again, could just be the phone I'm borrowing, 
+    // your milage may vary ¯\_(ツ)_/¯)
+
    self.session = [ARSession new];
     
     // TODO should be ARWorldTrackingConfiguration now but not in current API(might need to re-download sdk)
