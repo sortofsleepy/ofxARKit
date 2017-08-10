@@ -12,8 +12,14 @@ elsewhere, it is possible, but for consistancy and simplicity of getting up and 
 * You should be able to then, open the project build and go! Note that the first build might take awhile but after that it should be much faster.
 
 # ARKit setup 
-ARKit actually does a ton of things for you right off the bat. The way things are set up is that you initialize the toolkit in your ViewController, then pass that session into the class `ARProcessor.h`. The reason for this being that, in my initial testing, the location of where you initialize the framework can affect performance. I'm not sure why or how, but if you're not careful about where you initialize, ARKit might spit out the messsage along the lines of "... tracking performance is reduced due to resource constraints"
-or something to that effect. The documentation is currently a bit lacking as to proper setup and even following the example bundled in the XCode 9 beta can still result in the above message. It could just be my hardware ¯\_(ツ)_/¯
+ARKit actually does a ton of things in and of itself. All you really have to do is initialize the framework in your ViewController, then you manipulate that session object to grab information the framework provides. 
+
+# Current functionality 
+ARKit, while it does do a ton behind the scenes; it pretty much leaves it up to you to figure out how you want to render things. The current Apple documentation, while already moderately detailed, unfortunately leaves some stuff out. I've started a class called `ARProcessor.h`, the intent being to help manage the heavy lifting of certain bit's of functionality.
+* For whatever reason - Apple neglected to provide a way to easily render the camera image that the ARKit framwork is seeing at every frame. ARProcessor.h provides a way to render the camera image. 
+
+# Potential hurdles
+The location of where you initialize the framework can affect performance. I'm not sure why or how, but if you're not careful about where you initialize, ARKit might spit out the messsage along the lines of "... tracking performance is reduced due to resource constraints" or something to that effect. The documentation is currently a bit lacking as to proper setup and even following the example bundled in the XCode 9 beta can still result in the above message. It could just be my hardware ¯\_(ツ)_/¯
 
 To initialize the ARKit framework it's just a few lines
 ```objective-c
@@ -45,6 +51,11 @@ This is following the iOSNative example. This is done to allow for a little more
 
 
 All that you really need to worry about for the most part is the `ofApp` class in `src/Apps`
+
+
+# Contributing
+Feel free to make PR's! (especially now that my time to work on this will be severely limited for the next month and a half :/ )
+As long as it doesn't break anything I'll probably accept it. 
 
 # Why openFrameworks?
 It provides a unified standard of code across a variety of different contexts. On top of being beginner friendly code, it'll make it possible to develop graphics and phone code seperately
