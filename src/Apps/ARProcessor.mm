@@ -64,6 +64,8 @@ void ARProcessor::setup(){
     
     // correct video orientation
     rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
+
+    
     
     // initialize video texture cache
     CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, ofxiOSGetGLView().context, NULL, &_videoTextureCache);
@@ -113,16 +115,6 @@ void ARProcessor::drawCameraFrame(){
     draw();
 }
 
-// borrowed from https://github.com/wdlindmeier/Cinder-Metal/blob/master/include/MetalHelpers.hpp
-template <typename T, typename U >
-const U static inline convert( const T & t )
-{
-    U tmp;
-    memcpy(&tmp, &t, sizeof(U));
-    U ret = tmp;
-    return ret;
-}
-
 void ARProcessor::update(){
     
     // if we haven't set a session - just stop things here. 
@@ -133,8 +125,8 @@ void ARProcessor::update(){
     currentFrame = session.currentFrame;
     
     // update matrices from camera
-    cameraTransform = convert<matrix_float4x4,ofMatrix4x4>(currentFrame.camera.transform);
-    cameraProjection = convert<matrix_float4x4,ofMatrix4x4>(currentFrame.camera.projectionMatrix);
+    cameraMatrices.cameraTransform = convert<matrix_float4x4,ofMatrix4x4>(currentFrame.camera.transform);
+    cameraMatrices.cameraProjection = convert<matrix_float4x4,ofMatrix4x4>(currentFrame.camera.projectionMatrix);
     
     // only act if we have the current frame
     if(currentFrame){
@@ -230,3 +222,10 @@ void ARProcessor::buildCameraFrame(CVPixelBufferRef pixelBuffer){
     
     
 }
+
+
+ ARCameraMatrices ARProcessor::getMatricesForPortraitOrientation(float near,float far){
+    cameraMatrices.cameraTransform = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera viewMatrixForOrientation:UIInterfaceOrientationPortrait]);
+    cameraMatrices cameraProjection = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera projectionMatrixForOrientation:UIInterfaceOrientationPortrait viewportSize:_viewportSize zNear:near zFar:far]);
+    return cameraMatrices;
+ }
