@@ -125,6 +125,7 @@ void ARProcessor::update(){
     currentFrame = session.currentFrame;
     
     // update matrices from camera
+    // TODO more testing - can we use these directly or do we need to call viewMatrixForOrientation etc..
     cameraMatrices.cameraTransform = convert<matrix_float4x4,ofMatrix4x4>(currentFrame.camera.transform);
     cameraMatrices.cameraProjection = convert<matrix_float4x4,ofMatrix4x4>(currentFrame.camera.projectionMatrix);
     
@@ -223,6 +224,17 @@ void ARProcessor::buildCameraFrame(CVPixelBufferRef pixelBuffer){
     
 }
 
+void ARProcessor::setARCameraMatrices(){
+    ofSetMatrixMode(OF_MATRIX_PROJECTION);
+    ofLoadMatrix(cameraMatrices.cameraProjection);
+    ofSetMatrixMode(OF_MATRIX_MODELVIEW);
+    ofLoadMatrix(cameraMatrices.cameraTransform);           
+}
+
+
+float ARProcessor::getAmbientIntensity(){
+    return ambientIntensity;
+}
 
  ARCameraMatrices ARProcessor::getMatricesForPortraitOrientation(float near,float far){
     cameraMatrices.cameraTransform = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera viewMatrixForOrientation:UIInterfaceOrientationPortrait]);

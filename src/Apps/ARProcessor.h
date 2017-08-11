@@ -146,7 +146,9 @@ public:
         return ARRef(new ARProcessor());
     }
     
-    
+    float getAmbientIntensity();
+    void setARCameraMatrices();
+
     void updatePlanes();
     void addAnchor();
     void pauseSession();
