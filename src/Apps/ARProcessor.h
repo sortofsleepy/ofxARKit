@@ -22,6 +22,7 @@ typedef std::shared_ptr<class ARProcessor>ARRef;
 typedef struct {
     ofMatrix4x4 cameraTransform;
     ofMatrix4x4 cameraProjection;
+    ofMatrix4x4 cameraView;
 }ARCameraMatrices;
 
 /**
@@ -48,12 +49,6 @@ class ARProcessor {
     
     // this handles rotating the camera image to the correct orientation.
     ofMatrix4x4 rotation;
-    
-    // holds camera transform from ARKit
-    //ofMatrix4x4 cameraTransform;
-    
-    // holds camera projection from ARKit
-    //ofMatrix4x4 cameraProjection;
     
     // joined object of both the transform and projection matrices
     ARCameraMatrices cameraMatrices;
@@ -146,6 +141,9 @@ public:
         return ARRef(new ARProcessor());
     }
     
+    // current orientation to use to get proper projection and view matrices
+    UIInterfaceOrientation orientation;
+    
     float getAmbientIntensity();
     void setARCameraMatrices();
 
@@ -166,16 +164,19 @@ public:
 
     // TODO add matrix retrival for other orientations
     // ps thanks zach for finding this!
-    ARCameraMatrices getMatricesForPortraitOrientation(float near=0.01,float far=1000.0);
+    ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=0.01,float far=1000.0);
 
     ofMatrix4x4 getProjectionMatrix(){
         return cameraMatrices.cameraProjection;
     }
 
     ofMatrix4x4 getViewMatrix(){
-        return cameraMatrices.cameraTransform;
+        return cameraMatrices.cameraView;
     }
 
+    ofMatrix4x4 getTransformMatrix(){
+        return cameraMatrices.cameraTransform;
+    }
     ARCameraMatrices getCameraMatrices(){
         return cameraMatrices;
     }

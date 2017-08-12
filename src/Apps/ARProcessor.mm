@@ -50,7 +50,7 @@ void ARProcessor::addAnchor(){
 void ARProcessor::setup(){
     
     ambientIntensity = 0.0;
-
+    orientation = UIInterfaceOrientationPortrait;
     shouldBuildCameraFrame = true;
     
     // setup plane and shader in order to draw the camera feed
@@ -124,10 +124,11 @@ void ARProcessor::update(){
     
     currentFrame = session.currentFrame;
     
-    // update matrices from camera
-    // TODO more testing - can we use these directly or do we need to call viewMatrixForOrientation etc..
+    // update camera transform
     cameraMatrices.cameraTransform = convert<matrix_float4x4,ofMatrix4x4>(currentFrame.camera.transform);
-    cameraMatrices.cameraProjection = convert<matrix_float4x4,ofMatrix4x4>(currentFrame.camera.projectionMatrix);
+    
+    // update camera projection and view matrices.
+    getMatricesForOrientation(orientation);
     
     // only act if we have the current frame
     if(currentFrame){
@@ -228,7 +229,7 @@ void ARProcessor::setARCameraMatrices(){
     ofSetMatrixMode(OF_MATRIX_PROJECTION);
     ofLoadMatrix(cameraMatrices.cameraProjection);
     ofSetMatrixMode(OF_MATRIX_MODELVIEW);
-    ofLoadMatrix(cameraMatrices.cameraTransform);           
+    ofLoadMatrix(cameraMatrices.cameraView);           
 }
 
 
@@ -236,8 +237,14 @@ float ARProcessor::getAmbientIntensity(){
     return ambientIntensity;
 }
 
- ARCameraMatrices ARProcessor::getMatricesForPortraitOrientation(float near,float far){
-    cameraMatrices.cameraTransform = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera viewMatrixForOrientation:UIInterfaceOrientationPortrait]);
-    cameraMatrices cameraProjection = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera projectionMatrixForOrientation:UIInterfaceOrientationPortrait viewportSize:_viewportSize zNear:near zFar:far]);
+ ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
+   
+     CGSize _viewportSize = CGSizeMake(ofGetWindowWidth(), ofGetWindowHeight());
+     
+    cameraMatrices.cameraView = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera viewMatrixForOrientation:orientation]);
+     
+     cameraMatrices.cameraProjection = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera projectionMatrixWithViewportSize:_viewportSize orientation:orientation zNear:near zFar:far]);
+     
+    
     return cameraMatrices;
  }
