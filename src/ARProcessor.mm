@@ -24,12 +24,12 @@ void ARProcessor::pauseSession(){
 }
 
 void ARProcessor::startSession(){
-   // ARWorldTrackingSessionConfiguration *configuration = [ARWorldTrackingSessionConfiguration new];
+    // ARWorldTrackingSessionConfiguration *configuration = [ARWorldTrackingSessionConfiguration new];
     
 }
 
 void ARProcessor::addAnchor(){
-   
+    
     
     currentFrame = session.currentFrame;
     
@@ -69,7 +69,7 @@ void ARProcessor::setup(){
     
     // correct video orientation
     rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
-
+    
     
     
     // initialize video texture cache
@@ -89,17 +89,17 @@ CVOpenGLESTextureRef ARProcessor::createTextureFromPixelBuffer(CVPixelBufferRef 
     
     CVReturn err = noErr;
     err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
-                                                      _videoTextureCache,
-                                                      pixelBuffer,
-                                                      NULL,
-                                                      GL_TEXTURE_2D,
-                                                      format,
-                                                      width,
-                                                      height,
-                                                      format,
-                                                      GL_UNSIGNED_BYTE,
-                                                      planeIndex,
-                                                      &texture);
+                                                       _videoTextureCache,
+                                                       pixelBuffer,
+                                                       NULL,
+                                                       GL_TEXTURE_2D,
+                                                       format,
+                                                       width,
+                                                       height,
+                                                       format,
+                                                       GL_UNSIGNED_BYTE,
+                                                       planeIndex,
+                                                       &texture);
     
     if (err != kCVReturnSuccess) {
         CVBufferRelease(texture);
@@ -173,7 +173,7 @@ void ARProcessor::update(){
                 buildCameraFrame(pixelBuffer);
             }
         }
-    
+        
     }
     
     // Periodic texture cache flush every frame
@@ -261,14 +261,14 @@ float ARProcessor::getAmbientIntensity(){
     return ambientIntensity;
 }
 
- ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
-   
-     CGSize _viewportSize = CGSizeMake(ofGetWindowWidth(), ofGetWindowHeight());
-     
+ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
+    
+    CGSize _viewportSize = CGSizeMake(ofGetWindowWidth(), ofGetWindowHeight());
+    
     cameraMatrices.cameraView = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera viewMatrixForOrientation:orientation]);
-     
-     cameraMatrices.cameraProjection = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera projectionMatrixWithViewportSize:_viewportSize orientation:orientation zNear:near zFar:far]);
-     
+    
+    cameraMatrices.cameraProjection = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera projectionMatrixWithViewportSize:_viewportSize orientation:orientation zNear:near zFar:far]);
+    
     
     return cameraMatrices;
- }
+}

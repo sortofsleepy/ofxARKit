@@ -15,15 +15,15 @@ void logSIMD(const simd::float4x4 &matrix)
         output << std::endl;
     }
     output << std::endl;
-    NSLog(@"%s", output.str().c_str());
+    //NSLog(@"%s", output.str().c_str());
 }
 
 ofMatrix4x4 matFromSimd(const simd::float4x4 &matrix){
     ofMatrix4x4 mat;
     mat.set(matrix.columns[0].x,matrix.columns[0].y,matrix.columns[0].z,matrix.columns[0].w,
-       matrix.columns[1].x,matrix.columns[1].y,matrix.columns[1].z,matrix.columns[1].w,
-       matrix.columns[2].x,matrix.columns[2].y,matrix.columns[2].z,matrix.columns[2].w,
-       matrix.columns[3].x,matrix.columns[3].y,matrix.columns[3].z,matrix.columns[3].w);
+            matrix.columns[1].x,matrix.columns[1].y,matrix.columns[1].z,matrix.columns[1].w,
+            matrix.columns[2].x,matrix.columns[2].y,matrix.columns[2].z,matrix.columns[2].w,
+            matrix.columns[3].x,matrix.columns[3].y,matrix.columns[3].z,matrix.columns[3].w);
     return mat;
 }
 
@@ -42,25 +42,25 @@ ofApp :: ~ofApp () {
 
 //--------------------------------------------------------------
 void ofApp::setup() {
-	ofBackground(127);
+    ofBackground(127);
     
     img.load("OpenFrameworks.png");
     
     int fontSize = 8;
     if (ofxiOSGetOFWindow()->isRetinaSupportedOnDevice())
         fontSize *= 2;
-
+    
     font.load("fonts/mono0755.ttf", fontSize);
     
- 
-   
+    
+    
     processor = ARProcessor::create(session);
     
     processor->setup();
- 
     
     
-
+    
+    
 }
 
 
@@ -68,7 +68,7 @@ vector < matrix_float4x4 > mats;
 
 //--------------------------------------------------------------
 void ofApp::update(){
-  
+    
     processor->update();
     
     mats.clear();
@@ -89,7 +89,7 @@ void ofApp::update(){
             //anchorUniforms->modelMatrix = matrix_multiply(anchor.transform, coordinateSpaceTransform);
         }
     }
-
+    
 }
 
 
@@ -99,8 +99,8 @@ void ofApp::draw() {
     ofEnableAlphaBlending();
     
     processor->draw();
-  
-   
+    
+    
     
     // ========== DEBUG STUFF ============= //
     int w = MIN(ofGetWidth(), ofGetHeight()) * 0.6;
@@ -120,7 +120,7 @@ void ofApp::draw() {
     font.drawString("screen height  = " + ofToString( ofGetHeight() ),      x, y+=p);
     
     
-  
+    
     //return;
     
     ofDisableLighting();
@@ -132,9 +132,9 @@ void ofApp::draw() {
             _viewportSize.width = ofGetWidth();
             _viewportSize.height = ofGetHeight();
             
-          
             
-           
+            
+            
             /*
              simd::float4x4 viewMatrix = [session.currentFrame.camera viewMatrixForOrientation:UIInterfaceOrientationPortrait];
              
@@ -142,7 +142,7 @@ void ofApp::draw() {
              matrix_float4x4 projectionMatrix = [session.currentFrame.camera projectionMatrixWithViewportSize:_viewportSize orientation:UIInterfaceOrientationPortrait zNear:0.01 zFar:1000.0];
              */
             
-           
+            
             
             //simd::float4x4 projectionMatrix = [session.currentFrame.camera projectionMatrixForOrientation:UIInterfaceOrientationPortrait viewportSize:_viewportSize zNear:0.001 zFar:1000];
             
@@ -175,12 +175,12 @@ void ofApp::draw() {
         
     }
     
-  
-    cout << session.currentFrame.anchors.count << endl;
-//    if (session.currentFrame.camera){
-//        logSIMD(session.currentFrame.camera.transform);
-//        //NSLog(@"%@", session.currentFrame.camera);
-//    }
+    
+    //cout << session.currentFrame.anchors.count << endl;
+    //    if (session.currentFrame.camera){
+    //        logSIMD(session.currentFrame.camera.transform);
+    //        //NSLog(@"%@", session.currentFrame.camera);
+    //    }
     
 }
 
@@ -191,22 +191,22 @@ void ofApp::exit() {
 
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs &touch){
-
+    
     if (session.currentFrame.camera){
-       /*
-        NSLog(@"%@", session.currentFrame.camera);
+        /*
+         NSLog(@"%@", session.currentFrame.camera);
+         
+         matrix_float4x4 translation = matrix_identity_float4x4;
+         translation.columns[3].z = -0.2;
+         
+         matrix_float4x4 transform = matrix_multiply(session.currentFrame.camera.transform, translation);
+         
+         NSLog(@"hi");
+         //   Add a new anchor to the session
+         ARAnchor *anchor = [[ARAnchor alloc] initWithTransform:transform];
+         [session addAnchor:anchor];
+         */
         
-        matrix_float4x4 translation = matrix_identity_float4x4;
-        translation.columns[3].z = -0.2;
-        
-        matrix_float4x4 transform = matrix_multiply(session.currentFrame.camera.transform, translation);
-        
-        NSLog(@"hi");
-        //   Add a new anchor to the session
-        ARAnchor *anchor = [[ARAnchor alloc] initWithTransform:transform];
-        [session addAnchor:anchor];
-        */
-
     }
     
     
@@ -215,42 +215,43 @@ void ofApp::touchDown(ofTouchEventArgs &touch){
 
 //--------------------------------------------------------------
 void ofApp::touchMoved(ofTouchEventArgs &touch){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::touchUp(ofTouchEventArgs &touch){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::touchDoubleTap(ofTouchEventArgs &touch){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::lostFocus(){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::gotFocus(){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::gotMemoryWarning(){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::deviceOrientationChanged(int newOrientation){
-
+    
 }
 
 
 //--------------------------------------------------------------
 void ofApp::touchCancelled(ofTouchEventArgs& args){
-
+    
 }
+
 
