@@ -48,6 +48,8 @@ public:
      
      */
     
+    ofImage img;
+    
 };
 
 
