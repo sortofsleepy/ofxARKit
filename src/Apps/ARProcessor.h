@@ -35,8 +35,13 @@ class ARProcessor {
 
     float ambientIntensity;
     
+    ofVec2f viewportSize;
     
     // ========== CAMERA IMAGE STUFF ================= //
+    ofFbo cameraFbo;
+    ofVec2f bufferSize;
+    bool bufferSizeSet;
+    
     CVOpenGLESTextureRef yTexture;
     CVOpenGLESTextureRef CbCrTexture;
     CVOpenGLESTextureCacheRef _videoTextureCache;

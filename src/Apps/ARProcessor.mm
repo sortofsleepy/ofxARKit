@@ -52,6 +52,11 @@ void ARProcessor::setup(){
     ambientIntensity = 0.0;
     orientation = UIInterfaceOrientationPortrait;
     shouldBuildCameraFrame = true;
+    bufferSizeSet = false;
+    
+    viewportSize.x = ofGetWindowWidth();
+    viewportSize.y = ofGetWindowHeight();
+    
     
     // setup plane and shader in order to draw the camera feed
     cameraPlane = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
@@ -106,9 +111,14 @@ CVOpenGLESTextureRef ARProcessor::createTextureFromPixelBuffer(CVPixelBufferRef 
 }
 
 void ARProcessor::draw(){
+    cameraFbo.begin()
     cameraShader.begin();
     cameraPlane.draw();
     cameraShader.end();
+    cameraFbo.end();
+    
+    
+    cameraFbo.draw((viewportSize.x-bufferSize.x)/2,0,bufferSize.x,bufferSize.y);
 }
 
 void ARProcessor::drawCameraFrame(){
@@ -141,6 +151,19 @@ void ARProcessor::update(){
         
         // grab current frame pixels from camera
         CVPixelBufferRef pixelBuffer = currentFrame.capturedImage;
+        
+        if(!bufferSizeSet){
+            
+            // save buffer size.
+            // TODO - need to test : should it be CVPixelBufferGetWidth(Height)ofPlane?
+            bufferSize.x = (float) CVPixelBufferGetWidth(pixelBuffer);
+            bufferSize.y = (float) CVPixelBufferGetHeight(pixelBuffer);
+            
+            // now we can allocte the FBO now that we know how large the pixelBuffer is.
+            cameraFbo.allocate(bufferSize.x, bufferSize.y,GL_RGBA);
+            
+            bufferSizeSet = true;
+        }
         
         
         // if we have both planes from the camera, build the camera frame
@@ -182,10 +205,11 @@ void ARProcessor::buildCameraFrame(CVPixelBufferRef pixelBuffer){
     // ========= BUILD CAMERA TEXTURES ================= //
     yTexture = createTextureFromPixelBuffer(pixelBuffer, 0);
     
-    int width = (int) CVPixelBufferGetWidth(pixelBuffer);
-    int height = (int) CVPixelBufferGetHeight(pixelBuffer);
+    //int width = (int) CVPixelBufferGetWidth(pixelBuffer);
+    //int height = (int) CVPixelBufferGetHeight(pixelBuffer);
     
-    CbCrTexture = createTextureFromPixelBuffer(pixelBuffer, 1,GL_LUMINANCE_ALPHA,width / 2, height / 2);
+    //CbCrTexture = createTextureFromPixelBuffer(pixelBuffer, 1,GL_LUMINANCE_ALPHA,width / 2, height / 2);
+    CbCrTexture = createTextureFromPixelBuffer(pixelBuffer, 1,GL_LUMINANCE_ALPHA,bufferSize.x / 2, bufferSize.y / 2);
     
     
     // correct texture wrap and filtering of Y texture
