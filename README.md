@@ -15,10 +15,9 @@ ARKit, while it does do a ton behind the scenes; it pretty much leaves it up to 
 * management of camera transform and projection matrices.
 * basic light estimation
 
-# ARKit setup 
+# Setting up ARKit
 ARKit actually does a ton of things in and of itself. All you really have to do is initialize the framework in your ViewController, then you manipulate that session object to grab information the framework provides. 
 
-# Setting up ARKit
 The goal with how this is setup is to be as flexible as possible so this can be integrated into a wide variety of situations. 
 Also because it's really only a few lines to initialize ARKit. 
 
@@ -58,5 +57,4 @@ All that you really need to worry about for the most part is the `ofApp` class i
 
 # Contributing
 Feel free to make PR's! (especially now that my time to work on this will be severely limited for the next month and a half :/ )
-As long as it doesn't break anything I'll probably accept it. Please make all PRs against the `develop
-
+As long as it doesn't break anything I'll probably accept it. Please make all PRs against the `develop` branch
