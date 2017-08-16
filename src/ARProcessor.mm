@@ -111,16 +111,11 @@ CVOpenGLESTextureRef ARProcessor::createTextureFromPixelBuffer(CVPixelBufferRef 
 }
 
 void ARProcessor::draw(){
-    cameraFbo.begin();
-    cameraConvertShader.begin();
-    cameraPlane.draw();
-    cameraConvertShader.end();
-    cameraFbo.end();
     
     cameraConvertShader.begin();
     cameraPlane.draw();
     cameraConvertShader.end();
-   // cameraFbo.draw((viewportSize.x-bufferSize.x)/2,0,bufferSize.x,bufferSize.y);
+   
 }
 
 void ARProcessor::drawCameraFrame(){
