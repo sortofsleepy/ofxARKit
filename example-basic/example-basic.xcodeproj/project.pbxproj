@@ -75,6 +75,8 @@
 		B00AF4F91F44D4F50082DDF8 /* MyAppViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAppViewController.mm; sourceTree = "<group>"; };
 		B00AF4FA1F44D4F50082DDF8 /* OFAppViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OFAppViewController.h; sourceTree = "<group>"; };
 		B00AF4FB1F44D4F50082DDF8 /* OFAppViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OFAppViewController.mm; sourceTree = "<group>"; };
+		B00EE1A51F44D79E00CF6B93 /* ARToolkitComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARToolkitComponents.h; path = ../src/ARToolkitComponents.h; sourceTree = "<group>"; };
+		B00EE1A61F44DAB600CF6B93 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BB16EBD80F2B2AB500518274 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB24DDC910DA781C00E9C588 /* ofxiOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ofxiOS-Info.plist"; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			children = (
 				302A7A61ECBFE243BE2A6D15 /* ARProcessor.h */,
 				16C7F36EEA16280EF694F1CA /* ARProcessor.mm */,
+				B00EE1A51F44D79E00CF6B93 /* ARToolkitComponents.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				E4D8936B11527B74007E1F53 /* main.mm */,
 				E4D8936D11527B74007E1F53 /* ofApp.mm */,
 				E4D8936C11527B74007E1F53 /* ofApp.h */,
+				B00EE1A61F44DAB600CF6B93 /* README.md */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -412,6 +416,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.level;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Debug;
@@ -427,6 +432,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.level;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Release;

@@ -60,9 +60,9 @@ void ARProcessor::setup(){
     
     // setup plane and shader in order to draw the camera feed
     cameraPlane = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
-    cameraShader.setupShaderFromSource(GL_VERTEX_SHADER, vertex_shader);
-    cameraShader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragment_shader);
-    cameraShader.linkProgram();
+    cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARToolbox::camera_convert_vertex);
+    cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARToolbox::camera_convert_fragment);
+    cameraConvertShader.linkProgram();
     
     yTexture = NULL;
     CbCrTexture = NULL;
@@ -112,13 +112,15 @@ CVOpenGLESTextureRef ARProcessor::createTextureFromPixelBuffer(CVPixelBufferRef 
 
 void ARProcessor::draw(){
     cameraFbo.begin();
-    cameraShader.begin();
+    cameraConvertShader.begin();
     cameraPlane.draw();
-    cameraShader.end();
+    cameraConvertShader.end();
     cameraFbo.end();
     
-    
-    cameraFbo.draw((viewportSize.x-bufferSize.x)/2,0,bufferSize.x,bufferSize.y);
+    cameraConvertShader.begin();
+    cameraPlane.draw();
+    cameraConvertShader.end();
+   // cameraFbo.draw((viewportSize.x-bufferSize.x)/2,0,bufferSize.x,bufferSize.y);
 }
 
 void ARProcessor::drawCameraFrame(){
@@ -198,9 +200,9 @@ void ARProcessor::buildCameraFrame(CVPixelBufferRef pixelBuffer){
     
     // ========= ROTATE IMAGES ================= //
     
-    cameraShader.begin();
-    cameraShader.setUniformMatrix4f("rotationMatrix", rotation);
-    cameraShader.end();
+    cameraConvertShader.begin();
+    cameraConvertShader.setUniformMatrix4f("rotationMatrix", rotation);
+    cameraConvertShader.end();
     
     // ========= BUILD CAMERA TEXTURES ================= //
     yTexture = createTextureFromPixelBuffer(pixelBuffer, 0);
@@ -235,13 +237,13 @@ void ARProcessor::buildCameraFrame(CVPixelBufferRef pixelBuffer){
     
     
     // write uniforms values to shader
-    cameraShader.begin();
-    cameraShader.setUniform2f("resolution", ofGetWindowWidth(), ofGetWindowHeight());
-    cameraShader.setUniformTexture("yMap", CVOpenGLESTextureGetTarget(yTexture), CVOpenGLESTextureGetName(yTexture), 0);
+    cameraConvertShader.begin();
+    cameraConvertShader.setUniform2f("resolution", ofGetWindowWidth(), ofGetWindowHeight());
+    cameraConvertShader.setUniformTexture("yMap", CVOpenGLESTextureGetTarget(yTexture), CVOpenGLESTextureGetName(yTexture), 0);
     
-    cameraShader.setUniformTexture("uvMap", CVOpenGLESTextureGetTarget(CbCrTexture), CVOpenGLESTextureGetName(CbCrTexture), 1);
+    cameraConvertShader.setUniformTexture("uvMap", CVOpenGLESTextureGetTarget(CbCrTexture), CVOpenGLESTextureGetName(CbCrTexture), 1);
     
-    cameraShader.end();
+    cameraConvertShader.end();
     
     
     CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);

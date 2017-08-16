@@ -34,7 +34,8 @@
     viewController = [[[OFAppViewController alloc] initWithFrame:[[UIScreen mainScreen] bounds]
                                                                  app:new ofApp(self.session)] autorelease];
     
-    [self.navigationController pushViewController:viewController animated:YES];
+    [self.navigationController setNavigationBarHidden:TRUE];
+    [self.navigationController pushViewController:viewController animated:NO];
     self.navigationController.navigationBar.topItem.title = @"ofApp";
 }
 
