@@ -49,7 +49,7 @@ view controller and just initialize in ofApp.h/.cpp
 ### Potential Hurdles in setup of ARKit
 The location of where you initialize the framework can affect performance. I'm not sure why or how, but if you're not careful about where you initialize, 
 ARKit might spit out the messsage along the lines of `... tracking performance is reduced due to resource constraints` 
-or something to that effect; that being said, fps seems to be minimally affected if at all.
+or something to that effect; that being said, fps seems to be minimally affected if at all, though of course, as the message suggests, tracking ability might not be as good.
 
 The documentation is currently a bit lacking as to proper setup and even following the example bundled in the XCode 9 beta can still result in the above message.
 
