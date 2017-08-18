@@ -47,6 +47,7 @@ void ARProcessor::setup(){
     ambientIntensity = 0.0;
     orientation = UIInterfaceOrientationPortrait;
     shouldBuildCameraFrame = true;
+    debugMode = true;
     
     viewportSize = CGSizeMake(ofGetWindowWidth(), ofGetWindowHeight());
     

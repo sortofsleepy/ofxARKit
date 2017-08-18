@@ -8,12 +8,14 @@
 #ifndef ARProcessor_hpp
 #define ARProcessor_hpp
 
+
 #include "ofMain.h"
 #include "ofxiOS.h"
 #include <memory>
 #include <ARKit/ARKit.h>
 #include "ARToolkitComponents.h"
-
+#include "ARAnchorManager.h"
+#include "DebugUtils.hpp"
 #define STRINGIFY(A) #A
 
 typedef std::shared_ptr<class ARProcessor>ARRef;
@@ -36,6 +38,8 @@ class ARProcessor {
     float ambientIntensity;
     
     CGSize viewportSize;
+    // ========== ANCHORS ==================== //
+    ARAnchorManager anchorController;
     
     // ========== CAMERA IMAGE STUFF ================= //
     
@@ -63,6 +67,8 @@ class ARProcessor {
     
     // to help reduce resource strain, making building the camera frame optional
     bool shouldBuildCameraFrame;
+    
+    bool debugMode;
 
     // ========== SHADERS ================ //
     

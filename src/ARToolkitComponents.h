@@ -22,42 +22,20 @@ namespace ARCommon {
         U ret = tmp;
         return ret;
     }
+    const ofMatrix4x4 static inline toMat4( const matrix_float4x4& mat ) {
+        return convert<matrix_float4x4, ofMatrix4x4>(mat);
+    }
+
+    static ofMatrix4x4 modelMatFromTransform( matrix_float4x4 transform )
+    {
+        matrix_float4x4 coordinateSpaceTransform = matrix_identity_float4x4;
+        // Flip Z axis to convert geometry from right handed to left handed
+        coordinateSpaceTransform.columns[2].z = -1.0;
+        matrix_float4x4 modelMat = matrix_multiply(transform, coordinateSpaceTransform);
+        return toMat4( modelMat );
+    }
     
-    
-    const std::string camera_render_vertex = STRINGIFY (
-                                                        attribute vec2 position;
-                                                        varying vec2 vUv;
-                                                        
-                                                        const vec2 scale = vec2(0.5,0.5);
-                                                        void main(){
-                                                            vUv = position.xy * scale + scale;
-                                                            
-                                                            gl_Position = vec4(position,0.0,1.0);
-                                                        }
-    
-    );
-    
-    const std::string camera_render_fragment = STRINGIFY (
-                                                          precision highp float;
-                                                          
-                                                          // this is the yyuv texture from ARKit
-                                                          uniform sampler2D cameraTexture;
-                                                          varying vec2 vUv;
-                                                          
-                                                          
-                                                          void main(){
-                                                              
-                                                              // flip uvs so image isn't inverted.
-                                                              vec2 textureCoordinate = vec2(vUv.s,1.0 - vUv.t);
-                                                              
-                                                              
-                                                              gl_FragColor = texture2D(cameraTexture,textureCoordinate);
-                                                          }
-                                                          
-                                                          
-                                                          
-                                                          
-    );
+    // =============== SHADERS ==================== //
     
     // keep camera image shader source in directly since this will never really have to change.
     // Shaders built with the help of
