@@ -6,7 +6,7 @@
 //
 
 #include "ARProcessor.h"
-
+using namespace ARCommon;
 ARProcessor::ARProcessor(){
 }
 
@@ -21,11 +21,6 @@ ARProcessor::~ARProcessor(){
 
 void ARProcessor::pauseSession(){
     [session pause];
-}
-
-void ARProcessor::startSession(){
-    // ARWorldTrackingSessionConfiguration *configuration = [ARWorldTrackingSessionConfiguration new];
-    
 }
 
 void ARProcessor::addAnchor(){
@@ -52,16 +47,13 @@ void ARProcessor::setup(){
     ambientIntensity = 0.0;
     orientation = UIInterfaceOrientationPortrait;
     shouldBuildCameraFrame = true;
-    bufferSizeSet = false;
     
-    viewportSize.x = ofGetWindowWidth();
-    viewportSize.y = ofGetWindowHeight();
-    
+    viewportSize = CGSizeMake(ofGetWindowWidth(), ofGetWindowHeight());
     
     // setup plane and shader in order to draw the camera feed
     cameraPlane = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
-    cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARToolbox::camera_convert_vertex);
-    cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARToolbox::camera_convert_fragment);
+    cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARCommon::camera_convert_vertex);
+    cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARCommon::camera_convert_fragment);
     cameraConvertShader.linkProgram();
     
     yTexture = NULL;
@@ -149,20 +141,6 @@ void ARProcessor::update(){
         // grab current frame pixels from camera
         CVPixelBufferRef pixelBuffer = currentFrame.capturedImage;
         
-        if(!bufferSizeSet){
-            
-            // save buffer size.
-            // TODO - need to test : should it be CVPixelBufferGetWidth(Height)ofPlane?
-            bufferSize.x = (float) CVPixelBufferGetWidth(pixelBuffer);
-            bufferSize.y = (float) CVPixelBufferGetHeight(pixelBuffer);
-            
-            // now we can allocte the FBO now that we know how large the pixelBuffer is.
-            cameraFbo.allocate(bufferSize.x, bufferSize.y,GL_RGBA);
-            
-            bufferSizeSet = true;
-        }
-        
-        
         // if we have both planes from the camera, build the camera frame
         // in case we want to view it.
         if(shouldBuildCameraFrame){
@@ -202,19 +180,18 @@ void ARProcessor::buildCameraFrame(CVPixelBufferRef pixelBuffer){
     // ========= BUILD CAMERA TEXTURES ================= //
     yTexture = createTextureFromPixelBuffer(pixelBuffer, 0);
     
-    //int width = (int) CVPixelBufferGetWidth(pixelBuffer);
-    //int height = (int) CVPixelBufferGetHeight(pixelBuffer);
+    int width = (int) CVPixelBufferGetWidth(pixelBuffer);
+    int height = (int) CVPixelBufferGetHeight(pixelBuffer);
     
-    //CbCrTexture = createTextureFromPixelBuffer(pixelBuffer, 1,GL_LUMINANCE_ALPHA,width / 2, height / 2);
-    CbCrTexture = createTextureFromPixelBuffer(pixelBuffer, 1,GL_LUMINANCE_ALPHA,bufferSize.x / 2, bufferSize.y / 2);
+    CbCrTexture = createTextureFromPixelBuffer(pixelBuffer, 1,GL_LUMINANCE_ALPHA,width / 2, height / 2);
     
     
     // correct texture wrap and filtering of Y texture
     glBindTexture(CVOpenGLESTextureGetTarget(yTexture), CVOpenGLESTextureGetName(yTexture));
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-    //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
     glBindTexture(CVOpenGLESTextureGetTarget(yTexture), 0);
     
     
@@ -222,13 +199,10 @@ void ARProcessor::buildCameraFrame(CVPixelBufferRef pixelBuffer){
     glBindTexture(CVOpenGLESTextureGetTarget(CbCrTexture), CVOpenGLESTextureGetName(CbCrTexture));
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-    //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
     
     glBindTexture(CVOpenGLESTextureGetTarget(CbCrTexture), 0);
-    
-    
-    
     
     
     // write uniforms values to shader
@@ -260,11 +234,10 @@ float ARProcessor::getAmbientIntensity(){
 
 ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
     
-    CGSize _viewportSize = CGSizeMake(ofGetWindowWidth(), ofGetWindowHeight());
-    
+
     cameraMatrices.cameraView = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera viewMatrixForOrientation:orientation]);
     
-    cameraMatrices.cameraProjection = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera projectionMatrixWithViewportSize:_viewportSize orientation:orientation zNear:near zFar:far]);
+    cameraMatrices.cameraProjection = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera projectionMatrixWithViewportSize:viewportSize orientation:orientation zNear:near zFar:far]);
     
     
     return cameraMatrices;

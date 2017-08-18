@@ -10,7 +10,19 @@
 
 #define STRINGIFY(A) #A
 
-namespace ARToolbox {
+namespace ARCommon {
+    
+    // borrowed from https://github.com/wdlindmeier/Cinder-Metal/blob/master/include/MetalHelpers.hpp
+    // helpful converting to and from SIMD
+    template <typename T, typename U >
+    const U static inline convert( const T & t )
+    {
+        U tmp;
+        memcpy(&tmp, &t, sizeof(U));
+        U ret = tmp;
+        return ret;
+    }
+    
     
     const std::string camera_render_vertex = STRINGIFY (
                                                         attribute vec2 position;

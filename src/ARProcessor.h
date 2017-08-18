@@ -35,12 +35,9 @@ class ARProcessor {
 
     float ambientIntensity;
     
-    ofVec2f viewportSize;
+    CGSize viewportSize;
     
     // ========== CAMERA IMAGE STUFF ================= //
-    ofFbo cameraFbo;
-    ofVec2f bufferSize;
-    bool bufferSizeSet;
     
     CVOpenGLESTextureRef yTexture;
     CVOpenGLESTextureRef CbCrTexture;
@@ -96,7 +93,6 @@ public:
     void updatePlanes();
     void addAnchor();
     void pauseSession();
-    void startSession();
     
     void setup();
     void update();
@@ -125,20 +121,7 @@ public:
     }
     ARCameraMatrices getCameraMatrices(){
         return cameraMatrices;
-    }
-
-    // borrowed from https://github.com/wdlindmeier/Cinder-Metal/blob/master/include/MetalHelpers.hpp
-    // helpful converting to and from SIMD 
-    template <typename T, typename U >
-    const U static inline convert( const T & t )
-    {
-        U tmp;
-        memcpy(&tmp, &t, sizeof(U));
-        U ret = tmp;
-        return ret;
-    }
-
-  
+    }  
 };
 
 
