@@ -15,7 +15,6 @@
 #include <ARKit/ARKit.h>
 #include "ARToolkitComponents.h"
 #include "ARAnchorManager.h"
-#include "DebugUtils.hpp"
 #define STRINGIFY(A) #A
 
 typedef std::shared_ptr<class ARProcessor>ARRef;
@@ -70,8 +69,9 @@ class ARProcessor {
     
     bool debugMode;
 
-    // ========== SHADERS ================ //
-    
+
+    // ================ PRIVATE FUNCTIONS =================== //
+
     
     // Converts the CVPixelBufferIndex into a OpenGL texture
     CVOpenGLESTextureRef createTextureFromPixelBuffer(CVPixelBufferRef pixelBuffer,int planeIndex,GLenum format=GL_LUMINANCE,int width=0,int height=0);
@@ -99,6 +99,8 @@ public:
     void updatePlanes();
     void addAnchor();
     void pauseSession();
+    
+    ARFrame* getCurrentFrame();
     
     void setup();
     void update();

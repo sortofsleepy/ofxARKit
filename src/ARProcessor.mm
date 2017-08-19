@@ -72,6 +72,10 @@ void ARProcessor::setup(){
     }
 }
 
+ARFrame* ARProcessor::getCurrentFrame(){
+    return currentFrame;
+}
+
 CVOpenGLESTextureRef ARProcessor::createTextureFromPixelBuffer(CVPixelBufferRef pixelBuffer,int planeIndex,GLenum format,int width,int height){
     CVOpenGLESTextureRef texture = NULL;
     

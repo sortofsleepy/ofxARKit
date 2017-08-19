@@ -100,6 +100,36 @@ namespace ARCommon {
                                                   
                                                   
                                                   );
+    
+    const std::string point_cloud_vertex = STRINGIFY(
+                                                     attribute vec3 position;
+                                                     uniform mat4 projectionMatrix;
+                                                     uniform mat4 modelViewMatrix;
+                                                 
+                                                     void main(){
+                                                       
+                                                         gl_PointSize = 20.0;
+                                                         gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.);
+                                                     }
+                                                     
+    );
+    
+    const std::string point_cloud_fragment = STRINGIFY(
+                                                       precision highp float;
+                                                       
+                                            
+                                                       
+                                           
+                                                       void main(){
+                                                      
+                                                           gl_FragColor = vec4(1.0,1.0,0.0,1.);
+                                                       }
+                                                       
+                                                       
+    
+                                                       );
 }
+
+
 
 #endif /* ARToolkitComponents_h */
