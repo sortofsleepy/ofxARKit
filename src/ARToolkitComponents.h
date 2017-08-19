@@ -12,6 +12,14 @@
 
 namespace ARCommon {
     
+    // joined camera matrices as one object.
+    typedef struct {
+        ofMatrix4x4 cameraTransform;
+        ofMatrix4x4 cameraProjection;
+        ofMatrix4x4 cameraView;
+    }ARCameraMatrices;
+
+    
     // borrowed from https://github.com/wdlindmeier/Cinder-Metal/blob/master/include/MetalHelpers.hpp
     // helpful converting to and from SIMD
     template <typename T, typename U >
@@ -92,6 +100,7 @@ namespace ARCommon {
                                                       rgb = colorConversionMatrix * yuv;
                                                       
                                                       gl_FragColor = vec4(rgb,1.);
+                                                      
                                                   }
                                                   
                                                   
@@ -105,11 +114,10 @@ namespace ARCommon {
                                                      attribute vec3 position;
                                                      uniform mat4 projectionMatrix;
                                                      uniform mat4 modelViewMatrix;
-                                                 
                                                      void main(){
-                                                       
+                                                         mat4 mv = modelViewMatrix;
                                                          gl_PointSize = 20.0;
-                                                         gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.);
+                                                         gl_Position = projectionMatrix * mv * vec4(position,1.0);
                                                      }
                                                      
     );
@@ -122,7 +130,7 @@ namespace ARCommon {
                                            
                                                        void main(){
                                                       
-                                                           gl_FragColor = vec4(1.0,1.0,0.0,1.);
+                                                             gl_FragColor = vec4(1.0,1.0,0.0,1.);
                                                        }
                                                        
                                                        

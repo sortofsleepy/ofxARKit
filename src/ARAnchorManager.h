@@ -31,6 +31,7 @@ class ARAnchorManager {
     //! The session to draw from
     ARSession * session;
     
+    ofCamera camera;
 public:
     ARAnchorManager();
     ARAnchorManager(ARSession * session);
@@ -40,6 +41,13 @@ public:
     std::vector<PlaneAnchorObject> getPlaneAnchors(){
         return planes;
     }
+    
+    PlaneAnchorObject getPlaneAt(int index=0);
+    
+    //! Get the number of planes detected.
+    int getNumPlanes();
+    
+    void drawPlanes(ARCommon::ARCameraMatrices cameraMatrices);
     
     void update();
     

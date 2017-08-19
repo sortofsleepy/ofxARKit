@@ -15,6 +15,14 @@ ARAnchorManager::ARAnchorManager(ARSession * session){
     this->session = session;
 }
 
+int ARAnchorManager::getNumPlanes(){
+    return planes.size();
+}
+
+PlaneAnchorObject ARAnchorManager::getPlaneAt(int index){
+    return planes.at(index);
+}
+
 void ARAnchorManager::update(){
     
     // clear previously found planes to prepare for potential new ones.
@@ -46,4 +54,31 @@ void ARAnchorManager::update(){
         }
         
     }
+}
+
+void ARAnchorManager::drawPlanes(ARCameraMatrices cameraMatrices){
+    camera.begin();
+    
+    ofSetMatrixMode(OF_MATRIX_PROJECTION);
+    ofLoadMatrix(cameraMatrices.cameraProjection);
+    ofSetMatrixMode(OF_MATRIX_MODELVIEW);
+    ofLoadMatrix(cameraMatrices.cameraView);
+    
+   
+    for(int i = 0; i < getNumPlanes(); ++i){
+        PlaneAnchorObject anchor = getPlaneAt(i);
+
+        
+        ofPushMatrix();
+        ofMultMatrix(anchor.transform);
+        ofFill();
+        ofSetColor(255);
+        ofRotateX(90);
+        ofTranslate(anchor.position.x,anchor.position.y);
+        ofDrawRectangle(-anchor.position.x/2,-anchor.position.z/2,0,anchor.width,anchor.height);
+        ofPopMatrix();
+        
+    }
+    
+    camera.end();
 }

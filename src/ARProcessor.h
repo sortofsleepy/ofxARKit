@@ -19,13 +19,6 @@
 
 typedef std::shared_ptr<class ARProcessor>ARRef;
 
-// joined camera matrices as one object.
-typedef struct {
-    ofMatrix4x4 cameraTransform;
-    ofMatrix4x4 cameraProjection;
-    ofMatrix4x4 cameraView;
-}ARCameraMatrices;
-
 /**
      Processing class to help deal with ARKit stuff like grabbing and converting the camera feed,
      set anchors, etc.
@@ -59,7 +52,7 @@ class ARProcessor {
     ofMatrix4x4 rotation;
     
     // joined object of both the transform and projection matrices
-    ARCameraMatrices cameraMatrices;
+    ARCommon::ARCameraMatrices cameraMatrices;
 
     // a reference to the current frame in the scene
     ARFrame * currentFrame;
@@ -114,7 +107,7 @@ public:
 
     // TODO add matrix retrival for other orientations
     // ps thanks zach for finding this!
-    ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=0.01,float far=1000.0);
+    ARCommon::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=0.01,float far=1000.0);
 
     ofMatrix4x4 getProjectionMatrix(){
         return cameraMatrices.cameraProjection;
@@ -127,7 +120,7 @@ public:
     ofMatrix4x4 getTransformMatrix(){
         return cameraMatrices.cameraTransform;
     }
-    ARCameraMatrices getCameraMatrices(){
+    ARCommon::ARCameraMatrices getCameraMatrices(){
         return cameraMatrices;
     }  
 };
