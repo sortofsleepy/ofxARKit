@@ -11,6 +11,8 @@ This is an openFrameworks addon that provides some helper classes for working wi
 
 # Current functionality 
 ARKit, while it does do a ton behind the scenes; it pretty much leaves it up to you to figure out how you want to render things. The current Apple documentation, while already moderately detailed, unfortunately leaves some stuff out. I've started a class called `ARProcessor.h`, the intent being to help manage the heavy lifting of certain bit's of functionality.
+
+
 * For whatever reason - Apple neglected to provide a way to easily render the camera image that the ARKit framwork is seeing at every frame. ARProcessor.h provides a way to render the camera image. 
 * management of camera transform and projection matrices.
 * basic light estimation
@@ -53,11 +55,8 @@ note that - assuming you're using objective c++(which should be the default for 
 view controller and just initialize in ofApp.h/.mm
 
 ### Potential Hurdles in setup of ARKit
-The location of where you initialize the framework can possibly affect performance. I'm not sure why or how, but if you're not careful about where you initialize, ARKit might spit out the messsage along the lines of `... tracking performance is reduced due to resource constraints` or something to that effect; that being said, fps seems to be minimally affected if at all, though of course, as the message suggests, tracking ability might not be as good.
+A strange occurance I've run into fairly often, and it's unclear as to why this happens; but it seems that, depending on where you initialize ARKit, that could potentially affect performance. ARKit will output console messages when there are issues, specifically in this case you may see as message along the lines of `...tracking performance reduced due to resource constraints...` In all likelihood it's simply hardware related as I don't have access to the latest iDevices but I have had situations where things have run well without ever seeing that message. All in all, just something to be on the lookout for.
 
-The documentation is currently a bit lacking as to proper setup and even following the example bundled in the XCode 9 beta can still result in the above message. In all likelyhood, it's hardware related, newer hardware will probably run better.
-
-All that you really need to worry about for the most part is the `ofApp` class in `src/Apps`
 
 # Contributing
 Feel free to make PR's! (especially now that my time to work on this will be severely limited for the next few weeks :/)
