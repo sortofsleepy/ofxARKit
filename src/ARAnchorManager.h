@@ -11,7 +11,7 @@
 #include "ofMain.h"
 #include <vector>
 #include <ARKit/ARKit.h>
-#include "ARToolkitComponents.h"
+#include "ARUtils.h"
 
 typedef struct {
     ofVec3f position;
@@ -25,6 +25,9 @@ class ARAnchorManager {
     //! reference to the transform matrix of all currently found planes
     std::vector<PlaneAnchorObject> planes;
     
+    //! reference to all currently found or added regular anchors
+    std::vector<ofMatrix4x4> anchors;
+    
     //! The number of anchors currently found
     NSInteger anchorInstanceCount;
     
@@ -35,6 +38,9 @@ class ARAnchorManager {
 public:
     ARAnchorManager();
     ARAnchorManager(ARSession * session);
+    
+    void addAnchor();
+    void addAnchor(ofVec3f position);
     
     
     //! Returns the vector of currently found planes

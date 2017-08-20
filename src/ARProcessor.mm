@@ -53,8 +53,8 @@ void ARProcessor::setup(){
     
     // setup plane and shader in order to draw the camera feed
     cameraPlane = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
-    cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARCommon::camera_convert_vertex);
-    cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARCommon::camera_convert_fragment);
+    cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARShaders::camera_convert_vertex);
+    cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::camera_convert_fragment);
     cameraConvertShader.linkProgram();
     
     yTexture = NULL;
@@ -160,11 +160,7 @@ void ARProcessor::update(){
     CVOpenGLESTextureCacheFlush(_videoTextureCache, 0);
 }
 
-void ARProcessor::updatePlanes(){
-    if(currentFrame){
-        
-    }
-}
+
 
 void ARProcessor::buildCameraFrame(CVPixelBufferRef pixelBuffer){
     CVPixelBufferLockBaseAddress(pixelBuffer, 0);

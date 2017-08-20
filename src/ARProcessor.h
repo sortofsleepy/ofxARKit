@@ -13,7 +13,8 @@
 #include "ofxiOS.h"
 #include <memory>
 #include <ARKit/ARKit.h>
-#include "ARToolkitComponents.h"
+#include "ARUtils.h"
+#include "ARShaders.h"
 #include "ARAnchorManager.h"
 #define STRINGIFY(A) #A
 
@@ -89,7 +90,6 @@ public:
     float getAmbientIntensity();
     void setARCameraMatrices();
 
-    void updatePlanes();
     void addAnchor();
     void pauseSession();
     
