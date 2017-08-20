@@ -15,7 +15,6 @@ void logSIMD(const simd::float4x4 &matrix)
         output << std::endl;
     }
     output << std::endl;
-    //NSLog(@"%s", output.str().c_str());
 }
 
 ofMatrix4x4 matFromSimd(const simd::float4x4 &matrix){
@@ -133,19 +132,7 @@ void ofApp::draw() {
             _viewportSize.height = ofGetHeight();
             
             
-            
-            
-            /*
-             simd::float4x4 viewMatrix = [session.currentFrame.camera viewMatrixForOrientation:UIInterfaceOrientationPortrait];
-             
-             
-             matrix_float4x4 projectionMatrix = [session.currentFrame.camera projectionMatrixWithViewportSize:_viewportSize orientation:UIInterfaceOrientationPortrait zNear:0.01 zFar:1000.0];
-             */
-            
-            
-            
-            //simd::float4x4 projectionMatrix = [session.currentFrame.camera projectionMatrixForOrientation:UIInterfaceOrientationPortrait viewportSize:_viewportSize zNear:0.001 zFar:1000];
-            
+     
             camera.begin();
             processor->setARCameraMatrices();
             
@@ -158,15 +145,12 @@ void ofApp::draw() {
                         mats[i].columns[2].x, mats[i].columns[2].y,mats[i].columns[2].z,mats[i].columns[2].w,
                         mats[i].columns[3].x, mats[i].columns[3].y,mats[i].columns[3].z,mats[i].columns[3].w);
                 ofMultMatrix(mat);
-                //cout << mat << endl;
+
                 ofSetColor(255);
                 ofRotate(90,0,0,1);
                 ofScale(0.0001, 0.0001);
                 img.draw(0,0);
-                
-                ///ofBoxPrimitive p(0.01,0.01, 0.01);
-                //p.getMesh().draw();
-                //mat.set(mats[i])
+
                 ofPopMatrix();
             }
             
@@ -175,12 +159,7 @@ void ofApp::draw() {
         
     }
     
-    
-    //cout << session.currentFrame.anchors.count << endl;
-    //    if (session.currentFrame.camera){
-    //        logSIMD(session.currentFrame.camera.transform);
-    //        //NSLog(@"%@", session.currentFrame.camera);
-    //    }
+
     
 }
 
@@ -191,24 +170,6 @@ void ofApp::exit() {
 
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs &touch){
-    
-    if (session.currentFrame.camera){
-        /*
-         NSLog(@"%@", session.currentFrame.camera);
-         
-         matrix_float4x4 translation = matrix_identity_float4x4;
-         translation.columns[3].z = -0.2;
-         
-         matrix_float4x4 transform = matrix_multiply(session.currentFrame.camera.transform, translation);
-         
-         NSLog(@"hi");
-         //   Add a new anchor to the session
-         ARAnchor *anchor = [[ARAnchor alloc] initWithTransform:transform];
-         [session addAnchor:anchor];
-         */
-        
-    }
-    
     
     processor->addAnchor();
 }

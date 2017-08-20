@@ -2,7 +2,7 @@
 
 #include "ofxiOS.h"
 #include <ARKit/ARKit.h>
-#include "ARProcessor.h"
+#include "ofxARKit.h"
 class ofApp : public ofxiOSApp {
     
 public:

@@ -41,6 +41,11 @@ void ARAnchorManager::addAnchor(){
         [session addAnchor:anchor];
     }
 }
+
+void ARAnchorManager::addAnchor(ofVec3f position){
+    // TODO
+}
+
 void ARAnchorManager::update(){
     
     // clear previously found planes to prepare for potential new ones.
@@ -72,6 +77,7 @@ void ARAnchorManager::update(){
             planes.push_back(plane);
             
         }else {
+            // add anchors found by ARKit
             anchors.push_back(ARCommon::toMat4(anchor.transform));
             [session addAnchor:anchor];
         }

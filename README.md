@@ -54,6 +54,8 @@ To initialize the ARKit framework
 note that - assuming you're using objective c++(which should be the default for ios oF projects), you could just as easily skip adding a 
 view controller and just initialize in ofApp.h/.mm
 
+Lastly - include "ofxARKit.h"
+
 ### Potential Hurdles in setup of ARKit
 A strange occurance I've run into fairly often, and it's unclear as to why this happens; but it seems that, depending on where you initialize ARKit, that could potentially affect performance. ARKit will output console messages when there are issues, specifically in this case you may see as message along the lines of `...tracking performance reduced due to resource constraints...` In all likelihood it's simply hardware related as I don't have access to the latest iDevices but I have had situations where things have run well without ever seeing that message. 
 

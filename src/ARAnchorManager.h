@@ -20,6 +20,7 @@ typedef struct {
     ofMatrix4x4 transform;
 }PlaneAnchorObject;
 
+//! Helper class to deal with anchors
 class ARAnchorManager {
     
     //! reference to the transform matrix of all currently found planes
@@ -34,7 +35,11 @@ class ARAnchorManager {
     //! The session to draw from
     ARSession * session;
     
+    //! camera object to help draw the anchors
+#ifdef OF_TARGET_IPHONE
     ofCamera camera;
+    
+#endif
 public:
     ARAnchorManager();
     ARAnchorManager(ARSession * session);
