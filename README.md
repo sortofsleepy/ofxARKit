@@ -63,5 +63,5 @@ That all being said, fps seems to be minimally affected if at all, though of cou
 
 
 # Contributing
-As I certainly am not the most knowledgeable on many of the topics required to work in AR on top of ARKit still being in beta. So if there's something you feel you can contribute, by all means, feel free to make PR's! (especially now that my time to work on this will be severely limited for the next few weeks :/)
+As I certainly am not the most knowledgeable on many of the topics required to work in AR, that and with ARKit still being in beta; if there's something you feel you can contribute, by all means, feel free to make PR's! (especially now that my time to work on this will be severely limited for the next few weeks :/)
 As long as it doesn't break anything I'll most likely accept it. Please make all PRs against the `develop` branch
