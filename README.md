@@ -24,6 +24,9 @@ ARKit actually does a ton of things in and of itself. All you really have to do 
 The goal with how this is setup is to be as flexible as possible so this can be integrated into a wide variety of situations. 
 Also because it's really only a few lines to initialize ARKit. 
 
+__First__
+* [get xcode beta](https://developer.apple.com/download/)
+* [get ios 11 beta](https://beta.apple.com/sp/betaprogram/guide)
 
 To initialize the ARKit framework
 ```objective-c
