@@ -57,8 +57,9 @@ void ofApp::setup() {
     
     processor->setup();
     
+    anchors = ARAnchorManager::create(session);
     
-    
+
     
 }
 
@@ -71,24 +72,8 @@ void ofApp::update(){
     processor->update();
     
     mats.clear();
-    
-    if (session.currentFrame){
-        NSInteger anchorInstanceCount = session.currentFrame.anchors.count;
-        
-        for (NSInteger index = 0; index < anchorInstanceCount; index++) {
-            ARAnchor *anchor = session.currentFrame.anchors[index];
-            
-            // Flip Z axis to convert geometry from right handed to left handed
-            matrix_float4x4 coordinateSpaceTransform = matrix_identity_float4x4;
-            coordinateSpaceTransform.columns[2].z = -1.0;
-            
-            matrix_float4x4 newMat = matrix_multiply(anchor.transform, coordinateSpaceTransform);
-            mats.push_back(newMat);
-            logSIMD(newMat);
-            //anchorUniforms->modelMatrix = matrix_multiply(anchor.transform, coordinateSpaceTransform);
-        }
-    }
-    
+    anchors->update();
+ 
 }
 
 
@@ -127,39 +112,27 @@ void ofApp::draw() {
         if (session.currentFrame.camera){
             ARCamera * arCamera = session.currentFrame.camera;
             
-            CGSize _viewportSize;
-            _viewportSize.width = ofGetWidth();
-            _viewportSize.height = ofGetHeight();
-            
-            
+    
      
             camera.begin();
             processor->setARCameraMatrices();
-            
-            for (int i = 0; i < mats.size(); i++){
+            anchors->loopAnchors([=](ofMatrix4x4 anchor)->void {
                 ofPushMatrix();
-                //mats[i].operator=(const simd_float4x4 &)
-                ofMatrix4x4 mat;
-                mat.set(mats[i].columns[0].x, mats[i].columns[0].y,mats[i].columns[0].z,mats[i].columns[0].w,
-                        mats[i].columns[1].x, mats[i].columns[1].y,mats[i].columns[1].z,mats[i].columns[1].w,
-                        mats[i].columns[2].x, mats[i].columns[2].y,mats[i].columns[2].z,mats[i].columns[2].w,
-                        mats[i].columns[3].x, mats[i].columns[3].y,mats[i].columns[3].z,mats[i].columns[3].w);
-                ofMultMatrix(mat);
-
+                ofMultViewMatrix(anchor);
+                
                 ofSetColor(255);
                 ofRotate(90,0,0,1);
                 ofScale(0.0001, 0.0001);
                 img.draw(0,0);
-
+                
                 ofPopMatrix();
-            }
-            
+            });
+           
             camera.end();
         }
         
     }
     
-
     
 }
 
@@ -170,8 +143,10 @@ void ofApp::exit() {
 
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs &touch){
+  
+  
+    anchors->addAnchor(ofVec2f(touch.x,touch.y));
     
-    processor->addAnchor();
 }
 
 //--------------------------------------------------------------

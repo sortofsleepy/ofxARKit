@@ -20,6 +20,8 @@ typedef struct {
     ofMatrix4x4 transform;
 }PlaneAnchorObject;
 
+typedef std::shared_ptr<class ARAnchorManager>AnchorManagerRef;
+
 //! Helper class to deal with anchors
 class ARAnchorManager {
     
@@ -45,15 +47,33 @@ public:
     ARAnchorManager(ARSession * session);
     
     void addAnchor();
-    void addAnchor(ofVec3f position);
+    void addAnchor(ofVec2f position);
     
+    
+    static AnchorManagerRef create(ARSession * session){
+        if(!session){
+            NSLog(@"Error - AnchorManagerRef requires an ARSession object");
+        }else{
+            return AnchorManagerRef(new ARAnchorManager(session));
+        }
+        
+        
+    }
     
     //! Returns the vector of currently found planes
     std::vector<PlaneAnchorObject> getPlaneAnchors(){
         return planes;
     }
     
+    //! Allows you to loop through the anchors and do something
+    //! with each anchor.
+    void loopAnchors(std::function<void(ofMatrix4x4)> func);
+    
+    //! Returns the PlaneAnchorObject associated with found planes
     PlaneAnchorObject getPlaneAt(int index=0);
+    
+    //! Clears all existing anchors
+    void clearAnchors();
     
     //! Get the number of planes detected.
     int getNumPlanes();
