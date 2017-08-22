@@ -49,13 +49,17 @@ void ARAnchorManager::addAnchor(ofVec2f position){
     if(currentFrame){
         matrix_float4x4 translation = matrix_identity_float4x4;
         translation.columns[3].z = -0.2;
+        translation.columns[2].z = -1.0;
+        
         matrix_float4x4 transform = matrix_multiply(currentFrame.camera.transform, translation);
+        
         
         ofMatrix4x4 mat = ARCommon::toMat4(transform);
         mat.translate(ofVec3f(position.x,position.y,0));
         ARAnchor *anchor = [[ARAnchor alloc] initWithTransform:transform];
-        ofLog()<<mat;
+   
         anchors.push_back(mat);
+        ofLog()<<anchors.size();
         [session addAnchor:anchor];
     }
     
@@ -71,7 +75,7 @@ void ARAnchorManager::update(){
     
     // clear previously found planes to prepare for potential new ones.
     planes.clear();
-    anchors.clear();
+   // anchors.clear();
     
     // update number of anchors currently tracked
     anchorInstanceCount = session.currentFrame.anchors.count;
@@ -106,8 +110,9 @@ void ARAnchorManager::update(){
             coordinateSpaceTransform.columns[2].z = -1.0;
             
             matrix_float4x4 newMat = matrix_multiply(anchor.transform, coordinateSpaceTransform);
-            
-            anchors.push_back(ARCommon::toMat4(newMat));
+            ofMatrix4x4 m = ARCommon::toMat4(newMat);
+            //ofLog()<<m;
+            //anchors.push_back(m);
         }
         
     }

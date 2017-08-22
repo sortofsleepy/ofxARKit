@@ -117,6 +117,7 @@ void ofApp::draw() {
             camera.begin();
             processor->setARCameraMatrices();
             anchors->loopAnchors([=](ofMatrix4x4 anchor)->void {
+              
                 ofPushMatrix();
                 ofMultViewMatrix(anchor);
                 
@@ -145,8 +146,8 @@ void ofApp::exit() {
 void ofApp::touchDown(ofTouchEventArgs &touch){
   
   
-    anchors->addAnchor(ofVec2f(touch.x,touch.y));
-    
+    //anchors->addAnchor(ofVec2f(touch.x,touch.y));
+    anchors->addAnchor(ofVec2f(0,0));
 }
 
 //--------------------------------------------------------------
