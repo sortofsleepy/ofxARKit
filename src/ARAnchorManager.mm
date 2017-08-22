@@ -62,8 +62,10 @@ void ARAnchorManager::addAnchor(ofVec2f position){
         // build a new transform matrix
         ofMatrix4x4 mat = ARCommon::toMat4(transform);
         
-        // translate it by the specified amount.
+        // translate it by the specified amount.(flip y coordinate to match (0,0) from top left space)
         mat.translate(ofVec3f(position.x,position.y,0));
+        //mat.scale(0.075, 0.075, 0);
+        
         
         ARAnchor * anchor = [[ARAnchor alloc] initWithTransform:convert<ofMatrix4x4,matrix_float4x4>(mat)];
         
@@ -71,7 +73,10 @@ void ARAnchorManager::addAnchor(ofVec2f position){
         obj.modelMatrix = mat;
         obj.rawAnchor = anchor;
         
+        ofLog()<<mat;
+        
         anchors.push_back(obj);
+        
         
         // add anchor to ARKit.
         [session addAnchor:anchor];
@@ -120,22 +125,26 @@ void ARAnchorManager::update(){
             
         }else {
             
-            // account for ARAnchor objects that may have been found by ARKit itself and not manually added.
-            // we need to be able to track that too.
-            // TODO is there a better way to do this?
-            for(int i = 0; i < anchors.size();++i){
-                if(anchors[i].rawAnchor.identifier != anchor.identifier){
-                    
-                    matrix_float4x4 coordinateSpaceTransform = matrix_identity_float4x4;
-                    coordinateSpaceTransform.columns[2].z = -1.0;
-                    matrix_float4x4 newMat = matrix_multiply(anchor.transform, coordinateSpaceTransform);
-                    ofMatrix4x4 m = ARCommon::toMat4(newMat);
-                    
-                    anchors.push_back(buildARObject(anchor, m, true));
-                    
-                }
-            }
-            
+          /*
+           if(anchor.identifier){
+           // account for ARAnchor objects that may have been found by ARKit itself and not manually added.
+           // we need to be able to track that too.
+           // TODO is there a better way to do this?
+           for(int i = 0; i < anchors.size();++i){
+           if(anchors[i].rawAnchor.identifier != anchor.identifier){
+           
+           matrix_float4x4 coordinateSpaceTransform = matrix_identity_float4x4;
+           coordinateSpaceTransform.columns[2].z = -1.0;
+           matrix_float4x4 newMat = matrix_multiply(anchor.transform, coordinateSpaceTransform);
+           ofMatrix4x4 m = ARCommon::toMat4(newMat);
+           
+           anchors.push_back(buildARObject(anchor, m, true));
+           
+           }
+           }
+           }
+           
+           */
             
             // Flip Z axis to convert geometry from right handed to left handed
             //matrix_float4x4 coordinateSpaceTransform = matrix_identity_float4x4;

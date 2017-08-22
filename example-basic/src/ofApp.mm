@@ -115,17 +115,13 @@ void ofApp::draw() {
     
      
             camera.begin();
-            ofSetMatrixMode(OF_MATRIX_PROJECTION);
-            ofLoadMatrix(processor->getProjectionMatrix());
-       
+            processor->setARCameraMatrices();
             anchors->loopAnchors([=](ARObject anchor)->void {
               
                 ofPushMatrix();
                 
-                // set modelview view matrix from camera * model matrix
-                ofSetMatrixMode(OF_MATRIX_MODELVIEW);
-                ofLoadMatrix(processor->getViewMatrix() * anchor.modelMatrix);
-              
+                
+                ofMultMatrix(anchor.modelMatrix);
                 ofSetColor(255);
                 ofRotate(90,0,0,1);
                 ofScale(0.0001, 0.0001);
@@ -150,9 +146,14 @@ void ofApp::exit() {
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs &touch){
   
+    ofVec2f pt = ofVec2f(touch.y / ofGetWindowHeight(), touch.x / ofGetWindowWidth());
+    
+    //0.0324282, -0.0800194
+    // 0.005,0.09
   
-    //anchors->addAnchor(ofVec2f(touch.x,touch.y));
-    anchors->addAnchor(ofVec2f(0,0));
+    anchors->addAnchor(pt);
+    //anchors->addAnchor(ofVec2f(0.0696582, -0.0474628));
+    //anchors->addAnchor(touch.getNormalized());
 }
 
 //--------------------------------------------------------------
