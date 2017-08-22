@@ -37,7 +37,9 @@ void ARAnchorManager::addAnchor(){
         
         // Add a new anchor to the session
         ARAnchor *anchor = [[ARAnchor alloc] initWithTransform:transform];
-        anchors.push_back(ARCommon::toMat4(transform));
+        
+
+        anchors.push_back(buildARObject(anchor, toMat4(transform)));
         [session addAnchor:anchor];
     }
 }
@@ -48,34 +50,47 @@ void ARAnchorManager::addAnchor(ofVec2f position){
    
     if(currentFrame){
         matrix_float4x4 translation = matrix_identity_float4x4;
+        
+        // translate back a bit.
         translation.columns[3].z = -0.2;
+        
+         // Flip Z axis to convert geometry from right handed to left handed
         translation.columns[2].z = -1.0;
         
         matrix_float4x4 transform = matrix_multiply(currentFrame.camera.transform, translation);
         
-        
+        // build a new transform matrix
         ofMatrix4x4 mat = ARCommon::toMat4(transform);
+        
+        // translate it by the specified amount.
         mat.translate(ofVec3f(position.x,position.y,0));
-        ARAnchor *anchor = [[ARAnchor alloc] initWithTransform:transform];
-   
-        anchors.push_back(mat);
-        ofLog()<<anchors.size();
+        
+        ARAnchor * anchor = [[ARAnchor alloc] initWithTransform:convert<ofMatrix4x4,matrix_float4x4>(mat)];
+        
+        ARObject obj;
+        obj.modelMatrix = mat;
+        obj.rawAnchor = anchor;
+        
+        anchors.push_back(obj);
+        
+        // add anchor to ARKit.
         [session addAnchor:anchor];
     }
     
 }
 
-void ARAnchorManager::loopAnchors(std::function<void(ofMatrix4x4)> func){
+void ARAnchorManager::loopAnchors(std::function<void(ARObject)> func){
     for (int i = 0; i < anchors.size(); i++) {
         func(anchors[i]);
     }
 }
 
+// TODO - how do we account for ARKit found anchors better. Seems like a cpu waste to continuously
+// loop through currently tracked anchors for matching uuids.
 void ARAnchorManager::update(){
     
     // clear previously found planes to prepare for potential new ones.
     planes.clear();
-   // anchors.clear();
     
     // update number of anchors currently tracked
     anchorInstanceCount = session.currentFrame.anchors.count;
@@ -105,17 +120,56 @@ void ARAnchorManager::update(){
             
         }else {
             
-            // Flip Z axis to convert geometry from right handed to left handed
-            matrix_float4x4 coordinateSpaceTransform = matrix_identity_float4x4;
-            coordinateSpaceTransform.columns[2].z = -1.0;
+            // account for ARAnchor objects that may have been found by ARKit itself and not manually added.
+            // we need to be able to track that too.
+            // TODO is there a better way to do this?
+            for(int i = 0; i < anchors.size();++i){
+                if(anchors[i].rawAnchor.identifier != anchor.identifier){
+                    
+                    matrix_float4x4 coordinateSpaceTransform = matrix_identity_float4x4;
+                    coordinateSpaceTransform.columns[2].z = -1.0;
+                    matrix_float4x4 newMat = matrix_multiply(anchor.transform, coordinateSpaceTransform);
+                    ofMatrix4x4 m = ARCommon::toMat4(newMat);
+                    
+                    anchors.push_back(buildARObject(anchor, m, true));
+                    
+                }
+            }
             
-            matrix_float4x4 newMat = matrix_multiply(anchor.transform, coordinateSpaceTransform);
-            ofMatrix4x4 m = ARCommon::toMat4(newMat);
+            
+            // Flip Z axis to convert geometry from right handed to left handed
+            //matrix_float4x4 coordinateSpaceTransform = matrix_identity_float4x4;
+            //coordinateSpaceTransform.columns[2].z = -1.0;
+            
+            //matrix_float4x4 newMat = matrix_multiply(anchor.transform, coordinateSpaceTransform);
+            //ofMatrix4x4 m = ARCommon::toMat4(newMat);
             //ofLog()<<m;
             //anchors.push_back(m);
         }
         
     }
+}
+
+void ARAnchorManager::clearAnchors(){
+    // clear all anchors from ARKit session.
+    for(int i = 0; i < anchors.size();++i){
+        [session removeAnchor:anchors[i].rawAnchor];
+    }
+    
+    // finally, clear vector
+    anchors.clear();
+}
+
+void ARAnchorManager::removeAnchor(NSUUID * anchorId){
+    for(int i = 0; i < anchors.size();++i){
+        if(anchors[i].rawAnchor.identifier == anchorId){
+            [session removeAnchor:anchors[i].rawAnchor];
+        }
+    }
+}
+
+void ARAnchorManager::removeAnchor(int index){
+    [session removeAnchor:anchors[index].rawAnchor];
 }
 
 void ARAnchorManager::drawPlanes(ARCameraMatrices cameraMatrices){
@@ -143,4 +197,13 @@ void ARAnchorManager::drawPlanes(ARCameraMatrices cameraMatrices){
     }
     
     camera.end();
+}
+
+ARObject ARAnchorManager::buildARObject(ARAnchor * rawAnchor,ofMatrix4x4 modelMatrix,bool systemAdded){
+    ARObject obj;
+    obj.rawAnchor = rawAnchor;
+    obj.modelMatrix = modelMatrix;
+    obj.systemAdded = systemAdded;
+    
+    return obj;
 }

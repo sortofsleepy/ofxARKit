@@ -110,17 +110,22 @@ void ofApp::draw() {
     ofDisableLighting();
     if (session.currentFrame){
         if (session.currentFrame.camera){
-            ARCamera * arCamera = session.currentFrame.camera;
+            //ARCamera * arCamera = session.currentFrame.camera;
             
     
      
             camera.begin();
-            processor->setARCameraMatrices();
-            anchors->loopAnchors([=](ofMatrix4x4 anchor)->void {
+            ofSetMatrixMode(OF_MATRIX_PROJECTION);
+            ofLoadMatrix(processor->getProjectionMatrix());
+       
+            anchors->loopAnchors([=](ARObject anchor)->void {
               
                 ofPushMatrix();
-                ofMultViewMatrix(anchor);
                 
+                // set modelview view matrix from camera * model matrix
+                ofSetMatrixMode(OF_MATRIX_MODELVIEW);
+                ofLoadMatrix(processor->getViewMatrix() * anchor.modelMatrix);
+              
                 ofSetColor(255);
                 ofRotate(90,0,0,1);
                 ofScale(0.0001, 0.0001);

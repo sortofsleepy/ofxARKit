@@ -1,6 +1,5 @@
 //
 //  ARToolkitComponents.h
-//  example-basic
 //
 //  Created by Joseph Chow on 8/16/17.
 //
