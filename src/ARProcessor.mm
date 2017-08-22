@@ -112,18 +112,12 @@ CVOpenGLESTextureRef ARProcessor::createTextureFromPixelBuffer(CVPixelBufferRef 
 void ARProcessor::draw(){
     cameraFbo.begin();
         cameraConvertShader.begin();
-        cameraPlane.draw();
+            cameraPlane.draw();
         cameraConvertShader.end();
     cameraFbo.end();
     
-    //flip camera y
-    ofPushMatrix();
-        ofSetRectMode( OF_RECTMODE_CENTER );
-        ofTranslate( cameraFbo.getWidth()/2, cameraFbo.getHeight()/2, 0 );
-        ofScale( 1, -1, 1 );
-            cameraFbo.draw(0,0);
-        ofSetRectMode( OF_RECTMODE_CORNER );
-    ofPopMatrix();
+    cameraFbo.draw(0,0);
+
 }
 
 void ARProcessor::drawCameraFrame(){
