@@ -35,7 +35,7 @@ class ARProcessor {
     ARAnchorManager anchorController;
     
     // ========== CAMERA IMAGE STUFF ================= //
-    
+    ofFbo cameraFbo;
     CVOpenGLESTextureRef yTexture;
     CVOpenGLESTextureRef CbCrTexture;
     CVOpenGLESTextureCacheRef _videoTextureCache;
@@ -122,7 +122,11 @@ public:
     }
     ARCommon::ARCameraMatrices getCameraMatrices(){
         return cameraMatrices;
-    }  
+    }
+    
+    ofTexture getCameraTexture(){
+        return cameraFbo.getTexture();
+    }
 };
 
 
