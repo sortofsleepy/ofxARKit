@@ -70,6 +70,8 @@ void ARProcessor::setup(){
     if (err){
         NSLog(@"Error at CVOpenGLESTextureCacheCreate %d", err);
     }
+    
+    cameraFbo.allocate(ofGetWindowWidth(), ofGetWindowHeight(), GL_RGBA);
 }
 
 ARFrame* ARProcessor::getCurrentFrame(){
@@ -108,11 +110,14 @@ CVOpenGLESTextureRef ARProcessor::createTextureFromPixelBuffer(CVPixelBufferRef 
 }
 
 void ARProcessor::draw(){
+    cameraFbo.begin();
+        cameraConvertShader.begin();
+            cameraPlane.draw();
+        cameraConvertShader.end();
+    cameraFbo.end();
     
-    cameraConvertShader.begin();
-    cameraPlane.draw();
-    cameraConvertShader.end();
-   
+    cameraFbo.draw(0,0);
+
 }
 
 void ARProcessor::drawCameraFrame(){

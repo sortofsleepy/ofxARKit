@@ -57,9 +57,8 @@ void ofApp::setup() {
     
     processor->setup();
     
-    anchors = ARAnchorManager::create(session);
     
-
+    
     
 }
 
@@ -72,8 +71,24 @@ void ofApp::update(){
     processor->update();
     
     mats.clear();
-    anchors->update();
- 
+    
+    if (session.currentFrame){
+        NSInteger anchorInstanceCount = session.currentFrame.anchors.count;
+        
+        for (NSInteger index = 0; index < anchorInstanceCount; index++) {
+            ARAnchor *anchor = session.currentFrame.anchors[index];
+            
+            // Flip Z axis to convert geometry from right handed to left handed
+            matrix_float4x4 coordinateSpaceTransform = matrix_identity_float4x4;
+            coordinateSpaceTransform.columns[2].z = -1.0;
+            
+            matrix_float4x4 newMat = matrix_multiply(anchor.transform, coordinateSpaceTransform);
+            mats.push_back(newMat);
+            logSIMD(newMat);
+            //anchorUniforms->modelMatrix = matrix_multiply(anchor.transform, coordinateSpaceTransform);
+        }
+    }
+    
 }
 
 
@@ -86,6 +101,45 @@ void ofApp::draw() {
     
     
     
+  
+    
+    
+    if (session.currentFrame){
+        if (session.currentFrame.camera){
+            ARCamera * arCamera = session.currentFrame.camera;
+            
+            CGSize _viewportSize;
+            _viewportSize.width = ofGetWidth();
+            _viewportSize.height = ofGetHeight();
+            
+            
+     
+            camera.begin();
+            processor->setARCameraMatrices();
+            
+            for (int i = 0; i < mats.size(); i++){
+                ofPushMatrix();
+                //mats[i].operator=(const simd_float4x4 &)
+                ofMatrix4x4 mat;
+                mat.set(mats[i].columns[0].x, mats[i].columns[0].y,mats[i].columns[0].z,mats[i].columns[0].w,
+                        mats[i].columns[1].x, mats[i].columns[1].y,mats[i].columns[1].z,mats[i].columns[1].w,
+                        mats[i].columns[2].x, mats[i].columns[2].y,mats[i].columns[2].z,mats[i].columns[2].w,
+                        mats[i].columns[3].x, mats[i].columns[3].y,mats[i].columns[3].z,mats[i].columns[3].w);
+                ofMultMatrix(mat);
+
+                ofSetColor(255);
+                ofRotate(90,0,0,1);
+                ofScale(0.0001, 0.0001);
+                img.draw(0,0);
+
+                ofPopMatrix();
+            }
+            
+            camera.end();
+        }
+        
+    }
+    
     // ========== DEBUG STUFF ============= //
     int w = MIN(ofGetWidth(), ofGetHeight()) * 0.6;
     int h = w;
@@ -97,44 +151,13 @@ void ofApp::draw() {
     y = ofGetHeight() * 0.11;
     p = ofGetHeight() * 0.035;
     
-    ofSetColor(ofColor::black);
+    //ofSetColor(ofColor::black);
     font.drawString("frame num      = " + ofToString( ofGetFrameNum() ),    x, y+=p);
     font.drawString("frame rate     = " + ofToString( ofGetFrameRate() ),   x, y+=p);
     font.drawString("screen width   = " + ofToString( ofGetWidth() ),       x, y+=p);
     font.drawString("screen height  = " + ofToString( ofGetHeight() ),      x, y+=p);
     
-    
-    
-    //return;
-    
-    ofDisableLighting();
-    if (session.currentFrame){
-        if (session.currentFrame.camera){
-            //ARCamera * arCamera = session.currentFrame.camera;
-            
-    
-     
-            camera.begin();
-            processor->setARCameraMatrices();
-            anchors->loopAnchors([=](ARObject anchor)->void {
-              
-                ofPushMatrix();
-                
-                
-                ofMultMatrix(anchor.modelMatrix);
-                ofSetColor(255);
-                ofRotate(90,0,0,1);
-                ofScale(0.0001, 0.0001);
-                img.draw(0,0);
-                
-                ofPopMatrix();
-            });
-           
-            camera.end();
-        }
-        
-    }
-    
+
     
 }
 
@@ -145,15 +168,8 @@ void ofApp::exit() {
 
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs &touch){
-  
-    ofVec2f pt = ofVec2f(touch.y / ofGetWindowHeight(), touch.x / ofGetWindowWidth());
     
-    //0.0324282, -0.0800194
-    // 0.005,0.09
-  
-    anchors->addAnchor(pt);
-    //anchors->addAnchor(ofVec2f(0.0696582, -0.0474628));
-    //anchors->addAnchor(touch.getNormalized());
+    processor->addAnchor();
 }
 
 //--------------------------------------------------------------
