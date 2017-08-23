@@ -29,6 +29,7 @@ Also because it's really only a few lines to initialize ARKit.
 __First__
 * [get xcode beta](https://developer.apple.com/download/)
 * [get ios 11 beta](https://beta.apple.com/sp/betaprogram/guide)
+* In your project, remember to edit your `ofxIOS-Info.plist` file to include the `Privacy - Camera Usage Description` key with a description for the alert dialog that pops up asking the user for use of their camera.
 
 To initialize the ARKit framework
 ```objective-c
