@@ -91,7 +91,9 @@ public:
     void setARCameraMatrices();
 
     void addAnchor();
-    void removeAnchor(int index);
+    void removeAnchorAtIndex(int index);
+    void removeAllAnchors();
+    
     void pauseSession();
     
     ARFrame* getCurrentFrame();
