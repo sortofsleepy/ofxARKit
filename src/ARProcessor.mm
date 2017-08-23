@@ -12,6 +12,7 @@ ARProcessor::ARProcessor(){
 
 ARProcessor::ARProcessor(ARSession * session){
     this->session = session;
+    anchorController = new ARAnchorManager(session);
 }
 
 ARProcessor::~ARProcessor(){
@@ -120,6 +121,10 @@ void ARProcessor::draw(){
 
 }
 
+void ARProcessor::drawHorizontalPlanes(){
+    anchorController->drawPlanes(getCameraMatrices());
+}
+
 void ARProcessor::drawCameraFrame(){
     draw();
 }
@@ -141,6 +146,9 @@ void ARProcessor::update(){
     
     // only act if we have the current frame
     if(currentFrame){
+        
+        // update anchor controller for plane detection
+        anchorController->update();
         
         // do light estimates
         if (currentFrame.lightEstimate) {
