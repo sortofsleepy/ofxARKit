@@ -101,28 +101,9 @@ void ofApp::draw() {
     
     
     
-    // ========== DEBUG STUFF ============= //
-    int w = MIN(ofGetWidth(), ofGetHeight()) * 0.6;
-    int h = w;
-    int x = (ofGetWidth() - w)  * 0.5;
-    int y = (ofGetHeight() - h) * 0.5;
-    int p = 0;
-    
-    x = ofGetWidth()  * 0.2;
-    y = ofGetHeight() * 0.11;
-    p = ofGetHeight() * 0.035;
-    
-    ofSetColor(ofColor::black);
-    font.drawString("frame num      = " + ofToString( ofGetFrameNum() ),    x, y+=p);
-    font.drawString("frame rate     = " + ofToString( ofGetFrameRate() ),   x, y+=p);
-    font.drawString("screen width   = " + ofToString( ofGetWidth() ),       x, y+=p);
-    font.drawString("screen height  = " + ofToString( ofGetHeight() ),      x, y+=p);
+  
     
     
-    
-    //return;
-    
-    ofDisableLighting();
     if (session.currentFrame){
         if (session.currentFrame.camera){
             ARCamera * arCamera = session.currentFrame.camera;
@@ -158,6 +139,23 @@ void ofApp::draw() {
         }
         
     }
+    
+    // ========== DEBUG STUFF ============= //
+    int w = MIN(ofGetWidth(), ofGetHeight()) * 0.6;
+    int h = w;
+    int x = (ofGetWidth() - w)  * 0.5;
+    int y = (ofGetHeight() - h) * 0.5;
+    int p = 0;
+    
+    x = ofGetWidth()  * 0.2;
+    y = ofGetHeight() * 0.11;
+    p = ofGetHeight() * 0.035;
+    
+    //ofSetColor(ofColor::black);
+    font.drawString("frame num      = " + ofToString( ofGetFrameNum() ),    x, y+=p);
+    font.drawString("frame rate     = " + ofToString( ofGetFrameRate() ),   x, y+=p);
+    font.drawString("screen width   = " + ofToString( ofGetWidth() ),       x, y+=p);
+    font.drawString("screen height  = " + ofToString( ofGetHeight() ),      x, y+=p);
     
 
     
