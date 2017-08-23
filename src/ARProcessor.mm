@@ -42,6 +42,11 @@ void ARProcessor::addAnchor(){
     }
 }
 
+void ARProcessor::removeAnchor(int index){
+    ARAnchor *anchor = session.currentFrame.anchors[index];
+    [session removeAnchor:anchor];
+}
+
 void ARProcessor::setup(){
     
     ambientIntensity = 0.0;
