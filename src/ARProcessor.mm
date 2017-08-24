@@ -71,6 +71,10 @@ void ARProcessor::setup(){
         NSLog(@"Error at CVOpenGLESTextureCacheCreate %d", err);
     }
     
+    if(debugMode){
+        pointCloud.setup();
+    }
+    
     cameraFbo.allocate(ofGetWindowWidth(), ofGetWindowHeight(), GL_RGBA);
 }
 
@@ -124,6 +128,14 @@ void ARProcessor::drawCameraFrame(){
     draw();
 }
 
+void ARProcessor::drawPointCloud(){
+    if(debugMode){
+        pointCloud.draw(getProjectionMatrix(), getViewMatrix());
+    } else {
+        ofLog(OF_LOG_WARNING, "Debug Mode not set");
+    }
+}
+
 void ARProcessor::update(){
     
     // if we haven't set a session - just stop things here. 
@@ -141,6 +153,10 @@ void ARProcessor::update(){
     
     // only act if we have the current frame
     if(currentFrame){
+        
+        if(debugMode){
+            pointCloud.updatePointCloud(currentFrame);
+        }
         
         // do light estimates
         if (currentFrame.lightEstimate) {

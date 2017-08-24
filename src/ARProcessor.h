@@ -16,6 +16,8 @@
 #include "ARUtils.h"
 #include "ARShaders.h"
 #include "ARAnchorManager.h"
+#include "ARDebugUtils.h"
+
 #define STRINGIFY(A) #A
 
 typedef std::shared_ptr<class ARProcessor>ARRef;
@@ -63,7 +65,7 @@ class ARProcessor {
     
     bool debugMode;
 
-
+    ARDebugUtils::PointCloudDebug pointCloud;
     // ================ PRIVATE FUNCTIONS =================== //
 
     
@@ -104,7 +106,7 @@ public:
     // alias for draw
     void drawCameraFrame();
 
-
+    void drawPointCloud();
     // TODO add matrix retrival for other orientations
     // ps thanks zach for finding this!
     ARCommon::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=0.01,float far=1000.0);
