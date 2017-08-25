@@ -9,10 +9,13 @@
 using namespace std;
 using namespace ARCommon;
 
-ARAnchorManager::ARAnchorManager(){}
+ARAnchorManager::ARAnchorManager():shouldLookForPlanes(false){
+  
+}
 
 ARAnchorManager::ARAnchorManager(ARSession * session){
     this->session = session;
+    
 }
 
 int ARAnchorManager::getNumPlanes(){
@@ -24,7 +27,8 @@ PlaneAnchorObject ARAnchorManager::getPlaneAt(int index){
 }
 
 void ARAnchorManager::addAnchor(){
-    
+
+
     ARFrame * currentFrame = session.currentFrame;
     
     // Create anchor using the camera's current position
@@ -32,130 +36,102 @@ void ARAnchorManager::addAnchor(){
         
         // Create a transform with a translation of 0.2 meters in front of the camera
         matrix_float4x4 translation = matrix_identity_float4x4;
+     
         translation.columns[3].z = -0.2;
+      
         matrix_float4x4 transform = matrix_multiply(currentFrame.camera.transform, translation);
         
         // Add a new anchor to the session
         ARAnchor *anchor = [[ARAnchor alloc] initWithTransform:transform];
         
-
+     
         anchors.push_back(buildARObject(anchor, toMat4(transform)));
+        
         [session addAnchor:anchor];
     }
 }
 
-void ARAnchorManager::addAnchor(ofVec2f position){
-    ARFrame * currentFrame = session.currentFrame;
-    
+void ARAnchorManager::addAnchor(ofVec2f position,ARCameraMatrices cameraMatrices){
    
-    if(currentFrame){
-        matrix_float4x4 translation = matrix_identity_float4x4;
+  
+    if(session.currentFrame){
+      
         
-        // translate back a bit.
+        ofVec3f pos = camera.screenToWorld(ofVec3f(position.x,position.y,-0.2),ofRectangle(0,0,ofGetWindowWidth(),ofGetWindowHeight()));
+        
+      
+        // Create a transform with a translation of 0.2 meters in front of the camera
+        matrix_float4x4 translation = matrix_identity_float4x4;
+           translation.columns[2].z = -1.0;
+        
+        translation.columns[3].x = (pos.y * -1) * 0.01;
+        translation.columns[3].y = pos.x * 0.01;
+        
         translation.columns[3].z = -0.2;
         
-         // Flip Z axis to convert geometry from right handed to left handed
-        translation.columns[2].z = -1.0;
+        matrix_float4x4 transform = matrix_multiply(session.currentFrame.camera.transform, translation);
         
-        matrix_float4x4 transform = matrix_multiply(currentFrame.camera.transform, translation);
-        
-        // build a new transform matrix
-        ofMatrix4x4 mat = ARCommon::toMat4(transform);
-        
-        // translate it by the specified amount.(flip y coordinate to match (0,0) from top left space)
-        mat.translate(ofVec3f(position.x,position.y,0));
-        //mat.scale(0.075, 0.075, 0);
+        // Add a new anchor to the session
+        ARAnchor *anchor = [[ARAnchor alloc] initWithTransform:transform];
         
         
-        ARAnchor * anchor = [[ARAnchor alloc] initWithTransform:convert<ofMatrix4x4,matrix_float4x4>(mat)];
-        
-        ARObject obj;
-        obj.modelMatrix = mat;
-        obj.rawAnchor = anchor;
-        
-        ofLog()<<mat;
-        
-        anchors.push_back(obj);
-        
-        
-        // add anchor to ARKit.
+        anchors.push_back(buildARObject(anchor, toMat4(transform)));
         [session addAnchor:anchor];
+        
     }
     
 }
 
 void ARAnchorManager::loopAnchors(std::function<void(ARObject)> func){
+   
     for (int i = 0; i < anchors.size(); i++) {
         func(anchors[i]);
     }
+
 }
 
 // TODO - how do we account for ARKit found anchors better. Seems like a cpu waste to continuously
 // loop through currently tracked anchors for matching uuids.
 void ARAnchorManager::update(){
-    
-    // clear previously found planes to prepare for potential new ones.
-    planes.clear();
+
     
     // update number of anchors currently tracked
     anchorInstanceCount = session.currentFrame.anchors.count;
+ 
    
     // update any anchors found in the current frame by the system
     for (NSInteger index = 0; index < anchorInstanceCount; index++) {
         ARAnchor *anchor = session.currentFrame.anchors[index];
         
-        // did we find a PlaneAnchor?
-        // note - you need to turn on planeDetection in your configuration
-        if([anchor isKindOfClass:[ARPlaneAnchor class]]){
-            ARPlaneAnchor* pa = (ARPlaneAnchor*) anchor;
-            PlaneAnchorObject plane;
-            
-            // see https://github.com/sortofsleepy/ofxARKit/issues/6
-            // thanks to @stc
-            plane.transform = convert<matrix_float4x4, ofMatrix4x4>(anchor.transform);
-            ofVec3f center = convert<vector_float3,ofVec3f>(pa.center);
-            ofVec3f extent = convert<vector_float3,ofVec3f>(pa.extent);
-            
-            plane.position.x = -extent.x / 2;
-            plane.position.y = -extent.y / 2;
-            plane.width = extent.x;
-            plane.height = extent.z;
-            
-            planes.push_back(plane);
-            
-        }else {
-            
-          /*
-           if(anchor.identifier){
-           // account for ARAnchor objects that may have been found by ARKit itself and not manually added.
-           // we need to be able to track that too.
-           // TODO is there a better way to do this?
-           for(int i = 0; i < anchors.size();++i){
-           if(anchors[i].rawAnchor.identifier != anchor.identifier){
-           
-           matrix_float4x4 coordinateSpaceTransform = matrix_identity_float4x4;
-           coordinateSpaceTransform.columns[2].z = -1.0;
-           matrix_float4x4 newMat = matrix_multiply(anchor.transform, coordinateSpaceTransform);
-           ofMatrix4x4 m = ARCommon::toMat4(newMat);
-           
-           anchors.push_back(buildARObject(anchor, m, true));
-           
-           }
-           }
-           }
-           
-           */
-            
-            // Flip Z axis to convert geometry from right handed to left handed
-            //matrix_float4x4 coordinateSpaceTransform = matrix_identity_float4x4;
-            //coordinateSpaceTransform.columns[2].z = -1.0;
-            
-            //matrix_float4x4 newMat = matrix_multiply(anchor.transform, coordinateSpaceTransform);
-            //ofMatrix4x4 m = ARCommon::toMat4(newMat);
-            //ofLog()<<m;
-            //anchors.push_back(m);
+        if(shouldLookForPlanes){
+            // did we find a PlaneAnchor?
+            // note - you need to turn on planeDetection in your configuration
+            if([anchor isKindOfClass:[ARPlaneAnchor class]]){
+                
+                // ensure plane is not already addded to stack
+                for(int i = 0; i < planes.size();++i){
+                    if(planes[i].uuid != anchor.identifier){
+                        ARPlaneAnchor* pa = (ARPlaneAnchor*) anchor;
+                        PlaneAnchorObject plane;
+                        
+                        // see https://github.com/sortofsleepy/ofxARKit/issues/6
+                        // thanks to @stc
+                        plane.transform = convert<matrix_float4x4, ofMatrix4x4>(anchor.transform);
+                        ofVec3f center = convert<vector_float3,ofVec3f>(pa.center);
+                        ofVec3f extent = convert<vector_float3,ofVec3f>(pa.extent);
+                        
+                        plane.position.x = -extent.x / 2;
+                        plane.position.y = -extent.y / 2;
+                        plane.width = extent.x;
+                        plane.height = extent.z;
+                        plane.uuid = anchor.identifier;
+                        
+                        planes.push_back(plane);
+                    }
+                }
+                
+            }
         }
-        
     }
 }
 

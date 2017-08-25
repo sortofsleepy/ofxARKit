@@ -18,6 +18,7 @@ typedef struct {
     float width;
     float height;
     ofMatrix4x4 transform;
+    NSUUID * uuid;
 }PlaneAnchorObject;
 
 // The base class you can use to build your AR object. Provides a model matrix and a mesh for
@@ -63,7 +64,8 @@ class ARAnchorManager {
     ofCamera camera;
 #endif
     
-    
+    bool shouldLookForPlanes;
+    ofCamera transformCamera;
     ARObject buildARObject(ARAnchor * rawAnchor,ofMatrix4x4 modelMatrix,bool systemAdded=false);
 public:
     ARAnchorManager();
@@ -76,7 +78,7 @@ public:
     void addAnchor();
     
     //! adds an anchor at the specified position. Expects normalized coordinates
-    void addAnchor(ofVec2f position);
+    void addAnchor(ofVec2f position,ARCommon::ARCameraMatrices cameraMatrices);
     
     //! adds an ARObject to be tracked by ARKit.
     void addAnchor(ARObject anchor);
