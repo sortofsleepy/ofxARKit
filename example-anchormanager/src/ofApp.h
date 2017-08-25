@@ -39,7 +39,7 @@ public:
     
     // ====== AR STUFF ======== //
     ARSession * session;
-    
+    AnchorManagerRef anchors;
     ARRef processor;
     
     /*

@@ -54,8 +54,9 @@ void ofApp::setup() {
     
     
     processor = ARProcessor::create(session);
-    
     processor->setup();
+    
+    anchors = ARAnchorManager::create(session);
     
     
     
@@ -72,22 +73,7 @@ void ofApp::update(){
     
     mats.clear();
     
-    if (session.currentFrame){
-        NSInteger anchorInstanceCount = session.currentFrame.anchors.count;
-        
-        for (NSInteger index = 0; index < anchorInstanceCount; index++) {
-            ARAnchor *anchor = session.currentFrame.anchors[index];
-            
-            // Flip Z axis to convert geometry from right handed to left handed
-            matrix_float4x4 coordinateSpaceTransform = matrix_identity_float4x4;
-            coordinateSpaceTransform.columns[2].z = -1.0;
-            
-            matrix_float4x4 newMat = matrix_multiply(anchor.transform, coordinateSpaceTransform);
-            mats.push_back(newMat);
-            logSIMD(newMat);
-            //anchorUniforms->modelMatrix = matrix_multiply(anchor.transform, coordinateSpaceTransform);
-        }
-    }
+    anchors->update();
     
 }
 
