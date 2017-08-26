@@ -13,6 +13,8 @@
 #include <ARKit/ARKit.h>
 
 namespace ARObjects {
+    
+    // This defines the basic data structure of a Plane
     typedef struct {
         ofVec3f position;
         float width;

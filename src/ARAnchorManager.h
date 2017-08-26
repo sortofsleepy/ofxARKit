@@ -67,8 +67,27 @@ public:
     //! with each anchor. Pass in a lambda function
     void loopAnchors(std::function<void(ARObject)> func);
     
+    //! Allows you to loop through planes and do something with each plane
+    void loopPlaneAnchors(std::function<void(PlaneAnchorObject)> func);
+    
     //! Returns the PlaneAnchorObject associated with found planes
     PlaneAnchorObject getPlaneAt(int index=0);
+
+    //! Toggles whether or not planes should be updated at each iteration.
+    void togglePlaneUpate(){
+        shouldUpdatePlanes = !shouldUpdatePlanes;
+    }
+    
+    //! same as above but removes the anchor directly from the ARSession instance.
+    //! Note that it does not remove a corresponding ARObject though, but simply removes
+    //! stuff directly from the session in an effort to provide another way to remove ARKit added objects.
+    void removeAnchorDirectly(int index=0);
+    
+    //! clears all existing plane anchors being tracked.
+    void clearPlaneAnchors();
+    void removePlane(NSUUID * anchorId);
+    void removePlane(int index=0);
+    
     
     //! Clears all existing anchors
     void clearAnchors();
@@ -79,17 +98,16 @@ public:
     //! removes the anchor with the specified index.
     void removeAnchor(int index=0);
     
-    //! clears all existing plane anchors being tracked.
-    void clearPlaneAnchors();
-    void removePlane(NSUUID * anchorId);
-    void removePlane(int index=0);
-    
     //! Get the number of planes detected.
     int getNumPlanes();
     
     void drawPlanes(ARCommon::ARCameraMatrices cameraMatrices);
     
+    // general update function
     void update();
+    
+    // update function for dealing with planes.
+    void updatePlanes();
     
 };
 

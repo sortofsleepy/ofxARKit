@@ -99,73 +99,77 @@ void ARAnchorManager::loopAnchors(std::function<void(ARObject)> func){
 
 }
 
-// TODO - how do we account for ARKit found anchors better. Seems like a cpu waste to continuously
-// loop through currently tracked anchors for matching uuids.
-void ARAnchorManager::update(){
+void ARAnchorManager::loopPlaneAnchors(std::function<void(PlaneAnchorObject)> func){
+    for (int i = 0; i < planes.size(); i++) {
+        func(planes[i]);
+    }
+}
 
+
+void ARAnchorManager::update(){
     
     // update number of anchors currently tracked
     anchorInstanceCount = session.currentFrame.anchors.count;
  
-   
+    // update plane information
+    updatePlanes();
+}
+
+void ARAnchorManager::updatePlanes(){
+    
     // update any anchors found in the current frame by the system
     for (NSInteger index = 0; index < anchorInstanceCount; index++) {
         ARAnchor *anchor = session.currentFrame.anchors[index];
         
-        if(shouldUpdatePlanes){
-            // did we find a PlaneAnchor?
-            // note - you need to turn on planeDetection in your configuration
-            if([anchor isKindOfClass:[ARPlaneAnchor class]]){
-                 ARPlaneAnchor* pa = (ARPlaneAnchor*) anchor;
+        // did we find a PlaneAnchor?
+        // note - you need to turn on planeDetection in your configuration
+        if([anchor isKindOfClass:[ARPlaneAnchor class]]){
+            ARPlaneAnchor* pa = (ARPlaneAnchor*) anchor;
+            
+            // calc values from anchor.
+            // see https://github.com/sortofsleepy/ofxARKit/issues/6
+            // thanks to @stc
+            ofMatrix4x4 paTransform = convert<matrix_float4x4, ofMatrix4x4>(pa.transform);
+            ofVec3f center = convert<vector_float3,ofVec3f>(pa.center);
+            ofVec3f extent = convert<vector_float3,ofVec3f>(pa.extent);
+            
+            // ensure plane is not already addded to stack
+            for(int i = 0; i < planes.size();++i){
                 
-                // calc values from anchor.
-                // see https://github.com/sortofsleepy/ofxARKit/issues/6
-                // thanks to @stc
-                ofMatrix4x4 paTransform = convert<matrix_float4x4, ofMatrix4x4>(pa.transform);
-                ofVec3f center = convert<vector_float3,ofVec3f>(pa.center);
-                ofVec3f extent = convert<vector_float3,ofVec3f>(pa.extent);
-                
-                // ensure plane is not already addded to stack
-                for(int i = 0; i < planes.size();++i){
-                 
-                    // if we have a new plane,add to stack, otherwise check to see if we need to update.
-                    if(planes[i].uuid != anchor.identifier){
-                        PlaneAnchorObject plane;
+                // if we have a new plane,add to stack, otherwise check to see if we need to update.
+                if(planes[i].uuid != anchor.identifier){
+                    PlaneAnchorObject plane;
+                    
+                    plane.transform = paTransform;
+                    
+                    plane.position.x = -extent.x / 2;
+                    plane.position.y = -extent.y / 2;
+                    plane.width = extent.x;
+                    plane.height = extent.z;
+                    plane.uuid = anchor.identifier;
+                    plane.rawAnchor = pa;
+                    
+                    planes.push_back(plane);
+                }else{
+                    
+                    // if we need to update the plane - do so, otherwise do nothing.
+                    if(shouldUpdatePlanes){
                         
-                        // see https://github.com/sortofsleepy/ofxARKit/issues/6
-                        // thanks to @stc
-                        plane.transform = paTransform;
-                  
-                        plane.position.x = -extent.x / 2;
-                        plane.position.y = -extent.y / 2;
-                        plane.width = extent.x;
-                        plane.height = extent.z;
-                        plane.uuid = anchor.identifier;
-                        plane.rawAnchor = pa;
+                        planes[i].transform = paTransform;
                         
-                        planes.push_back(plane);
-                    }else{
+                        planes[i].position.x = -extent.x / 2;
+                        planes[i].position.y = -extent.y / 2;
+                        planes[i].width = extent.x;
+                        planes[i].height = extent.z;
+                        planes[i].uuid = anchor.identifier;
                         
-                        // if we need to update the plane - do so, otherwise do nothing.
-                        if(shouldUpdatePlanes){
-                         
-                            // see https://github.com/sortofsleepy/ofxARKit/issues/6
-                            // thanks to @stc
-                            planes[i].transform = paTransform;
-                            
-                            planes[i].position.x = -extent.x / 2;
-                            planes[i].position.y = -extent.y / 2;
-                            planes[i].width = extent.x;
-                            planes[i].height = extent.z;
-                            planes[i].uuid = anchor.identifier;
-                            
-                        }
                     }
                 }
-                
-                
             }
+            
+            
         }
+        
     }
 }
 
@@ -212,6 +216,11 @@ void ARAnchorManager::removePlane(NSUUID * anchorId){
 void ARAnchorManager::removePlane(int index){
     planes.erase(planes.begin() + index);
     [session removeAnchor:planes[index].rawAnchor];
+}
+
+void ARAnchorManager::removeAnchorDirectly(int index){
+    ARAnchor *anchor = session.currentFrame.anchors[index];
+    [session removeAnchor:anchor];
 }
 
 void ARAnchorManager::drawPlanes(ARCameraMatrices cameraMatrices){

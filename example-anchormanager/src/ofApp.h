@@ -26,27 +26,15 @@ public:
     void gotFocus();
     void gotMemoryWarning();
     void deviceOrientationChanged(int newOrientation);
-    
-    
-    ofVbo vbo;
-    
+
     
     ofTrueTypeFont font;
-    
-    //CVOpenGLESTextureRef createTextureFromPixelBuffer(CVPixelBufferRef pixelBuffer,int planeIndex);
-    
     
     
     // ====== AR STUFF ======== //
     ARSession * session;
     AnchorManagerRef anchors;
     ARRef processor;
-    
-    /*
-     int32_t cameraWidth;
-     int32_t cameraHeight;
-     
-     */
     
     ofImage img;
     
