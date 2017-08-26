@@ -8,6 +8,7 @@
 #ifndef ofxARKit_h
 #define ofxARKit_h
 
+
 #include "ARUtils.h"
 #include "ARDebugUtils.h"
 #include "ARProcessor.h"

@@ -18,8 +18,6 @@
 #include "ARAnchorManager.h"
 #include "ARDebugUtils.h"
 
-#define STRINGIFY(A) #A
-
 typedef std::shared_ptr<class ARProcessor>ARRef;
 
 /**
@@ -106,15 +104,15 @@ public:
     // alias for draw
     void drawCameraFrame();
 
-
     // draws horizontal planes (if detected)
     void drawHorizontalPlanes();
     
 
     void drawPointCloud();
 
-    // TODO add matrix retrival for other orientations
-    // ps thanks zach for finding this!
+
+    //! Returns Projection and View matrices for the specified orientation.
+
     ARCommon::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=0.01,float far=1000.0);
 
     ofMatrix4x4 getProjectionMatrix(){

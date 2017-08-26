@@ -1,6 +1,5 @@
 //
 //  ARToolkitComponents.h
-//  example-basic
 //
 //  Created by Joseph Chow on 8/16/17.
 //
@@ -18,7 +17,6 @@ namespace ARCommon {
         ofMatrix4x4 cameraProjection;
         ofMatrix4x4 cameraView;
     }ARCameraMatrices;
-
     
     // borrowed from https://github.com/wdlindmeier/Cinder-Metal/blob/master/include/MetalHelpers.hpp
     // helpful converting to and from SIMD
@@ -30,8 +28,15 @@ namespace ARCommon {
         U ret = tmp;
         return ret;
     }
+    
+    // convert to oF mat4
     const ofMatrix4x4 static inline toMat4( const matrix_float4x4& mat ) {
         return convert<matrix_float4x4, ofMatrix4x4>(mat);
+    }
+    
+    // convert to simd based mat4
+    const matrix_float4x4 toSIMDMat4(ofMatrix4x4 &mat){
+           return convert<ofMatrix4x4,matrix_float4x4>(mat);
     }
 
     static ofMatrix4x4 modelMatFromTransform( matrix_float4x4 transform )
