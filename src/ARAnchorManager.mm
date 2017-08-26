@@ -127,8 +127,6 @@ void ARAnchorManager::updatePlanes(){
             ARPlaneAnchor* pa = (ARPlaneAnchor*) anchor;
             
             // calc values from anchor.
-            // see https://github.com/sortofsleepy/ofxARKit/issues/6
-            // thanks to @stc
             ofMatrix4x4 paTransform = convert<matrix_float4x4, ofMatrix4x4>(pa.transform);
             ofVec3f center = convert<vector_float3,ofVec3f>(pa.center);
             ofVec3f extent = convert<vector_float3,ofVec3f>(pa.extent);
@@ -177,6 +175,12 @@ void ARAnchorManager::clearAnchors(){
     // clear all anchors from ARKit session.
     for(int i = 0; i < anchors.size();++i){
         [session removeAnchor:anchors[i].rawAnchor];
+    }
+    
+    // ensure any auto-added anchors are cleared
+    for(NSInteger i = 0; i < anchorInstanceCount; i++){
+        ARAnchor *anchor = session.currentFrame.anchors[i];
+        [session removeAnchor:anchor];
     }
     
     // finally, clear vector
