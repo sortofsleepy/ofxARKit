@@ -34,12 +34,12 @@ class ARAnchorManager {
     //! camera object to help draw the anchors
     ofCamera camera;
     
-    bool shouldUpdatePlanes;
-
-    
 public:
     ARAnchorManager();
     ARAnchorManager(ARSession * session);
+    
+    //! Flag for whether or not planes should be updated
+    bool shouldUpdatePlanes;
     
     //! Adds an anchor based on the current position of the camera - basically at (0,0) with a slight z offset.
     void addAnchor();
