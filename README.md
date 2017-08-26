@@ -10,9 +10,11 @@ This is an openFrameworks addon that provides some helper classes for working wi
 * clone this repo into your addons folder 
 
 # Current functionality 
-ARKit, while it does do a ton behind the scenes; it pretty much leaves it up to you to figure out how you want to render things. The current Apple documentation, while already moderately detailed, unfortunately leaves some stuff out. I've started a class called `ARProcessor.h`, the intent being to help manage the heavy lifting of certain bit's of functionality.
+ARKit, while it does do a ton behind the scenes; it pretty much leaves it up to you to figure out how you want to render things. The current Apple documentation, while already moderately detailed, unfortunately leaves some stuff out. 
 
+There are a number of files in the addon that deal with a number of various bits of functionality, the primary class being `ARProcessor.h`(though this may change later on)
 
+Some current pieces of functionality include : 
 * For whatever reason - Apple neglected to provide a way to easily render the camera image that the ARKit framwork is seeing at every frame. ARProcessor.h provides a way to render the camera image. 
 * management of camera transform and projection matrices.
 * basic light estimation
@@ -55,6 +57,10 @@ note that - assuming you're using objective c++(which should be the default for 
 view controller and just initialize in ofApp.h/.mm
 
 Lastly - include "ofxARKit.h"
+
+# Permissions
+For ARKit - You'll have to enable the `Privacy - Camera Usage Description` in your `ofxiOS-Info.plist` file. This value for this field is just the string you want to show users when you ask for Camera permissions.
+
 
 ### Potential Hurdles in setup of ARKit
 A strange occurance I've run into fairly often, and it's unclear as to why this happens; but it seems that, depending on where you initialize ARKit, that could potentially affect performance. ARKit will output console messages when there are issues, specifically in this case you may see as message along the lines of `...tracking performance reduced due to resource constraints...` In all likelihood it's simply hardware related as I don't have access to the latest iDevices but I have had situations where things have run well without ever seeing that message. 
