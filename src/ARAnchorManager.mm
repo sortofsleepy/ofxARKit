@@ -91,6 +91,14 @@ void ARAnchorManager::addAnchor(ofVec2f position){
     
 }
 
+void ARAnchorManager::addAnchor(ARObject anchor){
+    // add ARObject
+    anchors.push_back(anchor);
+    
+    // add anchor to ARKit
+    [session addAnchor:anchor.rawAnchor];
+}
+
 void ARAnchorManager::loopAnchors(std::function<void(ARObject)> func){
    
     for (int i = 0; i < anchors.size(); i++) {
