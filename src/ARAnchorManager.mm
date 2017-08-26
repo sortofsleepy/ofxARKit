@@ -97,14 +97,15 @@ void ARAnchorManager::drawPlanes(ARCameraMatrices cameraMatrices){
     for(int i = 0; i < getNumPlanes(); ++i){
         PlaneAnchorObject anchor = getPlaneAt(i);
 
-        
+
         ofPushMatrix();
         ofMultMatrix(anchor.transform);
         ofFill();
-        ofSetColor(255);
+        ofSetColor(102,216,254,100);
         ofRotateX(90);
         ofTranslate(anchor.position.x,anchor.position.y);
         ofDrawRectangle(-anchor.position.x/2,-anchor.position.z/2,0,anchor.width,anchor.height);
+        ofSetColor(255);
         ofPopMatrix();
         
     }

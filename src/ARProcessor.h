@@ -34,7 +34,7 @@ class ARProcessor {
     
     CGSize viewportSize;
     // ========== ANCHORS ==================== //
-    ARAnchorManager anchorController;
+    ARAnchorManager * anchorController;
     
     // ========== CAMERA IMAGE STUFF ================= //
     ofFbo cameraFbo;
@@ -106,7 +106,13 @@ public:
     // alias for draw
     void drawCameraFrame();
 
+
+    // draws horizontal planes (if detected)
+    void drawHorizontalPlanes();
+    
+
     void drawPointCloud();
+
     // TODO add matrix retrival for other orientations
     // ps thanks zach for finding this!
     ARCommon::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=0.01,float far=1000.0);
@@ -129,6 +135,11 @@ public:
     ofTexture getCameraTexture(){
         return cameraFbo.getTexture();
     }
+    
+    std::vector<PlaneAnchorObject> getHorizontalPlanes(){
+        return anchorController->getPlaneAnchors();
+    }
+    
 };
 
 
