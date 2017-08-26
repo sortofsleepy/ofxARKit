@@ -97,8 +97,11 @@ const std::string point_cloud_fragment = STRINGIFY(
                                                    
                                                    
                                                    void main(){
-                                                       
-                                                       gl_FragColor = vec4(1.0,1.0,0.0,1.);
+                                                       vec2 uv = gl_PointCoord.st;
+                                                       uv = step(0.99, sin(uv*3.14) * 0.5 + 0.5);
+                                                       uv += uv.yx;
+                                                       if(uv.x < 0.1){discard;}
+                                                       gl_FragColor = vec4(uv,0.0,1.);
                                                    }
                                                    
                                                    
