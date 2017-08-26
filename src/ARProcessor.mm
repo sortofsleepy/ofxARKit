@@ -43,6 +43,21 @@ void ARProcessor::addAnchor(){
     }
 }
 
+void ARProcessor::removeAnchorAtIndex(int index){
+    ARAnchor *anchor = session.currentFrame.anchors[index];
+    [session removeAnchor:anchor];
+}
+
+void ARProcessor::removeAllAnchors(){
+    // get anchor count
+    NSInteger anchorInstanceCount = session.currentFrame.anchors.count;
+    
+    // remove everything
+    for(NSInteger i = 0; i < anchorInstanceCount; i++){
+        removeAnchorAtIndex(i);
+    }
+}
+
 void ARProcessor::setup(){
     
     ambientIntensity = 0.0;
