@@ -10,9 +10,11 @@ This is an openFrameworks addon that provides some helper classes for working wi
 * clone this repo into your addons folder 
 
 # Current functionality 
-ARKit, while it does do a ton behind the scenes; it pretty much leaves it up to you to figure out how you want to render things. The current Apple documentation, while already moderately detailed, unfortunately leaves some stuff out. I've started a class called `ARProcessor.h`, the intent being to help manage the heavy lifting of certain bit's of functionality.
+ARKit, while it does do a ton behind the scenes; it pretty much leaves it up to you to figure out how you want to render things. The current Apple documentation, while already moderately detailed, unfortunately leaves some stuff out. 
 
+There are a number of files in the addon that deal with a number of various bits of functionality, the primary class being `ARProcessor.h`(though this may change later on)
 
+Some current pieces of functionality include : 
 * For whatever reason - Apple neglected to provide a way to easily render the camera image that the ARKit framwork is seeing at every frame. ARProcessor.h provides a way to render the camera image. 
 * management of camera transform and projection matrices.
 * basic light estimation
