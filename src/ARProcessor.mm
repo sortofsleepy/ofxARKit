@@ -58,6 +58,7 @@ void ARProcessor::setup(){
     viewportSize = CGSizeMake(ofGetWindowWidth(), ofGetWindowHeight());
     yTexture = NULL;
     CbCrTexture = NULL;
+    
     // initialize video texture cache
     CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, ofxiOSGetGLView().context, NULL, &_videoTextureCache);
     if (err){
@@ -68,14 +69,16 @@ void ARProcessor::setup(){
         pointCloud.setup();
     }
     // ========== CAMERA CORRECTION  ============= //
-    zoomLevel = ofGetWindowWidth() / ofGetWindowHeight();
     
+    // this plays into adjusting the camera image to fit the correct perspective.
+    // this should THEORETICALLY be your devices aspect ratio which is what the default is.
+    zoomLevel = ofGetWindowWidth() / ofGetWindowHeight();
     
     // get the name of the current device
     deviceType = [[UIDevice currentDevice] model];
     
     // setup zooming if we're not on an iPhone
-    // TODO how does this affect things if we're on a smaller than iphone device, ie SE?
+    // TODO how does this affect things if we're on a smaller than standard iphone device, ie SE?
     // TODO maybe we should try to re-orient in shaderworld.
     if([deviceType isEqualToString:@"iPad"]){
         needsPerspectiveAdjustment = true;
@@ -94,7 +97,6 @@ void ARProcessor::setup(){
     cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARShaders::camera_convert_vertex);
     cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::camera_convert_fragment);
     cameraConvertShader.linkProgram();
-    
     
     
     // going with a default of 1280x720 as that seems to be a consistant value that ARKit captures at
@@ -144,7 +146,7 @@ void ARProcessor::draw(){
         cameraConvertShader.end();
     cameraFbo.end();
     
-    cameraFbo.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
+    cameraFbo.draw(0,0,viewportSize.width,viewportSize.height);
 
 }
 
@@ -266,7 +268,7 @@ void ARProcessor::buildCameraFrame(CVPixelBufferRef pixelBuffer){
   cameraConvertShader.setUniform1f("zoomRatio",zoomLevel);
     
     cameraConvertShader.setUniform1i("needsCorrection", needsPerspectiveAdjustment);
-    cameraConvertShader.setUniform2f("resolution", ofGetWindowWidth(), ofGetWindowHeight());
+    cameraConvertShader.setUniform2f("resolution", viewportSize.width,viewportSize.height);
     cameraConvertShader.setUniformTexture("yMap", CVOpenGLESTextureGetTarget(yTexture), CVOpenGLESTextureGetName(yTexture), 0);
     
     cameraConvertShader.setUniformTexture("uvMap", CVOpenGLESTextureGetTarget(CbCrTexture), CVOpenGLESTextureGetName(CbCrTexture), 1);

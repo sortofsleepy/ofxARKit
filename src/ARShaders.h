@@ -7,12 +7,11 @@
 #ifndef ARShaders_h
 #define ARShaders_h
 
+// keep camera image shader source in directly since this will never really have to change.
+// Same with point cloud shaders.
+
 namespace ARShaders {
 
-
-// =============== SHADERS ==================== //
-
-// keep camera image shader source in directly since this will never really have to change.
 // Shaders built with the help of
 // https://github.com/BradLarson/GPUImage
 
