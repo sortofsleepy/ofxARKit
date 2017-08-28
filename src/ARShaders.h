@@ -23,10 +23,23 @@ const std::string camera_convert_vertex = STRINGIFY(
                                                     attribute vec2 position;
                                                     varying vec2 vUv;
                                                     uniform mat4 rotationMatrix;
+                                                    uniform float zoomRatio;
+                                                    uniform bool needsCorrection;
                                                     
                                                     const vec2 scale = vec2(0.5,0.5);
                                                     void main(){
+                                                       
+                                                        
                                                         vUv = position.xy * scale + scale;
+                                                        
+                                                        if(needsCorrection){
+                                                            // fix scaling?
+                                                            // https://stackoverflow.com/questions/24651369/blend-textures-of-different-size-coordinates-in-glsl/24654919#24654919
+                                                            vec2 fromCenter = vUv - scale;
+                                                            vec2 scaleFromCenter = fromCenter * vec2(zoomRatio);
+                                                            
+                                                            vUv -= scaleFromCenter;
+                                                        }
                                                         
                                                         gl_Position = rotationMatrix * vec4(position,0.0,1.0);
                                                     }

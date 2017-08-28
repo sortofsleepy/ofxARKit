@@ -43,12 +43,27 @@ void ARProcessor::addAnchor(){
     }
 }
 
+void ARProcessor::adjustPerspectiveCorrection(float zoomLevel){
+    this->zoomLevel = zoomLevel;
+}
+
 void ARProcessor::setup(){
     
     ambientIntensity = 0.0;
     orientation = UIInterfaceOrientationPortrait;
     shouldBuildCameraFrame = true;
     debugMode = true;
+    needsPerspectiveAdjustment = false;
+    
+    // get the name of the current device
+    deviceType = [[UIDevice currentDevice] model];
+    
+    // setup zooming if we're not on an iPhone
+    // TODO how does this affect things if we're on a smaller than iphone device, ie SE?
+    if([deviceType isEqualToString:@"iPad"]){
+        needsPerspectiveAdjustment = true;
+        setupPerspectiveCorrection();
+    }
     
     viewportSize = CGSizeMake(ofGetWindowWidth(), ofGetWindowHeight());
     
@@ -76,7 +91,9 @@ void ARProcessor::setup(){
         pointCloud.setup();
     }
     
-    cameraFbo.allocate(ofGetWindowWidth(), ofGetWindowHeight(), GL_RGBA);
+    // going with a default of 1280x720 as that seems to be a consistant value that ARKit captures at
+    // regardless of device, also after a contributor suggested POT textures are better.
+    cameraFbo.allocate(1280,720, GL_RGBA);
 }
 
 ARFrame* ARProcessor::getCurrentFrame(){
@@ -273,4 +290,12 @@ ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation o
     
     
     return cameraMatrices;
+}
+
+void ARProcessor::setupPerspectiveCorrection(){
+    
+    cameraConvertShader.begin();
+    cameraConvertShader.setUniform1i("needsCorrection", needsPerspectiveAdjustment);
+    cameraConvertShader.setUniform1f("zoomRatio",zoomLevel);
+    cameraConvertShader.end();
 }
