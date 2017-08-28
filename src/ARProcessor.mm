@@ -45,6 +45,7 @@ void ARProcessor::addAnchor(){
 
 void ARProcessor::adjustPerspectiveCorrection(float zoomLevel){
     this->zoomLevel = zoomLevel;
+    setupPerspectiveCorrection();
 }
 
 void ARProcessor::setup(){
@@ -293,6 +294,10 @@ ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation o
 }
 
 void ARProcessor::setupPerspectiveCorrection(){
+    
+    // zoom level is (theoretically) the aspect ratio of your device
+    // TODO more testing on more devices is needed.
+    zoomLevel = ofGetWindowWidth() / ofGetWindowHeight();
     
     cameraConvertShader.begin();
     cameraConvertShader.setUniform1i("needsCorrection", needsPerspectiveAdjustment);
