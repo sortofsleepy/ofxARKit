@@ -73,6 +73,8 @@ class ARProcessor {
     
     bool debugMode;
     
+    float near;
+    float far;
 
     // ================ PRIVATE FUNCTIONS =================== //
 
@@ -87,6 +89,10 @@ public:
     ARProcessor();
     ARProcessor(ARSession * session);
     ~ARProcessor();
+    
+    void setCameraNearClip(float near);
+    void setCameraFarClip(float far);
+    void setDeviceOrientation(UIInterfaceOrientation orientation);
     
     // creates a shared_ptr of an ARProcessor instance
     static ARRef create(ARSession * session){

@@ -58,6 +58,8 @@ void ARProcessor::setup(){
     viewportSize = CGSizeMake(ofGetWindowWidth(), ofGetWindowHeight());
     yTexture = NULL;
     CbCrTexture = NULL;
+    near = 0.01;
+    far = 1000.0;
     
     // initialize video texture cache
     CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, ofxiOSGetGLView().context, NULL, &_videoTextureCache);
@@ -106,6 +108,10 @@ void ARProcessor::setup(){
 
 ARFrame* ARProcessor::getCurrentFrame(){
     return currentFrame;
+}
+
+void ARProcessor::setDeviceOrientation(UIInterfaceOrientation orientation){
+    this->orientation = orientation;
 }
 
 CVOpenGLESTextureRef ARProcessor::createTextureFromPixelBuffer(CVPixelBufferRef pixelBuffer,int planeIndex,GLenum format,int width,int height){
@@ -179,7 +185,7 @@ void ARProcessor::update(){
     cameraMatrices.cameraTransform = convert<matrix_float4x4,ofMatrix4x4>(currentFrame.camera.transform);
     
     // update camera projection and view matrices.
-    getMatricesForOrientation(orientation);
+    getMatricesForOrientation(orientation,near,far);
     
     // only act if we have the current frame
     if(currentFrame){
@@ -292,6 +298,15 @@ void ARProcessor::setARCameraMatrices(){
 float ARProcessor::getAmbientIntensity(){
     return ambientIntensity;
 }
+
+void ARProcessor::setCameraNearClip(float near){
+ 
+    this->near = near;
+}
+void ARProcessor::setCameraFarClip(float far){
+    this->far = far;
+}
+
 
 ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
     
