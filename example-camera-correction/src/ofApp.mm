@@ -92,7 +92,6 @@ void ofApp::update(){
             matrix_float4x4 newMat = matrix_multiply(anchor.transform, coordinateSpaceTransform);
             mats.push_back(newMat);
             logSIMD(newMat);
-            //anchorUniforms->modelMatrix = matrix_multiply(anchor.transform, coordinateSpaceTransform);
         }
     }
     
@@ -117,7 +116,6 @@ void ofApp::draw() {
             
             for (int i = 0; i < mats.size(); i++){
                 ofPushMatrix();
-                //mats[i].operator=(const simd_float4x4 &)
                 ofMatrix4x4 mat;
                 mat.set(mats[i].columns[0].x, mats[i].columns[0].y,mats[i].columns[0].z,mats[i].columns[0].w,
                         mats[i].columns[1].x, mats[i].columns[1].y,mats[i].columns[1].z,mats[i].columns[1].w,

@@ -32,16 +32,22 @@ const std::string camera_convert_vertex = STRINGIFY(
                                                         
                                                         vUv = position.xy * scale + scale;
                                                         
+                                                        // if we need to correct perspective distortion,
                                                         if(needsCorrection){
+                                                            
                                                             // fix scaling?
                                                             // https://stackoverflow.com/questions/24651369/blend-textures-of-different-size-coordinates-in-glsl/24654919#24654919
                                                             vec2 fromCenter = vUv - scale;
                                                             vec2 scaleFromCenter = fromCenter * vec2(zoomRatio);
                                                             
                                                             vUv -= scaleFromCenter;
+                                                            
                                                         }
                                                         
-                                                        gl_Position = rotationMatrix * vec4(position,0.0,1.0);
+                                                       gl_Position = rotationMatrix* vec4(position,0.0,1.0);
+                                                    
+                                                        
+                                                        
                                                     }
                                                     
                                                     
@@ -62,6 +68,7 @@ const std::string camera_convert_fragment = STRINGIFY(
                                                           
                                                           // flip uvs so image isn't inverted.
                                                           vec2 textureCoordinate = 1.0 - vec2(vUv.s, vUv.t);
+                                                        
                                                           
                                                           // Using BT.709 which is the standard for HDTV
                                                           mat3 colorConversionMatrix = mat3(

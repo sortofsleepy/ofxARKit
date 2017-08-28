@@ -45,43 +45,19 @@ void ARProcessor::addAnchor(){
 
 void ARProcessor::adjustPerspectiveCorrection(float zoomLevel){
     this->zoomLevel = zoomLevel;
-    setupPerspectiveCorrection();
 }
 
 void ARProcessor::setup(){
     
+    // ========== ATTRIBUTE SETUP ============= //
     ambientIntensity = 0.0;
     orientation = UIInterfaceOrientationPortrait;
     shouldBuildCameraFrame = true;
     debugMode = true;
     needsPerspectiveAdjustment = false;
-    
-    // get the name of the current device
-    deviceType = [[UIDevice currentDevice] model];
-    
-    // setup zooming if we're not on an iPhone
-    // TODO how does this affect things if we're on a smaller than iphone device, ie SE?
-    if([deviceType isEqualToString:@"iPad"]){
-        needsPerspectiveAdjustment = true;
-        setupPerspectiveCorrection();
-    }
-    
     viewportSize = CGSizeMake(ofGetWindowWidth(), ofGetWindowHeight());
-    
-    // setup plane and shader in order to draw the camera feed
-    cameraPlane = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
-    cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARShaders::camera_convert_vertex);
-    cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::camera_convert_fragment);
-    cameraConvertShader.linkProgram();
-    
     yTexture = NULL;
     CbCrTexture = NULL;
-    
-    // correct video orientation
-    rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
-    
-    
-    
     // initialize video texture cache
     CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, ofxiOSGetGLView().context, NULL, &_videoTextureCache);
     if (err){
@@ -91,6 +67,35 @@ void ARProcessor::setup(){
     if(debugMode){
         pointCloud.setup();
     }
+    // ========== CAMERA CORRECTION  ============= //
+    zoomLevel = ofGetWindowWidth() / ofGetWindowHeight();
+    
+    
+    // get the name of the current device
+    deviceType = [[UIDevice currentDevice] model];
+    
+    // setup zooming if we're not on an iPhone
+    // TODO how does this affect things if we're on a smaller than iphone device, ie SE?
+    // TODO maybe we should try to re-orient in shaderworld.
+    if([deviceType isEqualToString:@"iPad"]){
+        needsPerspectiveAdjustment = true;
+    
+        // correct video orientation
+        rotation.makeRotationMatrix(90, ofVec3f(0,0,1));
+        
+    }else{
+        // correct video orientation
+        rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
+    }
+
+    // ========== SHADER SETUP  ============= //
+    // setup plane and shader in order to draw the camera feed
+    cameraPlane = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
+    cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARShaders::camera_convert_vertex);
+    cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::camera_convert_fragment);
+    cameraConvertShader.linkProgram();
+    
+    
     
     // going with a default of 1280x720 as that seems to be a consistant value that ARKit captures at
     // regardless of device, also after a contributor suggested POT textures are better.
@@ -139,7 +144,7 @@ void ARProcessor::draw(){
         cameraConvertShader.end();
     cameraFbo.end();
     
-    cameraFbo.draw(0,0);
+    cameraFbo.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
 
 }
 
@@ -257,6 +262,10 @@ void ARProcessor::buildCameraFrame(CVPixelBufferRef pixelBuffer){
     
     // write uniforms values to shader
     cameraConvertShader.begin();
+    
+  cameraConvertShader.setUniform1f("zoomRatio",zoomLevel);
+    
+    cameraConvertShader.setUniform1i("needsCorrection", needsPerspectiveAdjustment);
     cameraConvertShader.setUniform2f("resolution", ofGetWindowWidth(), ofGetWindowHeight());
     cameraConvertShader.setUniformTexture("yMap", CVOpenGLESTextureGetTarget(yTexture), CVOpenGLESTextureGetName(yTexture), 0);
     
@@ -293,14 +302,3 @@ ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation o
     return cameraMatrices;
 }
 
-void ARProcessor::setupPerspectiveCorrection(){
-    
-    // zoom level is (theoretically) the aspect ratio of your device
-    // TODO more testing on more devices is needed.
-    zoomLevel = ofGetWindowWidth() / ofGetWindowHeight();
-    
-    cameraConvertShader.begin();
-    cameraConvertShader.setUniform1i("needsCorrection", needsPerspectiveAdjustment);
-    cameraConvertShader.setUniform1f("zoomRatio",zoomLevel);
-    cameraConvertShader.end();
-}

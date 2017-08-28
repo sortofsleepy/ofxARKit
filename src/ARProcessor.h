@@ -83,10 +83,6 @@ class ARProcessor {
     // Constructs camera frame from pixel data
     void buildCameraFrame(CVPixelBufferRef pixelBuffer);
     
-    //! Function for enabling camera perspective correction for some devices.
-    //! Iphones appear to be ok - but iPad's may need to have the camera image corrected slightly.
-    //! This makes an attempt to do so automatically, but you can pass in a custom value
-    void setupPerspectiveCorrection();
 public:
     ARProcessor();
     ARProcessor(ARSession * session);
@@ -171,7 +167,10 @@ public:
     }
     
 
-    // tweaks the zoom level used in perspective correction
+    //! Function for enabling camera perspective correction for some devices.
+    //! Iphones appear to be ok - but iPad's may need to have the camera image corrected slightly.
+    //! This makes an attempt to do so automatically, but you can pass in a custom value.
+    //! This function in particular sets the perspective correction level.
     void adjustPerspectiveCorrection(float zoomLevel=1.0);
     
 };
