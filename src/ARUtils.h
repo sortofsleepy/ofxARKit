@@ -8,6 +8,7 @@
 #define ARToolkitComponents_h
 
 #define STRINGIFY(A) #A
+#include "ofMain.h"
 
 namespace ARCommon {
     

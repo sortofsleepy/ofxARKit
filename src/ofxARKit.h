@@ -14,6 +14,6 @@
 #include "ARProcessor.h"
 #include "ARAnchorManager.h"
 #include "ARShaders.h"
-
+#include "ARCam.h"
 
 #endif /* ofxARKit_h */
