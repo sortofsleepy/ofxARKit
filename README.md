@@ -16,6 +16,16 @@ There are a number of classes and other files in the addon that deal with differ
 
 The class `ARProcessor` deals with joining all of these different bits of functionality in a (hopefully) easy to use API, but each of the classes can be used as standalone classes as well.
 
+There are the following classes/files that are part of the addon
+* `ARAnchorManager` : deals with managing `ARAnchor` objects as well as `ARPlaneAnchor` objects.
+* `ARCam` : deals with managing the camera data found by ARKit and generating something that can be displayed.
+* `ARDebugUtils` : as the name suggests - this deals with debugging helpers. At the moment, it's able to handle feature detection and drawing a point cloud.
+* `ARObject` : this is a header file that declares `PlaneAnchorObject` and `ARObject`. These structs are used to store converted ARKit data into something more oF friendly.
+* `ARShaders` : this stores the core shaders needed by the addon.
+* `ARUtils.h` : this stores various utility functions
+
+Note that if you've used the addon pior to 8/29/2017, though I did my best to not make any api changes, there is a very tiny chance your code may break.
+
 # Setting up ARKit
 ARKit actually does a ton of things in and of itself. All you really have to do is initialize the framework in your ViewController, then you manipulate that session object to grab information the framework provides. 
 
