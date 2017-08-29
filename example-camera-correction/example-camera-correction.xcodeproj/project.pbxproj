@@ -24,6 +24,7 @@
 		B00AF4FE1F44D5180082DDF8 /* OFAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B00AF4FB1F44D4F50082DDF8 /* OFAppViewController.mm */; };
 		B02A0FC01F49D302002A69F3 /* ARAnchorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B02A0FB91F49D298002A69F3 /* ARAnchorManager.mm */; };
 		B02A0FC11F49D302002A69F3 /* ARProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = B02A0FBC1F49D298002A69F3 /* ARProcessor.mm */; };
+		B07F9A411F561D1D0031FC25 /* ARCam.mm in Sources */ = {isa = PBXBuildFile; fileRef = B07F9A401F561D1D0031FC25 /* ARCam.mm */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
 		BBE5EAB80F49AD8400F28951 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */; };
@@ -83,6 +84,8 @@
 		B02A0FBC1F49D298002A69F3 /* ARProcessor.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = ARProcessor.mm; path = ../src/ARProcessor.mm; sourceTree = "<group>"; };
 		B02A0FBD1F49D298002A69F3 /* ofxARKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxARKit.h; path = ../src/ofxARKit.h; sourceTree = "<group>"; };
 		B02A0FBF1F49D2D1002A69F3 /* ARDebugUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARDebugUtils.h; path = ../src/ARDebugUtils.h; sourceTree = "<group>"; };
+		B07F9A3F1F561D1C0031FC25 /* ARCam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARCam.h; path = ../src/ARCam.h; sourceTree = "<group>"; };
+		B07F9A401F561D1D0031FC25 /* ARCam.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = ARCam.mm; path = ../src/ARCam.mm; sourceTree = "<group>"; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BB16EBD80F2B2AB500518274 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB24DDC910DA781C00E9C588 /* ofxiOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ofxiOS-Info.plist"; sourceTree = "<group>"; };
@@ -188,6 +191,8 @@
 				B02A0FBF1F49D2D1002A69F3 /* ARDebugUtils.h */,
 				B02A0FB91F49D298002A69F3 /* ARAnchorManager.mm */,
 				B02A0FBB1F49D298002A69F3 /* ARProcessor.h */,
+				B07F9A3F1F561D1C0031FC25 /* ARCam.h */,
+				B07F9A401F561D1D0031FC25 /* ARCam.mm */,
 				B02A0FBC1F49D298002A69F3 /* ARProcessor.mm */,
 				B02A0FB71F49D298002A69F3 /* ARShaders.h */,
 				B02A0FB81F49D298002A69F3 /* ARUtils.h */,
@@ -399,6 +404,7 @@
 				B02A0FC11F49D302002A69F3 /* ARProcessor.mm in Sources */,
 				B00AF4FC1F44D5180082DDF8 /* MyAppDelegate.mm in Sources */,
 				B00AF4FD1F44D5180082DDF8 /* MyAppViewController.mm in Sources */,
+				B07F9A411F561D1D0031FC25 /* ARCam.mm in Sources */,
 				B00AF4FE1F44D5180082DDF8 /* OFAppViewController.mm in Sources */,
 				E4D8936E11527B74007E1F53 /* main.mm in Sources */,
 				E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */,
