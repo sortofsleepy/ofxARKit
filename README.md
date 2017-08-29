@@ -12,15 +12,9 @@ This is an openFrameworks addon that provides some helper classes for working wi
 # Current functionality 
 ARKit, while it does do a ton behind the scenes; it pretty much leaves it up to you to figure out how you want to render things. The current Apple documentation, while already moderately detailed, unfortunately leaves some stuff out. 
 
-There are a number of files in the addon that deal with a number of various bits of functionality, the primary class being `ARProcessor.h`(though this may change later on)
+There are a number of classes and other files in the addon that deal with different areas relating to ARKit, like setting up the camera, dealing with feature detection, or dealing with plane detection.
 
-Some current pieces of functionality include : 
-* For whatever reason - Apple neglected to provide a way to easily render the camera image that the ARKit framwork is seeing at every frame. ARProcessor.h provides a way to render the camera image. 
-* management of camera transform and projection matrices.
-* basic light estimation
-* anchor management
-* feature detection with the built in point cloud
-
+The class `ARProcessor` deals with joining all of these different bits of functionality in a (hopefully) easy to use API, but each of the classes can be used as standalone classes as well.
 
 # Setting up ARKit
 ARKit actually does a ton of things in and of itself. All you really have to do is initialize the framework in your ViewController, then you manipulate that session object to grab information the framework provides. 
@@ -56,7 +50,7 @@ To initialize the ARKit framework
 note that - assuming you're using objective c++(which should be the default for ios oF projects), you could just as easily skip adding a 
 view controller and just initialize in ofApp.h/.mm
 
-Lastly - include "ofxARKit.h"
+Lastly - include `ofxARKit.h`, this will give you access to all of the class files as well as the `ARProcessor` api class.
 
 # Permissions
 For ARKit - You'll have to enable the `Privacy - Camera Usage Description` in your `ofxiOS-Info.plist` file. This value for this field is just the string you want to show users when you ask for Camera permissions.
