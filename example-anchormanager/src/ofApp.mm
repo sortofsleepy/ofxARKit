@@ -56,7 +56,7 @@ void ofApp::setup() {
     processor = ARProcessor::create(session);
     processor->setup();
     
-    anchors = ARAnchorManager::create(session);
+    anchors = ARCore::ARAnchorManager::create(session);
     
     
     
