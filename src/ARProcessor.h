@@ -88,7 +88,7 @@ public:
     }
     
     //! Get the camera matrix set
-    ARCameraMatrices getCameraMatrices(){
+    ARCommon::ARCameraMatrices getCameraMatrices(){
         return camera->getCameraMatrices();
     }
     

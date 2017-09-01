@@ -37,9 +37,6 @@ namespace ARCore {
         // fbo to process and render camera manager into
         ofFbo cameraFbo;
         
-        // used to help correct perspective distortion for some devices.
-        float zoomLevel;
-        
         // flag to let the shader know if we need to tweak perspective
         bool needsPerspectiveAdjustment;
         
@@ -85,6 +82,8 @@ namespace ARCore {
         static ARCamRef create(ARSession * session){
             return ARCamRef(new ARCam(session));
         }
+        // used to help correct perspective distortion for some devices.
+        float zoomLevel;
         
         void setup();
         void update();
