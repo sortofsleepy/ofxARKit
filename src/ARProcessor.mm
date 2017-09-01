@@ -59,6 +59,9 @@ void ARProcessor::setARCameraMatrices(){
 ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
     return camera->getMatricesForOrientation(orientation,near,far);
 }
+void ARProcessor::adjustPerspectiveCorrection(float zoomLevel){
+    this->zoomLevel = zoomLevel;
+}
 
 // ======= ANCHOR API ========= //
 void ARProcessor::drawHorizontalPlanes(){

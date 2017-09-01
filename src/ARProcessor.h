@@ -76,11 +76,30 @@ public:
     
    
     void setARCameraMatrices();
+    // adjusts the perspective correction zoom(Note: primarily for larger devices)
+    void adjustPerspectiveCorrection(float zoomLevel);
     
     //! Returns Projection and View matrices for the specified orientation.
     ARCommon::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=0.01,float far=1000.0);
+    
+    //! Return the camera image as a texture.
     ofTexture getCameraTexture(){
         return camera->getCameraTexture();
+    }
+    
+    //! Get the camera matrix set
+    ARCameraMatrices getCameraMatrices(){
+        return camera->getCameraMatrices();
+    }
+    
+    // returns the current projection matrix from the camera
+    ofMatrix4x4 getProjectionMatrix(){
+        return camera->getProjectionMatrix();
+    }
+    
+    // returns the current view matrix from the camera
+    ofMatrix4x4 getViewMatrix(){
+        return camera->getViewMatrix();
     }
 };
 
