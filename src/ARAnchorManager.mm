@@ -141,36 +141,56 @@ namespace ARCore {
                 ofVec3f center = convert<vector_float3,ofVec3f>(pa.center);
                 ofVec3f extent = convert<vector_float3,ofVec3f>(pa.extent);
                 
-                // ensure plane is not already addded to stack
-                for(int i = 0; i < planes.size();++i){
+               
+                // if we don't have planes, add first plane we find.
+                if(planes.size() < 1){
+                    PlaneAnchorObject plane;
                     
-                    // if we have a new plane,add to stack, otherwise check to see if we need to update.
-                    if(planes[i].uuid != anchor.identifier){
-                        PlaneAnchorObject plane;
+                    plane.transform = paTransform;
+                    
+                    plane.position.x = -extent.x / 2;
+                    plane.position.y = -extent.y / 2;
+                    plane.width = extent.x;
+                    plane.height = extent.z;
+                    plane.uuid = anchor.identifier;
+                    plane.rawAnchor = pa;
+                    
+                    planes.push_back(plane);
+                    
+                    
+                }else{
+                    // otherwise loop through current planes to
+                    // ensure plane is not already addded to stack
+                    for(int i = 0; i < planes.size();++i){
                         
-                        plane.transform = paTransform;
-                        
-                        plane.position.x = -extent.x / 2;
-                        plane.position.y = -extent.y / 2;
-                        plane.width = extent.x;
-                        plane.height = extent.z;
-                        plane.uuid = anchor.identifier;
-                        plane.rawAnchor = pa;
-                        
-                        planes.push_back(plane);
-                    }else{
-                        
-                        // if we need to update the plane - do so, otherwise do nothing.
-                        if(shouldUpdatePlanes){
+                        // if we have a new plane,add to stack, otherwise check to see if we need to update.
+                        if(planes[i].uuid != anchor.identifier){
+                            PlaneAnchorObject plane;
                             
-                            planes[i].transform = paTransform;
+                            plane.transform = paTransform;
                             
-                            planes[i].position.x = -extent.x / 2;
-                            planes[i].position.y = -extent.y / 2;
-                            planes[i].width = extent.x;
-                            planes[i].height = extent.z;
-                            planes[i].uuid = anchor.identifier;
+                            plane.position.x = -extent.x / 2;
+                            plane.position.y = -extent.y / 2;
+                            plane.width = extent.x;
+                            plane.height = extent.z;
+                            plane.uuid = anchor.identifier;
+                            plane.rawAnchor = pa;
                             
+                            planes.push_back(plane);
+                        }else{
+                            
+                            // if we need to update the plane - do so, otherwise do nothing.
+                            if(shouldUpdatePlanes){
+                                
+                                planes[i].transform = paTransform;
+                                
+                                planes[i].position.x = -extent.x / 2;
+                                planes[i].position.y = -extent.y / 2;
+                                planes[i].width = extent.x;
+                                planes[i].height = extent.z;
+                                planes[i].uuid = anchor.identifier;
+                                
+                            }
                         }
                     }
                 }

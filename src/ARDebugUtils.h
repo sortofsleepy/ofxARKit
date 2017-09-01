@@ -50,12 +50,10 @@ namespace ARDebugUtils {
         }
         
         void setup(){
-#ifdef OF_TARGET_IPHONE
             pointShader.setupShaderFromSource(GL_VERTEX_SHADER, ARShaders::point_cloud_vertex);
             pointShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::point_cloud_fragment);
             pointShader.linkProgram();
-#endif
-            
+ 
             pointCount = 0;
             
             glGenBuffers(1, &vbo);
@@ -94,11 +92,10 @@ namespace ARDebugUtils {
         //! draws the resulting point cloud - pass in a projection and view matrix(usually from ARKit)
         void draw(ofMatrix4x4 projectionMatrix,ofMatrix4x4 modelViewMatrix){
     
-#ifdef OF_TARGET_IPHONE
             pointShader.begin();
             pointShader.setUniformMatrix4f("projectionMatrix", projectionMatrix);
             pointShader.setUniformMatrix4f("modelViewMatrix",modelViewMatrix);
-#endif
+
             glBindBuffer(GL_ARRAY_BUFFER,vbo);
             GLuint positionAttribLocation = pointShader.getAttributeLocation("position");
             
