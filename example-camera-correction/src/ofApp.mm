@@ -60,7 +60,7 @@ void ofApp::setup() {
     // wrong, you can call
     //processor->adjustPerspectiveCorrection();
     
-    // and add pass in your custom value;
+    // and pass in your custom value;
     
     
     
