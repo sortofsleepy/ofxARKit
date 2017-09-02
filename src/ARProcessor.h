@@ -16,7 +16,8 @@
 #include "ARUtils.h"
 #include "ARShaders.h"
 #include "ARAnchorManager.h"
-#define STRINGIFY(A) #A
+#include "ARDebugUtils.h"
+#include "ARCam.h"
 
 typedef std::shared_ptr<class ARProcessor>ARRef;
 
@@ -28,50 +29,9 @@ class ARProcessor {
     
     ARSession * session;
 
-    float ambientIntensity;
-    
-    CGSize viewportSize;
-    // ========== ANCHORS ==================== //
-    ARAnchorManager anchorController;
-    
-    // ========== CAMERA IMAGE STUFF ================= //
-    
-    CVOpenGLESTextureRef yTexture;
-    CVOpenGLESTextureRef CbCrTexture;
-    CVOpenGLESTextureCacheRef _videoTextureCache;
-    
-    // mesh to render camera image
-    ofMesh cameraPlane;
-    
-    // shader to color convert the camera image
-    ofShader cameraConvertShader;
-    
-    // shader to render camera image
-    ofShader cameraRenderShader;
-    
-    // this handles rotating the camera image to the correct orientation.
-    ofMatrix4x4 rotation;
-    
-    // joined object of both the transform and projection matrices
-    ARCommon::ARCameraMatrices cameraMatrices;
-
-    // a reference to the current frame in the scene
-    ARFrame * currentFrame;
-    
-    // to help reduce resource strain, making building the camera frame optional
-    bool shouldBuildCameraFrame;
-    
+  
     bool debugMode;
-
-
-    // ================ PRIVATE FUNCTIONS =================== //
-
     
-    // Converts the CVPixelBufferIndex into a OpenGL texture
-    CVOpenGLESTextureRef createTextureFromPixelBuffer(CVPixelBufferRef pixelBuffer,int planeIndex,GLenum format=GL_LUMINANCE,int width=0,int height=0);
-    
-    // Constructs camera frame from pixel data
-    void buildCameraFrame(CVPixelBufferRef pixelBuffer);
 public:
     ARProcessor();
     ARProcessor(ARSession * session);
@@ -80,49 +40,67 @@ public:
     static ARRef create(ARSession * session){
         return ARRef(new ARProcessor(session));
     }
-    static ARRef create(){
-        return ARRef(new ARProcessor());
-    }
-    
-    // current orientation to use to get proper projection and view matrices
-    UIInterfaceOrientation orientation;
-    
-    float getAmbientIntensity();
-    void setARCameraMatrices();
-
-    void addAnchor();
-    void pauseSession();
-    
-    ARFrame* getCurrentFrame();
     
     void setup();
     void update();
-    
-    // draws the camera frame
     void draw();
+    void drawFrame();
+    void pauseSession();
     
-    // alias for draw
-    void drawCameraFrame();
+    // ========== OBJECTS ==================== //
+    
+    // An ARAnchorManager deals with handling Anchor objects in ARKit
+    ARCore::AnchorManagerRef anchorController;
+    
+    // A debug class to help debug when features are detected
+    ARDebugUtils::PointCloudDebug pointCloud;
+    
+    // A class to handle camera functionality.
+    ARCore::ARCamRef camera;
+    
+    //======== DEBUG API ============ //
+    
+    // draws point cloud
+    void drawPointCloud();
 
+    
+    //======== PLANE API ============ //
 
-    // TODO add matrix retrival for other orientations
-    // ps thanks zach for finding this!
+    std::vector<PlaneAnchorObject> getHorizontalPlanes(){
+        return anchorController->getPlaneAnchors();
+    }
+    
+    void drawHorizontalPlanes();
+    
+   //======== CAMERA API ============ //
+    
+   
+    void setARCameraMatrices();
+    // adjusts the perspective correction zoom(Note: primarily for larger devices)
+    void adjustPerspectiveCorrection(float zoomLevel);
+    
+    //! Returns Projection and View matrices for the specified orientation.
     ARCommon::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=0.01,float far=1000.0);
-
-    ofMatrix4x4 getProjectionMatrix(){
-        return cameraMatrices.cameraProjection;
+    
+    //! Return the camera image as a texture.
+    ofTexture getCameraTexture(){
+        return camera->getCameraTexture();
     }
-
-    ofMatrix4x4 getViewMatrix(){
-        return cameraMatrices.cameraView;
-    }
-
-    ofMatrix4x4 getTransformMatrix(){
-        return cameraMatrices.cameraTransform;
-    }
+    
+    //! Get the camera matrix set
     ARCommon::ARCameraMatrices getCameraMatrices(){
-        return cameraMatrices;
-    }  
+        return camera->getCameraMatrices();
+    }
+    
+    // returns the current projection matrix from the camera
+    ofMatrix4x4 getProjectionMatrix(){
+        return camera->getProjectionMatrix();
+    }
+    
+    // returns the current view matrix from the camera
+    ofMatrix4x4 getViewMatrix(){
+        return camera->getViewMatrix();
+    }
 };
 
 
