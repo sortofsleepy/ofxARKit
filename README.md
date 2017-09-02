@@ -14,7 +14,7 @@ __then__
 * Download openFrameworks [here](http://openframeworks.cc/versions/v0.9.8/of_v0.9.8_ios_release.zip)
 * clone this repo into your addons folder
 
-If you've copied one of the example projects - you should be all set, but if not you'll also need to
+If you've copied one of the example projects - you should be all set, but if you've created a new project with the project generator you'll also need to
 
 * add the ARKit framework to your project
 
