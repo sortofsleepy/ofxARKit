@@ -15,8 +15,7 @@ ARProcessor::ARProcessor(){
 ARProcessor::ARProcessor(ARSession * session){
     this->session = session;
     
-    anchorController = new ARAnchorManager(session);
-    camera = ARCam::create(session);
+
     
     debugMode = true;
 }
@@ -27,6 +26,7 @@ ARProcessor::~ARProcessor(){
     
     // remove this instance of the ARCam - if there are other ARCams around, they will still be in memory
     camera.reset();
+    anchorController.reset();
 }
 
 void ARProcessor::pauseSession(){
@@ -34,6 +34,8 @@ void ARProcessor::pauseSession(){
 }
 
 void ARProcessor::setup(){
+    anchorController = ARAnchorManager::create(session);
+    camera = ARCam::create(session);
     camera->setup();
 }
 
@@ -46,6 +48,9 @@ void ARProcessor::update(){
     if(debugMode){
         pointCloud.updatePointCloud(session.currentFrame);
     }
+    
+    anchorController->update();
+    
 }
 
 

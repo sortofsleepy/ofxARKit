@@ -50,7 +50,7 @@ public:
     // ========== OBJECTS ==================== //
     
     // An ARAnchorManager deals with handling Anchor objects in ARKit
-    ARCore::ARAnchorManager * anchorController;
+    ARCore::AnchorManagerRef anchorController;
     
     // A debug class to help debug when features are detected
     ARDebugUtils::PointCloudDebug pointCloud;

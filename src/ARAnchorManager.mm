@@ -134,6 +134,7 @@ namespace ARCore {
             // did we find a PlaneAnchor?
             // note - you need to turn on planeDetection in your configuration
             if([anchor isKindOfClass:[ARPlaneAnchor class]]){
+                ofLog()<<"Plane Found - number of planes is now : " << planes.size();
                 ARPlaneAnchor* pa = (ARPlaneAnchor*) anchor;
                 
                 // calc values from anchor.
@@ -177,7 +178,7 @@ namespace ARCore {
                             plane.rawAnchor = pa;
                             
                             planes.push_back(plane);
-                        }else{
+                        }else if(planes[i].uuid == anchor.identifier){
                             
                             // if we need to update the plane - do so, otherwise do nothing.
                             if(shouldUpdatePlanes){
