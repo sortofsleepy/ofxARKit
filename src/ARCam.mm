@@ -89,7 +89,9 @@ namespace ARCore {
         if(!session){
             return;
         }
+     
         
+      
         currentFrame = session.currentFrame;
         
         // update camera transform
@@ -116,6 +118,14 @@ namespace ARCore {
             if(shouldBuildCameraFrame){
                 if (CVPixelBufferGetPlaneCount(pixelBuffer) >= 2) {
                     buildCameraFrame(pixelBuffer);
+                    
+                    // write image to fbo
+                    cameraFbo.begin();
+                    cameraConvertShader.begin();
+                    cameraPlane.draw();
+                    cameraConvertShader.end();
+                    cameraFbo.end();
+                    
                 }
             }
             
@@ -131,15 +141,9 @@ namespace ARCore {
         ofLoadMatrix(cameraMatrices.cameraView);
     }
     void ARCam::draw(){
-        cameraFbo.begin();
-        cameraConvertShader.begin();
-        cameraPlane.draw();
-        cameraConvertShader.end();
-        cameraFbo.end();
-        
         cameraFbo.draw(0,0,viewportSize.width,viewportSize.height);
-
     }
+
     ARCameraMatrices ARCam::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
         
         
