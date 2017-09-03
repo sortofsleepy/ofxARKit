@@ -132,6 +132,10 @@ namespace ARCore {
         ofTexture getCameraTexture(){
             return cameraFbo.getTexture();
         }
+        
+        ofFbo getFBO(){
+            return cameraFbo;
+        }
     };
 }
 

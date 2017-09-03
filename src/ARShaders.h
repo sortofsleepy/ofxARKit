@@ -9,7 +9,7 @@
 
 // keep camera image shader source in directly since this will never really have to change.
 // Same with point cloud shaders.
-
+#define STRINGIFY(A) #A
 namespace ARShaders {
 
 // Shaders built with the help of

@@ -72,6 +72,8 @@ public:
     
     void drawHorizontalPlanes();
     
+    void updatePlanes();
+    
    //======== CAMERA API ============ //
     
    
@@ -100,6 +102,10 @@ public:
     // returns the current view matrix from the camera
     ofMatrix4x4 getViewMatrix(){
         return camera->getViewMatrix();
+    }
+    
+    ofFbo getFBO(){
+        return camera->getFBO();
     }
 };
 

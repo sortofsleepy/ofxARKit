@@ -109,20 +109,33 @@ namespace ARCore {
         
     }
     
+    void ARAnchorManager::loopAnchors(std::function<void(ARObject,int index)> func){
+        
+        for (int i = 0; i < anchors.size(); i++) {
+            func(anchors[i],i);
+        }
+        
+    }
+    
     void ARAnchorManager::loopPlaneAnchors(std::function<void(PlaneAnchorObject)> func){
         for (int i = 0; i < planes.size(); i++) {
             func(planes[i]);
         }
     }
     
+    void ARAnchorManager::loopPlaneAnchors(std::function<void(PlaneAnchorObject,int index)> func){
+        for (int i = 0; i < planes.size(); i++) {
+            func(planes[i],i);
+        }
+    }
+    
+    
     
     void ARAnchorManager::update(){
         
         // update number of anchors currently tracked
         anchorInstanceCount = session.currentFrame.anchors.count;
-        
-        // update plane information
-        updatePlanes();
+     
     }
     
     void ARAnchorManager::updatePlanes(){

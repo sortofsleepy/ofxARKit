@@ -67,9 +67,14 @@ namespace ARCore {
         //! Allows you to loop through the anchors and do something
         //! with each anchor. Pass in a lambda function
         void loopAnchors(std::function<void(ARObject)> func);
+        void loopAnchors(std::function<void(ARObject,int index)> func);
         
         //! Allows you to loop through planes and do something with each plane
         void loopPlaneAnchors(std::function<void(PlaneAnchorObject)> func);
+        
+        //! Allows you to loop through planes and do something with each plane
+        void loopPlaneAnchors(std::function<void(PlaneAnchorObject,int index)> func);
+        
         
         //! Returns the PlaneAnchorObject associated with found planes
         PlaneAnchorObject getPlaneAt(int index=0);
