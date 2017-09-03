@@ -19,7 +19,6 @@
 		9936F6101BFA4DEE00891288 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9936F60F1BFA4DEE00891288 /* Images.xcassets */; };
 		9936F6121BFA65F100891288 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9936F6111BFA65F100891288 /* LaunchScreen.storyboard */; };
 		9969E7561C782C4500DEF0F6 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9969E7551C782C4500DEF0F6 /* CoreMotion.framework */; };
-		B0061CD71F5BA53D007F2306 /* ImageMesh.mm in Sources */ = {isa = PBXBuildFile; fileRef = B0061CD51F5BA53D007F2306 /* ImageMesh.mm */; };
 		B014DDD01F5B6CF6001F926B /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B014DDCF1F5B6CF6001F926B /* ARKit.framework */; };
 		B014DDDA1F5B6F71001F926B /* MyAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = B014DDD41F5B6ED2001F926B /* MyAppDelegate.mm */; };
 		B014DDDB1F5B6F71001F926B /* MyAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B014DDD71F5B6ED2001F926B /* MyAppViewController.mm */; };
@@ -71,8 +70,6 @@
 		9936F60F1BFA4DEE00891288 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9936F6111BFA65F100891288 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9969E7551C782C4500DEF0F6 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		B0061CD51F5BA53D007F2306 /* ImageMesh.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageMesh.mm; sourceTree = "<group>"; };
-		B0061CD61F5BA53D007F2306 /* ImageMesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageMesh.h; sourceTree = "<group>"; };
 		B0061D1C1F5CC373007F2306 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B014DDCF1F5B6CF6001F926B /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		B014DDD31F5B6ED2001F926B /* MyAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAppDelegate.h; sourceTree = "<group>"; };
@@ -298,8 +295,6 @@
 				E4D8936B11527B74007E1F53 /* main.mm */,
 				E4D8936D11527B74007E1F53 /* ofApp.mm */,
 				E4D8936C11527B74007E1F53 /* ofApp.h */,
-				B0061CD51F5BA53D007F2306 /* ImageMesh.mm */,
-				B0061CD61F5BA53D007F2306 /* ImageMesh.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -414,7 +409,6 @@
 				E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */,
 				966DC6CFF8359AF2BCC8EAFD /* ARAnchorManager.mm in Sources */,
 				8DEE3593CFC3E0A0F3578C2D /* ARCam.mm in Sources */,
-				B0061CD71F5BA53D007F2306 /* ImageMesh.mm in Sources */,
 				26E48FA925CB7AB40D972560 /* ARProcessor.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

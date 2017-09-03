@@ -3,7 +3,6 @@
 #include "ofxiOS.h"
 #include <ARKit/ARKit.h>
 #include "ofxARKit.h"
-#include "ImageMesh.h"
 class ofApp : public ofxiOSApp {
     
 public:
@@ -31,9 +30,6 @@ public:
     
     ofTrueTypeFont font;
     
-  
-    ofFbo copyFBO;
-   
     std::vector<ofFbo> images;
     
     // ====== AR STUFF ======== //
