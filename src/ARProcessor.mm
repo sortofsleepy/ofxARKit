@@ -49,7 +49,7 @@ void ARProcessor::update(){
         pointCloud.updatePointCloud(session.currentFrame);
     }
     
-    //anchorController->update();
+    anchorController->update();
     
 }
 

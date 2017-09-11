@@ -1,8 +1,8 @@
 //
 //  ARCam.hpp
-//  example-anchormanager
 //
-//  Created by Joseph Chow on 8/29/17.
+//  Created by Joseph Chow on 8/29/17
+//  Additional support from contributors.
 //
 
 #ifndef ARCam_hpp
@@ -30,9 +30,11 @@ namespace ARCore {
         // the current ambient light intensity
         float ambientIntensity;
         
+        // the current ambient color temperature
+        float ambientColorTemperature;
+        
         // size of the viewport
         CGSize viewportSize;
-        
         
         // fbo to process and render camera manager into
         ofFbo cameraFbo;
@@ -88,6 +90,9 @@ namespace ARCore {
         void setup();
         void update();
         void draw();
+        
+        //! retrieves the current lighting conditions that ARKit is seeing.
+        ARLightEstimate* getLightingConditions();
         
         // helper function to run ofLoadMatrix for projection and view matrices, using
         // the current camera matrices from ARKit.

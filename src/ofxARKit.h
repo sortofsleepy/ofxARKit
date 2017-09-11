@@ -1,6 +1,5 @@
 //
 //  ofxARKit.h
-//  GeoBeats
 //
 //  Created by Joseph Chow on 8/19/17.
 //

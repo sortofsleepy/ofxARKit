@@ -1,8 +1,8 @@
 //
 //  ARProcessor.hpp
-//  ARToolkit
 //
 //  Created by Joseph Chow on 8/4/17.
+//  With additional help by contributors.
 //
 
 #ifndef ARProcessor_hpp

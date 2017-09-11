@@ -1,5 +1,5 @@
 //
-//  ARToolkitComponents.h
+//  ARUtils
 //
 //  Created by Joseph Chow on 8/16/17.
 //
@@ -47,6 +47,11 @@ namespace ARCommon {
         coordinateSpaceTransform.columns[2].z = -1.0;
         matrix_float4x4 modelMat = matrix_multiply(transform, coordinateSpaceTransform);
         return toMat4( modelMat );
+    }
+    
+    //! If you've had to pause the session for whatever reason, this will regenerate a new one.
+    static ARSession* generateNewSession(bool planeTracking=false){
+        
     }
 }
 

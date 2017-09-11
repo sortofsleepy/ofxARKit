@@ -1,6 +1,5 @@
 //
 //  ARObjects.hpp
-//  example-basic
 //
 //  Created by Joseph Chow on 8/25/17.
 //
@@ -21,7 +20,7 @@ namespace ARObjects {
         float height;
         ofMatrix4x4 transform;
         NSUUID * uuid;
-        ARPlaneAnchor * rawAnchor;
+        ARPlaneAnchor * rawAnchor;        
     }PlaneAnchorObject;
     
     // The base class you can use to build your AR object. Provides a model matrix and a mesh for

@@ -1,8 +1,8 @@
 //
 //  ARAnchor.h
-//  GeoBeats
 //
-//  Created by Joseph Chow on 8/18/17.
+//  Created by Joseph Chow on 8/18/17
+//  with support from contributors.
 //
 
 #ifndef ARAnchor_h
@@ -43,7 +43,7 @@ namespace ARCore {
         bool shouldUpdatePlanes;
         
         //! Adds an anchor based on the current position of the camera - basically at (0,0) with a slight z offset.
-        void addAnchor();
+        void addAnchor(float zZoom=-0.2);
         
         //! adds an anchor at the specified position.
         void addAnchor(ofVec2f position);

@@ -2,6 +2,7 @@
 //  DebugCloud.hpp
 //
 //  Created by Joseph Chow on 8/18/17.
+//  Additional code added from contributors
 //
 
 #ifndef DebugCloud_hpp
@@ -44,10 +45,7 @@ namespace ARDebugUtils {
         
         
     public:
-        PointCloudDebug(){
-
-            
-        }
+        PointCloudDebug(){}
         
         void setup(){
             pointShader.setupShaderFromSource(GL_VERTEX_SHADER, ARShaders::point_cloud_vertex);
@@ -67,11 +65,22 @@ namespace ARDebugUtils {
             
             
             glBindBuffer(GL_ARRAY_BUFFER, vbo);
-                  glBufferData(GL_ARRAY_BUFFER, bytesCount, pointCloud.points, GL_DYNAMIC_DRAW);
+            glBufferData(GL_ARRAY_BUFFER, bytesCount, pointCloud.points, GL_DYNAMIC_DRAW);
             glBindBuffer(GL_ARRAY_BUFFER,0);
             
-          
+        }
         
+        //! Extracts the current point cloud set from the ARFrame into a vector of ofVec3f points you can
+        //! use for other purposes.
+        std::vector<ofVec3f> extractPointCloud(){
+            std::vector<ofVec3f> pointCloudPoints;
+            for(int i = 0; i < pointCount;++i){
+                float x = pointCloud.points[i].x;
+                float y = pointCloud.points[i].y;
+                float z = pointCloud.points[i].z;
+                pointCloudPoints.push_back(ofVec3f(x,y,z));
+            }
+            return pointCloudPoints;
         }
         
         //! get the number of features detected

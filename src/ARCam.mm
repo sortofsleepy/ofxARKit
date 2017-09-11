@@ -1,6 +1,5 @@
 //
 //  ARCam.cpp
-//  example-anchormanager
 //
 //  Created by Joseph Chow on 8/29/17.
 //
@@ -26,8 +25,7 @@ namespace ARCore {
         CbCrTexture = NULL;
         near = 0.01;
         far = 1000.0;
-        
-        
+  
         // initialize video texture cache
         CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, ofxiOSGetGLView().context, NULL, &_videoTextureCache);
         if (err){
@@ -83,14 +81,17 @@ namespace ARCore {
     void ARCam::setDeviceOrientation(UIInterfaceOrientation orientation){
         this->orientation = orientation;
     }
+    
+    ARLightEstimate* ARCam::getLightingConditions(){
+        return session.currentFrame.lightEstimate;
+    }
 
     void ARCam::update(){
         // if we haven't set a session - just stop things here.
         if(!session){
             return;
         }
-     
-        
+
       
         currentFrame = session.currentFrame;
         
@@ -106,7 +107,13 @@ namespace ARCore {
             
             // do light estimates
             if (currentFrame.lightEstimate) {
+                
+                // note - in lumens, divide by 1000 to get a more normal value
                 ambientIntensity = currentFrame.lightEstimate.ambientIntensity / 1000;
+                
+                // note - in kelvin,
+                //A value of 6500 represents neutral (pure white) lighting; lower values indicate a "warmer" yellow or orange tint, and higher values indicate a "cooler" blue tint.
+                ambientColorTemperature = currentFrame.lightEstimate.ambientColorTemperature;
             }
             
             
