@@ -17,7 +17,7 @@ using namespace ARObjects;
 namespace ARCore {
     typedef std::shared_ptr<class ARAnchorManager>AnchorManagerRef;
     
-    //! Helper class to deal with anchors
+    //! This is a helper class to help manage anchors.
     class ARAnchorManager {
         
         //! Stores data of all currently found planes.
@@ -67,6 +67,10 @@ namespace ARCore {
         //! Allows you to loop through the anchors and do something
         //! with each anchor. Pass in a lambda function
         void loopAnchors(std::function<void(ARObject)> func);
+        
+        //! Allows you to loop through the anchors and do something
+        //! with each anchor. Pass in a lambda function. Returns the current index in the loop
+        //! as well as it's anchor.
         void loopAnchors(std::function<void(ARObject,int index)> func);
         
         //! Allows you to loop through planes and do something with each plane
@@ -91,7 +95,11 @@ namespace ARCore {
         
         //! clears all existing plane anchors being tracked.
         void clearPlaneAnchors();
+        
+        //! Removes a plane anchor based on it's UUID
         void removePlane(NSUUID * anchorId);
+        
+        //! removes a plane anchor based on it's index in the planes vector
         void removePlane(int index=0);
         
         
@@ -107,12 +115,13 @@ namespace ARCore {
         //! Get the number of planes detected.
         int getNumPlanes();
         
+        //! Draws all currently found planes.
         void drawPlanes(ARCommon::ARCameraMatrices cameraMatrices);
         
-        // general update function
+        //! general update function, currently increments the counter to keep track of the number of system + user anchors.
         void update();
         
-        // update function for dealing with planes.
+        //! update function for dealing with planes.
         void updatePlanes();
         
     };

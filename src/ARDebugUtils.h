@@ -23,17 +23,15 @@
 namespace ARDebugUtils {
     
     //! Helper class for recognizing features and drawing the resulting point cloud.
-    
+
     class PointCloudDebug {
         
         //! VBO for point cloud
         GLuint vbo;
         
-#ifdef OF_TARGET_IPHONE
         // shader for point cloud
         ofShader pointShader;
-#endif
-   
+
         // the size of the point cloud data
         NSInteger bytesCount;
         
@@ -47,6 +45,7 @@ namespace ARDebugUtils {
     public:
         PointCloudDebug(){}
         
+        //! Sets up the point cloud 
         void setup(){
             pointShader.setupShaderFromSource(GL_VERTEX_SHADER, ARShaders::point_cloud_vertex);
             pointShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::point_cloud_fragment);

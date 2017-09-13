@@ -13,7 +13,7 @@
 
 namespace ARObjects {
     
-    // This defines the basic data structure of a Plane
+    //! This defines the basic data structure of a Plane
     typedef struct {
         ofVec3f position;
         float width;
@@ -23,8 +23,7 @@ namespace ARObjects {
         ARPlaneAnchor * rawAnchor;        
     }PlaneAnchorObject;
     
-    // The base class you can use to build your AR object. Provides a model matrix and a mesh for
-    // easy tracking by ARKit.
+    //! The base class you can use to build your AR object. Provides a model matrix and a mesh for easy tracking by ARKit.
     typedef struct {
         
         // a flag indicating whether or not this object was found by ARKit itself, or whether or not it was user added.
@@ -44,7 +43,7 @@ namespace ARObjects {
         }
     }ARObject;
     
-    // quickly constructs an standard ARObject 
+    //! quickly constructs an standard ARObject 
     static inline ARObject buildARObject(ARAnchor * rawAnchor,ofMatrix4x4 modelMatrix,bool systemAdded=false){
         ARObject obj;
         obj.rawAnchor = rawAnchor;

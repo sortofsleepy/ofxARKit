@@ -12,15 +12,15 @@
 
 namespace ARCommon {
     
-    // joined camera matrices as one object.
+    //! joined camera matrices as one object.
     typedef struct {
         ofMatrix4x4 cameraTransform;
         ofMatrix4x4 cameraProjection;
         ofMatrix4x4 cameraView;
     }ARCameraMatrices;
     
-    // borrowed from https://github.com/wdlindmeier/Cinder-Metal/blob/master/include/MetalHelpers.hpp
-    // helpful converting to and from SIMD
+    //! borrowed from https://github.com/wdlindmeier/Cinder-Metal/blob/master/include/MetalHelpers.hpp
+    //! helpful converting to and from SIMD
     template <typename T, typename U >
     const U static inline convert( const T & t )
     {
@@ -30,16 +30,17 @@ namespace ARCommon {
         return ret;
     }
     
-    // convert to oF mat4
+    //! convert to oF mat4
     const ofMatrix4x4 static inline toMat4( const matrix_float4x4& mat ) {
         return convert<matrix_float4x4, ofMatrix4x4>(mat);
     }
     
-    // convert to simd based mat4
+    //! convert to simd based mat4
     const matrix_float4x4 toSIMDMat4(ofMatrix4x4 &mat){
            return convert<ofMatrix4x4,matrix_float4x4>(mat);
     }
 
+    //! Constructs a generalized model matrix for a SIMD mat4
     static ofMatrix4x4 modelMatFromTransform( matrix_float4x4 transform )
     {
         matrix_float4x4 coordinateSpaceTransform = matrix_identity_float4x4;
