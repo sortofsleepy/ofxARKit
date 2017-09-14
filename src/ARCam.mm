@@ -149,7 +149,7 @@ namespace ARCore {
         
         cameraMatrices.cameraView = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera viewMatrixForOrientation:orientation]);
         
-        cameraMatrices.cameraProjection = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera projectionMatrixWithViewportSize:viewportSize orientation:orientation zNear:near zFar:far]);
+        cameraMatrices.cameraProjection = convert<matrix_float4x4, ofMatrix4x4>([session.currentFrame.camera projectionMatrixForOrientation:orientation viewportSize:viewportSize zNear:near zFar:far]);
         
         
         return cameraMatrices;
