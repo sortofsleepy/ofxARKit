@@ -1,6 +1,5 @@
 //
 //  ARAnchorManager.cpp
-//  GeoBeats
 //
 //  Created by Joseph Chow on 8/18/17.
 //
@@ -15,7 +14,7 @@ namespace ARCore {
         
     }
     
-    ARAnchorManager::ARAnchorManager(ARSession * session){
+    ARAnchorManager::ARAnchorManager(ARSession * session):shouldUpdatePlanes(false){
         this->session = session;
         
     }
@@ -28,7 +27,7 @@ namespace ARCore {
         return planes.at(index);
     }
     
-    void ARAnchorManager::addAnchor(){
+    void ARAnchorManager::addAnchor(float zZoom){
         
         
         ARFrame * currentFrame = session.currentFrame;
@@ -39,7 +38,7 @@ namespace ARCore {
             // Create a transform with a translation of 0.2 meters in front of the camera
             matrix_float4x4 translation = matrix_identity_float4x4;
             
-            translation.columns[3].z = -0.2;
+            translation.columns[3].z = zZoom;
             
             matrix_float4x4 transform = matrix_multiply(currentFrame.camera.transform, translation);
             
@@ -109,24 +108,36 @@ namespace ARCore {
         
     }
     
+    void ARAnchorManager::loopAnchors(std::function<void(ARObject,int index)> func){
+        
+        for (int i = 0; i < anchors.size(); i++) {
+            func(anchors[i],i);
+        }
+        
+    }
+    
     void ARAnchorManager::loopPlaneAnchors(std::function<void(PlaneAnchorObject)> func){
         for (int i = 0; i < planes.size(); i++) {
             func(planes[i]);
         }
     }
     
+    void ARAnchorManager::loopPlaneAnchors(std::function<void(PlaneAnchorObject,int index)> func){
+        for (int i = 0; i < planes.size(); i++) {
+            func(planes[i],i);
+        }
+    }
+    
+    
     
     void ARAnchorManager::update(){
         
         // update number of anchors currently tracked
         anchorInstanceCount = session.currentFrame.anchors.count;
-        
-        // update plane information
-        updatePlanes();
+     
     }
     
     void ARAnchorManager::updatePlanes(){
-        
         // update any anchors found in the current frame by the system
         for (NSInteger index = 0; index < anchorInstanceCount; index++) {
             ARAnchor *anchor = session.currentFrame.anchors[index];
@@ -141,13 +152,18 @@ namespace ARCore {
                 ofVec3f center = convert<vector_float3,ofVec3f>(pa.center);
                 ofVec3f extent = convert<vector_float3,ofVec3f>(pa.extent);
                 
-               
-                // if we don't have planes, add first plane we find.
-                if(planes.size() < 1){
+                
+                // neat trick to search in vector with c++ 11, seems to work better than for loop
+                // https://stackoverflow.com/questions/15517991/search-a-vector-of-objects-by-object-attribute
+                auto it = find_if(planes.begin(), planes.end(), [=](const PlaneAnchorObject& obj) {
+                    return obj.uuid == anchor.identifier;
+                });
+
+                // if it == planes.end() - means an item was not found.
+                if(it == planes.end()){
                     PlaneAnchorObject plane;
                     
                     plane.transform = paTransform;
-                    
                     plane.position.x = -extent.x / 2;
                     plane.position.y = -extent.y / 2;
                     plane.width = extent.x;
@@ -156,45 +172,23 @@ namespace ARCore {
                     plane.rawAnchor = pa;
                     
                     planes.push_back(plane);
-                    
-                    
-                }else{
-                    // otherwise loop through current planes to
-                    // ensure plane is not already addded to stack
-                    for(int i = 0; i < planes.size();++i){
-                        
-                        // if we have a new plane,add to stack, otherwise check to see if we need to update.
-                        if(planes[i].uuid != anchor.identifier){
-                            PlaneAnchorObject plane;
-                            
-                            plane.transform = paTransform;
-                            
-                            plane.position.x = -extent.x / 2;
-                            plane.position.y = -extent.y / 2;
-                            plane.width = extent.x;
-                            plane.height = extent.z;
-                            plane.uuid = anchor.identifier;
-                            plane.rawAnchor = pa;
-                            
-                            planes.push_back(plane);
-                        }else if(planes[i].uuid == anchor.identifier){
-                            
-                            // if we need to update the plane - do so, otherwise do nothing.
-                            if(shouldUpdatePlanes){
-                                
-                                planes[i].transform = paTransform;
-                                
-                                planes[i].position.x = -extent.x / 2;
-                                planes[i].position.y = -extent.y / 2;
-                                planes[i].width = extent.x;
-                                planes[i].height = extent.z;
-                                planes[i].uuid = anchor.identifier;
-                                
-                            }
-                        }
-                    }
                 }
                 
+                // means item is found, check to see if we need to update
+                if(it != planes.end()){
+                    if(shouldUpdatePlanes){
+                        
+                        auto index = std::distance(planes.begin(), it);
+                        planes[index].transform = paTransform;
+                        
+                        planes[index].position.x = -extent.x / 2;
+                        planes[index].position.y = -extent.y / 2;
+                        planes[index].width = extent.x;
+                        planes[index].height = extent.z;
+                        planes[index].uuid = anchor.identifier;
+                        planes[index].rawAnchor = pa;
+                    }
+                }
                 
             }
             
@@ -265,6 +259,7 @@ namespace ARCore {
         ofSetMatrixMode(OF_MATRIX_MODELVIEW);
         ofLoadMatrix(cameraMatrices.cameraView);
         
+        ofLog()<<"num planes: "<<getNumPlanes();
         
         for(int i = 0; i < getNumPlanes(); ++i){
             PlaneAnchorObject anchor = getPlaneAt(i);
