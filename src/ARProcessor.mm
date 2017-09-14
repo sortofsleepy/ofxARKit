@@ -50,7 +50,7 @@ void ARProcessor::update(){
     }
     
     anchorController->update();
-    
+    anchorController->updatePlanes();
 }
 
 
