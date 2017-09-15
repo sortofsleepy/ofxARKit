@@ -51,8 +51,45 @@ namespace ARCommon {
     }
     
     //! If you've had to pause the session for whatever reason, this will regenerate a new one.
-    static ARSession* generateNewSession(bool planeTracking=false){
+    //! Pass in an alignment method for the ARKit to use in the new session. You can also specify as to whether
+    //! or not audio data should get captured.
+    //! Note that if audio data capture is desired, you need to set up your ARSession as part of a delegate class.
+    //! and implement the session:didOutputAudioSampleBuffer: method.
+    //! see https://developer.apple.com/documentation/arkit/arconfiguration/2923559-providesaudiodata?language=objc
+    static ARSession* generateNewSession(ARWorldAlignment worldAlignment = ARWorldAlignmentCamera,bool providesAudio=false){
         
+        ARSession * session = [ARSession new];
+        
+        // by default - we want to be able to detect planes. Check to see if that's possible
+        if([ARWorldTrackingConfiguration isSupported]){
+            
+            ARWorldTrackingConfiguration * config = [ARWorldTrackingConfiguration new];
+            config.planeDetection = ARPlaneDetectionHorizontal;
+            config.lightEstimationEnabled = YES;
+            config.worldAlignment = worldAlignment;
+            
+            
+            // note that audio data is only available as part of a delegate class.
+            if(providesAudio){
+                config.providesAudioData = YES;
+            }
+            
+            [session runWithConfiguration:config];
+        }else {
+            AROrientationTrackingConfiguration * config = [AROrientationTrackingConfiguration new];
+            config.lightEstimationEnabled = YES;
+            config.worldAlignment = worldAlignment;
+            
+            // note that audio data is only available as part of a delegate class.
+            if(providesAudio){
+                config.providesAudioData = YES;
+            }
+            
+            [session runWithConfiguration:config];
+        }
+        
+        
+        return session;
     }
 }
 

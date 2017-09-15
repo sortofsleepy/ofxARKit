@@ -36,6 +36,8 @@ public:
     ARSession * session;
     ARRef processor;
     
+    int maxImages = 24;
+    
     
 };
 

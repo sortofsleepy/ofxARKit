@@ -38,14 +38,10 @@ void ofApp::setup() {
 
 }
 
-
-vector < matrix_float4x4 > mats;
-
 //--------------------------------------------------------------
 void ofApp::update(){
     
     processor->update();
-
     
 }
 
@@ -120,6 +116,10 @@ void ofApp::exit() {
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs &touch){
   
+    // this will quickly build up memory so clear when we hit the max number of iamges.
+    if(images.size() >= maxImages){
+        images.clear();
+    }
    
     ofFbo fbo;
     fbo.allocate(ofGetWindowWidth(), ofGetWindowHeight(),GL_RGBA);
