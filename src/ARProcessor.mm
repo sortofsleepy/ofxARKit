@@ -33,6 +33,10 @@ void ARProcessor::pauseSession(){
       [session pause];
 }
 
+void ARProcessor::restartSession(){
+    [session runWithConfiguration:session.configuration];
+}
+
 void ARProcessor::setup(){
     anchorController = ARAnchorManager::create(session);
     camera = ARCam::create(session);
@@ -73,6 +77,14 @@ void ARProcessor::adjustPerspectiveCorrection(float zoomLevel){
 }
 
 // ======= ANCHOR API ========= //
+void ARProcessor::addAnchor(float zZoom){
+    anchorController->addAnchor(zZoom);
+}
+
+void ARProcessor::addAnchor(ofVec3f position){
+    anchorController->addAnchor(position);
+}
+
 void ARProcessor::drawHorizontalPlanes(){
     anchorController->drawPlanes(camera->getCameraMatrices());
 }

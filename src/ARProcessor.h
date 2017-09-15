@@ -18,6 +18,7 @@
 #include "ARAnchorManager.h"
 #include "ARDebugUtils.h"
 #include "ARCam.h"
+#include "ARSessionSetup.h"
 
 typedef std::shared_ptr<class ARProcessor>ARRef;
 
@@ -61,6 +62,13 @@ public:
     //! Pauses the ARKit session
     void pauseSession();
     
+    //! Restarts ARKit session
+    //! TODO needs testing - unknown if we can just pull the previous config. 
+    void restartSession();
+    
+    void toggleDebug(){
+        debugMode = !debugMode;
+    }
     // ========== OBJECTS ==================== //
     
     //! An ARAnchorManager deals with handling Anchor objects in ARKit
@@ -77,7 +85,9 @@ public:
     //! draws point cloud
     void drawPointCloud();
 
-    
+    //======== ANCHORS API ============ //
+    void addAnchor(float zZoom);
+    void addAnchor(ofVec3f position);
     //======== PLANE API ============ //
 
     //! Returns the current set of horizontal planes.
