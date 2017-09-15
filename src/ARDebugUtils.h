@@ -128,19 +128,6 @@ namespace ARDebugUtils {
             
         }
         
-        //! Extracts the current point cloud set from the ARFrame into a vector of ofVec3f points you can
-        //! use for other purposes.
-        std::vector<ofVec3f> extractPointCloud(){
-            std::vector<ofVec3f> pointCloudPoints;
-            for(int i = 0; i < pointCount;++i){
-                float x = pointCloud.points[i].x;
-                float y = pointCloud.points[i].y;
-                float z = pointCloud.points[i].z;
-                pointCloudPoints.push_back(ofVec3f(x,y,z));
-            }
-            return pointCloudPoints;
-        }
-        
         //! get the number of features detected
         int getNumFeatures(){
             return pointCount;

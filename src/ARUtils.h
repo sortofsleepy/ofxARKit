@@ -50,11 +50,38 @@ namespace ARCommon {
         return toMat4( modelMat );
     }
     
+    
    
-    //! returns the native screen resolution of the device (orientation independent)
+    //! Gets the official resolution of the device you're currently using under the assumption that the width/height
+    //! matches the current orientation your device is in(ie landscape gives longer width than portrait)
+    //! x should be considered the width, y should be considered the height.
     static ofVec2f getDeviceDimensions(){
         CGRect screenBounds = [[UIScreen mainScreen] nativeBounds];
-        return ofVec2f(screenBounds.size.width, screenBounds.size.height);
+        
+        ofVec2f dimensions;
+        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+        
+        switch(orientation){
+            
+            case 0:
+                 dimensions = ofVec2f(screenBounds.size.width, screenBounds.size.height);
+                break;
+
+            case UIInterfaceOrientationPortrait:
+                  dimensions = ofVec2f(screenBounds.size.width, screenBounds.size.height);
+                break;
+                
+            case UIInterfaceOrientationLandscapeLeft:
+                dimensions = ofVec2f(screenBounds.size.height, screenBounds.size.width);
+                break;
+                
+            case UIInterfaceOrientationLandscapeRight:
+                  dimensions = ofVec2f(screenBounds.size.height, screenBounds.size.width);
+                break;
+        }
+        
+        
+        return dimensions;
     }
     
     //! Returns the devices aspect ratio.
