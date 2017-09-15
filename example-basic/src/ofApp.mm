@@ -121,12 +121,9 @@ void ofApp::draw() {
                 ofSetColor(255);
                 ofRotate(90,0,0,1);
                 
-                //ofScale(0.0001, 0.0001);
-                float aspect = float(ofGetWidth()) / float(ofGetHeight());
-                ofTranslate(0, 0, 0.21);
+                float aspect = ARCommon::getAspectRatio();
                 img.draw(-aspect/8,-0.125,aspect/4,0.25);
-                
-                img.draw(0,0);
+              
 
                 ofPopMatrix();
             }

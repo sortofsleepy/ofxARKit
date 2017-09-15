@@ -76,7 +76,8 @@ void ofApp::draw() {
         x *= -1;
         y *= -1;
       
-        images[index].draw(x,y,ofGetWindowWidth(),ofGetWindowHeight());
+        ofVec2f screenSize = ARCommon::getDeviceDimensions();
+        images[index].draw(x,y,screenSize.x,screenSize.y);
         
         ofPopMatrix();
         

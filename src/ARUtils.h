@@ -52,12 +52,12 @@ namespace ARCommon {
     
    
     //! returns the native screen resolution of the device (orientation independent)
-    static ofVec2f getDevicesDimensions(){
+    static ofVec2f getDeviceDimensions(){
         CGRect screenBounds = [[UIScreen mainScreen] nativeBounds];
         return ofVec2f(screenBounds.size.width, screenBounds.size.height);
     }
     
-    //! Returns the devices aspect ratio. 
+    //! Returns the devices aspect ratio.
     static float getAspectRatio(){
         ofVec2f screenSize = getDeviceDimensions();
         return screenSize.x / screenSize.y;
