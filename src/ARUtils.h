@@ -49,6 +49,19 @@ namespace ARCommon {
         matrix_float4x4 modelMat = matrix_multiply(transform, coordinateSpaceTransform);
         return toMat4( modelMat );
     }
+    
+   
+    //! returns the native screen resolution of the device (orientation independent)
+    static ofVec2f getDevicesDimensions(){
+        CGRect screenBounds = [[UIScreen mainScreen] nativeBounds];
+        return ofVec2f(screenBounds.size.width, screenBounds.size.height);
+    }
+    
+    //! Returns the devices aspect ratio. 
+    static float getAspectRatio(){
+        ofVec2f screenSize = getDeviceDimensions();
+        return screenSize.x / screenSize.y;
+    }
 }
 
 

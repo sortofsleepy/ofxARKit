@@ -123,7 +123,7 @@ namespace ARCore {
         void adjustPerspectiveCorrection(float zoomLevel);
         
         //! Returns Projection and View matrices for the specified orientation.
-        ARCommon::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=0.01,float far=1000.0);
+        ARCommon::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=1.0,float far=1000.0);
         
         //! returns the current projection matrix from the camera
         ofMatrix4x4 getProjectionMatrix(){
