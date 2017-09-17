@@ -31,9 +31,20 @@ void \hyperlink{class_a_r_processor_a685469fa6b66b8b5d935f6f45a2ef599}{draw\+Fra
 \mbox{\Hypertarget{class_a_r_processor_a035d352220785ee03e1bb15ba6bf688d}\label{class_a_r_processor_a035d352220785ee03e1bb15ba6bf688d}} 
 void \hyperlink{class_a_r_processor_a035d352220785ee03e1bb15ba6bf688d}{pause\+Session} ()
 \begin{DoxyCompactList}\small\item\em Pauses the A\+R\+Kit session. \end{DoxyCompactList}\item 
+void \hyperlink{class_a_r_processor_a121cd3925743680196771ce07058d52e}{restart\+Session} ()
+\item 
+\mbox{\Hypertarget{class_a_r_processor_a832585774cbeb04cc181f01c193940b5}\label{class_a_r_processor_a832585774cbeb04cc181f01c193940b5}} 
+void {\bfseries toggle\+Debug} ()
+\item 
 \mbox{\Hypertarget{class_a_r_processor_ae938bf188d56d8b30b141b2fa23e96f8}\label{class_a_r_processor_ae938bf188d56d8b30b141b2fa23e96f8}} 
 void \hyperlink{class_a_r_processor_ae938bf188d56d8b30b141b2fa23e96f8}{draw\+Point\+Cloud} ()
 \begin{DoxyCompactList}\small\item\em draws point cloud \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a6b6efec29e190aebd01bb770b6c218ed}\label{class_a_r_processor_a6b6efec29e190aebd01bb770b6c218ed}} 
+void {\bfseries add\+Anchor} (float z\+Zoom)
+\item 
+\mbox{\Hypertarget{class_a_r_processor_af4e627093ee86883736c89c2a627af42}\label{class_a_r_processor_af4e627093ee86883736c89c2a627af42}} 
+void {\bfseries add\+Anchor} (of\+Vec3f position)
+\item 
 \mbox{\Hypertarget{class_a_r_processor_a3cd70af245be375d56a06e2ea8d068f9}\label{class_a_r_processor_a3cd70af245be375d56a06e2ea8d068f9}} 
 std\+::vector$<$ \hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object} $>$ \hyperlink{class_a_r_processor_a3cd70af245be375d56a06e2ea8d068f9}{get\+Horizontal\+Planes} ()
 \begin{DoxyCompactList}\small\item\em Returns the current set of horizontal planes. \end{DoxyCompactList}\item 
@@ -43,6 +54,15 @@ void \hyperlink{class_a_r_processor_a6a61a7e03821410bc1a715fd32159662}{draw\+Hor
 \mbox{\Hypertarget{class_a_r_processor_aaa1488d9082ec598fd4aeb5c5c43d999}\label{class_a_r_processor_aaa1488d9082ec598fd4aeb5c5c43d999}} 
 void \hyperlink{class_a_r_processor_aaa1488d9082ec598fd4aeb5c5c43d999}{update\+Planes} ()
 \begin{DoxyCompactList}\small\item\em updates plane information \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_ac065970f90243b08b9d004a4220d0345}\label{class_a_r_processor_ac065970f90243b08b9d004a4220d0345}} 
+void {\bfseries device\+Orientation\+Changed} ()
+\item 
+\mbox{\Hypertarget{class_a_r_processor_a48797c1a249b2f115d0151396bc1eb9c}\label{class_a_r_processor_a48797c1a249b2f115d0151396bc1eb9c}} 
+void {\bfseries update\+Device\+Interface\+Orientation} ()
+\item 
+\mbox{\Hypertarget{class_a_r_processor_a2514281144c680e13c02562c74746ceb}\label{class_a_r_processor_a2514281144c680e13c02562c74746ceb}} 
+void {\bfseries rotate\+Camera\+Frame} (float angle)
+\item 
 \mbox{\Hypertarget{class_a_r_processor_a2ffd8b9518388be29eba6affe4d4d152}\label{class_a_r_processor_a2ffd8b9518388be29eba6affe4d4d152}} 
 void \hyperlink{class_a_r_processor_a2ffd8b9518388be29eba6affe4d4d152}{set\+A\+R\+Camera\+Matrices} ()
 \begin{DoxyCompactList}\small\item\em Helper to quickly set up A\+R\+Kit projection and view matrices for 2D drawing in oF. \end{DoxyCompactList}\item 
@@ -92,6 +112,15 @@ A\+R\+Core\+::\+A\+R\+Cam\+Ref \hyperlink{class_a_r_processor_a0df4995c56cb187db
 
 \subsection{Detailed Description}
 An A\+PI class for doing things in A\+R\+Kit. Consider this the kitchen sink of everything, consisting of all possible functionality currently offered by the addon. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_a_r_processor_a121cd3925743680196771ce07058d52e}\label{class_a_r_processor_a121cd3925743680196771ce07058d52e}} 
+\index{A\+R\+Processor@{A\+R\+Processor}!restart\+Session@{restart\+Session}}
+\index{restart\+Session@{restart\+Session}!A\+R\+Processor@{A\+R\+Processor}}
+\subsubsection{\texorpdfstring{restart\+Session()}{restartSession()}}
+{\footnotesize\ttfamily void A\+R\+Processor\+::restart\+Session (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Restarts A\+R\+Kit session T\+O\+DO needs testing -\/ unknown if we can just pull the previous config. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

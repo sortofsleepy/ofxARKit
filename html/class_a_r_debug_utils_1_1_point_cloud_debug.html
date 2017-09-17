@@ -64,6 +64,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_a_r_debug_utils_1_1_point_cloud_debug-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ARDebugUtils::PointCloudDebug Class Reference</div>  </div>
@@ -81,12 +82,16 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_debug_utils_1_1_point_cloud_debug.html#a04e1ac43f026e32bb5b4877d41d69528">setup</a> ()</td></tr>
 <tr class="memdesc:a04e1ac43f026e32bb5b4877d41d69528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the point cloud. <br /></td></tr>
 <tr class="separator:a04e1ac43f026e32bb5b4877d41d69528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf68c97daba914eb42e084234ca4c980"><td class="memItemLeft" align="right" valign="top"><a id="abf68c97daba914eb42e084234ca4c980"></a>
+vector&lt; ofVec3f &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getPoints</b> (ARFrame *currentFrame)</td></tr>
+<tr class="separator:abf68c97daba914eb42e084234ca4c980"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62e8829bd3cdcc822fda0962e1abcac9"><td class="memItemLeft" align="right" valign="top"><a id="a62e8829bd3cdcc822fda0962e1abcac9"></a>
+vector&lt; ofVec3f &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getCurrentPoints</b> (ARFrame *currentFrame)</td></tr>
+<tr class="separator:a62e8829bd3cdcc822fda0962e1abcac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02a8d4c24ec4b19c238288874a568a9f"><td class="memItemLeft" align="right" valign="top"><a id="a02a8d4c24ec4b19c238288874a568a9f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_debug_utils_1_1_point_cloud_debug.html#a02a8d4c24ec4b19c238288874a568a9f">updatePointCloud</a> (ARFrame *currentFrame)</td></tr>
 <tr class="memdesc:a02a8d4c24ec4b19c238288874a568a9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">update cloud data and vbo <br /></td></tr>
 <tr class="separator:a02a8d4c24ec4b19c238288874a568a9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad68fcfdaab9a19a25f37710e0dbcd477"><td class="memItemLeft" align="right" valign="top">std::vector&lt; ofVec3f &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_debug_utils_1_1_point_cloud_debug.html#ad68fcfdaab9a19a25f37710e0dbcd477">extractPointCloud</a> ()</td></tr>
-<tr class="separator:ad68fcfdaab9a19a25f37710e0dbcd477"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0757ac82a88433c519ec6362ac8cd251"><td class="memItemLeft" align="right" valign="top"><a id="a0757ac82a88433c519ec6362ac8cd251"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_debug_utils_1_1_point_cloud_debug.html#a0757ac82a88433c519ec6362ac8cd251">getNumFeatures</a> ()</td></tr>
 <tr class="memdesc:a0757ac82a88433c519ec6362ac8cd251"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the number of features detected <br /></td></tr>
@@ -99,37 +104,16 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_debug_utils_1_1_point_cloud_debug.html#a308b87459dd4f0fc89f25bc65ad7b383">draw</a> (ofMatrix4x4 projectionMatrix, ofMatrix4x4 modelViewMatrix)</td></tr>
 <tr class="memdesc:a308b87459dd4f0fc89f25bc65ad7b383"><td class="mdescLeft">&#160;</td><td class="mdescRight">draws the resulting point cloud - pass in a projection and view matrix(usually from ARKit) <br /></td></tr>
 <tr class="separator:a308b87459dd4f0fc89f25bc65ad7b383"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a6405deec8e383af9b59593e7e207d1cf"><td class="memItemLeft" align="right" valign="top"><a id="a6405deec8e383af9b59593e7e207d1cf"></a>
+std::set&lt; uint64_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>uniqueIds</b></td></tr>
+<tr class="separator:a6405deec8e383af9b59593e7e207d1cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Helper class for recognizing features and drawing the resulting point cloud. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad68fcfdaab9a19a25f37710e0dbcd477"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad68fcfdaab9a19a25f37710e0dbcd477">&#9670;&nbsp;</a></span>extractPointCloud()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;ofVec3f&gt; ARDebugUtils::PointCloudDebug::extractPointCloud </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Extracts the current point cloud set from the ARFrame into a vector of ofVec3f points you can use for other purposes. </p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/<a class="el" href="_a_r_debug_utils_8h_source.html">ARDebugUtils.h</a></li>
 </ul>
 </div><!-- contents -->

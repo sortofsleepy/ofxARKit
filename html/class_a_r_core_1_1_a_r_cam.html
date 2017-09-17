@@ -108,18 +108,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_core_1_1_a_r_cam.html#aa29191b58c0e6613850916526c6ab380">setCameraFarClip</a> (float far)</td></tr>
 <tr class="memdesc:aa29191b58c0e6613850916526c6ab380"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets camera far clip distance <br /></td></tr>
 <tr class="separator:aa29191b58c0e6613850916526c6ab380"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f665c86924ad4b6d3c5e4e50793d132"><td class="memItemLeft" align="right" valign="top"><a id="a3f665c86924ad4b6d3c5e4e50793d132"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_core_1_1_a_r_cam.html#a3f665c86924ad4b6d3c5e4e50793d132">setDeviceOrientation</a> (UIInterfaceOrientation orientation)</td></tr>
-<tr class="memdesc:a3f665c86924ad4b6d3c5e4e50793d132"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the device orientation at which to construct camera matrices <br /></td></tr>
-<tr class="separator:a3f665c86924ad4b6d3c5e4e50793d132"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c910d5c7f637ce2820132255dfb67f7"><td class="memItemLeft" align="right" valign="top"><a id="a0c910d5c7f637ce2820132255dfb67f7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_core_1_1_a_r_cam.html#a0c910d5c7f637ce2820132255dfb67f7">updateDeviceOrientation</a> ()</td></tr>
+<tr class="memdesc:a0c910d5c7f637ce2820132255dfb67f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjusts the camera image rotation. <br /></td></tr>
+<tr class="separator:a0c910d5c7f637ce2820132255dfb67f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1813b2b0f2665741173228ffff518d67"><td class="memItemLeft" align="right" valign="top"><a id="a1813b2b0f2665741173228ffff518d67"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_core_1_1_a_r_cam.html#a1813b2b0f2665741173228ffff518d67">updateRotationMatrix</a> (float angle)</td></tr>
+<tr class="memdesc:a1813b2b0f2665741173228ffff518d67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows you to set a custom value for how to rotate the camera image. <br /></td></tr>
+<tr class="separator:a1813b2b0f2665741173228ffff518d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2ecd3007e6684d1686c89d2ac3e7020"><td class="memItemLeft" align="right" valign="top"><a id="ae2ecd3007e6684d1686c89d2ac3e7020"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_core_1_1_a_r_cam.html#ae2ecd3007e6684d1686c89d2ac3e7020">adjustPerspectiveCorrection</a> (float <a class="el" href="class_a_r_core_1_1_a_r_cam.html#ac17d3b7fd12f51b2c54b7241efd36cd4">zoomLevel</a>)</td></tr>
 <tr class="memdesc:ae2ecd3007e6684d1686c89d2ac3e7020"><td class="mdescLeft">&#160;</td><td class="mdescRight">adjusts the perspective correction zoom(Note: primarily for larger devices) <br /></td></tr>
 <tr class="separator:ae2ecd3007e6684d1686c89d2ac3e7020"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac1013569d47bc31f698680eef09a4f5"><td class="memItemLeft" align="right" valign="top"><a id="aac1013569d47bc31f698680eef09a4f5"></a>
-<a class="el" href="struct_a_r_common_1_1_a_r_camera_matrices.html">ARCommon::ARCameraMatrices</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_core_1_1_a_r_cam.html#aac1013569d47bc31f698680eef09a4f5">getMatricesForOrientation</a> (UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=0.01, float far=1000.0)</td></tr>
-<tr class="memdesc:aac1013569d47bc31f698680eef09a4f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns Projection and View matrices for the specified orientation. <br /></td></tr>
-<tr class="separator:aac1013569d47bc31f698680eef09a4f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac649b1e884931f123afd4dcecc1e3e6c"><td class="memItemLeft" align="right" valign="top"><a id="ac649b1e884931f123afd4dcecc1e3e6c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_core_1_1_a_r_cam.html#ac649b1e884931f123afd4dcecc1e3e6c">updateInterfaceOrientation</a> ()</td></tr>
+<tr class="memdesc:ac649b1e884931f123afd4dcecc1e3e6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the current Interface orientation setting so camera projection/view matrices remain correct. <br /></td></tr>
+<tr class="separator:ac649b1e884931f123afd4dcecc1e3e6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0061e3c56e3d30e6fec64235d9397809"><td class="memItemLeft" align="right" valign="top"><a id="a0061e3c56e3d30e6fec64235d9397809"></a>
+<a class="el" href="struct_a_r_common_1_1_a_r_camera_matrices.html">ARCommon::ARCameraMatrices</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_core_1_1_a_r_cam.html#a0061e3c56e3d30e6fec64235d9397809">getMatricesForOrientation</a> (UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=1.0, float far=1000.0)</td></tr>
+<tr class="memdesc:a0061e3c56e3d30e6fec64235d9397809"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns Projection and View matrices for the specified orientation. <br /></td></tr>
+<tr class="separator:a0061e3c56e3d30e6fec64235d9397809"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19409c89b0bcbaad62e5d405d194f8a7"><td class="memItemLeft" align="right" valign="top"><a id="a19409c89b0bcbaad62e5d405d194f8a7"></a>
 ofMatrix4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_r_core_1_1_a_r_cam.html#a19409c89b0bcbaad62e5d405d194f8a7">getProjectionMatrix</a> ()</td></tr>
 <tr class="memdesc:a19409c89b0bcbaad62e5d405d194f8a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the current projection matrix from the camera <br /></td></tr>

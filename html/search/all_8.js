@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['pausesession',['pauseSession',['../class_a_r_processor.html#a035d352220785ee03e1bb15ba6bf688d',1,'ARProcessor']]],
-  ['planeanchorobject',['PlaneAnchorObject',['../struct_a_r_objects_1_1_plane_anchor_object.html',1,'ARObjects']]],
-  ['pointcloud',['pointCloud',['../class_a_r_processor.html#a555e829fbf6b625537f6fd7cd9557002',1,'ARProcessor']]],
-  ['pointclouddebug',['PointCloudDebug',['../class_a_r_debug_utils_1_1_point_cloud_debug.html',1,'ARDebugUtils']]]
+  ['removeanchor',['removeAnchor',['../class_a_r_core_1_1_a_r_anchor_manager.html#a28ed88e530bc1991e59f26e6b580d5c5',1,'ARCore::ARAnchorManager::removeAnchor(NSUUID *anchorId)'],['../class_a_r_core_1_1_a_r_anchor_manager.html#a471d6e5694d6aecb810b65a909cf72b1',1,'ARCore::ARAnchorManager::removeAnchor(int index=0)']]],
+  ['removeanchordirectly',['removeAnchorDirectly',['../class_a_r_core_1_1_a_r_anchor_manager.html#aeaa578780e37129fb899b3f5a762af63',1,'ARCore::ARAnchorManager']]],
+  ['removeplane',['removePlane',['../class_a_r_core_1_1_a_r_anchor_manager.html#a65690e39286b733631eb52c8e740bc79',1,'ARCore::ARAnchorManager::removePlane(NSUUID *anchorId)'],['../class_a_r_core_1_1_a_r_anchor_manager.html#a7d01736351089d31708ca4c577da99a4',1,'ARCore::ARAnchorManager::removePlane(int index=0)']]],
+  ['restartsession',['restartSession',['../class_a_r_processor.html#a121cd3925743680196771ce07058d52e',1,'ARProcessor']]]
 ];

@@ -35,14 +35,20 @@ void \hyperlink{class_a_r_core_1_1_a_r_cam_a040d67ba6abb95e914760ca6e64ac664}{se
 \mbox{\Hypertarget{class_a_r_core_1_1_a_r_cam_aa29191b58c0e6613850916526c6ab380}\label{class_a_r_core_1_1_a_r_cam_aa29191b58c0e6613850916526c6ab380}} 
 void \hyperlink{class_a_r_core_1_1_a_r_cam_aa29191b58c0e6613850916526c6ab380}{set\+Camera\+Far\+Clip} (float far)
 \begin{DoxyCompactList}\small\item\em sets camera far clip distance \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_a_r_core_1_1_a_r_cam_a3f665c86924ad4b6d3c5e4e50793d132}\label{class_a_r_core_1_1_a_r_cam_a3f665c86924ad4b6d3c5e4e50793d132}} 
-void \hyperlink{class_a_r_core_1_1_a_r_cam_a3f665c86924ad4b6d3c5e4e50793d132}{set\+Device\+Orientation} (U\+I\+Interface\+Orientation orientation)
-\begin{DoxyCompactList}\small\item\em sets the device orientation at which to construct camera matrices \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_core_1_1_a_r_cam_a0c910d5c7f637ce2820132255dfb67f7}\label{class_a_r_core_1_1_a_r_cam_a0c910d5c7f637ce2820132255dfb67f7}} 
+void \hyperlink{class_a_r_core_1_1_a_r_cam_a0c910d5c7f637ce2820132255dfb67f7}{update\+Device\+Orientation} ()
+\begin{DoxyCompactList}\small\item\em Adjusts the camera image rotation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_core_1_1_a_r_cam_a1813b2b0f2665741173228ffff518d67}\label{class_a_r_core_1_1_a_r_cam_a1813b2b0f2665741173228ffff518d67}} 
+void \hyperlink{class_a_r_core_1_1_a_r_cam_a1813b2b0f2665741173228ffff518d67}{update\+Rotation\+Matrix} (float angle)
+\begin{DoxyCompactList}\small\item\em Allows you to set a custom value for how to rotate the camera image. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_a_r_core_1_1_a_r_cam_ae2ecd3007e6684d1686c89d2ac3e7020}\label{class_a_r_core_1_1_a_r_cam_ae2ecd3007e6684d1686c89d2ac3e7020}} 
 void \hyperlink{class_a_r_core_1_1_a_r_cam_ae2ecd3007e6684d1686c89d2ac3e7020}{adjust\+Perspective\+Correction} (float \hyperlink{class_a_r_core_1_1_a_r_cam_ac17d3b7fd12f51b2c54b7241efd36cd4}{zoom\+Level})
 \begin{DoxyCompactList}\small\item\em adjusts the perspective correction zoom(\+Note\+: primarily for larger devices) \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_a_r_core_1_1_a_r_cam_aac1013569d47bc31f698680eef09a4f5}\label{class_a_r_core_1_1_a_r_cam_aac1013569d47bc31f698680eef09a4f5}} 
-\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices} \hyperlink{class_a_r_core_1_1_a_r_cam_aac1013569d47bc31f698680eef09a4f5}{get\+Matrices\+For\+Orientation} (U\+I\+Interface\+Orientation orientation=U\+I\+Interface\+Orientation\+Portrait, float near=0.\+01, float far=1000.\+0)
+\mbox{\Hypertarget{class_a_r_core_1_1_a_r_cam_ac649b1e884931f123afd4dcecc1e3e6c}\label{class_a_r_core_1_1_a_r_cam_ac649b1e884931f123afd4dcecc1e3e6c}} 
+void \hyperlink{class_a_r_core_1_1_a_r_cam_ac649b1e884931f123afd4dcecc1e3e6c}{update\+Interface\+Orientation} ()
+\begin{DoxyCompactList}\small\item\em Updates the current Interface orientation setting so camera projection/view matrices remain correct. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_core_1_1_a_r_cam_a0061e3c56e3d30e6fec64235d9397809}\label{class_a_r_core_1_1_a_r_cam_a0061e3c56e3d30e6fec64235d9397809}} 
+\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices} \hyperlink{class_a_r_core_1_1_a_r_cam_a0061e3c56e3d30e6fec64235d9397809}{get\+Matrices\+For\+Orientation} (U\+I\+Interface\+Orientation orientation=U\+I\+Interface\+Orientation\+Portrait, float near=1.\+0, float far=1000.\+0)
 \begin{DoxyCompactList}\small\item\em Returns Projection and View matrices for the specified orientation. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_a_r_core_1_1_a_r_cam_a19409c89b0bcbaad62e5d405d194f8a7}\label{class_a_r_core_1_1_a_r_cam_a19409c89b0bcbaad62e5d405d194f8a7}} 
 of\+Matrix4x4 \hyperlink{class_a_r_core_1_1_a_r_cam_a19409c89b0bcbaad62e5d405d194f8a7}{get\+Projection\+Matrix} ()

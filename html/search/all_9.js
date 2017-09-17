@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['removeanchor',['removeAnchor',['../class_a_r_core_1_1_a_r_anchor_manager.html#a28ed88e530bc1991e59f26e6b580d5c5',1,'ARCore::ARAnchorManager::removeAnchor(NSUUID *anchorId)'],['../class_a_r_core_1_1_a_r_anchor_manager.html#a471d6e5694d6aecb810b65a909cf72b1',1,'ARCore::ARAnchorManager::removeAnchor(int index=0)']]],
-  ['removeanchordirectly',['removeAnchorDirectly',['../class_a_r_core_1_1_a_r_anchor_manager.html#aeaa578780e37129fb899b3f5a762af63',1,'ARCore::ARAnchorManager']]],
-  ['removeplane',['removePlane',['../class_a_r_core_1_1_a_r_anchor_manager.html#a65690e39286b733631eb52c8e740bc79',1,'ARCore::ARAnchorManager::removePlane(NSUUID *anchorId)'],['../class_a_r_core_1_1_a_r_anchor_manager.html#a7d01736351089d31708ca4c577da99a4',1,'ARCore::ARAnchorManager::removePlane(int index=0)']]]
+  ['setarcameramatrices',['setARCameraMatrices',['../class_a_r_core_1_1_a_r_cam.html#ac554b8254ea4a22f122f25542694dafa',1,'ARCore::ARCam::setARCameraMatrices()'],['../class_a_r_processor.html#a2ffd8b9518388be29eba6affe4d4d152',1,'ARProcessor::setARCameraMatrices()']]],
+  ['setcamerafarclip',['setCameraFarClip',['../class_a_r_core_1_1_a_r_cam.html#aa29191b58c0e6613850916526c6ab380',1,'ARCore::ARCam']]],
+  ['setcameranearclip',['setCameraNearClip',['../class_a_r_core_1_1_a_r_cam.html#a040d67ba6abb95e914760ca6e64ac664',1,'ARCore::ARCam']]],
+  ['setup',['setup',['../class_a_r_core_1_1_a_r_cam.html#ad34c392873aa518e9c560d1af34f2b7a',1,'ARCore::ARCam::setup()'],['../class_a_r_debug_utils_1_1_point_cloud_debug.html#a04e1ac43f026e32bb5b4877d41d69528',1,'ARDebugUtils::PointCloudDebug::setup()'],['../class_a_r_processor.html#a5fed271e6afd105006cdd3c263c6ba4d',1,'ARProcessor::setup()']]],
+  ['shouldupdateplanes',['shouldUpdatePlanes',['../class_a_r_core_1_1_a_r_anchor_manager.html#af67de0a611ff8a2786891eabb0ca571f',1,'ARCore::ARAnchorManager']]]
 ];
