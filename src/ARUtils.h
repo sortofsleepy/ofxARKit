@@ -59,27 +59,9 @@ namespace ARCommon {
         CGRect screenBounds = [[UIScreen mainScreen] nativeBounds];
         
         ofVec2f dimensions;
-        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
         
-        switch(orientation){
-            
-            case 0:
-                 dimensions = ofVec2f(screenBounds.size.width, screenBounds.size.height);
-                break;
-
-            case UIInterfaceOrientationPortrait:
-                  dimensions = ofVec2f(screenBounds.size.width, screenBounds.size.height);
-                break;
-                
-            case UIInterfaceOrientationLandscapeLeft:
-                dimensions = ofVec2f(screenBounds.size.height, screenBounds.size.width);
-                break;
-                
-            case UIInterfaceOrientationLandscapeRight:
-                  dimensions = ofVec2f(screenBounds.size.height, screenBounds.size.width);
-                break;
-        }
-        
+        dimensions.x = screenBounds.size.width;
+        dimensions.y = screenBounds.size.height;
         
         return dimensions;
     }

@@ -15,6 +15,8 @@ namespace ARCore {
     }
     
     void ARCam::setup(){
+        ofVec2f screenSize = ARCommon::getDeviceDimensions();
+        
         ambientIntensity = 0.0;
         orientation = UIInterfaceOrientationPortrait;
         shouldBuildCameraFrame = true;
@@ -53,11 +55,16 @@ namespace ARCore {
         }else{
             // correct video orientation
             rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
+            
         }
 
         // ========== SHADER SETUP  ============= //
         // setup plane and shader in order to draw the camera feed
-        cameraPlane = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
+        //cameraPlane = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
+        
+        ofVec2f dimensions = ARCommon::getDeviceDimensions();
+        cameraPlane = ofMesh::plane(dimensions.x,dimensions.y);
+        
         cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARShaders::camera_convert_vertex);
         cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::camera_convert_fragment);
         cameraConvertShader.linkProgram();
@@ -78,8 +85,36 @@ namespace ARCore {
         this->zoomLevel = zoomLevel;
     }
 
-    void ARCam::setDeviceOrientation(UIInterfaceOrientation orientation){
-        this->orientation = orientation;
+    //void ARCam::setDeviceOrientation(UIInterfaceOrientation orientation){
+    //    this->orientation = orientation;
+   // }
+    
+    void ARCam::updateDeviceOrientation(){
+        
+       
+      
+        switch(UIDevice.currentDevice.orientation){
+                
+            case UIInterfaceOrientationUnknown:
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                rotation.makeRotationMatrix(270, ofVec3f(0,0,1));
+                break;
+                
+            case UIInterfaceOrientationPortrait:
+                rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
+                break;
+                
+            case UIInterfaceOrientationLandscapeLeft:
+                 rotation.makeRotationMatrix(0, ofVec3f(0,0,1));
+                
+                break;
+                
+            case UIInterfaceOrientationLandscapeRight:
+                rotation.makeRotationMatrix(180, ofVec3f(0,0,1));
+                break;
+        }
+        
     }
     
     ARLightEstimate* ARCam::getLightingConditions(){
@@ -161,6 +196,8 @@ namespace ARCore {
      
         return cameraMatrices;
     }
+    
+  
     // ============= PRIVATE ================= //
     
     void ARCam::buildCameraFrame(CVPixelBufferRef pixelBuffer){
@@ -176,7 +213,8 @@ namespace ARCore {
         // ========= ROTATE IMAGES ================= //
         
         cameraConvertShader.begin();
-        cameraConvertShader.setUniformMatrix4f("rotationMatrix", rotation);
+       cameraConvertShader.setUniformMatrix4f("rotationMatrix", rotation);
+        
         cameraConvertShader.end();
         
         // ========= BUILD CAMERA TEXTURES ================= //

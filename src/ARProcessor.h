@@ -103,6 +103,8 @@ public:
     
    //======== CAMERA API ============ //
     
+    void deviceOrientationChanged();
+    
     //! Helper to quickly set up ARKit projection and view matrices for 2D drawing in oF
     void setARCameraMatrices();
     

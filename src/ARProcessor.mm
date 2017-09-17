@@ -76,6 +76,10 @@ void ARProcessor::adjustPerspectiveCorrection(float zoomLevel){
     camera->zoomLevel = zoomLevel;
 }
 
+void ARProcessor::deviceOrientationChanged(){
+    camera->updateDeviceOrientation();
+}
+
 // ======= ANCHOR API ========= //
 void ARProcessor::addAnchor(float zZoom){
     anchorController->addAnchor(zZoom);

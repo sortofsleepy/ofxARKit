@@ -117,7 +117,10 @@ namespace ARCore {
         void setCameraFarClip(float far);
         
         //! sets the device orientation at which to construct camera matrices
-        void setDeviceOrientation(UIInterfaceOrientation orientation);
+        //void setDeviceOrientation(UIInterfaceOrientation orientation);
+        
+        //! Adjusts the camera image rotation
+        void updateDeviceOrientation();
         
         //! adjusts the perspective correction zoom(Note: primarily for larger devices)
         void adjustPerspectiveCorrection(float zoomLevel);
