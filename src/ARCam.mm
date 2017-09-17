@@ -91,8 +91,8 @@ namespace ARCore {
     
     void ARCam::updateDeviceOrientation(){
         
-       
-      
+        orientation = [UIApplication sharedApplication].statusBarOrientation;
+        
         switch(UIDevice.currentDevice.orientation){
                 
             case UIInterfaceOrientationUnknown:
