@@ -55,20 +55,53 @@ namespace ARCommon {
     //! Gets the official resolution of the device you're currently using under the assumption that the width/height
     //! matches the current orientation your device is in(ie landscape gives longer width than portrait)
     //! x should be considered the width, y should be considered the height.
-    static ofVec2f getDeviceDimensions(){
+    static ofVec2f getDeviceNativeDimensions(){
         CGRect screenBounds = [[UIScreen mainScreen] nativeBounds];
         
         ofVec2f dimensions;
         
-        dimensions.x = screenBounds.size.width;
-        dimensions.y = screenBounds.size.height;
+ 
+        switch(UIDevice.currentDevice.orientation){
+                
+            case UIInterfaceOrientationUnknown:
+                dimensions.x = screenBounds.size.width;
+                dimensions.y = screenBounds.size.height;
+                
+                break;
+                
+                // upside down registers, but for some reason nothing happens :/
+                // leaving this here anyways.
+            case UIInterfaceOrientationPortraitUpsideDown:
+                dimensions.x = screenBounds.size.width;
+                dimensions.y = screenBounds.size.height;
+                
+                break;
+                
+            case UIInterfaceOrientationPortrait:
+                dimensions.x = screenBounds.size.width;
+                dimensions.y = screenBounds.size.height;
+                
+                
+                break;
+                
+            case UIInterfaceOrientationLandscapeLeft:
+                dimensions.x = screenBounds.size.height;
+                dimensions.y = screenBounds.size.width;
+                
+                break;
+                
+            case UIInterfaceOrientationLandscapeRight:
+                dimensions.x = screenBounds.size.height;
+                dimensions.y = screenBounds.size.width;
+                break;
+        }
         
         return dimensions;
     }
     
     //! Returns the devices aspect ratio.
-    static float getAspectRatio(){
-        ofVec2f screenSize = getDeviceDimensions();
+    static float getNativeAspectRatio(){
+        ofVec2f screenSize = getDeviceNativeDimensions();
         return screenSize.x / screenSize.y;
     }
 }

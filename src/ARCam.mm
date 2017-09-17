@@ -15,8 +15,6 @@ namespace ARCore {
     }
     
     void ARCam::setup(){
-        ofVec2f screenSize = ARCommon::getDeviceDimensions();
-        
         ambientIntensity = 0.0;
         orientation = UIInterfaceOrientationPortrait;
         shouldBuildCameraFrame = true;
@@ -36,9 +34,12 @@ namespace ARCore {
         
         // ========== CAMERA CORRECTION  ============= //
         
+        ofVec2f nativeDimensions = ARCommon::getDeviceNativeDimensions();
+        
         // this plays into adjusting the camera image to fit the correct perspective.
         // this should THEORETICALLY be your devices aspect ratio which is what the default is.
-        zoomLevel = ofGetWindowWidth() / ofGetWindowHeight();
+        
+        zoomLevel = ARCommon::getNativeAspectRatio();
         
         // get the name of the current device
         deviceType = [[UIDevice currentDevice] model];
@@ -60,10 +61,7 @@ namespace ARCore {
 
         // ========== SHADER SETUP  ============= //
         // setup plane and shader in order to draw the camera feed
-        //cameraPlane = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
-        
-        ofVec2f dimensions = ARCommon::getDeviceDimensions();
-        cameraPlane = ofMesh::plane(dimensions.x,dimensions.y);
+        cameraPlane = ofMesh::plane(nativeDimensions.x,nativeDimensions.y);
         
         cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARShaders::camera_convert_vertex);
         cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::camera_convert_fragment);
@@ -93,6 +91,7 @@ namespace ARCore {
     void ARCam::updateDeviceOrientation(){
         
         orientation = [UIApplication sharedApplication].statusBarOrientation;
+        zoomLevel = ARCommon::getNativeAspectRatio();
         
         switch(UIDevice.currentDevice.orientation){
                 
@@ -197,7 +196,7 @@ namespace ARCore {
         ofLoadMatrix(cameraMatrices.cameraView);
     }
     void ARCam::draw(){
-        cameraFbo.draw(0,0,viewportSize.width,viewportSize.height);
+        cameraFbo.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
     }
 
     ARCameraMatrices ARCam::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
