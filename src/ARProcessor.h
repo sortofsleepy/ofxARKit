@@ -105,6 +105,8 @@ public:
     
     void deviceOrientationChanged();
     
+    void updateDeviceInterfaceOrientation();
+    
     void rotateCameraFrame(float angle);
     
     //! Helper to quickly set up ARKit projection and view matrices for 2D drawing in oF

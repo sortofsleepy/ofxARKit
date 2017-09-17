@@ -125,6 +125,9 @@ namespace ARCore {
         //! adjusts the perspective correction zoom(Note: primarily for larger devices)
         void adjustPerspectiveCorrection(float zoomLevel);
         
+        //! Updates the current Interface orientation setting so camera projection/view matrices remain correct.
+        void updateInterfaceOrientation();
+        
         //! Returns Projection and View matrices for the specified orientation.
         ARCommon::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=1.0,float far=1000.0);
         

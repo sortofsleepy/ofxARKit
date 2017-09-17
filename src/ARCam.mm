@@ -88,6 +88,10 @@ namespace ARCore {
         rotation.makeRotationMatrix(angle, ofVec3f(0,0,1));
     }
     
+    void ARCam::updateInterfaceOrientation(){
+        orientation = [UIApplication sharedApplication].statusBarOrientation;
+    }
+    
     void ARCam::updateDeviceOrientation(){
         
         orientation = [UIApplication sharedApplication].statusBarOrientation;

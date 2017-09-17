@@ -126,7 +126,7 @@ void ofApp::draw() {
                 ofSetColor(255);
                 ofRotate(90,0,0,1);
                 
-                float aspect = ARCommon::getAspectRatio();
+                float aspect = ARCommon::getNativeAspectRatio();
                 img.draw(-aspect/8,-0.125,aspect/4,0.25);
                 
 
