@@ -69,6 +69,11 @@ void ARProcessor::drawFrame(){
 void ARProcessor::setARCameraMatrices(){
     camera->setARCameraMatrices();
 }
+
+void ARProcessor::rotateCameraFrame(float angle){
+    camera->updateRotationMatrix(angle);
+}
+
 ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
     return camera->getMatricesForOrientation(orientation,near,far);
 }

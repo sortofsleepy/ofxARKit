@@ -85,9 +85,10 @@ namespace ARCore {
         this->zoomLevel = zoomLevel;
     }
 
-    //void ARCam::setDeviceOrientation(UIInterfaceOrientation orientation){
-    //    this->orientation = orientation;
-   // }
+  
+    void ARCam::updateRotationMatrix(float angle){
+        rotation.makeRotationMatrix(angle, ofVec3f(0,0,1));
+    }
     
     void ARCam::updateDeviceOrientation(){
         
@@ -97,21 +98,34 @@ namespace ARCore {
                 
             case UIInterfaceOrientationUnknown:
                 break;
+                
+                // upside down registers, but for some reason nothing happens :/
+                // leaving this here anyways.
             case UIInterfaceOrientationPortraitUpsideDown:
                 rotation.makeRotationMatrix(270, ofVec3f(0,0,1));
                 break;
                 
             case UIInterfaceOrientationPortrait:
                 rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
+                
+                
+                if([deviceType isEqualToString:@"iPad"]){
+                    rotation.makeRotationMatrix(90, ofVec3f(0,0,1));
+                    
+                }
+                
                 break;
                 
             case UIInterfaceOrientationLandscapeLeft:
                  rotation.makeRotationMatrix(0, ofVec3f(0,0,1));
-                
                 break;
                 
             case UIInterfaceOrientationLandscapeRight:
                 rotation.makeRotationMatrix(180, ofVec3f(0,0,1));
+                
+                if([deviceType isEqualToString:@"iPad"]){
+                    rotation.makeRotationMatrix(-180, ofVec3f(0,0,1));
+                }
                 break;
         }
         
