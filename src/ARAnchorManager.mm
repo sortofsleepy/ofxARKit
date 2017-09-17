@@ -53,8 +53,12 @@ namespace ARCore {
     }
     
     // TODO this still needs a bit of work but it's good enough for the time being.
-    void ARAnchorManager::addAnchor(ofVec2f position){
+    void ARAnchorManager::addAnchor(ofVec3f position){
         
+        // set a default z if position.z is 0 so we can see the object. ;
+        if(position.z == 0){
+            position.z = -0.2;
+        }
         
         if(session.currentFrame){
             
@@ -74,7 +78,7 @@ namespace ARCore {
             translation.columns[3].y = pos.x * 0.01;
             
             // set z
-            translation.columns[3].z = -0.2;
+            translation.columns[3].z = position.z;
             
             // multiply translation by current camera position
             matrix_float4x4 transform = matrix_multiply(session.currentFrame.camera.transform, translation);
@@ -258,8 +262,6 @@ namespace ARCore {
         ofLoadMatrix(cameraMatrices.cameraProjection);
         ofSetMatrixMode(OF_MATRIX_MODELVIEW);
         ofLoadMatrix(cameraMatrices.cameraView);
-        
-        ofLog()<<"num planes: "<<getNumPlanes();
         
         for(int i = 0; i < getNumPlanes(); ++i){
             PlaneAnchorObject anchor = getPlaneAt(i);

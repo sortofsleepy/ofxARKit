@@ -65,6 +65,8 @@ void ofApp::update(){
     
     processor->update();
 
+    processor->updatePlanes();
+
     mats.clear();
     
 }

@@ -1,6 +1,5 @@
 //
 //  ARCam.cpp
-//  example-anchormanager
 //
 //  Created by Joseph Chow on 8/29/17.
 //
@@ -26,8 +25,7 @@ namespace ARCore {
         CbCrTexture = NULL;
         near = 0.01;
         far = 1000.0;
-        
-        
+  
         // initialize video texture cache
         CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, ofxiOSGetGLView().context, NULL, &_videoTextureCache);
         if (err){
@@ -36,9 +34,12 @@ namespace ARCore {
         
         // ========== CAMERA CORRECTION  ============= //
         
+        ofVec2f nativeDimensions = ARCommon::getDeviceNativeDimensions();
+        
         // this plays into adjusting the camera image to fit the correct perspective.
         // this should THEORETICALLY be your devices aspect ratio which is what the default is.
-        zoomLevel = ofGetWindowWidth() / ofGetWindowHeight();
+        
+        zoomLevel = ARCommon::getNativeAspectRatio();
         
         // get the name of the current device
         deviceType = [[UIDevice currentDevice] model];
@@ -55,11 +56,13 @@ namespace ARCore {
         }else{
             // correct video orientation
             rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
+            
         }
 
         // ========== SHADER SETUP  ============= //
         // setup plane and shader in order to draw the camera feed
-        cameraPlane = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
+        cameraPlane = ofMesh::plane(nativeDimensions.x,nativeDimensions.y);
+        
         cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARShaders::camera_convert_vertex);
         cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::camera_convert_fragment);
         cameraConvertShader.linkProgram();
@@ -80,8 +83,59 @@ namespace ARCore {
         this->zoomLevel = zoomLevel;
     }
 
-    void ARCam::setDeviceOrientation(UIInterfaceOrientation orientation){
-        this->orientation = orientation;
+  
+    void ARCam::updateRotationMatrix(float angle){
+        rotation.makeRotationMatrix(angle, ofVec3f(0,0,1));
+    }
+    
+    void ARCam::updateInterfaceOrientation(){
+        orientation = [UIApplication sharedApplication].statusBarOrientation;
+    }
+    
+    void ARCam::updateDeviceOrientation(){
+        
+        orientation = [UIApplication sharedApplication].statusBarOrientation;
+        zoomLevel = ARCommon::getNativeAspectRatio();
+        
+        switch(UIDevice.currentDevice.orientation){
+                
+            case UIInterfaceOrientationUnknown:
+                break;
+                
+                // upside down registers, but for some reason nothing happens :/
+                // leaving this here anyways.
+            case UIInterfaceOrientationPortraitUpsideDown:
+                rotation.makeRotationMatrix(270, ofVec3f(0,0,1));
+                break;
+                
+            case UIInterfaceOrientationPortrait:
+                rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
+                
+                
+                if([deviceType isEqualToString:@"iPad"]){
+                    rotation.makeRotationMatrix(90, ofVec3f(0,0,1));
+                    
+                }
+                
+                break;
+                
+            case UIInterfaceOrientationLandscapeLeft:
+                 rotation.makeRotationMatrix(0, ofVec3f(0,0,1));
+                break;
+                
+            case UIInterfaceOrientationLandscapeRight:
+                rotation.makeRotationMatrix(180, ofVec3f(0,0,1));
+                
+                if([deviceType isEqualToString:@"iPad"]){
+                    rotation.makeRotationMatrix(-180, ofVec3f(0,0,1));
+                }
+                break;
+        }
+        
+    }
+    
+    ARLightEstimate* ARCam::getLightingConditions(){
+        return session.currentFrame.lightEstimate;
     }
 
     void ARCam::update(){
@@ -89,8 +143,7 @@ namespace ARCore {
         if(!session){
             return;
         }
-     
-        
+
       
         currentFrame = session.currentFrame;
         
@@ -106,7 +159,13 @@ namespace ARCore {
             
             // do light estimates
             if (currentFrame.lightEstimate) {
+                
+                // note - in lumens, divide by 1000 to get a more normal value
                 ambientIntensity = currentFrame.lightEstimate.ambientIntensity / 1000;
+                
+                // note - in kelvin,
+                //A value of 6500 represents neutral (pure white) lighting; lower values indicate a "warmer" yellow or orange tint, and higher values indicate a "cooler" blue tint.
+                ambientColorTemperature = currentFrame.lightEstimate.ambientColorTemperature;
             }
             
             
@@ -141,19 +200,21 @@ namespace ARCore {
         ofLoadMatrix(cameraMatrices.cameraView);
     }
     void ARCam::draw(){
-        cameraFbo.draw(0,0,viewportSize.width,viewportSize.height);
+        cameraFbo.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
     }
 
     ARCameraMatrices ARCam::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
         
         
-        cameraMatrices.cameraView = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera viewMatrixForOrientation:orientation]);
+        cameraMatrices.cameraView = toMat4([session.currentFrame.camera viewMatrixForOrientation:orientation]);
         
-        cameraMatrices.cameraProjection = convert<matrix_float4x4,ofMatrix4x4>([session.currentFrame.camera projectionMatrixWithViewportSize:viewportSize orientation:orientation zNear:near zFar:far]);
+        cameraMatrices.cameraProjection = toMat4([session.currentFrame.camera projectionMatrixForOrientation:orientation viewportSize:viewportSize zNear:(CGFloat)near zFar:(CGFloat)far]);
         
-        
+     
         return cameraMatrices;
     }
+    
+  
     // ============= PRIVATE ================= //
     
     void ARCam::buildCameraFrame(CVPixelBufferRef pixelBuffer){
@@ -169,7 +230,8 @@ namespace ARCore {
         // ========= ROTATE IMAGES ================= //
         
         cameraConvertShader.begin();
-        cameraConvertShader.setUniformMatrix4f("rotationMatrix", rotation);
+       cameraConvertShader.setUniformMatrix4f("rotationMatrix", rotation);
+        
         cameraConvertShader.end();
         
         // ========= BUILD CAMERA TEXTURES ================= //

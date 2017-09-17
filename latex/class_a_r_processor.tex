@@ -1,0 +1,128 @@
+\hypertarget{class_a_r_processor}{}\section{A\+R\+Processor Class Reference}
+\label{class_a_r_processor}\index{A\+R\+Processor@{A\+R\+Processor}}
+
+
+{\ttfamily \#include $<$A\+R\+Processor.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_a_r_processor_a8d82301cb64ffc49af9219daeabc9347}\label{class_a_r_processor_a8d82301cb64ffc49af9219daeabc9347}} 
+\hyperlink{class_a_r_processor_a8d82301cb64ffc49af9219daeabc9347}{A\+R\+Processor} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a2dda14173a82870379c111d13a0562d6}\label{class_a_r_processor_a2dda14173a82870379c111d13a0562d6}} 
+\hyperlink{class_a_r_processor_a2dda14173a82870379c111d13a0562d6}{A\+R\+Processor} (A\+R\+Session $\ast$session)
+\begin{DoxyCompactList}\small\item\em Constructor -\/ pass in A\+R\+Session reference. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a9bd83aa6f017e308d1e55e709621ae84}\label{class_a_r_processor_a9bd83aa6f017e308d1e55e709621ae84}} 
+\hyperlink{class_a_r_processor_a9bd83aa6f017e308d1e55e709621ae84}{$\sim$\+A\+R\+Processor} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a5fed271e6afd105006cdd3c263c6ba4d}\label{class_a_r_processor_a5fed271e6afd105006cdd3c263c6ba4d}} 
+void \hyperlink{class_a_r_processor_a5fed271e6afd105006cdd3c263c6ba4d}{setup} ()
+\begin{DoxyCompactList}\small\item\em Sets up all the necessary components for A\+R\+Kit. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a76b6cbb62dcc0aa87e38e48cc8dbe621}\label{class_a_r_processor_a76b6cbb62dcc0aa87e38e48cc8dbe621}} 
+void \hyperlink{class_a_r_processor_a76b6cbb62dcc0aa87e38e48cc8dbe621}{update} ()
+\begin{DoxyCompactList}\small\item\em Updates all the A\+R\+Kit components. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a20418bd305702c3346a109da9e1afcb0}\label{class_a_r_processor_a20418bd305702c3346a109da9e1afcb0}} 
+void \hyperlink{class_a_r_processor_a20418bd305702c3346a109da9e1afcb0}{draw} ()
+\begin{DoxyCompactList}\small\item\em Draws the camera frame. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a685469fa6b66b8b5d935f6f45a2ef599}\label{class_a_r_processor_a685469fa6b66b8b5d935f6f45a2ef599}} 
+void \hyperlink{class_a_r_processor_a685469fa6b66b8b5d935f6f45a2ef599}{draw\+Frame} ()
+\begin{DoxyCompactList}\small\item\em Alias for drawing the camera frame for better semantics. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a035d352220785ee03e1bb15ba6bf688d}\label{class_a_r_processor_a035d352220785ee03e1bb15ba6bf688d}} 
+void \hyperlink{class_a_r_processor_a035d352220785ee03e1bb15ba6bf688d}{pause\+Session} ()
+\begin{DoxyCompactList}\small\item\em Pauses the A\+R\+Kit session. \end{DoxyCompactList}\item 
+void \hyperlink{class_a_r_processor_a121cd3925743680196771ce07058d52e}{restart\+Session} ()
+\item 
+\mbox{\Hypertarget{class_a_r_processor_a832585774cbeb04cc181f01c193940b5}\label{class_a_r_processor_a832585774cbeb04cc181f01c193940b5}} 
+void {\bfseries toggle\+Debug} ()
+\item 
+\mbox{\Hypertarget{class_a_r_processor_ae938bf188d56d8b30b141b2fa23e96f8}\label{class_a_r_processor_ae938bf188d56d8b30b141b2fa23e96f8}} 
+void \hyperlink{class_a_r_processor_ae938bf188d56d8b30b141b2fa23e96f8}{draw\+Point\+Cloud} ()
+\begin{DoxyCompactList}\small\item\em draws point cloud \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a6b6efec29e190aebd01bb770b6c218ed}\label{class_a_r_processor_a6b6efec29e190aebd01bb770b6c218ed}} 
+void {\bfseries add\+Anchor} (float z\+Zoom)
+\item 
+\mbox{\Hypertarget{class_a_r_processor_af4e627093ee86883736c89c2a627af42}\label{class_a_r_processor_af4e627093ee86883736c89c2a627af42}} 
+void {\bfseries add\+Anchor} (of\+Vec3f position)
+\item 
+\mbox{\Hypertarget{class_a_r_processor_a3cd70af245be375d56a06e2ea8d068f9}\label{class_a_r_processor_a3cd70af245be375d56a06e2ea8d068f9}} 
+std\+::vector$<$ \hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object} $>$ \hyperlink{class_a_r_processor_a3cd70af245be375d56a06e2ea8d068f9}{get\+Horizontal\+Planes} ()
+\begin{DoxyCompactList}\small\item\em Returns the current set of horizontal planes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a6a61a7e03821410bc1a715fd32159662}\label{class_a_r_processor_a6a61a7e03821410bc1a715fd32159662}} 
+void \hyperlink{class_a_r_processor_a6a61a7e03821410bc1a715fd32159662}{draw\+Horizontal\+Planes} ()
+\begin{DoxyCompactList}\small\item\em Draws the current set of horizontal planes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_aaa1488d9082ec598fd4aeb5c5c43d999}\label{class_a_r_processor_aaa1488d9082ec598fd4aeb5c5c43d999}} 
+void \hyperlink{class_a_r_processor_aaa1488d9082ec598fd4aeb5c5c43d999}{update\+Planes} ()
+\begin{DoxyCompactList}\small\item\em updates plane information \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_ac065970f90243b08b9d004a4220d0345}\label{class_a_r_processor_ac065970f90243b08b9d004a4220d0345}} 
+void {\bfseries device\+Orientation\+Changed} ()
+\item 
+\mbox{\Hypertarget{class_a_r_processor_a48797c1a249b2f115d0151396bc1eb9c}\label{class_a_r_processor_a48797c1a249b2f115d0151396bc1eb9c}} 
+void {\bfseries update\+Device\+Interface\+Orientation} ()
+\item 
+\mbox{\Hypertarget{class_a_r_processor_a2514281144c680e13c02562c74746ceb}\label{class_a_r_processor_a2514281144c680e13c02562c74746ceb}} 
+void {\bfseries rotate\+Camera\+Frame} (float angle)
+\item 
+\mbox{\Hypertarget{class_a_r_processor_a2ffd8b9518388be29eba6affe4d4d152}\label{class_a_r_processor_a2ffd8b9518388be29eba6affe4d4d152}} 
+void \hyperlink{class_a_r_processor_a2ffd8b9518388be29eba6affe4d4d152}{set\+A\+R\+Camera\+Matrices} ()
+\begin{DoxyCompactList}\small\item\em Helper to quickly set up A\+R\+Kit projection and view matrices for 2D drawing in oF. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a17fbdf84c8e82e7f781ea0228d77dfea}\label{class_a_r_processor_a17fbdf84c8e82e7f781ea0228d77dfea}} 
+void \hyperlink{class_a_r_processor_a17fbdf84c8e82e7f781ea0228d77dfea}{adjust\+Perspective\+Correction} (float zoom\+Level)
+\begin{DoxyCompactList}\small\item\em adjusts the perspective correction zoom(\+Note\+: primarily for larger devices) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_abcd684d805e880aed72c2eb56a65978f}\label{class_a_r_processor_abcd684d805e880aed72c2eb56a65978f}} 
+\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices} \hyperlink{class_a_r_processor_abcd684d805e880aed72c2eb56a65978f}{get\+Matrices\+For\+Orientation} (U\+I\+Interface\+Orientation orientation=U\+I\+Interface\+Orientation\+Portrait, float near=0.\+01, float far=1000.\+0)
+\begin{DoxyCompactList}\small\item\em Returns Projection and View matrices for the specified orientation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a5eb8045000bc6e0ad3d41d7bbf832047}\label{class_a_r_processor_a5eb8045000bc6e0ad3d41d7bbf832047}} 
+of\+Texture \hyperlink{class_a_r_processor_a5eb8045000bc6e0ad3d41d7bbf832047}{get\+Camera\+Texture} ()
+\begin{DoxyCompactList}\small\item\em Return the camera image as a texture. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a82a9b334360ebccd844e7cf5584eff8b}\label{class_a_r_processor_a82a9b334360ebccd844e7cf5584eff8b}} 
+\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices} \hyperlink{class_a_r_processor_a82a9b334360ebccd844e7cf5584eff8b}{get\+Camera\+Matrices} ()
+\begin{DoxyCompactList}\small\item\em Get the camera matrix set. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a0f7cf764c73a8fc3964be088156766ea}\label{class_a_r_processor_a0f7cf764c73a8fc3964be088156766ea}} 
+of\+Matrix4x4 {\bfseries get\+Projection\+Matrix} ()
+\item 
+\mbox{\Hypertarget{class_a_r_processor_a2e1d4cde9029bad28ac797c94e73096a}\label{class_a_r_processor_a2e1d4cde9029bad28ac797c94e73096a}} 
+of\+Matrix4x4 \hyperlink{class_a_r_processor_a2e1d4cde9029bad28ac797c94e73096a}{get\+View\+Matrix} ()
+\begin{DoxyCompactList}\small\item\em returns the current view matrix from the camera \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_aea093b6d054daa0c75de6f7a492a19ff}\label{class_a_r_processor_aea093b6d054daa0c75de6f7a492a19ff}} 
+of\+Matrix4x4 \hyperlink{class_a_r_processor_aea093b6d054daa0c75de6f7a492a19ff}{get\+Camera\+Transform\+Matrix} ()
+\begin{DoxyCompactList}\small\item\em Returns the camera\textquotesingle{}s current transform matrix. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a8436dc786e91fb933879d90a4ab396d5}\label{class_a_r_processor_a8436dc786e91fb933879d90a4ab396d5}} 
+of\+Fbo \hyperlink{class_a_r_processor_a8436dc786e91fb933879d90a4ab396d5}{get\+F\+BO} ()
+\begin{DoxyCompactList}\small\item\em Returns the camera\textquotesingle{}s F\+BO. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_a_r_processor_affa1cf36e94e3015c436fd30626dd773}\label{class_a_r_processor_affa1cf36e94e3015c436fd30626dd773}} 
+static A\+R\+Ref \hyperlink{class_a_r_processor_affa1cf36e94e3015c436fd30626dd773}{create} (A\+R\+Session $\ast$session)
+\begin{DoxyCompactList}\small\item\em creates a new A\+R\+Ref \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_a_r_processor_a8a1a8f16b30d2b0b4839a30d7ba4763d}\label{class_a_r_processor_a8a1a8f16b30d2b0b4839a30d7ba4763d}} 
+A\+R\+Core\+::\+Anchor\+Manager\+Ref \hyperlink{class_a_r_processor_a8a1a8f16b30d2b0b4839a30d7ba4763d}{anchor\+Controller}
+\begin{DoxyCompactList}\small\item\em An A\+R\+Anchor\+Manager deals with handling Anchor objects in A\+R\+Kit. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a555e829fbf6b625537f6fd7cd9557002}\label{class_a_r_processor_a555e829fbf6b625537f6fd7cd9557002}} 
+\hyperlink{class_a_r_debug_utils_1_1_point_cloud_debug}{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug} \hyperlink{class_a_r_processor_a555e829fbf6b625537f6fd7cd9557002}{point\+Cloud}
+\begin{DoxyCompactList}\small\item\em A debug class to help debug when features are detected. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_a_r_processor_a0df4995c56cb187db281726d7631d9ed}\label{class_a_r_processor_a0df4995c56cb187db281726d7631d9ed}} 
+A\+R\+Core\+::\+A\+R\+Cam\+Ref \hyperlink{class_a_r_processor_a0df4995c56cb187db281726d7631d9ed}{camera}
+\begin{DoxyCompactList}\small\item\em A class to handle camera functionality. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+An A\+PI class for doing things in A\+R\+Kit. Consider this the kitchen sink of everything, consisting of all possible functionality currently offered by the addon. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_a_r_processor_a121cd3925743680196771ce07058d52e}\label{class_a_r_processor_a121cd3925743680196771ce07058d52e}} 
+\index{A\+R\+Processor@{A\+R\+Processor}!restart\+Session@{restart\+Session}}
+\index{restart\+Session@{restart\+Session}!A\+R\+Processor@{A\+R\+Processor}}
+\subsubsection{\texorpdfstring{restart\+Session()}{restartSession()}}
+{\footnotesize\ttfamily void A\+R\+Processor\+::restart\+Session (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Restarts A\+R\+Kit session T\+O\+DO needs testing -\/ unknown if we can just pull the previous config. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/A\+R\+Processor.\+h\item 
+src/A\+R\+Processor.\+mm\end{DoxyCompactItemize}

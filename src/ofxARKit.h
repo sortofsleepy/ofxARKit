@@ -1,6 +1,5 @@
 //
 //  ofxARKit.h
-//  GeoBeats
 //
 //  Created by Joseph Chow on 8/19/17.
 //
@@ -15,5 +14,6 @@
 #include "ARAnchorManager.h"
 #include "ARShaders.h"
 #include "ARCam.h"
+#include "ARSessionSetup.h"
 
 #endif /* ofxARKit_h */

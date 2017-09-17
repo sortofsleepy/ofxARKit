@@ -33,6 +33,10 @@ void ARProcessor::pauseSession(){
       [session pause];
 }
 
+void ARProcessor::restartSession(){
+    [session runWithConfiguration:session.configuration];
+}
+
 void ARProcessor::setup(){
     anchorController = ARAnchorManager::create(session);
     camera = ARCam::create(session);
@@ -53,6 +57,10 @@ void ARProcessor::update(){
     anchorController->updatePlanes();
 }
 
+void ARProcessor::updatePlanes(){
+    anchorController->updatePlanes();
+}
+
 
 void ARProcessor::drawFrame(){
     draw();
@@ -61,6 +69,15 @@ void ARProcessor::drawFrame(){
 void ARProcessor::setARCameraMatrices(){
     camera->setARCameraMatrices();
 }
+
+void ARProcessor::rotateCameraFrame(float angle){
+    camera->updateRotationMatrix(angle);
+}
+
+void ARProcessor::updateDeviceInterfaceOrientation(){
+    camera->updateInterfaceOrientation();
+}
+
 ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
     return camera->getMatricesForOrientation(orientation,near,far);
 }
@@ -68,7 +85,19 @@ void ARProcessor::adjustPerspectiveCorrection(float zoomLevel){
     camera->zoomLevel = zoomLevel;
 }
 
+void ARProcessor::deviceOrientationChanged(){
+    camera->updateDeviceOrientation();
+}
+
 // ======= ANCHOR API ========= //
+void ARProcessor::addAnchor(float zZoom){
+    anchorController->addAnchor(zZoom);
+}
+
+void ARProcessor::addAnchor(ofVec3f position){
+    anchorController->addAnchor(position);
+}
+
 void ARProcessor::drawHorizontalPlanes(){
     anchorController->drawPlanes(camera->getCameraMatrices());
 }
