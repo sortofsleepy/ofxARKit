@@ -14,17 +14,23 @@ namespace ARCore {
         this->session = session;
     }
     
-    void ARCam::setup(){
+    void ARCam::toggleDebug(){
+        debugMode = !debugMode;
+    }
+    
+    void ARCam::setup(bool debugMode){
         ambientIntensity = 0.0;
         orientation = UIInterfaceOrientationPortrait;
         shouldBuildCameraFrame = true;
-        debugMode = true;
+        this->debugMode = debugMode;
         needsPerspectiveAdjustment = false;
         viewportSize = CGSizeMake(ofGetWindowWidth(), ofGetWindowHeight());
         yTexture = NULL;
         CbCrTexture = NULL;
         near = 0.01;
         far = 1000.0;
+        debugMode = false;
+       
   
         // initialize video texture cache
         CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, ofxiOSGetGLView().context, NULL, &_videoTextureCache);
@@ -90,6 +96,8 @@ namespace ARCore {
     
     void ARCam::updateInterfaceOrientation(){
         orientation = [UIApplication sharedApplication].statusBarOrientation;
+        zoomLevel = ARCommon::getNativeAspectRatio();
+        
     }
     
     void ARCam::updateDeviceOrientation(){
@@ -98,6 +106,12 @@ namespace ARCore {
         zoomLevel = ARCommon::getNativeAspectRatio();
         
         switch(UIDevice.currentDevice.orientation){
+                
+            case UIDeviceOrientationFaceUp:
+                break;
+                
+            case UIDeviceOrientationFaceDown:
+                break;
                 
             case UIInterfaceOrientationUnknown:
                 break;
@@ -111,10 +125,8 @@ namespace ARCore {
             case UIInterfaceOrientationPortrait:
                 rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
                 
-                
                 if([deviceType isEqualToString:@"iPad"]){
                     rotation.makeRotationMatrix(90, ofVec3f(0,0,1));
-                    
                 }
                 
                 break;
@@ -138,14 +150,50 @@ namespace ARCore {
         return session.currentFrame.lightEstimate;
     }
 
+    ARTrackingState ARCam::getTrackingState(){
+        return currentFrame.camera.trackingState;
+    }
+    
+    void ARCam::logTrackingState(){
+        
+        if(debugMode){
+     
+      
+            switch(trackingStateReason){
+                case ARTrackingStateReasonNone:
+                    ofLog(OF_LOG_NOTICE,"Tracking state is a-ok!");
+                    break;
+                    
+                case ARTrackingStateReasonInitializing:
+                    ofLog(OF_LOG_NOTICE,"Tracking is warming up and waiting for enough information to start tracking");
+                    break;
+                    
+                case ARTrackingStateReasonExcessiveMotion:
+                    ofLog(OF_LOG_ERROR,"There is excessive motion at the moment, tracking is affected.");
+                    break;
+                    
+                case ARTrackingStateReasonInsufficientFeatures:
+                    ofLog(OF_LOG_ERROR,"There are not enough features found to enable tracking");
+                    break;
+            }
+        }
+    }
+    
     void ARCam::update(){
         // if we haven't set a session - just stop things here.
         if(!session){
             return;
         }
 
-      
+       
+    
         currentFrame = session.currentFrame;
+        
+        if(debugMode){
+            // update state and reason
+            trackingState = currentFrame.camera.trackingState;
+            trackingStateReason = currentFrame.camera.trackingStateReason;
+        }
         
         // update camera transform
         cameraMatrices.cameraTransform = convert<matrix_float4x4,ofMatrix4x4>(currentFrame.camera.transform);

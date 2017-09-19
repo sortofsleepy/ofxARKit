@@ -48,7 +48,7 @@ public:
     }
     
     //! Sets up all the necessary components for ARKit
-    void setup();
+    void setup(bool debugMode=false);
     
     //! Updates all the ARKit components
     void update();
@@ -102,6 +102,8 @@ public:
     void updatePlanes();
     
    //======== CAMERA API ============ //
+    ARTrackingState getTrackingState();
+    void logTrackingState();
     
     void deviceOrientationChanged();
     

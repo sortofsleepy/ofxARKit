@@ -62,7 +62,11 @@ namespace ARCommon {
         
  
         switch(UIDevice.currentDevice.orientation){
+            case UIDeviceOrientationFaceUp:
+                break;
                 
+            case UIDeviceOrientationFaceDown:
+                break;
             case UIInterfaceOrientationUnknown:
                 dimensions.x = screenBounds.size.width;
                 dimensions.y = screenBounds.size.height;
