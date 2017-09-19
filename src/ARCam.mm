@@ -189,9 +189,10 @@ namespace ARCore {
     
         currentFrame = session.currentFrame;
         
+        trackingState = currentFrame.camera.trackingState;
+        
         if(debugMode){
             // update state and reason
-            trackingState = currentFrame.camera.trackingState;
             trackingStateReason = currentFrame.camera.trackingStateReason;
         }
         
