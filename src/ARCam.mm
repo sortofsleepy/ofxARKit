@@ -55,16 +55,10 @@ namespace ARCore {
         // TODO maybe we should try to re-orient in shaderworld.
         if([deviceType isEqualToString:@"iPad"]){
             needsPerspectiveAdjustment = true;
-            
-            // correct video orientation
-            rotation.makeRotationMatrix(90, ofVec3f(0,0,1));
-            
-        }else{
-            // correct video orientation
-            rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
-            
         }
-
+        
+        rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
+        
         // ========== SHADER SETUP  ============= //
         // setup plane and shader in order to draw the camera feed
         cameraPlane = ofMesh::plane(nativeDimensions.x,nativeDimensions.y);
@@ -102,11 +96,11 @@ namespace ARCore {
     
     void ARCam::updateDeviceOrientation(){
         
+        rotation.makeIdentityMatrix();
         orientation = [UIApplication sharedApplication].statusBarOrientation;
         zoomLevel = ARCommon::getNativeAspectRatio();
         
         switch(UIDevice.currentDevice.orientation){
-                
             case UIDeviceOrientationFaceUp:
                 break;
                 
@@ -115,35 +109,24 @@ namespace ARCore {
                 
             case UIInterfaceOrientationUnknown:
                 break;
-                
-                // upside down registers, but for some reason nothing happens :/
-                // leaving this here anyways.
             case UIInterfaceOrientationPortraitUpsideDown:
-                rotation.makeRotationMatrix(270, ofVec3f(0,0,1));
+                
+                rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
                 break;
                 
             case UIInterfaceOrientationPortrait:
                 rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
-                
-                if([deviceType isEqualToString:@"iPad"]){
-                    rotation.makeRotationMatrix(90, ofVec3f(0,0,1));
-                }
-                
+      
                 break;
                 
             case UIInterfaceOrientationLandscapeLeft:
-                 rotation.makeRotationMatrix(0, ofVec3f(0,0,1));
+                rotation.makeRotationMatrix(0, ofVec3f(0,0,1));
                 break;
                 
             case UIInterfaceOrientationLandscapeRight:
-                rotation.makeRotationMatrix(180, ofVec3f(0,0,1));
-                
-                if([deviceType isEqualToString:@"iPad"]){
-                    rotation.makeRotationMatrix(-180, ofVec3f(0,0,1));
-                }
+                rotation.makeRotationMatrix(-180, ofVec3f(0,0,1));
                 break;
         }
-        
     }
     
     ARLightEstimate* ARCam::getLightingConditions(){
