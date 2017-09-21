@@ -61,7 +61,7 @@ namespace ARCore {
         
         // ========== SHADER SETUP  ============= //
         // setup plane and shader in order to draw the camera feed
-        cameraPlane = ofMesh::plane(nativeDimensions.x,nativeDimensions.y);
+        cameraPlane = ofMesh::plane(ofGetWindowWidth(),ofGetWindowHeight());
         
         cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARShaders::camera_convert_vertex);
         cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::camera_convert_fragment);
@@ -237,9 +237,7 @@ namespace ARCore {
 
     ARCameraMatrices ARCam::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
         
-        
         cameraMatrices.cameraView = toMat4([session.currentFrame.camera viewMatrixForOrientation:orientation]);
-        
         cameraMatrices.cameraProjection = toMat4([session.currentFrame.camera projectionMatrixForOrientation:orientation viewportSize:viewportSize zNear:(CGFloat)near zFar:(CGFloat)far]);
         
      
