@@ -34,10 +34,17 @@ const std::string camera_convert_vertex = STRINGIFY(
                                                         // if we need to correct perspective distortion,
                                                         if(needsCorrection){
                                                             
-                                                            // fix scaling?
-                                                            // https://stackoverflow.com/questions/24651369/blend-textures-of-different-size-coordinates-in-glsl/24654919#24654919
+                                                           
+                                                            /**
+                                                             this method didn't really work -
+                                                              https://stackoverflow.com/questions/24651369/blend-textures-of-different-size-coordinates-in-glsl/24654919#24654919
+                                                             
+                                                             hardcoding 0.05 for now.
+                                                             Note that with Golden Master IOS 11 - image is almost
+                                                             the same as without this correction to the uvs
+                                                             */
                                                             vec2 fromCenter = vUv - scale;
-                                                            vec2 scaleFromCenter = fromCenter * vec2(zoomRatio);
+                                                            vec2 scaleFromCenter = fromCenter * vec2(0.05);
                                                             
                                                             vUv -= scaleFromCenter;
                                                             

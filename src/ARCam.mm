@@ -40,24 +40,20 @@ namespace ARCore {
         
         // ========== CAMERA CORRECTION  ============= //
         
-        ofVec2f nativeDimensions = ARCommon::getDeviceNativeDimensions();
-        
-        // this plays into adjusting the camera image to fit the correct perspective.
-        // this should THEORETICALLY be your devices aspect ratio which is what the default is.
-        
-        zoomLevel = ARCommon::getNativeAspectRatio();
-        
         // get the name of the current device
         deviceType = [[UIDevice currentDevice] model];
         
         // setup zooming if we're not on an iPhone
-        // TODO how does this affect things if we're on a smaller than standard iphone device, ie SE?
-        // TODO maybe we should try to re-orient in shaderworld.
         if([deviceType isEqualToString:@"iPad"]){
             needsPerspectiveAdjustment = true;
         }
-        
+       
         rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
+        
+        // try to fit the camera capture width within the device's viewport.
+        cam = ofRectangle(0,0,1280,720);
+        screen = ofRectangle(0,0,ofGetWindowWidth(),ofGetWindowHeight());
+        cam.scaleTo(screen,OF_ASPECT_RATIO_KEEP);
         
         // ========== SHADER SETUP  ============= //
         // setup plane and shader in order to draw the camera feed
@@ -67,10 +63,10 @@ namespace ARCore {
         cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::camera_convert_fragment);
         cameraConvertShader.linkProgram();
         
+    
+        cameraFbo.allocate(cam.getWidth(),cam.getHeight(), GL_RGBA);
         
-        // going with a default of 1280x720 as that seems to be a consistant value that ARKit captures at
-        // regardless of device, also after a contributor suggested POT textures are better.
-        cameraFbo.allocate(1280,720, GL_RGBA);
+        
     }
     
     void ARCam::setCameraNearClip(float near){
@@ -137,6 +133,25 @@ namespace ARCore {
         return currentFrame.camera.trackingState;
     }
     
+    void ARCam::updatePlaneTexCoords(){
+        
+        // see
+        // https://developer.apple.com/documentation/arkit/arframe/2923543-displaytransformfororientation?language=objc
+        // this is more or less from the default project example.
+        
+        CGAffineTransform displayToCameraTransform = CGAffineTransformInvert([currentFrame displayTransformForOrientation:orientation viewportSize:viewportSize]);
+        
+        for (int index = 0; index < 4; index++) {
+            //NSInteger textureCoordIndex = 4 * index + 2;
+            int textureCoordIndex = index;
+            ofVec2f texCoord = cameraPlane.getTexCoords()[textureCoordIndex];
+            
+            CGPoint textureCoord = CGPointMake(texCoord.x,texCoord.y);
+            CGPoint transformedCoord = CGPointApplyAffineTransform(textureCoord, displayToCameraTransform);
+            cameraPlane.setTexCoord(textureCoordIndex, ofVec2f(transformedCoord.x,transformedCoord.y));
+        }
+    }
+    
     void ARCam::logTrackingState(){
         
         if(debugMode){
@@ -171,8 +186,8 @@ namespace ARCore {
        
     
         currentFrame = session.currentFrame;
-        
         trackingState = currentFrame.camera.trackingState;
+        
         
         if(debugMode){
             // update state and reason
@@ -187,7 +202,10 @@ namespace ARCore {
         
         // only act if we have the current frame
         if(currentFrame){
-            
+           
+           // update tex coords to try and better scale the image coming from the camera.
+        
+           updatePlaneTexCoords();
             
             // do light estimates
             if (currentFrame.lightEstimate) {
@@ -260,7 +278,7 @@ namespace ARCore {
         // ========= ROTATE IMAGES ================= //
         
         cameraConvertShader.begin();
-       cameraConvertShader.setUniformMatrix4f("rotationMatrix", rotation);
+        cameraConvertShader.setUniformMatrix4f("rotationMatrix", rotation);
         
         cameraConvertShader.end();
         
@@ -269,7 +287,7 @@ namespace ARCore {
         
         int width = (int) CVPixelBufferGetWidth(pixelBuffer);
         int height = (int) CVPixelBufferGetHeight(pixelBuffer);
-        
+      
         CbCrTexture = createTextureFromPixelBuffer(pixelBuffer, 1,GL_LUMINANCE_ALPHA,width / 2, height / 2);
         
         

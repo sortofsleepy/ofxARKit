@@ -21,6 +21,12 @@ namespace ARCore {
     
     //! This class manages dealing with the camera image coming in from ARKit.
     class ARCam {
+        ofVec2f nativeDimensions;
+        ofRectangle cam,screen;
+        
+        int cFboWidth;
+        int cFboHeight;
+        float captureRatio;
         
         bool debugMode;
         
@@ -119,6 +125,8 @@ namespace ARCore {
         
         //! draws the camera frame.
         void draw();
+        
+        void updatePlaneTexCoords();
         
         //! retrieves the current lighting conditions that ARKit is seeing.
         ARLightEstimate* getLightingConditions();
