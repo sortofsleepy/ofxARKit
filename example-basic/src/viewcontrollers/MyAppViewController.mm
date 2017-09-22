@@ -44,6 +44,8 @@
     BOOL bRotate = NO;
     bRotate = bRotate || (toInterfaceOrientation == UIInterfaceOrientationPortrait);
     bRotate = bRotate || (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
+    bRotate = bRotate || (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft);
+    bRotate = bRotate || (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight);
     return bRotate;
 }
 

@@ -50,63 +50,147 @@ namespace ARCommon {
         return toMat4( modelMat );
     }
     
-    
-   
-    //! Gets the official resolution of the device you're currently using under the assumption that the width/height
-    //! matches the current orientation your device is in(ie landscape gives longer width than portrait)
-    //! x should be considered the width, y should be considered the height.
-    static ofVec2f getDeviceNativeDimensions(){
-        CGRect screenBounds = [[UIScreen mainScreen] nativeBounds];
-        
+    //! Returns the device dimensions. Pass in true if you want to return the dimensions in pixels. Note that
+    //! when in pixels, the value is not orientation aware as opposed to getting things in points.
+    static ofVec2f getDeviceDimensions(bool useNative=false){
+        CGRect screenBounds;
         ofVec2f dimensions;
         
- 
+        // depending on whether or not we want pixels or points, run the correct function.
+        // Note that, when points are requested, they are for some reason, the opposite of what they should be.
+        if(useNative){
+            screenBounds = [[UIScreen mainScreen] nativeBounds];
+        }else{
+            screenBounds = [[UIScreen mainScreen] bounds];
+        }
+        
+        // set the final width and height we want to send back
+        float width,height;
+    
+        // function to set width and height - takes the odd behavior associated with requesting points
+        // into account.
+        auto setWidthAndHeight = [&]()->void {
+        
+            if(!useNative){
+                width = screenBounds.size.height;
+                height = screenBounds.size.width;
+            }else{
+                width = screenBounds.size.width;
+                height = screenBounds.size.height;
+            }
+            
+        };
+      
+        // Set the dimensions as appropriate depending on our orientation.
+        // Note that for some reason, and I'm not sure if it's an oF, IOS or mistake on my part, but the first time
+        // it enters this switch block, dimensions are off, so there is an nested if statement to try and fix that in
+        // some of the cases.
         switch(UIDevice.currentDevice.orientation){
             case UIDeviceOrientationFaceUp:
+                setWidthAndHeight();
+                
+                // if face up - we just assume portrait
+                dimensions.x = width;
+                dimensions.y = height;
                 break;
                 
             case UIDeviceOrientationFaceDown:
+                setWidthAndHeight();
+                
+                // if face up - we just assume portrait
+                dimensions.x = width;
+                dimensions.y = height;
                 break;
             case UIInterfaceOrientationUnknown:
-                dimensions.x = screenBounds.size.width;
-                dimensions.y = screenBounds.size.height;
-                
+                // if unknown - we just assume portrait
+                dimensions.x = width;
+                dimensions.y = height;
                 break;
                 
-                // upside down registers, but for some reason nothing happens :/
-                // leaving this here anyways.
+                // upside down registers, but for some reason nothing happens and there might be weirdness :/
+                // leaving this here anyways but probably best to just disable upsidedown portrait.
             case UIInterfaceOrientationPortraitUpsideDown:
-                dimensions.x = screenBounds.size.width;
-                dimensions.y = screenBounds.size.height;
+                setWidthAndHeight();
                 
+                dimensions.x = width;
+                dimensions.y = height;
+                
+                if(width > height){
+                    dimensions.x = height;
+                    dimensions.y = width;
+                }else{
+                    dimensions.x = width;
+                    dimensions.y = height;
+                }
                 break;
                 
             case UIInterfaceOrientationPortrait:
-                dimensions.x = screenBounds.size.width;
-                dimensions.y = screenBounds.size.height;
-                
-                
+                setWidthAndHeight();
+           
+             
+                if(width > height){
+                    dimensions.x = height;
+                    dimensions.y = width;
+                }else{
+                    dimensions.x = width;
+                    dimensions.y = height;
+                }
                 break;
                 
             case UIInterfaceOrientationLandscapeLeft:
-                dimensions.x = screenBounds.size.height;
-                dimensions.y = screenBounds.size.width;
+                setWidthAndHeight();
+                
+                if(useNative){
+                    dimensions.x = height;
+                    dimensions.y = width;
+                }else{
+                    if(width < height){
+                        dimensions.x = height;
+                        dimensions.y = width;
+                    }else{
+                        dimensions.x = width;
+                        dimensions.y = height;
+                    }
+                }
                 
                 break;
                 
             case UIInterfaceOrientationLandscapeRight:
-                dimensions.x = screenBounds.size.height;
-                dimensions.y = screenBounds.size.width;
+                setWidthAndHeight();
+                
+                if(useNative){
+                    dimensions.x = height;
+                    dimensions.y = width;
+                }else{
+                    if(width < height){
+                        dimensions.x = height;
+                        dimensions.y = width;
+                    }else{
+                        dimensions.x = width;
+                        dimensions.y = height;
+                    }
+                }
+                
                 break;
+                
+                
+                
         }
         
         return dimensions;
     }
     
-    //! Returns the devices aspect ratio.
+    //! Returns the native aspect ratio in pixels.
     static float getNativeAspectRatio(){
-        ofVec2f screenSize = getDeviceNativeDimensions();
-        return screenSize.x / screenSize.y;
+      
+        ofVec2f dimensions = getDeviceDimensions(true);
+        return dimensions.x / dimensions.y;
+    }
+    
+    //! Returns the aspect ratio in points.
+    static float getAspectRatio(){
+        ofVec2f dimensions = getDeviceDimensions();
+        return dimensions.x / dimensions.y;
     }
 }
 
