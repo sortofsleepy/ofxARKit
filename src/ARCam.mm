@@ -19,12 +19,13 @@ namespace ARCore {
     }
     
     void ARCam::setup(bool debugMode){
+        nativeDimensions = ARCommon::getDeviceDimensions();
         ambientIntensity = 0.0;
         orientation = UIInterfaceOrientationPortrait;
         shouldBuildCameraFrame = true;
         this->debugMode = debugMode;
         needsPerspectiveAdjustment = false;
-        viewportSize = CGSizeMake(ofGetWindowWidth(), ofGetWindowHeight());
+        viewportSize = CGSizeMake(nativeDimensions.x,nativeDimensions.y);
         yTexture = NULL;
         CbCrTexture = NULL;
         near = 0.01;

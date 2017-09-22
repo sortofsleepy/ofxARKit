@@ -51,6 +51,53 @@ namespace ARCommon {
     }
     
     
+    static ofVec2f getDeviceDimensions(){
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        
+        ofVec2f dimensions;
+        
+        
+        switch(UIDevice.currentDevice.orientation){
+            case UIDeviceOrientationFaceUp:
+                break;
+                
+            case UIDeviceOrientationFaceDown:
+                break;
+            case UIInterfaceOrientationUnknown:
+                dimensions.x = screenBounds.size.width;
+                dimensions.y = screenBounds.size.height;
+                
+                break;
+                
+                // upside down registers, but for some reason nothing happens :/
+                // leaving this here anyways.
+            case UIInterfaceOrientationPortraitUpsideDown:
+                dimensions.x = screenBounds.size.width;
+                dimensions.y = screenBounds.size.height;
+                
+                break;
+                
+            case UIInterfaceOrientationPortrait:
+                dimensions.x = screenBounds.size.width;
+                dimensions.y = screenBounds.size.height;
+                
+                
+                break;
+                
+            case UIInterfaceOrientationLandscapeLeft:
+                dimensions.x = screenBounds.size.height;
+                dimensions.y = screenBounds.size.width;
+                
+                break;
+                
+            case UIInterfaceOrientationLandscapeRight:
+                dimensions.x = screenBounds.size.height;
+                dimensions.y = screenBounds.size.width;
+                break;
+        }
+        
+        return dimensions;
+    }
    
     //! Gets the official resolution of the device you're currently using under the assumption that the width/height
     //! matches the current orientation your device is in(ie landscape gives longer width than portrait)
