@@ -83,7 +83,7 @@ If you see the message pop up, the ARKit api offers a limited function set to se
 * calling `logTrackingState` in `ARProcessor` or `ARCam`. Will log to the console a basic string describing the status. 
 * you can also call `getTrackingState` in either class to get the raw tracking state from ARKit. 
 
-Note that in order for those functions to work, you'll need to call the `setup` function of either of those classes with the boolean `true`
+Note that in order for those functions to work, you'll need to call the `setup` function of either of those classes and pass in the boolean `true`
 
 # Permissions
 For ARKit - You'll have to enable the `Privacy - Camera Usage Description` in your `ofxiOS-Info.plist` file. The value for this field is just the string you want to show users when you ask for camera permissions. If you've never touched a plist file before, no worries! Its very easy to change. 
