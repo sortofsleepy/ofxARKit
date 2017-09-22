@@ -47,6 +47,9 @@ namespace ARCore {
         // setup zooming if we're not on an iPhone
         if([deviceType isEqualToString:@"iPad"]){
             needsPerspectiveAdjustment = true;
+            zoomLevel = ARCommon::getAspectRatio();
+            zoomLevel *= 0.01;
+        
         }
 
         rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
@@ -88,10 +91,14 @@ namespace ARCore {
     void ARCam::updateInterfaceOrientation(){
         orientation = [UIApplication sharedApplication].statusBarOrientation;
         zoomLevel = ARCommon::getAspectRatio();
+        zoomLevel *= 0.01;
+        
     }
     
     void ARCam::updateDeviceOrientation(){
         zoomLevel = ARCommon::getAspectRatio();
+        zoomLevel *= 0.01;
+        
         rotation.makeIdentityMatrix();
         orientation = [UIApplication sharedApplication].statusBarOrientation;
         
