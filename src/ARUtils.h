@@ -85,7 +85,6 @@ namespace ARCommon {
                 dimensions.x = screenBounds.size.width;
                 dimensions.y = screenBounds.size.height;
                 
-                
                 break;
                 
             case UIInterfaceOrientationLandscapeLeft:
