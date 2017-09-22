@@ -41,15 +41,22 @@ namespace ARCore {
         
         // ========== CAMERA CORRECTION  ============= //
         
+        // On iPads, it seems we need to re-crop and orient the image. Lets set some things up to do that.
+        
         // get the name of the current device
         deviceType = [[UIDevice currentDevice] model];
         
         // setup zooming if we're not on an iPhone
         if([deviceType isEqualToString:@"iPad"]){
             needsPerspectiveAdjustment = true;
+            
+            // this value manipulates the "zoomRatio" uniform in the shader.
+            // it's purely a theoretical value based on the aspect ratio of the device.
+            // if it needs adjustment, you can do so with the adjustPerspectiveCorrection function.
             zoomLevel = ARCommon::getAspectRatio();
+            
+            // we need to ensure the value is less than 1, otherwise the image is flipped.
             zoomLevel *= 0.01;
-        
         }
 
         rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
@@ -68,6 +75,7 @@ namespace ARCore {
         cameraConvertShader.linkProgram();
         
     
+        // allocate the fbo to draw the image with
         cameraFbo.allocate(cam.getWidth(),cam.getHeight(), GL_RGBA);
         
         
@@ -83,7 +91,6 @@ namespace ARCore {
         this->zoomLevel = zoomLevel;
     }
 
-  
     void ARCam::updateRotationMatrix(float angle){
         rotation.makeRotationMatrix(angle, ofVec3f(0,0,1));
     }
