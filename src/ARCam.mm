@@ -48,6 +48,8 @@ namespace ARCore {
         if([deviceType isEqualToString:@"iPad"]){
             needsPerspectiveAdjustment = true;
         }
+
+        zoomLevel = ARCommon::getAspectRatio(true);
        
         rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
         
@@ -87,15 +89,18 @@ namespace ARCore {
     
     void ARCam::updateInterfaceOrientation(){
         orientation = [UIApplication sharedApplication].statusBarOrientation;
-        zoomLevel = ARCommon::getNativeAspectRatio();
+     
+     
+        zoomLevel = ARCommon::getAspectRatio(true);
         
     }
     
     void ARCam::updateDeviceOrientation(){
-        
+       
+        zoomLevel = ARCommon::getAspectRatio(true);
         rotation.makeIdentityMatrix();
         orientation = [UIApplication sharedApplication].statusBarOrientation;
-        zoomLevel = ARCommon::getNativeAspectRatio();
+        
         
         switch(UIDevice.currentDevice.orientation){
             case UIDeviceOrientationFaceUp:

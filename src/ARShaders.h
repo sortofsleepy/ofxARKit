@@ -39,15 +39,16 @@ const std::string camera_convert_vertex = STRINGIFY(
                                                              this method didn't really work -
                                                               https://stackoverflow.com/questions/24651369/blend-textures-of-different-size-coordinates-in-glsl/24654919#24654919
                                                              
-                                                             hardcoding 0.05 for now.
+                                                             hardcoding 0.05 for now which seems to be a good magic number.
                                                              Note that with Golden Master IOS 11 - image is almost
-                                                             the same as without this correction to the uvs
+                                                             the same as without this correction to the uvs, the issue is more the cropping vs the scaling.
+                                                             
+                                                             It seems values larger than 1 for zoom ratio will cause image to flip. 
                                                              */
                                                             vec2 fromCenter = vUv - scale;
-                                                            vec2 scaleFromCenter = fromCenter * vec2(0.05);
+                                                            vec2 scaleFromCenter = fromCenter * vec2(zoomRatio);
                                                             
                                                             vUv -= scaleFromCenter;
-                                                            
                                                         }
                                                         
                                                        gl_Position = rotationMatrix* vec4(position,0.0,1.0);

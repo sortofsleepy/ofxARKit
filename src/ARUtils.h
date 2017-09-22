@@ -53,10 +53,14 @@ namespace ARCommon {
     
     static ofVec2f getDeviceDimensions(){
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
+       
+        float width = screenBounds.size.width;
+        float height = screenBounds.size.height;
         
         ofVec2f dimensions;
         
-        
+        // Weirdness abounds here - device reports opposite values after the first orientation change event.
+        // TODO find out if that's expected or not and remove additional checks.
         switch(UIDevice.currentDevice.orientation){
             case UIDeviceOrientationFaceUp:
                 break;
@@ -64,38 +68,64 @@ namespace ARCommon {
             case UIDeviceOrientationFaceDown:
                 break;
             case UIInterfaceOrientationUnknown:
-                dimensions.x = screenBounds.size.width;
-                dimensions.y = screenBounds.size.height;
-                
+             
+                //NSLog(@"Orientation unknown, Dimensions are : %@",NSStringFromCGRect(screenBounds));
+                dimensions.x = width;
+                dimensions.y = height;
                 break;
                 
                 // upside down registers, but for some reason nothing happens :/
                 // leaving this here anyways.
             case UIInterfaceOrientationPortraitUpsideDown:
-                dimensions.x = screenBounds.size.width;
-                dimensions.y = screenBounds.size.height;
-                
+                //NSLog(@"Orientation portrait upside down, Dimensions are : %@",NSStringFromCGRect(screenBounds));
+                if(width > height){
+                    dimensions.x = height;
+                    dimensions.y = width;
+                }else{
+                    dimensions.x = width;
+                    dimensions.y = height;
+                }
                 break;
                 
             case UIInterfaceOrientationPortrait:
-                dimensions.x = screenBounds.size.width;
-                dimensions.y = screenBounds.size.height;
-                
-                
+               
+                  //NSLog(@"Orientation portrait, Dimensions are : %@",NSStringFromCGRect(screenBounds));
+                if(width > height){
+                    dimensions.x = height;
+                    dimensions.y = width;
+                }else{
+                    dimensions.x = width;
+                    dimensions.y = height;
+                }
                 break;
                 
             case UIInterfaceOrientationLandscapeLeft:
-                dimensions.x = screenBounds.size.height;
-                dimensions.y = screenBounds.size.width;
+               //NSLog(@"Orientation landscape left, Dimensions are : %@",NSStringFromCGRect(screenBounds));
+                if(width < height){
+                    dimensions.x = height;
+                    dimensions.y = width;
+                }else{
+                    dimensions.x = width;
+                    dimensions.y = height;
+                }
                 
                 break;
                 
             case UIInterfaceOrientationLandscapeRight:
-                dimensions.x = screenBounds.size.height;
-                dimensions.y = screenBounds.size.width;
+              //NSLog(@"Orientation landscape right, Dimensions are : %@",NSStringFromCGRect(screenBounds));
+                if(width < height){
+                    dimensions.x = height;
+                    dimensions.y = width;
+                }else{
+                    dimensions.x = width;
+                    dimensions.y = height;
+                }
+                   dimensions.normalize();
+                ofLog()<<dimensions;
                 break;
         }
         
+   
         return dimensions;
     }
    
@@ -146,14 +176,27 @@ namespace ARCommon {
                 dimensions.y = screenBounds.size.width;
                 break;
         }
-        
         return dimensions;
     }
     
-    //! Returns the devices aspect ratio.
+    //! Returns the devices aspect ratio based on the native bounds of the device.
     static float getNativeAspectRatio(){
         ofVec2f screenSize = getDeviceNativeDimensions();
         return screenSize.x / screenSize.y;
+    }
+    
+     //! Returns the devices aspect ratio of the device.
+    //! Pass in true if you're trying to compensate for the camera image.
+    static float getAspectRatio(bool compensateForImage=false){
+        ofVec2f screenSize = getDeviceDimensions();
+        float val = 0.0;
+        
+        // compensate for landscape - seems values larger than 1 will cause image to flip.
+        if(screenSize.x > screenSize.y && compensateForImage == true){
+            val = (screenSize.x / screenSize.y) * 0.01;
+        }
+
+        return val;
     }
 }
 

@@ -162,7 +162,7 @@ void ofApp::exit() {
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs &touch){
     
-    processor->anchorController->addAnchor();
+    //processor->anchorController->addAnchor();
 }
 
 //--------------------------------------------------------------
