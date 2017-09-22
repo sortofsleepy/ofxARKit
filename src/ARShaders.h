@@ -36,10 +36,10 @@ const std::string camera_convert_vertex = STRINGIFY(
                                                             
                                                            
                                                             /**
-                                                             this method didn't really work -
+                                                             this method sort of works -
                                                               https://stackoverflow.com/questions/24651369/blend-textures-of-different-size-coordinates-in-glsl/24654919#24654919
                                                              
-                                                             hardcoding 0.05 for now which seems to be a good magic number.
+                                                             need to figure out a good zoomRatio(aka zoomLevel in the c++), 0.05 seems to be a good magic number.
                                                              Note that with Golden Master IOS 11 - image is almost
                                                              the same as without this correction to the uvs, the issue is more the cropping vs the scaling.
                                                              
