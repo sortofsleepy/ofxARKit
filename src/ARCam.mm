@@ -76,7 +76,7 @@ namespace ARCore {
         
     
         // allocate the fbo to draw the image with
-        cameraFbo.allocate(cam.getWidth(),cam.getHeight(), GL_RGBA);
+        cameraFbo.allocate(nativeDimensions.x,nativeDimensions.y, GL_RGBA);
         
         
     }
@@ -295,6 +295,7 @@ namespace ARCore {
         ofLoadMatrix(cameraMatrices.cameraView);
     }
     void ARCam::draw(){
+       
         cameraFbo.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
     }
 
