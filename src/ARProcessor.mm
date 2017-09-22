@@ -14,10 +14,6 @@ ARProcessor::ARProcessor(){
 
 ARProcessor::ARProcessor(ARSession * session){
     this->session = session;
-    
-
-    
-    debugMode = true;
 }
 
 ARProcessor::~ARProcessor(){
@@ -37,10 +33,11 @@ void ARProcessor::restartSession(){
     [session runWithConfiguration:session.configuration];
 }
 
-void ARProcessor::setup(){
+void ARProcessor::setup(bool debugMode){
+    this->debugMode = debugMode;
     anchorController = ARAnchorManager::create(session);
     camera = ARCam::create(session);
-    camera->setup();
+    camera->setup(this->debugMode);
 }
 
 void ARProcessor::draw(){
@@ -68,6 +65,14 @@ void ARProcessor::drawFrame(){
 // =========== CAMERA API ============ //
 void ARProcessor::setARCameraMatrices(){
     camera->setARCameraMatrices();
+}
+
+void ARProcessor::logTrackingState(){
+    camera->logTrackingState();
+}
+
+ARTrackingState ARProcessor::getTrackingState(){
+    return camera->getTrackingState();
 }
 
 void ARProcessor::rotateCameraFrame(float angle){
