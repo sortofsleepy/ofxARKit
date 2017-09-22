@@ -89,9 +89,40 @@ namespace ARCore {
     }
     
     void ARCam::updateInterfaceOrientation(){
-        orientation = [UIApplication sharedApplication].statusBarOrientation;
+  
         zoomLevel = ARCommon::getAspectRatio();
         zoomLevel *= 0.01;
+      
+        
+        switch(UIDevice.currentDevice.orientation){
+            case UIDeviceOrientationFaceUp:
+                orientation = UIInterfaceOrientationPortrait;
+                break;
+                
+            case UIDeviceOrientationFaceDown:
+                 orientation = UIInterfaceOrientationPortrait;
+                break;
+                
+            case UIInterfaceOrientationUnknown:
+               orientation = UIInterfaceOrientationPortrait;
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                  orientation = UIInterfaceOrientationPortrait;
+                break;
+                
+            case UIInterfaceOrientationPortrait:
+                orientation = UIInterfaceOrientationPortrait;
+                
+                break;
+                
+            case UIInterfaceOrientationLandscapeLeft:
+                orientation = UIInterfaceOrientationLandscapeLeft;
+                break;
+                
+            case UIInterfaceOrientationLandscapeRight:
+                orientation = UIInterfaceOrientationLandscapeRight;
+                break;
+        }
         
     }
     
@@ -100,7 +131,6 @@ namespace ARCore {
         zoomLevel *= 0.01;
         
         rotation.makeIdentityMatrix();
-        orientation = [UIApplication sharedApplication].statusBarOrientation;
         
         
         switch(UIDevice.currentDevice.orientation){
