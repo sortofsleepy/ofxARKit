@@ -19,7 +19,7 @@ namespace ARCore {
     }
     
     void ARCam::setup(bool debugMode){
-        nativeDimensions = ARCommon::getDeviceDimensions();
+        nativeDimensions = ARCommon::getDeviceDimensions(true);
         ambientIntensity = 0.0;
         orientation = UIInterfaceOrientationPortrait;
         shouldBuildCameraFrame = true;
@@ -49,8 +49,6 @@ namespace ARCore {
             needsPerspectiveAdjustment = true;
         }
 
-        zoomLevel = ARCommon::getAspectRatio(true);
-       
         rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
         
         // try to fit the camera capture width within the device's viewport.
@@ -60,7 +58,7 @@ namespace ARCore {
         
         // ========== SHADER SETUP  ============= //
         // setup plane and shader in order to draw the camera feed
-        cameraPlane = ofMesh::plane(ofGetWindowWidth(),ofGetWindowHeight());
+        cameraPlane = ofMesh::plane(nativeDimensions.x,nativeDimensions.y);
         
         cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARShaders::camera_convert_vertex);
         cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::camera_convert_fragment);
@@ -89,31 +87,29 @@ namespace ARCore {
     
     void ARCam::updateInterfaceOrientation(){
         orientation = [UIApplication sharedApplication].statusBarOrientation;
-     
-     
-        zoomLevel = ARCommon::getAspectRatio(true);
-        
+        zoomLevel = ARCommon::getAspectRatio();
     }
     
     void ARCam::updateDeviceOrientation(){
-       
-        zoomLevel = ARCommon::getAspectRatio(true);
+        zoomLevel = ARCommon::getAspectRatio();
         rotation.makeIdentityMatrix();
         orientation = [UIApplication sharedApplication].statusBarOrientation;
         
         
         switch(UIDevice.currentDevice.orientation){
             case UIDeviceOrientationFaceUp:
+                 rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
                 break;
                 
             case UIDeviceOrientationFaceDown:
+                 rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
                 break;
                 
             case UIInterfaceOrientationUnknown:
+                 rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
                 break;
             case UIInterfaceOrientationPortraitUpsideDown:
                 
-                rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
                 break;
                 
             case UIInterfaceOrientationPortrait:
@@ -122,11 +118,10 @@ namespace ARCore {
                 break;
                 
             case UIInterfaceOrientationLandscapeLeft:
-                rotation.makeRotationMatrix(0, ofVec3f(0,0,1));
                 break;
                 
             case UIInterfaceOrientationLandscapeRight:
-                rotation.makeRotationMatrix(-180, ofVec3f(0,0,1));
+                  rotation.makeRotationMatrix(180, ofVec3f(0,0,1));
                 break;
         }
     }
