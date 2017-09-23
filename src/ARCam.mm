@@ -28,7 +28,7 @@ namespace ARCore {
         viewportSize = CGSizeMake(nativeDimensions.x,nativeDimensions.y);
         yTexture = NULL;
         CbCrTexture = NULL;
-        near = 0.01;
+        near = 1.0;
         far = 1000.0;
         debugMode = false;
        
@@ -50,18 +50,17 @@ namespace ARCore {
         if([deviceType isEqualToString:@"iPad"]){
             needsPerspectiveAdjustment = true;
         }
-     
+       
         // try to fit the camera capture width within the device's viewport.
-        // default capture dimensions seem to be 1280x720 regardless of device.
+        // default capture dimensions seem to be 1280x720 regardless of device and orientation.
         cam = ofRectangle(0,0,1280,720);
         
         screen = ofRectangle(0,0,ofGetWindowWidth(),ofGetWindowHeight());
-   
         cam.scaleTo(screen,OF_ASPECT_RATIO_KEEP);
         
         // scale up rectangle based on scale factor of device.
-        CGFloat scaleVal = [[UIScreen mainScreen] scale];
-        cam.scaleFromCenter(scaleVal);
+        //CGFloat scaleVal = [[UIScreen mainScreen] scale];
+        //cam.scaleFromCenter(scaleVal);
         
         // correct rotation of camera image
         rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
@@ -96,22 +95,25 @@ namespace ARCore {
              float x = center.x;
              float y = center.y / 2;
              */
+            
+            // aspect ratio of scaled capture dimensions
+            float scaleVal = cam.getWidth() / cam.getHeight();
+            ofLog()<<scaleVal;
             switch (orientation){
                 case UIInterfaceOrientationUnknown:
                     
                     break;
                 case UIInterfaceOrientationLandscapeLeft:
-                    
-                    cameraFbo.draw(0,0,cam.getWidth(),cam.getHeight());
+                    cameraFbo.draw(0,0,cam.getWidth() * scaleVal,cam.getHeight() * scaleVal);
                     break;
                     
                 case UIInterfaceOrientationLandscapeRight:
-                    
-                    cameraFbo.draw(0,0,cam.getWidth(),cam.getHeight());
+                    cameraFbo.draw(0,0,cam.getWidth() * scaleVal,cam.getHeight() * scaleVal);
                     break;
                     
                 case UIInterfaceOrientationPortrait:
-                    cameraFbo.draw(0,0,cam.getHeight(),cam.getWidth());
+               
+                    cameraFbo.draw(0,0,cam.getHeight() * scaleVal,cam.getWidth() * scaleVal);
                     break;
                     
                 case UIInterfaceOrientationPortraitUpsideDown:
