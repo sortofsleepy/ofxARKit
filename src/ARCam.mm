@@ -58,7 +58,7 @@ namespace ARCore {
             // we need to ensure the value is less than 1, otherwise the image is flipped.
             zoomLevel *= 0.01;
         }
-
+     
         rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
         
         // try to fit the camera capture width within the device's viewport.
@@ -68,7 +68,7 @@ namespace ARCore {
         
         // ========== SHADER SETUP  ============= //
         // setup plane and shader in order to draw the camera feed
-        cameraPlane = ofMesh::plane(nativeDimensions.x,nativeDimensions.y);
+        cameraPlane = ofMesh::plane(cam.getWidth(),cam.getHeight());
         
         cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARShaders::camera_convert_vertex);
         cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::camera_convert_fragment);
@@ -79,6 +79,39 @@ namespace ARCore {
         cameraFbo.allocate(nativeDimensions.x,nativeDimensions.y, GL_RGBA);
         
         
+    }
+    
+    void ARCam::draw(){
+        
+        if(needsPerspectiveAdjustment){
+            CGFloat scale = [[UIScreen mainScreen] scale];
+            
+            switch (orientation){
+                case UIInterfaceOrientationLandscapeLeft:
+                    
+                    cameraFbo.draw(0,0,cam.getWidth() * scale,cam.getHeight() * scale);
+                    break;
+                    
+                case UIInterfaceOrientationLandscapeRight:
+                    
+                    cameraFbo.draw(0,0,cam.getWidth() * scale,cam.getHeight() * scale);
+                    break;
+                    
+                case UIInterfaceOrientationPortrait:
+                    
+                    cameraFbo.draw(0,0,cam.getWidth(),nativeDimensions.y);
+                    break;
+                    
+                case UIInterfaceOrientationPortraitUpsideDown:
+                    
+                    cameraFbo.draw(0,0,cam.getWidth(),nativeDimensions.y);
+                    break;
+            }
+        }else{
+            cameraFbo.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
+            
+        }
+        //cameraFbo.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
     }
     
     void ARCam::setCameraNearClip(float near){
@@ -297,10 +330,7 @@ namespace ARCore {
         ofSetMatrixMode(OF_MATRIX_MODELVIEW);
         ofLoadMatrix(cameraMatrices.cameraView);
     }
-    void ARCam::draw(){
-       
-        cameraFbo.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
-    }
+ 
 
     ARCameraMatrices ARCam::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
         

@@ -162,7 +162,7 @@ void ofApp::exit() {
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs &touch){
     
-    processor->anchorController->addAnchor();
+    //processor->anchorController->addAnchor();
 }
 
 //--------------------------------------------------------------
@@ -197,6 +197,7 @@ void ofApp::gotMemoryWarning(){
 
 //--------------------------------------------------------------
 void ofApp::deviceOrientationChanged(int newOrientation){
+    processor->updateDeviceInterfaceOrientation();
     processor->deviceOrientationChanged();
     
 }

@@ -76,7 +76,6 @@ const std::string camera_convert_fragment = STRINGIFY(
                                                           // flip uvs so image isn't inverted.
                                                           vec2 textureCoordinate = 1.0 - vec2(vUv.s, vUv.t);
                                                         
-                                                          
                                                           // Using BT.709 which is the standard for HDTV
                                                           mat3 colorConversionMatrix = mat3(
                                                                                             1.164,  1.164, 1.164,
