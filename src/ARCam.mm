@@ -139,6 +139,9 @@ namespace ARCore {
         
         rotation.makeIdentityMatrix();
         
+        ofVec2f _viewport = ARCommon::getDeviceDimensions();
+        viewportSize.width = _viewport.x;
+        viewportSize.height = _viewport.y;
         
         switch(UIDevice.currentDevice.orientation){
             case UIDeviceOrientationFaceUp:
