@@ -41,7 +41,7 @@ namespace ARCore {
         
         // ========== CAMERA CORRECTION  ============= //
         
-        // On iPads, it seems we need to re-crop and orient the image. Lets set some things up to do that.
+        // On iPads, it seems we need to re-crop and orient the image. Lets set some things up to try to do that.
         
         // get the name of the current device
         deviceType = [[UIDevice currentDevice] model];
@@ -49,22 +49,23 @@ namespace ARCore {
         // setup zooming if we're not on an iPhone
         if([deviceType isEqualToString:@"iPad"]){
             needsPerspectiveAdjustment = true;
-            
-            // this value manipulates the "zoomRatio" uniform in the shader.
-            // it's purely a theoretical value based on the aspect ratio of the device.
-            // if it needs adjustment, you can do so with the adjustPerspectiveCorrection function.
-            zoomLevel = ARCommon::getAspectRatio();
-            
-            // we need to ensure the value is less than 1, otherwise the image is flipped.
-            zoomLevel *= 0.01;
         }
      
+        // try to fit the camera capture width within the device's viewport.
+        // default capture dimensions seem to be 1280x720 regardless of device.
+        cam = ofRectangle(0,0,1280,720);
+        
+        screen = ofRectangle(0,0,ofGetWindowWidth(),ofGetWindowHeight());
+   
+        cam.scaleTo(screen,OF_ASPECT_RATIO_KEEP);
+        
+        // scale up rectangle based on scale factor of device.
+        CGFloat scaleVal = [[UIScreen mainScreen] scale];
+        cam.scaleFromCenter(scaleVal);
+        
+        // correct rotation of camera image
         rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
         
-        // try to fit the camera capture width within the device's viewport.
-        cam = ofRectangle(0,0,1280,720);
-        screen = ofRectangle(0,0,ofGetWindowWidth(),ofGetWindowHeight());
-        cam.scaleTo(screen,OF_ASPECT_RATIO_KEEP);
         
         // ========== SHADER SETUP  ============= //
         // setup plane and shader in order to draw the camera feed
@@ -75,39 +76,51 @@ namespace ARCore {
         cameraConvertShader.linkProgram();
         
     
-        // allocate the fbo to draw the image with
-        cameraFbo.allocate(nativeDimensions.x,nativeDimensions.y, GL_RGBA);
+        // allocate the fbo to draw the image with, large enough to support
+        // any sized screen.
+        // TODO perf tests - is 4000x4000 too big? Memory seems minimaly imapacted if at all.
+        cameraFbo.allocate(4000,4000, GL_RGBA);
         
         
     }
     
     void ARCam::draw(){
         
+        // if we're on an iPad, things get weird. Adjust drawing based on viewport.
         if(needsPerspectiveAdjustment){
-            CGFloat scale = [[UIScreen mainScreen] scale];
-            
+          
+            /*
+             CGFloat scale = [[UIScreen mainScreen] scale];
+             ofPoint center = cam.getCenter();
+             
+             float x = center.x;
+             float y = center.y / 2;
+             */
             switch (orientation){
+                case UIInterfaceOrientationUnknown:
+                    
+                    break;
                 case UIInterfaceOrientationLandscapeLeft:
                     
-                    cameraFbo.draw(0,0,cam.getWidth() * scale,cam.getHeight() * scale);
+                    cameraFbo.draw(0,0,cam.getWidth(),cam.getHeight());
                     break;
                     
                 case UIInterfaceOrientationLandscapeRight:
                     
-                    cameraFbo.draw(0,0,cam.getWidth() * scale,cam.getHeight() * scale);
+                    cameraFbo.draw(0,0,cam.getWidth(),cam.getHeight());
                     break;
                     
                 case UIInterfaceOrientationPortrait:
-                    
-                    cameraFbo.draw(0,0,cam.getWidth(),nativeDimensions.y);
+                    cameraFbo.draw(0,0,cam.getHeight(),cam.getWidth());
                     break;
                     
                 case UIInterfaceOrientationPortraitUpsideDown:
-                    
-                    cameraFbo.draw(0,0,cam.getWidth(),nativeDimensions.y);
+                    cameraFbo.draw(0,0,cam.getHeight(),cam.getWidth());
                     break;
             }
         }else{
+            // iphones seem to be impervious to this scaling issue so just draw it at the full height
+            // and width of the current viewport.
             cameraFbo.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
             
         }

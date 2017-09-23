@@ -11,6 +11,8 @@
 // Same with point cloud shaders.
 #define STRINGIFY(A) #A
 namespace ARShaders {
+    
+    
 
 // Shaders built with the help of
 // https://github.com/BradLarson/GPUImage
@@ -18,6 +20,7 @@ namespace ARShaders {
 //Specifically between these couple files
 // https://github.com/BradLarson/GPUImage/blob/167b0389bc6e9dc4bb0121550f91d8d5d6412c53/framework/Source/GPUImageColorConversion.m
 // https://github.com/BradLarson/GPUImage/blob/167b0389bc6e9dc4bb0121550f91d8d5d6412c53/framework/Source/GPUImageVideoCamera.m
+    
 const std::string camera_convert_vertex = STRINGIFY(
                                                     attribute vec2 position;
                                                     varying vec2 vUv;
@@ -31,25 +34,7 @@ const std::string camera_convert_vertex = STRINGIFY(
                                                         
                                                         vUv = position.xy * scale + scale;
                                                         
-                                                        // if we need to correct perspective distortion,
-                                                        if(needsCorrection){
-                                                            
-                                                           
-                                                            /**
-                                                             this method sort of works -
-                                                              https://stackoverflow.com/questions/24651369/blend-textures-of-different-size-coordinates-in-glsl/24654919#24654919
-                                                             
-                                                             need to figure out a good zoomRatio(aka zoomLevel in the c++), 0.05 seems to be a good magic number.
-                                                             Note that with Golden Master IOS 11 - image is almost
-                                                             the same as without this correction to the uvs, the issue is more the cropping vs the scaling.
-                                                             
-                                                             It seems values larger than 1 for zoom ratio will cause image to flip. 
-                                                             */
-                                                            vec2 fromCenter = vUv - scale;
-                                                            vec2 scaleFromCenter = fromCenter * vec2(zoomRatio);
-                                                            
-                                                            vUv -= scaleFromCenter;
-                                                        }
+                               
                                                         
                                                        gl_Position = rotationMatrix* vec4(position,0.0,1.0);
                                                     
@@ -60,6 +45,7 @@ const std::string camera_convert_vertex = STRINGIFY(
                                                     
                                                     );
 
+    
 
 
 const std::string camera_convert_fragment = STRINGIFY(
@@ -134,3 +120,19 @@ const std::string point_cloud_fragment = STRINGIFY(
                                                    );
 }
 #endif /* ARShaders_h */
+
+/*
+ // if we need to correct perspective distortion,
+ if(needsCorrection){
+ 
+ 
+ 
+ //this method sort of works -
+ //https://stackoverflow.com/questions/24651369/blend-textures-of-different-size-coordinates-in-glsl/24654919#24654919
+ 
+vec2 fromCenter = vUv - scale;
+vec2 scaleFromCenter = fromCenter * vec2(zoomRatio);
+
+vUv -= scaleFromCenter;
+}
+*/
