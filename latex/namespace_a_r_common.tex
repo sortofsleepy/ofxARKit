@@ -1,0 +1,90 @@
+\hypertarget{namespace_a_r_common}{}\section{A\+R\+Common Namespace Reference}
+\label{namespace_a_r_common}\index{A\+R\+Common@{A\+R\+Common}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Camera\+Matrices}
+\begin{DoxyCompactList}\small\item\em joined camera matrices as one object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T , typename U $>$ }\\const static U \hyperlink{namespace_a_r_common_ab67b42b84c068f0c4ab2401ea3af86c6}{convert} (const T \&t)
+\item 
+const static of\+Matrix4x4 \hyperlink{namespace_a_r_common_a78fc93a50ebb387050bae7d69d2a8cce}{to\+Mat4} (const matrix\+\_\+float4x4 \&mat)
+\begin{DoxyCompactList}\small\item\em convert to oF mat4 \end{DoxyCompactList}\item 
+const matrix\+\_\+float4x4 \hyperlink{namespace_a_r_common_ad6930ed2b61bca10da347b8bb398d3b8}{to\+S\+I\+M\+D\+Mat4} (of\+Matrix4x4 \&mat)
+\begin{DoxyCompactList}\small\item\em convert to simd based mat4 \end{DoxyCompactList}\item 
+static of\+Matrix4x4 \hyperlink{namespace_a_r_common_aec58705c71590506c5f1f86e927f11e1}{model\+Mat\+From\+Transform} (matrix\+\_\+float4x4 transform)
+\begin{DoxyCompactList}\small\item\em Constructs a generalized model matrix for a S\+I\+MD mat4. \end{DoxyCompactList}\item 
+static of\+Vec2f \hyperlink{namespace_a_r_common_a37407572659749170d1906046fa1921c}{get\+Device\+Dimensions} (bool use\+Native=false)
+\item 
+static float \hyperlink{namespace_a_r_common_a00f3449531f154cba4a751128117052f}{get\+Native\+Aspect\+Ratio} ()
+\begin{DoxyCompactList}\small\item\em Returns the native aspect ratio in pixels. \end{DoxyCompactList}\item 
+static float \hyperlink{namespace_a_r_common_a5c33a5f3620614da8b3be53f6811d7ca}{get\+Aspect\+Ratio} ()
+\begin{DoxyCompactList}\small\item\em Returns the aspect ratio in points. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespace_a_r_common_ab67b42b84c068f0c4ab2401ea3af86c6}\label{namespace_a_r_common_ab67b42b84c068f0c4ab2401ea3af86c6}} 
+\index{A\+R\+Common@{A\+R\+Common}!convert@{convert}}
+\index{convert@{convert}!A\+R\+Common@{A\+R\+Common}}
+\subsubsection{\texorpdfstring{convert()}{convert()}}
+{\footnotesize\ttfamily template$<$typename T , typename U $>$ \\
+const static U A\+R\+Common\+::convert (\begin{DoxyParamCaption}\item[{const T \&}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+borrowed from \href{https://github.com/wdlindmeier/Cinder-Metal/blob/master/include/MetalHelpers.hpp}{\tt https\+://github.\+com/wdlindmeier/\+Cinder-\/\+Metal/blob/master/include/\+Metal\+Helpers.\+hpp} helpful converting to and from S\+I\+MD \mbox{\Hypertarget{namespace_a_r_common_a5c33a5f3620614da8b3be53f6811d7ca}\label{namespace_a_r_common_a5c33a5f3620614da8b3be53f6811d7ca}} 
+\index{A\+R\+Common@{A\+R\+Common}!get\+Aspect\+Ratio@{get\+Aspect\+Ratio}}
+\index{get\+Aspect\+Ratio@{get\+Aspect\+Ratio}!A\+R\+Common@{A\+R\+Common}}
+\subsubsection{\texorpdfstring{get\+Aspect\+Ratio()}{getAspectRatio()}}
+{\footnotesize\ttfamily static float A\+R\+Common\+::get\+Aspect\+Ratio (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Returns the aspect ratio in points. 
+
+\mbox{\Hypertarget{namespace_a_r_common_a37407572659749170d1906046fa1921c}\label{namespace_a_r_common_a37407572659749170d1906046fa1921c}} 
+\index{A\+R\+Common@{A\+R\+Common}!get\+Device\+Dimensions@{get\+Device\+Dimensions}}
+\index{get\+Device\+Dimensions@{get\+Device\+Dimensions}!A\+R\+Common@{A\+R\+Common}}
+\subsubsection{\texorpdfstring{get\+Device\+Dimensions()}{getDeviceDimensions()}}
+{\footnotesize\ttfamily static of\+Vec2f A\+R\+Common\+::get\+Device\+Dimensions (\begin{DoxyParamCaption}\item[{bool}]{use\+Native = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Returns the device dimensions. Pass in true if you want to return the dimensions in pixels. Note that when in pixels, the value is not orientation aware as opposed to getting things in points. \mbox{\Hypertarget{namespace_a_r_common_a00f3449531f154cba4a751128117052f}\label{namespace_a_r_common_a00f3449531f154cba4a751128117052f}} 
+\index{A\+R\+Common@{A\+R\+Common}!get\+Native\+Aspect\+Ratio@{get\+Native\+Aspect\+Ratio}}
+\index{get\+Native\+Aspect\+Ratio@{get\+Native\+Aspect\+Ratio}!A\+R\+Common@{A\+R\+Common}}
+\subsubsection{\texorpdfstring{get\+Native\+Aspect\+Ratio()}{getNativeAspectRatio()}}
+{\footnotesize\ttfamily static float A\+R\+Common\+::get\+Native\+Aspect\+Ratio (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Returns the native aspect ratio in pixels. 
+
+\mbox{\Hypertarget{namespace_a_r_common_aec58705c71590506c5f1f86e927f11e1}\label{namespace_a_r_common_aec58705c71590506c5f1f86e927f11e1}} 
+\index{A\+R\+Common@{A\+R\+Common}!model\+Mat\+From\+Transform@{model\+Mat\+From\+Transform}}
+\index{model\+Mat\+From\+Transform@{model\+Mat\+From\+Transform}!A\+R\+Common@{A\+R\+Common}}
+\subsubsection{\texorpdfstring{model\+Mat\+From\+Transform()}{modelMatFromTransform()}}
+{\footnotesize\ttfamily static of\+Matrix4x4 A\+R\+Common\+::model\+Mat\+From\+Transform (\begin{DoxyParamCaption}\item[{matrix\+\_\+float4x4}]{transform }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Constructs a generalized model matrix for a S\+I\+MD mat4. 
+
+\mbox{\Hypertarget{namespace_a_r_common_a78fc93a50ebb387050bae7d69d2a8cce}\label{namespace_a_r_common_a78fc93a50ebb387050bae7d69d2a8cce}} 
+\index{A\+R\+Common@{A\+R\+Common}!to\+Mat4@{to\+Mat4}}
+\index{to\+Mat4@{to\+Mat4}!A\+R\+Common@{A\+R\+Common}}
+\subsubsection{\texorpdfstring{to\+Mat4()}{toMat4()}}
+{\footnotesize\ttfamily const static of\+Matrix4x4 A\+R\+Common\+::to\+Mat4 (\begin{DoxyParamCaption}\item[{const matrix\+\_\+float4x4 \&}]{mat }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+convert to oF mat4 
+
+\mbox{\Hypertarget{namespace_a_r_common_ad6930ed2b61bca10da347b8bb398d3b8}\label{namespace_a_r_common_ad6930ed2b61bca10da347b8bb398d3b8}} 
+\index{A\+R\+Common@{A\+R\+Common}!to\+S\+I\+M\+D\+Mat4@{to\+S\+I\+M\+D\+Mat4}}
+\index{to\+S\+I\+M\+D\+Mat4@{to\+S\+I\+M\+D\+Mat4}!A\+R\+Common@{A\+R\+Common}}
+\subsubsection{\texorpdfstring{to\+S\+I\+M\+D\+Mat4()}{toSIMDMat4()}}
+{\footnotesize\ttfamily const matrix\+\_\+float4x4 A\+R\+Common\+::to\+S\+I\+M\+D\+Mat4 (\begin{DoxyParamCaption}\item[{of\+Matrix4x4 \&}]{mat }\end{DoxyParamCaption})}
+
+
+
+convert to simd based mat4 
+

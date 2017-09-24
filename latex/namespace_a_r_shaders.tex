@@ -1,0 +1,75 @@
+\hypertarget{namespace_a_r_shaders}{}\section{A\+R\+Shaders Namespace Reference}
+\label{namespace_a_r_shaders}\index{A\+R\+Shaders@{A\+R\+Shaders}}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const std\+::string \hyperlink{namespace_a_r_shaders_a3c22292f0a3f936dec68c88539ff258b}{camera\+\_\+convert\+\_\+vertex}
+\item 
+const std\+::string \hyperlink{namespace_a_r_shaders_a7ad85c6ac56fd64d97461423e022c3ef}{camera\+\_\+convert\+\_\+fragment}
+\item 
+const std\+::string \hyperlink{namespace_a_r_shaders_ada1162901271506088cc985d466c8971}{point\+\_\+cloud\+\_\+vertex}
+\item 
+const std\+::string \hyperlink{namespace_a_r_shaders_ad415abff7a73d38ae981dd4be29a7076}{point\+\_\+cloud\+\_\+fragment}
+\end{DoxyCompactItemize}
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{namespace_a_r_shaders_a7ad85c6ac56fd64d97461423e022c3ef}\label{namespace_a_r_shaders_a7ad85c6ac56fd64d97461423e022c3ef}} 
+\index{A\+R\+Shaders@{A\+R\+Shaders}!camera\+\_\+convert\+\_\+fragment@{camera\+\_\+convert\+\_\+fragment}}
+\index{camera\+\_\+convert\+\_\+fragment@{camera\+\_\+convert\+\_\+fragment}!A\+R\+Shaders@{A\+R\+Shaders}}
+\subsubsection{\texorpdfstring{camera\+\_\+convert\+\_\+fragment}{camera\_convert\_fragment}}
+{\footnotesize\ttfamily const std\+::string A\+R\+Shaders\+::camera\+\_\+convert\+\_\+fragment}
+
+\mbox{\Hypertarget{namespace_a_r_shaders_a3c22292f0a3f936dec68c88539ff258b}\label{namespace_a_r_shaders_a3c22292f0a3f936dec68c88539ff258b}} 
+\index{A\+R\+Shaders@{A\+R\+Shaders}!camera\+\_\+convert\+\_\+vertex@{camera\+\_\+convert\+\_\+vertex}}
+\index{camera\+\_\+convert\+\_\+vertex@{camera\+\_\+convert\+\_\+vertex}!A\+R\+Shaders@{A\+R\+Shaders}}
+\subsubsection{\texorpdfstring{camera\+\_\+convert\+\_\+vertex}{camera\_convert\_vertex}}
+{\footnotesize\ttfamily const std\+::string A\+R\+Shaders\+::camera\+\_\+convert\+\_\+vertex}
+
+\mbox{\Hypertarget{namespace_a_r_shaders_ad415abff7a73d38ae981dd4be29a7076}\label{namespace_a_r_shaders_ad415abff7a73d38ae981dd4be29a7076}} 
+\index{A\+R\+Shaders@{A\+R\+Shaders}!point\+\_\+cloud\+\_\+fragment@{point\+\_\+cloud\+\_\+fragment}}
+\index{point\+\_\+cloud\+\_\+fragment@{point\+\_\+cloud\+\_\+fragment}!A\+R\+Shaders@{A\+R\+Shaders}}
+\subsubsection{\texorpdfstring{point\+\_\+cloud\+\_\+fragment}{point\_cloud\_fragment}}
+{\footnotesize\ttfamily const std\+::string A\+R\+Shaders\+::point\+\_\+cloud\+\_\+fragment}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \hyperlink{_a_r_shaders_8h_ab06e1eb2e9bf38e0d452b1f796aed208}{STRINGIFY}(
+                                                   precision highp \textcolor{keywordtype}{float};
+                                                   
+                                                   
+                                                   
+                                                   
+                                                   \textcolor{keywordtype}{void} main()\{
+                                                       vec2 uv = gl\_PointCoord.st;
+                                                       uv = step(0.99, sin(uv*3.14) * 0.5 + 0.5);
+                                                       uv += uv.yx;
+                                                       \textcolor{keywordflow}{if}(uv.x < 0.1)\{discard;\}
+                                                       gl\_FragColor = vec4(uv,0.0,1.);
+                                                   \}
+                                                   
+                                                   
+                                                   
+                                                   )
+\end{DoxyCode}
+\mbox{\Hypertarget{namespace_a_r_shaders_ada1162901271506088cc985d466c8971}\label{namespace_a_r_shaders_ada1162901271506088cc985d466c8971}} 
+\index{A\+R\+Shaders@{A\+R\+Shaders}!point\+\_\+cloud\+\_\+vertex@{point\+\_\+cloud\+\_\+vertex}}
+\index{point\+\_\+cloud\+\_\+vertex@{point\+\_\+cloud\+\_\+vertex}!A\+R\+Shaders@{A\+R\+Shaders}}
+\subsubsection{\texorpdfstring{point\+\_\+cloud\+\_\+vertex}{point\_cloud\_vertex}}
+{\footnotesize\ttfamily const std\+::string A\+R\+Shaders\+::point\+\_\+cloud\+\_\+vertex}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \hyperlink{_a_r_shaders_8h_ab06e1eb2e9bf38e0d452b1f796aed208}{STRINGIFY}(
+                                                 attribute vec3 position;
+                                                 uniform mat4 projectionMatrix;
+                                                 uniform mat4 modelViewMatrix;
+                                                 \textcolor{keywordtype}{void} main()\{
+                                                     mat4 mv = modelViewMatrix;
+                                                     gl\_PointSize = 20.0;
+                                                     gl\_Position = projectionMatrix * mv * vec4(position,1.
+      0);
+                                                 \}
+                                                 
+                                                 )
+\end{DoxyCode}
