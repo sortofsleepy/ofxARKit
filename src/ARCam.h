@@ -24,14 +24,15 @@ namespace ARCore {
         ofVec2f nativeDimensions;
         ofRectangle cam,screen;
         
-        int cFboWidth;
-        int cFboHeight;
-        float captureRatio;
-        
+        float scaleVal;
+        float xShift,yShift;
         bool debugMode;
         
         //! current orientation to use to get proper projection and view matrices
         UIInterfaceOrientation orientation;
+        
+        //! The current device orientation;
+        UIDeviceOrientation deviceOrientation;
         
         //! a reference to an ARSession object
         ARSession * session;
