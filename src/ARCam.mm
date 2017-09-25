@@ -70,8 +70,6 @@ namespace ARCore {
         
         cam.scaleFromCenter(scaleVal);
   
-        ofLog()<<cam;
-        
         // correct rotation of camera image
         rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
         
@@ -105,46 +103,43 @@ namespace ARCore {
              float x = center.x;
              float y = center.y / 2;
              */
-            
+            angle += 0.1;
             ofPoint center = cam.getCenter();
-            
             float x = center.x;
             float y = center.y / 2;
             // Adjust drawing as necessary .
-            // TODO Unclear as to whether or not it's ok to alter x/y coords, image appears to be
-            // correctly sized and gray default background shows up if you try to do so on the iPhone at least.
             switch(UIDevice.currentDevice.orientation){
                 case UIDeviceOrientationFaceUp:
              
+                    if(deviceOrientation == UIDeviceOrientationLandscapeLeft ||
+                       deviceOrientation == UIDeviceOrientationLandscapeRight){
+                        cameraFbo.draw(0,0,cam.getWidth(),cam.getHeight());
+                    }else{
+                        cameraFbo.draw(0,0,cam.getHeight(),cam.getWidth());
+                    }
                     break;
                     
                 case UIDeviceOrientationFaceDown:
-                  //ofLog()<<"FACE DOWN";
                     break;
                     
                 case UIDeviceOrientationUnknown:
-                    // ofLog()<<"UNKNOWN";
                     cameraFbo.draw(0,0,cam.getHeight(),cam.getWidth());
                     
                     break;
                 case UIDeviceOrientationPortraitUpsideDown:
-                   //  ofLog()<<"UPSIDEDOWN";
                     cameraFbo.draw(0,0,cam.getHeight(),cam.getWidth());
                     break;
                     
                 case UIDeviceOrientationPortrait:
-                    // ofLog()<<"PORTRAIT";
                     cameraFbo.draw(0,0,cam.getHeight(),cam.getWidth());
                     break;
                     
                 case UIDeviceOrientationLandscapeLeft:
-                    // ofLog()<<"LEFT";
                     cameraFbo.draw(0,0,cam.getWidth(),cam.getHeight());
                     
                     break;
                     
                 case UIDeviceOrientationLandscapeRight:
-                    //ofLog()<<"RIGHT";
                     cameraFbo.draw(0,0,cam.getWidth(),cam.getHeight());
                     break;
             }
@@ -159,23 +154,73 @@ namespace ARCore {
     }
     
  
-    void ARCam::updateInterfaceOrientation(){
-  
+    
+    void ARCam::updateDeviceOrientation(){
         zoomLevel = ARCommon::getAspectRatio();
         zoomLevel *= 0.01;
+        
+        rotation.makeIdentityMatrix();
+        
+        ofVec2f _viewport = ARCommon::getDeviceDimensions();
+        viewportSize.width = _viewport.x;
+        viewportSize.height = _viewport.y;
+        
+    
+        switch(UIDevice.currentDevice.orientation){
+            case UIDeviceOrientationFaceUp:
+                // TODO figure out why rotation ain't working in this context.
+                if(deviceOrientation == UIDeviceOrientationLandscapeLeft){
+                   rotation.makeRotationMatrix(0, ofVec3f(0,0,1));
+                }else if(deviceOrientation == UIDeviceOrientationLandscapeRight){
+                       rotation.makeRotationMatrix(180, ofVec3f(0,0,1));
+                }else{
+                    rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
+                }
+                break;
+                
+            case UIDeviceOrientationFaceDown:
+                break;
+                
+            case UIInterfaceOrientationUnknown:
+                 rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                
+                break;
+                
+            case UIInterfaceOrientationPortrait:
+                rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
       
-      
+                break;
+                
+            case UIInterfaceOrientationLandscapeLeft:
+                   rotation.makeRotationMatrix(0, ofVec3f(0,0,1));
+                break;
+                
+            case UIInterfaceOrientationLandscapeRight:
+                  rotation.makeRotationMatrix(180, ofVec3f(0,0,1));
+                break;
+        }
+    }
+    
+    
+    void ARCam::updateInterfaceOrientation(){
+        
+        zoomLevel = ARCommon::getAspectRatio();
+        zoomLevel *= 0.01;
+        
+        
         switch(UIDevice.currentDevice.orientation){
             case UIDeviceOrientationFaceUp:
                 orientation = UIInterfaceOrientationPortrait;
                 break;
                 
             case UIDeviceOrientationFaceDown:
-                 orientation = UIInterfaceOrientationPortrait;
+                orientation = UIInterfaceOrientationPortrait;
                 break;
                 
             case UIInterfaceOrientationUnknown:
-               orientation = UIInterfaceOrientationPortrait;
+                orientation = UIInterfaceOrientationPortrait;
                 break;
             case UIInterfaceOrientationPortraitUpsideDown:
                 deviceOrientation = UIDeviceOrientationPortrait;
@@ -203,46 +248,6 @@ namespace ARCore {
                 break;
         }
         
-    }
-    
-    void ARCam::updateDeviceOrientation(){
-        zoomLevel = ARCommon::getAspectRatio();
-        zoomLevel *= 0.01;
-        
-        rotation.makeIdentityMatrix();
-        
-        ofVec2f _viewport = ARCommon::getDeviceDimensions();
-        viewportSize.width = _viewport.x;
-        viewportSize.height = _viewport.y;
-        
-    
-        switch(UIDevice.currentDevice.orientation){
-            case UIDeviceOrientationFaceUp:
-        
-                break;
-                
-            case UIDeviceOrientationFaceDown:
-                break;
-                
-            case UIInterfaceOrientationUnknown:
-                 rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
-                break;
-            case UIInterfaceOrientationPortraitUpsideDown:
-                
-                break;
-                
-            case UIInterfaceOrientationPortrait:
-                rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
-      
-                break;
-                
-            case UIInterfaceOrientationLandscapeLeft:
-                break;
-                
-            case UIInterfaceOrientationLandscapeRight:
-                  rotation.makeRotationMatrix(180, ofVec3f(0,0,1));
-                break;
-        }
     }
     void ARCam::setCameraNearClip(float near){
         this->near = near;

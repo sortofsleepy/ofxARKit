@@ -28,6 +28,8 @@ namespace ARCore {
         float xShift,yShift;
         bool debugMode;
         
+        float angle = 0;
+        
         //! current orientation to use to get proper projection and view matrices
         UIInterfaceOrientation orientation;
         
