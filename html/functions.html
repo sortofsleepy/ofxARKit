@@ -58,21 +58,27 @@ $(function() {
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
+<div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_a"></a>- a -</h3><ul>
 <li>addAnchor()
 : <a class="el" href="class_a_r_core_1_1_a_r_anchor_manager.html#a462546bf84296188fd899d533a3c17bd">ARCore::ARAnchorManager</a>
+, <a class="el" href="class_a_r_processor.html#a6b6efec29e190aebd01bb770b6c218ed">ARProcessor</a>
 </li>
 <li>adjustPerspectiveCorrection()
 : <a class="el" href="class_a_r_core_1_1_a_r_cam.html#ae2ecd3007e6684d1686c89d2ac3e7020">ARCore::ARCam</a>
-, <a class="el" href="class_a_r_processor.html#a17fbdf84c8e82e7f781ea0228d77dfea">ARProcessor</a>
 </li>
 <li>anchorController
 : <a class="el" href="class_a_r_processor.html#a8a1a8f16b30d2b0b4839a30d7ba4763d">ARProcessor</a>
 </li>
+<li>ARAnchorManager()
+: <a class="el" href="class_a_r_core_1_1_a_r_anchor_manager.html#ad4f5727e58d9b4c6f582c50ba5ac0f49">ARCore::ARAnchorManager</a>
+</li>
+<li>ARCam()
+: <a class="el" href="class_a_r_core_1_1_a_r_cam.html#aac3da0758960b1cc5787eae0b7efffe1">ARCore::ARCam</a>
+</li>
 <li>ARProcessor()
-: <a class="el" href="class_a_r_processor.html#a2dda14173a82870379c111d13a0562d6">ARProcessor</a>
+: <a class="el" href="class_a_r_processor.html#a8d82301cb64ffc49af9219daeabc9347">ARProcessor</a>
 </li>
 </ul>
 
@@ -81,6 +87,15 @@ $(function() {
 <li>camera
 : <a class="el" href="class_a_r_processor.html#a0df4995c56cb187db281726d7631d9ed">ARProcessor</a>
 </li>
+<li>cameraProjection
+: <a class="el" href="struct_a_r_common_1_1_a_r_camera_matrices.html#a5d0957360e888d95ae75358416dfe487">ARCommon::ARCameraMatrices</a>
+</li>
+<li>cameraTransform
+: <a class="el" href="struct_a_r_common_1_1_a_r_camera_matrices.html#a704028e138238522f8e060d5d587b0ef">ARCommon::ARCameraMatrices</a>
+</li>
+<li>cameraView
+: <a class="el" href="struct_a_r_common_1_1_a_r_camera_matrices.html#a0a6b9d23ece063831aac56c704d83d7f">ARCommon::ARCameraMatrices</a>
+</li>
 <li>clearAnchors()
 : <a class="el" href="class_a_r_core_1_1_a_r_anchor_manager.html#af78ff242457a15c5073b8a2557a96974">ARCore::ARAnchorManager</a>
 </li>
@@ -88,13 +103,17 @@ $(function() {
 : <a class="el" href="class_a_r_core_1_1_a_r_anchor_manager.html#aec308e2f34682a568b2bda022a21a3ed">ARCore::ARAnchorManager</a>
 </li>
 <li>create()
-: <a class="el" href="class_a_r_core_1_1_a_r_cam.html#ad4a6c0ebf786ea4e745cc8e95790681a">ARCore::ARCam</a>
+: <a class="el" href="class_a_r_core_1_1_a_r_anchor_manager.html#ab1293c2f5911e273573b1df3643fd086">ARCore::ARAnchorManager</a>
+, <a class="el" href="class_a_r_core_1_1_a_r_cam.html#ad4a6c0ebf786ea4e745cc8e95790681a">ARCore::ARCam</a>
 , <a class="el" href="class_a_r_processor.html#affa1cf36e94e3015c436fd30626dd773">ARProcessor</a>
 </li>
 </ul>
 
 
 <h3><a id="index_d"></a>- d -</h3><ul>
+<li>deviceOrientationChanged()
+: <a class="el" href="class_a_r_processor.html#ac065970f90243b08b9d004a4220d0345">ARProcessor</a>
+</li>
 <li>draw()
 : <a class="el" href="class_a_r_core_1_1_a_r_cam.html#ac6506992ee88e0acd20d851849ebfa18">ARCore::ARCam</a>
 , <a class="el" href="class_a_r_debug_utils_1_1_point_cloud_debug.html#a308b87459dd4f0fc89f25bc65ad7b383">ARDebugUtils::PointCloudDebug</a>
@@ -134,6 +153,9 @@ $(function() {
 <li>getCameraTransformMatrix()
 : <a class="el" href="class_a_r_processor.html#aea093b6d054daa0c75de6f7a492a19ff">ARProcessor</a>
 </li>
+<li>getCurrentPoints()
+: <a class="el" href="class_a_r_debug_utils_1_1_point_cloud_debug.html#a62e8829bd3cdcc822fda0962e1abcac9">ARDebugUtils::PointCloudDebug</a>
+</li>
 <li>getFBO()
 : <a class="el" href="class_a_r_core_1_1_a_r_cam.html#a4c8f3c9b55f5852dc7a8554fe6ac0888">ARCore::ARCam</a>
 , <a class="el" href="class_a_r_processor.html#a8436dc786e91fb933879d90a4ab396d5">ARProcessor</a>
@@ -160,11 +182,22 @@ $(function() {
 <li>getPlaneAt()
 : <a class="el" href="class_a_r_core_1_1_a_r_anchor_manager.html#ac885fded5a2a2f5c0b58506786e069f1">ARCore::ARAnchorManager</a>
 </li>
+<li>getPoints()
+: <a class="el" href="class_a_r_debug_utils_1_1_point_cloud_debug.html#abf68c97daba914eb42e084234ca4c980">ARDebugUtils::PointCloudDebug</a>
+</li>
 <li>getProjectionMatrix()
 : <a class="el" href="class_a_r_core_1_1_a_r_cam.html#a19409c89b0bcbaad62e5d405d194f8a7">ARCore::ARCam</a>
+, <a class="el" href="class_a_r_processor.html#a0f7cf764c73a8fc3964be088156766ea">ARProcessor</a>
+</li>
+<li>getTrackingState()
+: <a class="el" href="class_a_r_core_1_1_a_r_cam.html#abef41c0e5914cb2404b26317921d16a1">ARCore::ARCam</a>
+, <a class="el" href="class_a_r_processor.html#aa53d195b42b23d9208071692fd5ac28d">ARProcessor</a>
 </li>
 <li>getTransformMatrix()
 : <a class="el" href="class_a_r_core_1_1_a_r_cam.html#a280c37d6b4aa16169637cf3f5332c9d3">ARCore::ARCam</a>
+</li>
+<li>getUUID()
+: <a class="el" href="struct_a_r_objects_1_1_a_r_object.html#a7b8bd58c0431abebd9cf97a32fc27fab">ARObjects::ARObject</a>
 </li>
 <li>getViewMatrix()
 : <a class="el" href="class_a_r_core_1_1_a_r_cam.html#a7ca28300844875464c7821620665d3b5">ARCore::ARCam</a>
@@ -173,12 +206,33 @@ $(function() {
 </ul>
 
 
+<h3><a id="index_h"></a>- h -</h3><ul>
+<li>height
+: <a class="el" href="struct_a_r_objects_1_1_plane_anchor_object.html#a7114f6bc16cf36662c1a73e34d2d2314">ARObjects::PlaneAnchorObject</a>
+</li>
+</ul>
+
+
 <h3><a id="index_l"></a>- l -</h3><ul>
+<li>logTrackingState()
+: <a class="el" href="class_a_r_core_1_1_a_r_cam.html#aea3513907e5805e6bffb08b7d65c0fc7">ARCore::ARCam</a>
+, <a class="el" href="class_a_r_processor.html#a3ae7b56c7d5f555ec84dbd1f1f0a8f65">ARProcessor</a>
+</li>
 <li>loopAnchors()
 : <a class="el" href="class_a_r_core_1_1_a_r_anchor_manager.html#a687246a5f0aacaac63053c0e05081e11">ARCore::ARAnchorManager</a>
 </li>
 <li>loopPlaneAnchors()
 : <a class="el" href="class_a_r_core_1_1_a_r_anchor_manager.html#a170e30f7226b84eaede22392f08d5521">ARCore::ARAnchorManager</a>
+</li>
+</ul>
+
+
+<h3><a id="index_m"></a>- m -</h3><ul>
+<li>mesh
+: <a class="el" href="struct_a_r_objects_1_1_a_r_object.html#a32c91c54c8ca0981e234603211372b88">ARObjects::ARObject</a>
+</li>
+<li>modelMatrix
+: <a class="el" href="struct_a_r_objects_1_1_a_r_object.html#ab77100dc107d550499f7c7fd5403c0ef">ARObjects::ARObject</a>
 </li>
 </ul>
 
@@ -190,10 +244,20 @@ $(function() {
 <li>pointCloud
 : <a class="el" href="class_a_r_processor.html#a555e829fbf6b625537f6fd7cd9557002">ARProcessor</a>
 </li>
+<li>PointCloudDebug()
+: <a class="el" href="class_a_r_debug_utils_1_1_point_cloud_debug.html#a7de6576b45c662cddc632e7b9d7c9bd7">ARDebugUtils::PointCloudDebug</a>
+</li>
+<li>position
+: <a class="el" href="struct_a_r_objects_1_1_plane_anchor_object.html#a1e91b9c289ed6a8379e8106479b30650">ARObjects::PlaneAnchorObject</a>
+</li>
 </ul>
 
 
 <h3><a id="index_r"></a>- r -</h3><ul>
+<li>rawAnchor
+: <a class="el" href="struct_a_r_objects_1_1_a_r_object.html#a50fb9ac03adddf5d00783c7e10c8e1d8">ARObjects::ARObject</a>
+, <a class="el" href="struct_a_r_objects_1_1_plane_anchor_object.html#a4d6b3acc9e0a17fe3f5357f99a176101">ARObjects::PlaneAnchorObject</a>
+</li>
 <li>removeAnchor()
 : <a class="el" href="class_a_r_core_1_1_a_r_anchor_manager.html#a28ed88e530bc1991e59f26e6b580d5c5">ARCore::ARAnchorManager</a>
 </li>
@@ -205,6 +269,9 @@ $(function() {
 </li>
 <li>restartSession()
 : <a class="el" href="class_a_r_processor.html#a121cd3925743680196771ce07058d52e">ARProcessor</a>
+</li>
+<li>rotateCameraFrame()
+: <a class="el" href="class_a_r_processor.html#a2514281144c680e13c02562c74746ceb">ARProcessor</a>
 </li>
 </ul>
 
@@ -221,28 +288,44 @@ $(function() {
 : <a class="el" href="class_a_r_core_1_1_a_r_cam.html#a040d67ba6abb95e914760ca6e64ac664">ARCore::ARCam</a>
 </li>
 <li>setup()
-: <a class="el" href="class_a_r_core_1_1_a_r_cam.html#ad34c392873aa518e9c560d1af34f2b7a">ARCore::ARCam</a>
+: <a class="el" href="class_a_r_core_1_1_a_r_cam.html#a5abe4cdd0ae36986899afaeae16c6bf2">ARCore::ARCam</a>
 , <a class="el" href="class_a_r_debug_utils_1_1_point_cloud_debug.html#a04e1ac43f026e32bb5b4877d41d69528">ARDebugUtils::PointCloudDebug</a>
-, <a class="el" href="class_a_r_processor.html#a5fed271e6afd105006cdd3c263c6ba4d">ARProcessor</a>
+, <a class="el" href="class_a_r_processor.html#a1a41547daccb7c6810bc2693ea6d5487">ARProcessor</a>
 </li>
 <li>shouldUpdatePlanes
 : <a class="el" href="class_a_r_core_1_1_a_r_anchor_manager.html#af67de0a611ff8a2786891eabb0ca571f">ARCore::ARAnchorManager</a>
+</li>
+<li>systemAdded
+: <a class="el" href="struct_a_r_objects_1_1_a_r_object.html#abb84b8f934ab23b396cc1904ba5c5569">ARObjects::ARObject</a>
 </li>
 </ul>
 
 
 <h3><a id="index_t"></a>- t -</h3><ul>
+<li>toggleDebug()
+: <a class="el" href="class_a_r_core_1_1_a_r_cam.html#ad32236d8551ac38943f088f16afb8002">ARCore::ARCam</a>
+, <a class="el" href="class_a_r_processor.html#a832585774cbeb04cc181f01c193940b5">ARProcessor</a>
+</li>
 <li>togglePlaneUpate()
 : <a class="el" href="class_a_r_core_1_1_a_r_anchor_manager.html#a78da6cdbe64e12e49dc67adef5ac085b">ARCore::ARAnchorManager</a>
+</li>
+<li>transform
+: <a class="el" href="struct_a_r_objects_1_1_plane_anchor_object.html#a683ab536baa0f5b81b11deeca121ce5b">ARObjects::PlaneAnchorObject</a>
 </li>
 </ul>
 
 
 <h3><a id="index_u"></a>- u -</h3><ul>
+<li>uniqueIds
+: <a class="el" href="class_a_r_debug_utils_1_1_point_cloud_debug.html#a6405deec8e383af9b59593e7e207d1cf">ARDebugUtils::PointCloudDebug</a>
+</li>
 <li>update()
 : <a class="el" href="class_a_r_core_1_1_a_r_anchor_manager.html#af4b19656d608761d25661d6720a4c2f3">ARCore::ARAnchorManager</a>
 , <a class="el" href="class_a_r_core_1_1_a_r_cam.html#a900296e2ff23dfa7deb8bfab58fd0729">ARCore::ARCam</a>
 , <a class="el" href="class_a_r_processor.html#a76b6cbb62dcc0aa87e38e48cc8dbe621">ARProcessor</a>
+</li>
+<li>updateDeviceInterfaceOrientation()
+: <a class="el" href="class_a_r_processor.html#a48797c1a249b2f115d0151396bc1eb9c">ARProcessor</a>
 </li>
 <li>updateDeviceOrientation()
 : <a class="el" href="class_a_r_core_1_1_a_r_cam.html#a0c910d5c7f637ce2820132255dfb67f7">ARCore::ARCam</a>
@@ -254,11 +337,24 @@ $(function() {
 : <a class="el" href="class_a_r_core_1_1_a_r_anchor_manager.html#aa35c3487e0ba5980ff6b2fb43414bd57">ARCore::ARAnchorManager</a>
 , <a class="el" href="class_a_r_processor.html#aaa1488d9082ec598fd4aeb5c5c43d999">ARProcessor</a>
 </li>
+<li>updatePlaneTexCoords()
+: <a class="el" href="class_a_r_core_1_1_a_r_cam.html#a577095ff1d35c84708f578d07df5ac33">ARCore::ARCam</a>
+</li>
 <li>updatePointCloud()
 : <a class="el" href="class_a_r_debug_utils_1_1_point_cloud_debug.html#a02a8d4c24ec4b19c238288874a568a9f">ARDebugUtils::PointCloudDebug</a>
 </li>
 <li>updateRotationMatrix()
 : <a class="el" href="class_a_r_core_1_1_a_r_cam.html#a1813b2b0f2665741173228ffff518d67">ARCore::ARCam</a>
+</li>
+<li>uuid
+: <a class="el" href="struct_a_r_objects_1_1_plane_anchor_object.html#ab20601adc6ffd5698f0c91acf861c92b">ARObjects::PlaneAnchorObject</a>
+</li>
+</ul>
+
+
+<h3><a id="index_w"></a>- w -</h3><ul>
+<li>width
+: <a class="el" href="struct_a_r_objects_1_1_plane_anchor_object.html#a66571f63611c3fe8c8161c18b5d163cc">ARObjects::PlaneAnchorObject</a>
 </li>
 </ul>
 

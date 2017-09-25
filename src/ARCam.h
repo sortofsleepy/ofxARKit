@@ -21,8 +21,20 @@ namespace ARCore {
     
     //! This class manages dealing with the camera image coming in from ARKit.
     class ARCam {
+        ofVec2f nativeDimensions;
+        ofRectangle cam,screen;
+        
+        float scaleVal;
+        float xShift,yShift;
+        bool debugMode;
+        
+        float angle = 0;
+        
         //! current orientation to use to get proper projection and view matrices
         UIInterfaceOrientation orientation;
+        
+        //! The current device orientation;
+        UIDeviceOrientation deviceOrientation;
         
         //! a reference to an ARSession object
         ARSession * session;
@@ -67,14 +79,19 @@ namespace ARCore {
         //! to help reduce resource strain, making building the camera frame optional
         bool shouldBuildCameraFrame;
         
-        //! indicates whether or not we're in a debug mode
-        bool debugMode;
-        
         //! The near clip value to use when obtaining projection/view matrices
         float near;
         
         //! The far clip value to use when obtaining projection/view matrices
         float far;
+        
+        //! The current tracking state of the camera
+        ARTrackingState trackingState;
+        
+        //! The reason for when a tracking state might be limited.
+        ARTrackingStateReason trackingStateReason;
+        
+        // ========== PRIVATE FUNCTIONS =============== //
         
         //! Converts the CVPixelBufferIndex into a OpenGL texture
         CVOpenGLESTextureRef createTextureFromPixelBuffer(CVPixelBufferRef pixelBuffer,int planeIndex,GLenum format=GL_LUMINANCE,int width=0,int height=0);
@@ -91,17 +108,28 @@ namespace ARCore {
             return ARCamRef(new ARCam(session));
         }
         
+        //! Function to update and log the current tracking state from ARKit
+        void logTrackingState();
+        
+        //! Get the current tracking state
+        ARTrackingState getTrackingState();
+        
+        //! Toggles debug mode on/off
+        void toggleDebug();
+        
         //! used to help correct perspective distortion for some devices.
         float zoomLevel;
         
         //! Sets up all the necessary properties and values to get the camera running.
-        void setup();
+        void setup(bool debugMode=false);
         
         //! Updates camera values
         void update();
         
         //! draws the camera frame.
         void draw();
+        
+        void updatePlaneTexCoords();
         
         //! retrieves the current lighting conditions that ARKit is seeing.
         ARLightEstimate* getLightingConditions();
@@ -120,6 +148,9 @@ namespace ARCore {
         void updateDeviceOrientation();
         
         //! Allows you to set a custom value for how to rotate the camera image.
+        //! Keep in mind that by default - the camera image is shown rotated -90 degrees when
+        //! your device is held in a portrait form and that this class already rotates the image 90 degrees on
+        //! iPhone and a further -90 degrees on iPad(done to help correct image scaling issues)
         void updateRotationMatrix(float angle);
         
         //! adjusts the perspective correction zoom(Note: primarily for larger devices)

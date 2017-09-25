@@ -14,10 +14,6 @@ ARProcessor::ARProcessor(){
 
 ARProcessor::ARProcessor(ARSession * session){
     this->session = session;
-    
-
-    
-    debugMode = true;
 }
 
 ARProcessor::~ARProcessor(){
@@ -37,10 +33,11 @@ void ARProcessor::restartSession(){
     [session runWithConfiguration:session.configuration];
 }
 
-void ARProcessor::setup(){
+void ARProcessor::setup(bool debugMode){
+    this->debugMode = debugMode;
     anchorController = ARAnchorManager::create(session);
     camera = ARCam::create(session);
-    camera->setup();
+    camera->setup(this->debugMode);
 }
 
 void ARProcessor::draw(){
@@ -70,6 +67,14 @@ void ARProcessor::setARCameraMatrices(){
     camera->setARCameraMatrices();
 }
 
+void ARProcessor::logTrackingState(){
+    camera->logTrackingState();
+}
+
+ARTrackingState ARProcessor::getTrackingState(){
+    return camera->getTrackingState();
+}
+
 void ARProcessor::rotateCameraFrame(float angle){
     camera->updateRotationMatrix(angle);
 }
@@ -81,9 +86,7 @@ void ARProcessor::updateDeviceInterfaceOrientation(){
 ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
     return camera->getMatricesForOrientation(orientation,near,far);
 }
-void ARProcessor::adjustPerspectiveCorrection(float zoomLevel){
-    camera->zoomLevel = zoomLevel;
-}
+
 
 void ARProcessor::deviceOrientationChanged(){
     camera->updateDeviceOrientation();

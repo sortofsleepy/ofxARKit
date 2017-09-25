@@ -12,38 +12,115 @@ Helper class for recognizing features and drawing the resulting point cloud.
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_a04e1ac43f026e32bb5b4877d41d69528}\label{class_a_r_debug_utils_1_1_point_cloud_debug_a04e1ac43f026e32bb5b4877d41d69528}} 
+\hyperlink{class_a_r_debug_utils_1_1_point_cloud_debug_a7de6576b45c662cddc632e7b9d7c9bd7}{Point\+Cloud\+Debug} ()
+\item 
 void \hyperlink{class_a_r_debug_utils_1_1_point_cloud_debug_a04e1ac43f026e32bb5b4877d41d69528}{setup} ()
 \begin{DoxyCompactList}\small\item\em Sets up the point cloud. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_abf68c97daba914eb42e084234ca4c980}\label{class_a_r_debug_utils_1_1_point_cloud_debug_abf68c97daba914eb42e084234ca4c980}} 
-vector$<$ of\+Vec3f $>$ {\bfseries get\+Points} (A\+R\+Frame $\ast$current\+Frame)
+vector$<$ of\+Vec3f $>$ \hyperlink{class_a_r_debug_utils_1_1_point_cloud_debug_abf68c97daba914eb42e084234ca4c980}{get\+Points} (A\+R\+Frame $\ast$current\+Frame)
 \item 
-\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_a62e8829bd3cdcc822fda0962e1abcac9}\label{class_a_r_debug_utils_1_1_point_cloud_debug_a62e8829bd3cdcc822fda0962e1abcac9}} 
-vector$<$ of\+Vec3f $>$ {\bfseries get\+Current\+Points} (A\+R\+Frame $\ast$current\+Frame)
+vector$<$ of\+Vec3f $>$ \hyperlink{class_a_r_debug_utils_1_1_point_cloud_debug_a62e8829bd3cdcc822fda0962e1abcac9}{get\+Current\+Points} (A\+R\+Frame $\ast$current\+Frame)
 \item 
-\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_a02a8d4c24ec4b19c238288874a568a9f}\label{class_a_r_debug_utils_1_1_point_cloud_debug_a02a8d4c24ec4b19c238288874a568a9f}} 
 void \hyperlink{class_a_r_debug_utils_1_1_point_cloud_debug_a02a8d4c24ec4b19c238288874a568a9f}{update\+Point\+Cloud} (A\+R\+Frame $\ast$current\+Frame)
 \begin{DoxyCompactList}\small\item\em update cloud data and vbo \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_a0757ac82a88433c519ec6362ac8cd251}\label{class_a_r_debug_utils_1_1_point_cloud_debug_a0757ac82a88433c519ec6362ac8cd251}} 
 int \hyperlink{class_a_r_debug_utils_1_1_point_cloud_debug_a0757ac82a88433c519ec6362ac8cd251}{get\+Num\+Features} ()
 \begin{DoxyCompactList}\small\item\em get the number of features detected \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_abfaa58360f92ad1b41692175107c99a8}\label{class_a_r_debug_utils_1_1_point_cloud_debug_abfaa58360f92ad1b41692175107c99a8}} 
 bool \hyperlink{class_a_r_debug_utils_1_1_point_cloud_debug_abfaa58360f92ad1b41692175107c99a8}{features\+Detected} ()
 \begin{DoxyCompactList}\small\item\em returns whether or not features were detected. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_a308b87459dd4f0fc89f25bc65ad7b383}\label{class_a_r_debug_utils_1_1_point_cloud_debug_a308b87459dd4f0fc89f25bc65ad7b383}} 
 void \hyperlink{class_a_r_debug_utils_1_1_point_cloud_debug_a308b87459dd4f0fc89f25bc65ad7b383}{draw} (of\+Matrix4x4 projection\+Matrix, of\+Matrix4x4 model\+View\+Matrix)
 \begin{DoxyCompactList}\small\item\em draws the resulting point cloud -\/ pass in a projection and view matrix(usually from A\+R\+Kit) \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_a6405deec8e383af9b59593e7e207d1cf}\label{class_a_r_debug_utils_1_1_point_cloud_debug_a6405deec8e383af9b59593e7e207d1cf}} 
-std\+::set$<$ uint64\+\_\+t $>$ {\bfseries unique\+Ids}
+std\+::set$<$ uint64\+\_\+t $>$ \hyperlink{class_a_r_debug_utils_1_1_point_cloud_debug_a6405deec8e383af9b59593e7e207d1cf}{unique\+Ids}
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 Helper class for recognizing features and drawing the resulting point cloud. 
 
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_a7de6576b45c662cddc632e7b9d7c9bd7}\label{class_a_r_debug_utils_1_1_point_cloud_debug_a7de6576b45c662cddc632e7b9d7c9bd7}} 
+\index{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}!Point\+Cloud\+Debug@{Point\+Cloud\+Debug}}
+\index{Point\+Cloud\+Debug@{Point\+Cloud\+Debug}!A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}}
+\subsubsection{\texorpdfstring{Point\+Cloud\+Debug()}{PointCloudDebug()}}
+{\footnotesize\ttfamily A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug\+::\+Point\+Cloud\+Debug (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_a308b87459dd4f0fc89f25bc65ad7b383}\label{class_a_r_debug_utils_1_1_point_cloud_debug_a308b87459dd4f0fc89f25bc65ad7b383}} 
+\index{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}!draw@{draw}}
+\index{draw@{draw}!A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}}
+\subsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily void A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug\+::draw (\begin{DoxyParamCaption}\item[{of\+Matrix4x4}]{projection\+Matrix,  }\item[{of\+Matrix4x4}]{model\+View\+Matrix }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+draws the resulting point cloud -\/ pass in a projection and view matrix(usually from A\+R\+Kit) 
+
+\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_abfaa58360f92ad1b41692175107c99a8}\label{class_a_r_debug_utils_1_1_point_cloud_debug_abfaa58360f92ad1b41692175107c99a8}} 
+\index{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}!features\+Detected@{features\+Detected}}
+\index{features\+Detected@{features\+Detected}!A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}}
+\subsubsection{\texorpdfstring{features\+Detected()}{featuresDetected()}}
+{\footnotesize\ttfamily bool A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug\+::features\+Detected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+returns whether or not features were detected. 
+
+\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_a62e8829bd3cdcc822fda0962e1abcac9}\label{class_a_r_debug_utils_1_1_point_cloud_debug_a62e8829bd3cdcc822fda0962e1abcac9}} 
+\index{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}!get\+Current\+Points@{get\+Current\+Points}}
+\index{get\+Current\+Points@{get\+Current\+Points}!A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}}
+\subsubsection{\texorpdfstring{get\+Current\+Points()}{getCurrentPoints()}}
+{\footnotesize\ttfamily vector$<$of\+Vec3f$>$ A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug\+::get\+Current\+Points (\begin{DoxyParamCaption}\item[{A\+R\+Frame $\ast$}]{current\+Frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_a0757ac82a88433c519ec6362ac8cd251}\label{class_a_r_debug_utils_1_1_point_cloud_debug_a0757ac82a88433c519ec6362ac8cd251}} 
+\index{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}!get\+Num\+Features@{get\+Num\+Features}}
+\index{get\+Num\+Features@{get\+Num\+Features}!A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}}
+\subsubsection{\texorpdfstring{get\+Num\+Features()}{getNumFeatures()}}
+{\footnotesize\ttfamily int A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug\+::get\+Num\+Features (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+get the number of features detected 
+
+\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_abf68c97daba914eb42e084234ca4c980}\label{class_a_r_debug_utils_1_1_point_cloud_debug_abf68c97daba914eb42e084234ca4c980}} 
+\index{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}!get\+Points@{get\+Points}}
+\index{get\+Points@{get\+Points}!A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}}
+\subsubsection{\texorpdfstring{get\+Points()}{getPoints()}}
+{\footnotesize\ttfamily vector$<$of\+Vec3f$>$ A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug\+::get\+Points (\begin{DoxyParamCaption}\item[{A\+R\+Frame $\ast$}]{current\+Frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_a04e1ac43f026e32bb5b4877d41d69528}\label{class_a_r_debug_utils_1_1_point_cloud_debug_a04e1ac43f026e32bb5b4877d41d69528}} 
+\index{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}!setup@{setup}}
+\index{setup@{setup}!A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}}
+\subsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug\+::setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets up the point cloud. 
+
+\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_a02a8d4c24ec4b19c238288874a568a9f}\label{class_a_r_debug_utils_1_1_point_cloud_debug_a02a8d4c24ec4b19c238288874a568a9f}} 
+\index{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}!update\+Point\+Cloud@{update\+Point\+Cloud}}
+\index{update\+Point\+Cloud@{update\+Point\+Cloud}!A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}}
+\subsubsection{\texorpdfstring{update\+Point\+Cloud()}{updatePointCloud()}}
+{\footnotesize\ttfamily void A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug\+::update\+Point\+Cloud (\begin{DoxyParamCaption}\item[{A\+R\+Frame $\ast$}]{current\+Frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+update cloud data and vbo 
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_a_r_debug_utils_1_1_point_cloud_debug_a6405deec8e383af9b59593e7e207d1cf}\label{class_a_r_debug_utils_1_1_point_cloud_debug_a6405deec8e383af9b59593e7e207d1cf}} 
+\index{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}!unique\+Ids@{unique\+Ids}}
+\index{unique\+Ids@{unique\+Ids}!A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug@{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}}
+\subsubsection{\texorpdfstring{unique\+Ids}{uniqueIds}}
+{\footnotesize\ttfamily std\+::set$<$uint64\+\_\+t$>$ A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug\+::unique\+Ids}
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-src/A\+R\+Debug\+Utils.\+h\end{DoxyCompactItemize}
+src/\hyperlink{_a_r_debug_utils_8h}{A\+R\+Debug\+Utils.\+h}\end{DoxyCompactItemize}

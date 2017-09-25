@@ -48,7 +48,7 @@ public:
     }
     
     //! Sets up all the necessary components for ARKit
-    void setup();
+    void setup(bool debugMode=false);
     
     //! Updates all the ARKit components
     void update();
@@ -102,6 +102,8 @@ public:
     void updatePlanes();
     
    //======== CAMERA API ============ //
+    ARTrackingState getTrackingState();
+    void logTrackingState();
     
     void deviceOrientationChanged();
     
@@ -111,9 +113,6 @@ public:
     
     //! Helper to quickly set up ARKit projection and view matrices for 2D drawing in oF
     void setARCameraMatrices();
-    
-    //! adjusts the perspective correction zoom(Note: primarily for larger devices)
-    void adjustPerspectiveCorrection(float zoomLevel);
     
     //! Returns Projection and View matrices for the specified orientation.
     ARCommon::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=0.01,float far=1000.0);

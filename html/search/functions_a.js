@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['update',['update',['../class_a_r_core_1_1_a_r_anchor_manager.html#af4b19656d608761d25661d6720a4c2f3',1,'ARCore::ARAnchorManager::update()'],['../class_a_r_core_1_1_a_r_cam.html#a900296e2ff23dfa7deb8bfab58fd0729',1,'ARCore::ARCam::update()'],['../class_a_r_processor.html#a76b6cbb62dcc0aa87e38e48cc8dbe621',1,'ARProcessor::update()']]],
-  ['updatedeviceorientation',['updateDeviceOrientation',['../class_a_r_core_1_1_a_r_cam.html#a0c910d5c7f637ce2820132255dfb67f7',1,'ARCore::ARCam']]],
-  ['updateinterfaceorientation',['updateInterfaceOrientation',['../class_a_r_core_1_1_a_r_cam.html#ac649b1e884931f123afd4dcecc1e3e6c',1,'ARCore::ARCam']]],
-  ['updateplanes',['updatePlanes',['../class_a_r_core_1_1_a_r_anchor_manager.html#aa35c3487e0ba5980ff6b2fb43414bd57',1,'ARCore::ARAnchorManager::updatePlanes()'],['../class_a_r_processor.html#aaa1488d9082ec598fd4aeb5c5c43d999',1,'ARProcessor::updatePlanes()']]],
-  ['updatepointcloud',['updatePointCloud',['../class_a_r_debug_utils_1_1_point_cloud_debug.html#a02a8d4c24ec4b19c238288874a568a9f',1,'ARDebugUtils::PointCloudDebug']]],
-  ['updaterotationmatrix',['updateRotationMatrix',['../class_a_r_core_1_1_a_r_cam.html#a1813b2b0f2665741173228ffff518d67',1,'ARCore::ARCam']]]
+  ['setarcameramatrices',['setARCameraMatrices',['../class_a_r_core_1_1_a_r_cam.html#ac554b8254ea4a22f122f25542694dafa',1,'ARCore::ARCam::setARCameraMatrices()'],['../class_a_r_processor.html#a2ffd8b9518388be29eba6affe4d4d152',1,'ARProcessor::setARCameraMatrices()']]],
+  ['setcamerafarclip',['setCameraFarClip',['../class_a_r_core_1_1_a_r_cam.html#aa29191b58c0e6613850916526c6ab380',1,'ARCore::ARCam']]],
+  ['setcameranearclip',['setCameraNearClip',['../class_a_r_core_1_1_a_r_cam.html#a040d67ba6abb95e914760ca6e64ac664',1,'ARCore::ARCam']]],
+  ['setup',['setup',['../class_a_r_core_1_1_a_r_cam.html#a5abe4cdd0ae36986899afaeae16c6bf2',1,'ARCore::ARCam::setup()'],['../class_a_r_debug_utils_1_1_point_cloud_debug.html#a04e1ac43f026e32bb5b4877d41d69528',1,'ARDebugUtils::PointCloudDebug::setup()'],['../class_a_r_processor.html#a1a41547daccb7c6810bc2693ea6d5487',1,'ARProcessor::setup()']]]
 ];
