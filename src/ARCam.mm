@@ -50,7 +50,7 @@ namespace ARCore {
         if([deviceType isEqualToString:@"iPad"]){
             needsPerspectiveAdjustment = true;
         }
-       needsPerspectiveAdjustment = true;
+
         // try to fit the camera capture width within the device's viewport.
         // default capture dimensions seem to be 1280x720 regardless of device and orientation.
         cam = ofRectangle(0,0,1280,720);
