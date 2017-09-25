@@ -125,11 +125,9 @@ namespace ARCommon {
                 break;
                 
             case UIInterfaceOrientationPortrait:
-<<<<<<< HEAD
                 dimensions.x = screenBounds.size.width;
                 dimensions.y = screenBounds.size.height;
                 
-=======
                 setWidthAndHeight();
            
              
@@ -140,7 +138,6 @@ namespace ARCommon {
                     dimensions.x = width;
                     dimensions.y = height;
                 }
->>>>>>> bd975c736e14e25a70774cf8714b476877782cac
                 break;
                 
             case UIInterfaceOrientationLandscapeLeft:

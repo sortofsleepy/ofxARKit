@@ -28,7 +28,7 @@ namespace ARCore {
         viewportSize = CGSizeMake(nativeDimensions.x,nativeDimensions.y);
         yTexture = NULL;
         CbCrTexture = NULL;
-        near = 1.0;
+        near = 0.01;
         far = 1000.0;
         debugMode = false;
        
@@ -79,8 +79,9 @@ namespace ARCore {
         // any sized screen.
         // TODO perf tests - is 4000x4000 too big? Memory seems minimaly imapacted if at all.
         cameraFbo.allocate(4000,4000, GL_RGBA);
-        
-        
+        cameraFbo.begin();
+        ofClear(255,0,0, 255);
+        cameraFbo.end();
     }
     
     void ARCam::draw(){
@@ -96,27 +97,42 @@ namespace ARCore {
              float y = center.y / 2;
              */
             
+            ofPushMatrix();
+          
             // aspect ratio of scaled capture dimensions
             float scaleVal = cam.getWidth() / cam.getHeight();
-            ofLog()<<scaleVal;
+            cout<<ofGetWindowWidth()<<" "<<ofGetWindowHeight()<<" "<<cam.getWidth()<<" "<<cam.getHeight()<<endl;
+            
+            cout<<cam.getWidth()-ofGetWindowWidth()<<endl;
             switch (orientation){
                 case UIInterfaceOrientationUnknown:
-                    
+                    cout<<"UIInterfaceOrientationUnknown"<<endl;
                     break;
                 case UIInterfaceOrientationLandscapeLeft:
+                    cout<<"UIInterfaceOrientationLandscapeLeft"<<endl;
+                    ofTranslate(-(cam.getWidth()*scaleVal-ofGetWindowWidth())/2,0,0);
+
                     cameraFbo.draw(0,0,cam.getWidth() * scaleVal,cam.getHeight() * scaleVal);
                     break;
                     
                 case UIInterfaceOrientationLandscapeRight:
+                    cout<<"UIInterfaceOrientationLandscapeRight"<<endl;
+                    ofTranslate(-(cam.getWidth()*scaleVal-ofGetWindowWidth())/2,0,0);
+
                     cameraFbo.draw(0,0,cam.getWidth() * scaleVal,cam.getHeight() * scaleVal);
                     break;
                     
                 case UIInterfaceOrientationPortrait:
-               
+
+                      ofTranslate(0,-(cam.getWidth()*scaleVal-ofGetWindowHeight())/2,0);
+                    cout<<"UIInterfaceOrientationPortrait"<<endl;
+
                     cameraFbo.draw(0,0,cam.getHeight() * scaleVal,cam.getWidth() * scaleVal);
                     break;
                     
                 case UIInterfaceOrientationPortraitUpsideDown:
+                    cout<<"UIInterfaceOrientationPortraitUpsideDown"<<endl;
+
                     cameraFbo.draw(0,0,cam.getHeight(),cam.getWidth());
                     break;
             }
@@ -126,6 +142,7 @@ namespace ARCore {
             cameraFbo.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
             
         }
+        ofPopMatrix();
         //cameraFbo.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
     }
     
