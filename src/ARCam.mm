@@ -55,12 +55,22 @@ namespace ARCore {
         // default capture dimensions seem to be 1280x720 regardless of device and orientation.
         cam = ofRectangle(0,0,1280,720);
         
-        screen = ofRectangle(0,0,ofGetWindowWidth(),ofGetWindowHeight());
+        // this appears to fix inconsistancies in the image that occur in the difference in
+        // startup orientation.
+        if(UIDevice.currentDevice.orientation == UIDeviceOrientationPortrait){
+            screen = ofRectangle(0,0,ofGetWindowWidth(),ofGetWindowHeight());
+        }else{
+            screen = ofRectangle(0,0,ofGetWindowHeight(),ofGetWindowWidth());
+        }
+        
         cam.scaleTo(screen,OF_ASPECT_RATIO_KEEP);
         
         // scale up rectangle based on aspect ratio of scaled capture dimensions.
         scaleVal = cam.getWidth() / cam.getHeight();
+        
         cam.scaleFromCenter(scaleVal);
+  
+        ofLog()<<cam;
         
         // correct rotation of camera image
         rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
@@ -96,7 +106,10 @@ namespace ARCore {
              float y = center.y / 2;
              */
             
-           
+            ofPoint center = cam.getCenter();
+            
+            float x = center.x;
+            float y = center.y / 2;
             // Adjust drawing as necessary .
             // TODO Unclear as to whether or not it's ok to alter x/y coords, image appears to be
             // correctly sized and gray default background shows up if you try to do so on the iPhone at least.
@@ -106,27 +119,32 @@ namespace ARCore {
                     break;
                     
                 case UIDeviceOrientationFaceDown:
-                 
+                  //ofLog()<<"FACE DOWN";
                     break;
                     
                 case UIDeviceOrientationUnknown:
+                    // ofLog()<<"UNKNOWN";
                     cameraFbo.draw(0,0,cam.getHeight(),cam.getWidth());
                     
                     break;
                 case UIDeviceOrientationPortraitUpsideDown:
+                   //  ofLog()<<"UPSIDEDOWN";
                     cameraFbo.draw(0,0,cam.getHeight(),cam.getWidth());
                     break;
                     
                 case UIDeviceOrientationPortrait:
+                    // ofLog()<<"PORTRAIT";
                     cameraFbo.draw(0,0,cam.getHeight(),cam.getWidth());
                     break;
                     
                 case UIDeviceOrientationLandscapeLeft:
+                    // ofLog()<<"LEFT";
                     cameraFbo.draw(0,0,cam.getWidth(),cam.getHeight());
                     
                     break;
                     
                 case UIDeviceOrientationLandscapeRight:
+                    //ofLog()<<"RIGHT";
                     cameraFbo.draw(0,0,cam.getWidth(),cam.getHeight());
                     break;
             }
