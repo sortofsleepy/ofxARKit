@@ -21,14 +21,22 @@ namespace ARCore {
     
     //! This class manages dealing with the camera image coming in from ARKit.
     class ARCam {
+        
+        // a vector to hold the native dimensions of the current device.
         ofVec2f nativeDimensions;
+        
+        // bounding objects used to calculated the scaled dimensions of the camera image in relation to the
+        // device screen size
         ofRectangle cam,screen;
         
+        // the amount to scale the camera image by
         float scaleVal;
-        float xShift,yShift;
-        bool debugMode;
         
-        float angle = 0;
+        // The offset for how the image should be positioned.
+        float xShift,yShift;
+        
+        // flag for debug mode.
+        bool debugMode;
         
         //! current orientation to use to get proper projection and view matrices
         UIInterfaceOrientation orientation;
@@ -131,6 +139,13 @@ namespace ARCore {
         
         void updatePlaneTexCoords();
         
+        //! Sets the x and y position of where the camera image is placed.
+        void setCameraImagePosition(float xShift=0,float yShift=0);
+        
+        //! Returns the calculated bounds of the camera image.
+        //! Useful in calculating the x and y pos of the camera image.
+        ofRectangle getCameraImageBounds();
+        
         //! retrieves the current lighting conditions that ARKit is seeing.
         ARLightEstimate* getLightingConditions();
         
@@ -195,3 +210,4 @@ namespace ARCore {
 }
 
 #endif /* ARCamera_hpp */
+
