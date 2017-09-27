@@ -35,6 +35,12 @@ namespace ARCore {
         // The offset for how the image should be positioned.
         float xShift,yShift;
         
+        // the dimensions of the calculated camera image. 
+        ofVec2f cameraDimensions;
+        
+        //! Sets custom dimensions for drawing the camera image. 
+        void setCameraImageDimensions(float x=0,float y = 0);
+        
         // flag for debug mode.
         bool debugMode;
         

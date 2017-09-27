@@ -84,6 +84,7 @@
 		B02A0FBC1F49D298002A69F3 /* ARProcessor.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = ARProcessor.mm; path = ../src/ARProcessor.mm; sourceTree = "<group>"; };
 		B02A0FBD1F49D298002A69F3 /* ofxARKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxARKit.h; path = ../src/ofxARKit.h; sourceTree = "<group>"; };
 		B02A0FBF1F49D2D1002A69F3 /* ARDebugUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARDebugUtils.h; path = ../src/ARDebugUtils.h; sourceTree = "<group>"; };
+		B0779A3F1F7AD80300DD7A91 /* ARMeasurements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARMeasurements.h; path = ../src/ARMeasurements.h; sourceTree = "<group>"; };
 		B07F9A3A1F561C650031FC25 /* ARCam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARCam.h; path = ../src/ARCam.h; sourceTree = "<group>"; };
 		B07F9A3B1F561C650031FC25 /* ARCam.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = ARCam.mm; path = ../src/ARCam.mm; sourceTree = "<group>"; };
 		B0B6C0251F6B744E00850C0E /* ARSessionSetup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARSessionSetup.h; path = ../src/ARSessionSetup.h; sourceTree = "<group>"; };
@@ -199,6 +200,7 @@
 				B02A0FB71F49D298002A69F3 /* ARShaders.h */,
 				B02A0FB81F49D298002A69F3 /* ARUtils.h */,
 				B02A0FBD1F49D298002A69F3 /* ofxARKit.h */,
+				B0779A3F1F7AD80300DD7A91 /* ARMeasurements.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
