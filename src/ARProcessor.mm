@@ -86,9 +86,7 @@ void ARProcessor::updateDeviceInterfaceOrientation(){
 ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
     return camera->getMatricesForOrientation(orientation,near,far);
 }
-void ARProcessor::adjustPerspectiveCorrection(float zoomLevel){
-    camera->zoomLevel = zoomLevel;
-}
+
 
 void ARProcessor::deviceOrientationChanged(){
     camera->updateDeviceOrientation();

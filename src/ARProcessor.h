@@ -114,9 +114,6 @@ public:
     //! Helper to quickly set up ARKit projection and view matrices for 2D drawing in oF
     void setARCameraMatrices();
     
-    //! adjusts the perspective correction zoom(Note: primarily for larger devices)
-    void adjustPerspectiveCorrection(float zoomLevel);
-    
     //! Returns Projection and View matrices for the specified orientation.
     ARCommon::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=0.01,float far=1000.0);
     
