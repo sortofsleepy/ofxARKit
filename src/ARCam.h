@@ -155,6 +155,9 @@ namespace ARCore {
         //! retrieves the current lighting conditions that ARKit is seeing.
         ARLightEstimate* getLightingConditions();
         
+        //! Returns the ambient intensity of the lighting
+        float getAmbientIntensity();
+        
         //! helper function to run ofLoadMatrix for projection and view matrices, using
         //! the current camera matrices from ARKit.
         void setARCameraMatrices();

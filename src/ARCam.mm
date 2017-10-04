@@ -307,6 +307,10 @@ namespace ARCore {
         }
     }
     
+    float ARCam::getAmbientIntensity(){
+        return ambientIntensity;
+    }
+    
     void ARCam::update(){
         // if we haven't set a session - just stop things here.
         if(!session){

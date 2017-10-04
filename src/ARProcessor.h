@@ -111,6 +111,10 @@ public:
     
     void rotateCameraFrame(float angle);
     
+    float getLightIntensity(){
+        return camera->getAmbientIntensity();
+    }
+    
     //! Helper to quickly set up ARKit projection and view matrices for 2D drawing in oF
     void setARCameraMatrices();
     
