@@ -31,6 +31,8 @@ void ofApp::setup() {
     processor->setup();
     
     
+    light.setAmbientColor(ofFloatColor(1,1,1));
+    light.setAttenuation(5.2);
     
     
 }
@@ -49,19 +51,24 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw() {
    
-    ofDisableDepthTest();
-    processor->drawFrame();
-    
-    ofEnableDepthTest();
     camera.begin();
     processor->setARCameraMatrices();
     
-    light.setAmbientColor(ofFloatColor(1,1,0,1));
+    // adjust lighting attenuation based on the current amount of lighting detected
+    // by ARKit
     light.setAttenuation(processor->getLightIntensity());
+    
+    // enable the light
     light.enable();
     
-    ofDrawSphere(0,0,0,100);
+    // translate sphere to center
+    ofTranslate(ofGetWindowWidth() / 2, ofGetWindowHeight() / 2);
     
+    // draw sphere
+    ofDrawSphere(0, 0, 100);
+    
+    
+    // disable lighting
     light.disable();
     
     camera.end();
