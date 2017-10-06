@@ -25,8 +25,16 @@ ARProcessor::~ARProcessor(){
     anchorController.reset();
 }
 
+void ARProcessor::toggleDebug(){
+    debugMode = !debugMode;
+}
+
 void ARProcessor::pauseSession(){
       [session pause];
+}
+
+void ARProcessor::logTrackingState(){
+    camera->logTrackingState();
 }
 
 void ARProcessor::restartSession(){
@@ -67,8 +75,20 @@ void ARProcessor::setARCameraMatrices(){
     camera->setARCameraMatrices();
 }
 
-void ARProcessor::logTrackingState(){
-    camera->logTrackingState();
+ofVec3f ARProcessor::getCameraPosition(){
+    return ARCommon::getAnchorXYZ(camera->getTransformMatrix());
+}
+
+ofTexture ARProcessor::getCameraTexture(){
+   return camera->getCameraTexture();
+}
+
+ARCommon::ARCameraMatrices ARProcessor::getCameraMatrices(){
+     return camera->getCameraMatrices();
+}
+
+float ARProcessor::getLightIntensity(){
+    return camera->getAmbientIntensity();
 }
 
 ARTrackingState ARProcessor::getTrackingState(){

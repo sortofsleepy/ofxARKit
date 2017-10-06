@@ -96,11 +96,6 @@ namespace ARCore {
         
     }
     
-    ofVec3f ARAnchorManager::getAnchorXYZ(ofMatrix4x4 mat){
-        ofVec3f vec(mat.getRowAsVec3f(3));
-        return ofVec3f(vec.y,vec.x,vec.z);
-    }
-    
     void ARAnchorManager::addAnchor(ARObject anchor){
         // add ARObject
         anchors.push_back(anchor);
