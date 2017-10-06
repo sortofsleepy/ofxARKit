@@ -51,6 +51,11 @@ namespace ARCore {
         //! adds an ARObject to be tracked by ARKit.
         void addAnchor(ARObject anchor);
         
+        //! Extracts the XYZ position from a matrix.
+        //! Note that ARKit sends things in a little differently, x and y are flipped. This takes this into
+        //! account.
+        ofVec3f getAnchorXYZ(ofMatrix4x4 mat);
+        
         static AnchorManagerRef create(ARSession * session){
             if(!session){
                 NSLog(@"Error - AnchorManagerRef requires an ARSession object");

@@ -51,6 +51,9 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw() {
    
+    ofEnableAlphaBlending();
+    processor->draw();
+    
     camera.begin();
     processor->setARCameraMatrices();
     
