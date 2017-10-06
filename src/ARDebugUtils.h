@@ -37,7 +37,7 @@ namespace ARDebugUtils {
         void drawDebugInformation(){
             
             // get tracking state reason
-            ARTrackingStateReason trackingStateReason = currentFrame.camera.trackingStateReason;
+            ARTrackingStateReason trackingStateReason = session.currentFrame.camera.trackingStateReason;
             
         
             ofPushMatrix();

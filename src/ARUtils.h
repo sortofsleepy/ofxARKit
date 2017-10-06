@@ -42,7 +42,7 @@ namespace ARCommon {
     
     //! Extracts the xyz position from a matrix. It's assumed that the matrix you pass in
     //! is based off of a ARKit transform matrix which appears to switch some things around.
-    ofVec3f getAnchorXYZ(ofMatrix4x4 mat){
+    static ofVec3f getAnchorXYZ(ofMatrix4x4 mat){
         ofVec3f vec(mat.getRowAsVec3f(3));
         return ofVec3f(vec.y,vec.x,vec.z);
     }
