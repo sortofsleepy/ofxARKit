@@ -31,7 +31,7 @@ void ofApp::setup() {
     processor->setup();
     
     
-    light.setAmbientColor(ofFloatColor(1,1,1));
+    light.setAmbientColor(ofFloatColor(1,0,0));
     light.setAttenuation(5.2);
     
     
@@ -51,7 +51,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw() {
    
-    ofEnableAlphaBlending();
+    //ofEnableAlphaBlending();
     processor->draw();
     
     camera.begin();
@@ -64,11 +64,10 @@ void ofApp::draw() {
     // enable the light
     light.enable();
     
-    // translate sphere to center
-    ofTranslate(ofGetWindowWidth() / 2, ofGetWindowHeight() / 2);
-    
+    ofColor(0);
+    ofTranslate(0,0,-70);
     // draw sphere
-    ofDrawSphere(0, 0, 100);
+    ofDrawSphere(0, 0, 20);
     
     
     // disable lighting
