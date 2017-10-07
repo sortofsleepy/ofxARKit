@@ -35,6 +35,8 @@ public:
     ARSession * session;
     
     ARRef processor;
+    ofShader lightShader;
+    ofMesh sphere;
     ofLight light;
     ofCamera camera;
 };

@@ -30,9 +30,10 @@ void ofApp::setup() {
     processor = ARProcessor::create(session);
     processor->setup();
     
+   // camera.setupPerspective();
+    light.setAmbientColor(ofFloatColor(255,0,0));
+    light.setAttenuation(0.2);
     
-    light.setAmbientColor(ofFloatColor(1,0,0));
-    light.setAttenuation(5.2);
     
     
 }
@@ -51,6 +52,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw() {
    
+   
     //ofEnableAlphaBlending();
     processor->draw();
     
@@ -64,16 +66,43 @@ void ofApp::draw() {
     // enable the light
     light.enable();
     
-    ofColor(0);
+    ofPushStyle();
+    
     ofTranslate(0,0,-70);
     // draw sphere
     ofDrawSphere(0, 0, 20);
-    
+    ofPopStyle();
     
     // disable lighting
     light.disable();
     
     camera.end();
+    /*
+     //ofEnableAlphaBlending();
+     processor->draw();
+     
+     camera.begin();
+     processor->setARCameraMatrices();
+     
+     // adjust lighting attenuation based on the current amount of lighting detected
+     // by ARKit
+     light.setAttenuation(5.2);
+     
+     // enable the light
+     light.enable();
+     
+     ofPushStyle();
+     
+     ofTranslate(0,0,-70);
+     // draw sphere
+     ofDrawSphere(0, 0, 20);
+     ofPopStyle();
+     
+     // disable lighting
+     light.disable();
+     
+     camera.end();
+     */
     
 }
 
