@@ -30,10 +30,10 @@ void ofApp::setup() {
     processor = ARProcessor::create(session);
     processor->setup();
     
-   // camera.setupPerspective();
-    light.setAmbientColor(ofFloatColor(255,0,0));
-    light.setAttenuation(0.2);
+    shader.load("shader.vert", "shader.frag");
+    sphere = ofMesh::sphere(200);
     
+    camera.setupPerspective();
     
     
 }
@@ -53,56 +53,32 @@ void ofApp::update(){
 void ofApp::draw() {
    
    
-    //ofEnableAlphaBlending();
     processor->draw();
     
+    ofEnableDepthTest();
+    
+    
+    // start camera - note that for the sake of simplicity and to best show an actual lighting change,
+    // we aren't gonna use anchors or the ARKit camera matrices so that the sphere will always be in the middle of the
+    // screen. If we were to use the ARKit camera, then it'd be a bit harder to test lighting since the sphere would be
+    // stuck at 0,0 and would move out of frame from the camera.
+    
     camera.begin();
-    processor->setARCameraMatrices();
     
-    // adjust lighting attenuation based on the current amount of lighting detected
-    // by ARKit
-    light.setAttenuation(processor->getLightIntensity());
+    // if you'd like to use the camera though to see what it's like,
+    // 1. uncomment the next line.
+    // 2. comment out the ofTranslate call
+    // 3. comment out the camera.setupPerspective call in setup
+    //processor->setARCameraMatrices();
     
-    // enable the light
-    light.enable();
     
-    ofPushStyle();
-    
-    ofTranslate(0,0,-70);
-    // draw sphere
-    ofDrawSphere(0, 0, 20);
-    ofPopStyle();
-    
-    // disable lighting
-    light.disable();
+    ofTranslate(ofGetWindowWidth() / 2, ofGetWindowHeight() / 2);
+    shader.begin();
+    shader.setUniform1f("lightIntensity", processor->getLightIntensity());
+    sphere.draw();
+    shader.end();
     
     camera.end();
-    /*
-     //ofEnableAlphaBlending();
-     processor->draw();
-     
-     camera.begin();
-     processor->setARCameraMatrices();
-     
-     // adjust lighting attenuation based on the current amount of lighting detected
-     // by ARKit
-     light.setAttenuation(5.2);
-     
-     // enable the light
-     light.enable();
-     
-     ofPushStyle();
-     
-     ofTranslate(0,0,-70);
-     // draw sphere
-     ofDrawSphere(0, 0, 20);
-     ofPopStyle();
-     
-     // disable lighting
-     light.disable();
-     
-     camera.end();
-     */
     
 }
 

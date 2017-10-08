@@ -24,6 +24,8 @@
 		B00AF4FE1F44D5180082DDF8 /* OFAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B00AF4FB1F44D4F50082DDF8 /* OFAppViewController.mm */; };
 		B02A0FC01F49D302002A69F3 /* ARAnchorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B02A0FB91F49D298002A69F3 /* ARAnchorManager.mm */; };
 		B02A0FC11F49D302002A69F3 /* ARProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = B02A0FBC1F49D298002A69F3 /* ARProcessor.mm */; };
+		B035CC6F1F89C7FE0065FE88 /* shader.frag in Resources */ = {isa = PBXBuildFile; fileRef = B035CC6D1F89C7FE0065FE88 /* shader.frag */; };
+		B035CC701F89C7FE0065FE88 /* shader.vert in Resources */ = {isa = PBXBuildFile; fileRef = B035CC6E1F89C7FE0065FE88 /* shader.vert */; };
 		B07F9A3C1F561C650031FC25 /* ARCam.mm in Sources */ = {isa = PBXBuildFile; fileRef = B07F9A3B1F561C650031FC25 /* ARCam.mm */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
@@ -84,6 +86,8 @@
 		B02A0FBC1F49D298002A69F3 /* ARProcessor.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = ARProcessor.mm; path = ../src/ARProcessor.mm; sourceTree = "<group>"; };
 		B02A0FBD1F49D298002A69F3 /* ofxARKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxARKit.h; path = ../src/ofxARKit.h; sourceTree = "<group>"; };
 		B02A0FBF1F49D2D1002A69F3 /* ARDebugUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARDebugUtils.h; path = ../src/ARDebugUtils.h; sourceTree = "<group>"; };
+		B035CC6D1F89C7FE0065FE88 /* shader.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = shader.frag; path = bin/data/shader.frag; sourceTree = "<group>"; };
+		B035CC6E1F89C7FE0065FE88 /* shader.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = shader.vert; path = bin/data/shader.vert; sourceTree = "<group>"; };
 		B0779A3F1F7AD80300DD7A91 /* ARMeasurements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARMeasurements.h; path = ../src/ARMeasurements.h; sourceTree = "<group>"; };
 		B07F9A3A1F561C650031FC25 /* ARCam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARCam.h; path = ../src/ARCam.h; sourceTree = "<group>"; };
 		B07F9A3B1F561C650031FC25 /* ARCam.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = ARCam.mm; path = ../src/ARCam.mm; sourceTree = "<group>"; };
@@ -150,6 +154,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				B035CC6D1F89C7FE0065FE88 /* shader.frag */,
+				B035CC6E1F89C7FE0065FE88 /* shader.vert */,
 				678E130917951536005B6D19 /* Icon.png */,
 				678E130717951530005B6D19 /* Icon@2x.png */,
 				678E130B1795153C005B6D19 /* Default.png */,
@@ -373,9 +379,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B035CC6F1F89C7FE0065FE88 /* shader.frag in Resources */,
 				678E130817951530005B6D19 /* Icon@2x.png in Resources */,
 				678E130A17951536005B6D19 /* Icon.png in Resources */,
 				678E130C1795153C005B6D19 /* Default.png in Resources */,
+				B035CC701F89C7FE0065FE88 /* shader.vert in Resources */,
 				678E130E17951540005B6D19 /* Default@2x.png in Resources */,
 				678E131017951549005B6D19 /* Default-568h@2x~iphone.png in Resources */,
 			);
