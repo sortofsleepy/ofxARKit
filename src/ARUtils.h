@@ -132,6 +132,9 @@ namespace ARCommon {
                 break;
                 
             case UIInterfaceOrientationPortrait:
+                dimensions.x = screenBounds.size.width;
+                dimensions.y = screenBounds.size.height;
+                
                 setWidthAndHeight();
            
              
