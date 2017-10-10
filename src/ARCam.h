@@ -35,6 +35,12 @@ namespace ARCore {
         // The offset for how the image should be positioned.
         float xShift,yShift;
         
+        // the dimensions of the calculated camera image. 
+        ofVec2f cameraDimensions;
+        
+        //! Sets custom dimensions for drawing the camera image. 
+        void setCameraImageDimensions(float x=0,float y = 0);
+        
         // flag for debug mode.
         bool debugMode;
         
@@ -148,6 +154,9 @@ namespace ARCore {
         
         //! retrieves the current lighting conditions that ARKit is seeing.
         ARLightEstimate* getLightingConditions();
+        
+        //! Returns the ambient intensity of the lighting
+        float getAmbientIntensity();
         
         //! helper function to run ofLoadMatrix for projection and view matrices, using
         //! the current camera matrices from ARKit.

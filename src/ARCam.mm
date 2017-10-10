@@ -72,6 +72,9 @@ namespace ARCore {
         
         cam.scaleFromCenter(scaleVal);
         
+        cameraDimensions.x = cam.getWidth();
+        cameraDimensions.y = cam.getHeight();
+        
         // correct rotation of camera image
         rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
         
@@ -92,7 +95,10 @@ namespace ARCore {
         
         
     }
-    
+    void ARCam::setCameraImageDimensions(float x, float y ){
+        cameraDimensions.x = x;
+        cameraDimensions.y = y;
+    }
     void ARCam::draw(){
         
         // if we're on an iPad, things get weird. Adjust drawing based on viewport.
@@ -107,7 +113,7 @@ namespace ARCore {
                        deviceOrientation == UIDeviceOrientationLandscapeRight){
                         cameraFbo.draw(xShift,yShift,cam.getWidth(),cam.getHeight());
                     }else{
-                        cameraFbo.draw(xShift,yShift,cam.getHeight(),cam.getWidth());
+                        cameraFbo.draw(xShift,yShift,cameraDimensions.y,cameraDimensions.x);
                     }
                     break;
                     
@@ -115,24 +121,24 @@ namespace ARCore {
                     break;
                     
                 case UIDeviceOrientationUnknown:
-                    cameraFbo.draw(xShift,yShift,cam.getHeight(),cam.getWidth());
+                    cameraFbo.draw(xShift,yShift,cameraDimensions.y,cameraDimensions.x);
                     
                     break;
                 case UIDeviceOrientationPortraitUpsideDown:
-                    cameraFbo.draw(xShift,yShift,cam.getHeight(),cam.getWidth());
+                    cameraFbo.draw(xShift,yShift,cameraDimensions.y,cameraDimensions.x);
                     break;
                     
                 case UIDeviceOrientationPortrait:
-                    cameraFbo.draw(xShift,yShift,cam.getHeight(),cam.getWidth());
+                    cameraFbo.draw(xShift,yShift,cameraDimensions.y,cameraDimensions.x);
                     break;
                     
                 case UIDeviceOrientationLandscapeLeft:
-                    cameraFbo.draw(xShift,yShift,cam.getWidth(),cam.getHeight());
+                    cameraFbo.draw(xShift,yShift,cameraDimensions.x,cameraDimensions.y);
                     
                     break;
                     
                 case UIDeviceOrientationLandscapeRight:
-                    cameraFbo.draw(xShift,yShift,cam.getWidth(),cam.getHeight());
+                    cameraFbo.draw(xShift,yShift,cameraDimensions.x,cameraDimensions.y);
                     break;
             }
             
@@ -299,6 +305,10 @@ namespace ARCore {
                     break;
             }
         }
+    }
+    
+    float ARCam::getAmbientIntensity(){
+        return ambientIntensity;
     }
     
     void ARCam::update(){
