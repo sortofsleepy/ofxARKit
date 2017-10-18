@@ -31,8 +31,10 @@ namespace ARCore {
         near = 0.1;
         far = 1000.0;
         debugMode = false;
-       
-  
+        xShift = 0;
+        yShift = 0;
+        
+        
         // initialize video texture cache
         CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, ofxiOSGetGLView().context, NULL, &_videoTextureCache);
         if (err){
@@ -50,7 +52,7 @@ namespace ARCore {
         if([deviceType isEqualToString:@"iPad"]){
             needsPerspectiveAdjustment = true;
         }
-
+        
         // try to fit the camera capture width within the device's viewport.
         // default capture dimensions seem to be 1280x720 regardless of device and orientation.
         cam = ofRectangle(0,0,1280,720);
@@ -69,7 +71,10 @@ namespace ARCore {
         scaleVal = cam.getWidth() / cam.getHeight();
         
         cam.scaleFromCenter(scaleVal);
-  
+        
+        cameraDimensions.x = cam.getWidth();
+        cameraDimensions.y = cam.getHeight();
+        
         // correct rotation of camera image
         rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
         
@@ -82,7 +87,7 @@ namespace ARCore {
         cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::camera_convert_fragment);
         cameraConvertShader.linkProgram();
         
-    
+        
         // allocate the fbo to draw the image with, large enough to support
         // any sized screen.
         // TODO perf tests - is 4000x4000 too big? Memory seems minimaly imapacted if at all.
@@ -90,32 +95,25 @@ namespace ARCore {
         
         
     }
-    
+    void ARCam::setCameraImageDimensions(float x, float y ){
+        cameraDimensions.x = x;
+        cameraDimensions.y = y;
+    }
     void ARCam::draw(){
         
         // if we're on an iPad, things get weird. Adjust drawing based on viewport.
         if(needsPerspectiveAdjustment){
-          
-            /*
-             CGFloat scale = [[UIScreen mainScreen] scale];
-             ofPoint center = cam.getCenter();
-             
-             float x = center.x;
-             float y = center.y / 2;
-             */
-            angle += 0.1;
-            ofPoint center = cam.getCenter();
-            float x = center.x;
-            float y = center.y / 2;
+            
+            
             // Adjust drawing as necessary .
             switch(UIDevice.currentDevice.orientation){
                 case UIDeviceOrientationFaceUp:
-             
+                    
                     if(deviceOrientation == UIDeviceOrientationLandscapeLeft ||
                        deviceOrientation == UIDeviceOrientationLandscapeRight){
-                        cameraFbo.draw(0,0,cam.getWidth(),cam.getHeight());
+                        cameraFbo.draw(xShift,yShift,cam.getWidth(),cam.getHeight());
                     }else{
-                        cameraFbo.draw(0,0,cam.getHeight(),cam.getWidth());
+                        cameraFbo.draw(xShift,yShift,cameraDimensions.y,cameraDimensions.x);
                     }
                     break;
                     
@@ -123,24 +121,24 @@ namespace ARCore {
                     break;
                     
                 case UIDeviceOrientationUnknown:
-                    cameraFbo.draw(0,0,cam.getHeight(),cam.getWidth());
+                    cameraFbo.draw(xShift,yShift,cameraDimensions.y,cameraDimensions.x);
                     
                     break;
                 case UIDeviceOrientationPortraitUpsideDown:
-                    cameraFbo.draw(0,0,cam.getHeight(),cam.getWidth());
+                    cameraFbo.draw(xShift,yShift,cameraDimensions.y,cameraDimensions.x);
                     break;
                     
                 case UIDeviceOrientationPortrait:
-                    cameraFbo.draw(0,0,cam.getHeight(),cam.getWidth());
+                    cameraFbo.draw(xShift,yShift,cameraDimensions.y,cameraDimensions.x);
                     break;
                     
                 case UIDeviceOrientationLandscapeLeft:
-                    cameraFbo.draw(0,0,cam.getWidth(),cam.getHeight());
+                    cameraFbo.draw(xShift,yShift,cameraDimensions.x,cameraDimensions.y);
                     
                     break;
                     
                 case UIDeviceOrientationLandscapeRight:
-                    cameraFbo.draw(0,0,cam.getWidth(),cam.getHeight());
+                    cameraFbo.draw(xShift,yShift,cameraDimensions.x,cameraDimensions.y);
                     break;
             }
             
@@ -151,7 +149,17 @@ namespace ARCore {
         }
     }
     
- 
+    //! Sets the x and y position of where the camera image is placed.
+    void ARCam::setCameraImagePosition(float xShift,float yShift){
+        this->xShift = xShift;
+        this->yShift = yShift;
+    }
+    
+    //! Returns the calculated bounds of the camera image.
+    //! Useful in calculating the x and y pos of the camera image.
+    ofRectangle ARCam::getCameraImageBounds(){
+        return cam;
+    }
     
     void ARCam::updateInterfaceOrientation(){
         
@@ -207,7 +215,7 @@ namespace ARCore {
                 }else{
                     rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
                 }
-
+                
                 break;
                 
             case UIDeviceOrientationFaceDown:
@@ -235,14 +243,13 @@ namespace ARCore {
                 break;
         }
     }
-   
+    
     void ARCam::setCameraNearClip(float near){
         this->near = near;
     }
     void ARCam::setCameraFarClip(float far){
         this->far = far;
     }
-  
     
     void ARCam::updateRotationMatrix(float angle){
         rotation.makeRotationMatrix(angle, ofVec3f(0,0,1));
@@ -251,7 +258,7 @@ namespace ARCore {
     ARLightEstimate* ARCam::getLightingConditions(){
         return session.currentFrame.lightEstimate;
     }
-
+    
     ARTrackingState ARCam::getTrackingState(){
         return currentFrame.camera.trackingState;
     }
@@ -278,8 +285,8 @@ namespace ARCore {
     void ARCam::logTrackingState(){
         
         if(debugMode){
-     
-      
+            
+            
             switch(trackingStateReason){
                 case ARTrackingStateReasonNone:
                     ofLog(OF_LOG_NOTICE,"Tracking state is a-ok!");
@@ -300,14 +307,18 @@ namespace ARCore {
         }
     }
     
+    float ARCam::getAmbientIntensity(){
+        return ambientIntensity;
+    }
+    
     void ARCam::update(){
         // if we haven't set a session - just stop things here.
         if(!session){
             return;
         }
-
-       
-    
+        
+        
+        
         currentFrame = session.currentFrame;
         trackingState = currentFrame.camera.trackingState;
         
@@ -325,10 +336,10 @@ namespace ARCore {
         
         // only act if we have the current frame
         if(currentFrame){
-           
-           // update tex coords to try and better scale the image coming from the camera.
-        
-           updatePlaneTexCoords();
+            
+            // update tex coords to try and better scale the image coming from the camera.
+            
+            updatePlaneTexCoords();
             
             // do light estimates
             if (currentFrame.lightEstimate) {
@@ -372,18 +383,18 @@ namespace ARCore {
         ofSetMatrixMode(OF_MATRIX_MODELVIEW);
         ofLoadMatrix(cameraMatrices.cameraView);
     }
- 
-
+    
+    
     ARCameraMatrices ARCam::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
         
         cameraMatrices.cameraView = toMat4([session.currentFrame.camera viewMatrixForOrientation:orientation]);
         cameraMatrices.cameraProjection = toMat4([session.currentFrame.camera projectionMatrixForOrientation:orientation viewportSize:viewportSize zNear:(CGFloat)near zFar:(CGFloat)far]);
         
-     
+        
         return cameraMatrices;
     }
     
-  
+    
     // ============= PRIVATE ================= //
     
     void ARCam::buildCameraFrame(CVPixelBufferRef pixelBuffer){
@@ -408,7 +419,7 @@ namespace ARCore {
         
         int width = (int) CVPixelBufferGetWidth(pixelBuffer);
         int height = (int) CVPixelBufferGetHeight(pixelBuffer);
-      
+        
         CbCrTexture = createTextureFromPixelBuffer(pixelBuffer, 1,GL_LUMINANCE_ALPHA,width / 2, height / 2);
         
         
@@ -434,7 +445,7 @@ namespace ARCore {
         // write uniforms values to shader
         cameraConvertShader.begin();
         
-       
+        
         cameraConvertShader.setUniform2f("resolution", viewportSize.width,viewportSize.height);
         cameraConvertShader.setUniformTexture("yMap", CVOpenGLESTextureGetTarget(yTexture), CVOpenGLESTextureGetName(yTexture), 0);
         
@@ -478,6 +489,6 @@ namespace ARCore {
         
         return texture;
     }
-
+    
 }
 

@@ -22,6 +22,59 @@
 
 namespace ARDebugUtils {
     
+    class ARDebugInfo {
+        ofTrueTypeFont font;
+
+        int x,y;
+        ARSession * session;
+    public:
+        ARDebugInfo(ARSession * session,int x=20,int y=20){
+            this->session = session;
+            this->x = x;
+            this->y = y;
+            font.load(OF_TTF_MONO, 24);
+        }
+        void drawDebugInformation(){
+            
+            // get tracking state reason
+            ARTrackingStateReason trackingStateReason = session.currentFrame.camera.trackingStateReason;
+            
+        
+            ofPushMatrix();
+            // translate group
+            ofTranslate(x,y);
+            
+            // show frame rate
+            font.drawString("Frame Rate = " + ofToString(ofGetFrameRate()),0,0);
+            
+            
+            // draw tracking state
+            switch(trackingStateReason){
+                case ARTrackingStateReasonNone:
+                    font.drawString("Tracking state: Great!",0,30);
+                    
+                    break;
+                    
+                case ARTrackingStateReasonInitializing:
+                    font.drawString("Tracking state: Initializing!",0,30);
+                    break;
+                    
+                case ARTrackingStateReasonExcessiveMotion:
+                    font.drawString("Tracking state: Excessive Motion!",0,30);
+                    
+                    break;
+                    
+                case ARTrackingStateReasonInsufficientFeatures:
+                    font.drawString("Tracking state: Bad!",0,30);
+                    break;
+            }
+            ofPopMatrix();
+            
+            
+        }
+    };
+    
+    
     //! Helper class for recognizing features and drawing the resulting point cloud.
 
     class PointCloudDebug {

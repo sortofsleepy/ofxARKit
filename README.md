@@ -7,8 +7,8 @@ This is an openFrameworks addon that provides some helper classes for working wi
 
 # Installation and project setup
 __First__
-* [get xcode beta](https://developer.apple.com/download/)
-* [get ios 11 beta](https://beta.apple.com/sp/betaprogram/guide)
+* [get Xcode](https://developer.apple.com/xcode/)
+* [get iOS 11](https://www.apple.com/ios/ios-11/)
 
 __then__
 * Download openFrameworks [here](http://openframeworks.cc/versions/v0.9.8/of_v0.9.8_ios_release.zip)
@@ -35,28 +35,25 @@ To initialize the ARKit framework
 
 
 // then somewhere in your implementation block...
-// official example shows you ought to declare the session in viewWillLoad and initialize in viewWillAppear, but
-// that can result in tracking performance degradation in my experience (again, could just be the phone I'm borrowing,
-// your milage may vary ¯\_(ツ)_/¯)
+// official example shows you ought to declare the session in viewWillLoad and initialize in viewWillAppear but it probably doesn't matter.
 
 self.session = [ARSession new];
 
+// World tracking is used for 6DOF, there are other tracking configurations as well, see 
+// https://developer.apple.com/documentation/arkit/arconfiguration
 ARWorldTrackingConfiguration *configuration = [ARWorldTrackingConfiguration new];
 
-// setup horizontal plane detection
+// setup horizontal plane detection - note that this is optional 
 configuration.planeDetection = ARPlaneDetectionHorizontal;
 
+// start the session
 [self.session runWithConfiguration:configuration];
 ```
-note that - assuming you're using objective c++(which should be the default for ios oF projects), you could just as easily skip adding a
-view controller and just initialize in ofApp.h/.mm
+note that - assuming you're using objective c++(which should be the default for ios oF projects), you could just as easily skip adding a view controller and just initialize in ofApp.h/.mm. 
 
-Lastly - include `ofxARKit.h`, this will give you access to all of the class files as well as the `ARProcessor` api class.
-
+Lastly - include `ofxARKit.h`, this will give you access to all of the class files as well as the `ARProcessor` api class. Note that when you include `ofxARKit.h`, you'll be able to include a helper header called `ARSessionSetup.h` which includes a helper function for generating a new session.
 
 # Current functionality 
-ARKit, while it does do a ton behind the scenes; it pretty much leaves it up to you to figure out how you want to render things. The current Apple documentation, while already moderately detailed, unfortunately leaves some stuff out. 
-
 There are a number of classes and other files in the addon that deal with different areas relating to ARKit, like setting up the camera, dealing with feature detection, or dealing with plane detection.
 
 The class `ARProcessor` deals with joining all of these different bits of functionality in a (hopefully) easy to use API, but each of the classes can be used as standalone classes as well.
@@ -67,16 +64,16 @@ There are the following classes/files that are part of the addon
 * `ARDebugUtils` : as the name suggests - this deals with debugging helpers. At the moment, it's able to handle feature detection and drawing a point cloud.
 * `ARObject` : this is a header file that declares `PlaneAnchorObject` and `ARObject`. These structs are used to store converted ARKit data into something more oF friendly.
 * `ARShaders` : this stores the core shaders needed by the addon.
+* `ARSessionSetup` : provides a helper function for quickly generating a new session. 
 * `ARUtils.h` : this stores various utility functions
 
 Note that if you've used the addon pior to 8/29/2017, though I did my best to not make any api changes, there is a very tiny chance your code may break.
 
 
 ### Potential Hurdles in setup of ARKit
-A strange occurance I've run into fairly often, and it's unclear as to why this happens; but it seems that, depending on where you initialize ARKit, that could potentially affect performance. It makes no sense I realize, but I have seen differences in where things get initialized. I have no idea why it happens or what the difference is but when it happens you may see a message like  `...tracking performance reduced due to resource constraints...` or something to that effect.
+Though ARKit is supported on all devices with an A9 chip(6s onwards I believe) - it is helpful to have a fairly recent device or you may experience near immediate degradation of tracking performance. That being said - ARKit is helpful in that manner by warning you of when you're loosing performance by spitting out a message to the effect of `...tracking performance reduced due to resource constraints...`
 
-In all likelhood it's due to hardware; I don't have access to the latest iPhones and iPads, but still just something to watch out for.
-Fps seems to be minimally affected if at all, though of course, as the message suggests, tracking ability might not be as good. Just something to be on the lookout for.
+FPS appears to be minimally affected, but like the message says, things might not work as well. 
 
 If you see the message pop up, the ARKit api offers a limited function set to see what the reason might be in the degredation of tracking quality. You can log the current tracking status by 
 

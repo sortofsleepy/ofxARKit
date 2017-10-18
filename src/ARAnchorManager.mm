@@ -181,8 +181,7 @@ namespace ARCore {
                 // means item is found, check to see if we need to update
                 if(it != planes.end()){
                     if(shouldUpdatePlanes){
-                        
-                        auto index = std::distance(planes.begin(), it);
+
                         planes[index].transform = paTransform;
                         
                         planes[index].position.x = -extent.x / 2;

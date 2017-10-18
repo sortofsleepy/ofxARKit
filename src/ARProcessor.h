@@ -66,9 +66,7 @@ public:
     //! TODO needs testing - unknown if we can just pull the previous config. 
     void restartSession();
     
-    void toggleDebug(){
-        debugMode = !debugMode;
-    }
+    void toggleDebug();
     // ========== OBJECTS ==================== //
     
     //! An ARAnchorManager deals with handling Anchor objects in ARKit
@@ -80,13 +78,16 @@ public:
     //! A class to handle camera functionality.
     ARCore::ARCamRef camera;
     
+    ARTrackingState getTrackingState();
+    void logTrackingState();
+    
     //======== DEBUG API ============ //
     
     //! draws point cloud
     void drawPointCloud();
 
     //======== ANCHORS API ============ //
-    void addAnchor(float zZoom);
+    void addAnchor(float zZoom=-0.2);
     void addAnchor(ofVec3f position);
     //======== PLANE API ============ //
 
@@ -102,15 +103,13 @@ public:
     void updatePlanes();
     
    //======== CAMERA API ============ //
-    ARTrackingState getTrackingState();
-    void logTrackingState();
     
     void deviceOrientationChanged();
-    
     void updateDeviceInterfaceOrientation();
-    
     void rotateCameraFrame(float angle);
     
+    float getLightIntensity();
+    ofVec3f getCameraPosition();
     //! Helper to quickly set up ARKit projection and view matrices for 2D drawing in oF
     void setARCameraMatrices();
     
@@ -118,14 +117,10 @@ public:
     ARCommon::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=0.01,float far=1000.0);
     
     //! Return the camera image as a texture.
-    ofTexture getCameraTexture(){
-        return camera->getCameraTexture();
-    }
+    ofTexture getCameraTexture();
     
     //! Get the camera matrix set
-    ARCommon::ARCameraMatrices getCameraMatrices(){
-        return camera->getCameraMatrices();
-    }
+    ARCommon::ARCameraMatrices getCameraMatrices();
     
     // returns the current projection matrix from the camera
     ofMatrix4x4 getProjectionMatrix(){

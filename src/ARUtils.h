@@ -39,6 +39,13 @@ namespace ARCommon {
     const matrix_float4x4 toSIMDMat4(ofMatrix4x4 &mat){
            return convert<ofMatrix4x4,matrix_float4x4>(mat);
     }
+    
+    //! Extracts the xyz position from a matrix. It's assumed that the matrix you pass in
+    //! is based off of a ARKit transform matrix which appears to switch some things around.
+    static ofVec3f getAnchorXYZ(ofMatrix4x4 mat){
+        ofVec3f vec(mat.getRowAsVec3f(3));
+        return ofVec3f(vec.y,vec.x,vec.z);
+    }
 
     //! Constructs a generalized model matrix for a SIMD mat4
     static ofMatrix4x4 modelMatFromTransform( matrix_float4x4 transform )
