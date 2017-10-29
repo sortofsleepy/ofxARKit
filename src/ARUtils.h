@@ -37,7 +37,7 @@ namespace ARCommon {
     
     //! convert to simd based mat4
     const matrix_float4x4 toSIMDMat4(ofMatrix4x4 &mat){
-           return convert<ofMatrix4x4,matrix_float4x4>(mat);
+        return convert<ofMatrix4x4,matrix_float4x4>(mat);
     }
     
     //! Extracts the xyz position from a matrix. It's assumed that the matrix you pass in
@@ -46,7 +46,7 @@ namespace ARCommon {
         ofVec3f vec(mat.getRowAsVec3f(3));
         return ofVec3f(vec.y,vec.x,vec.z);
     }
-
+    
     //! Constructs a generalized model matrix for a SIMD mat4
     static ofMatrix4x4 modelMatFromTransform( matrix_float4x4 transform )
     {
@@ -73,11 +73,11 @@ namespace ARCommon {
         
         // set the final width and height we want to send back
         float width,height;
-    
+        
         // function to set width and height - takes the odd behavior associated with requesting points
         // into account.
         auto setWidthAndHeight = [&]()->void {
-        
+            
             if(!useNative){
                 width = screenBounds.size.height;
                 height = screenBounds.size.width;
@@ -87,7 +87,7 @@ namespace ARCommon {
             }
             
         };
-      
+        
         // Set the dimensions as appropriate depending on our orientation.
         // Note that for some reason, and I'm not sure if it's an oF, IOS or mistake on my part, but the first time
         // it enters this switch block, dimensions are off, so there is an nested if statement to try and fix that in
@@ -133,8 +133,8 @@ namespace ARCommon {
                 
             case UIInterfaceOrientationPortrait:
                 setWidthAndHeight();
-           
-             
+                
+                
                 if(width > height){
                     dimensions.x = height;
                     dimensions.y = width;
@@ -179,9 +179,6 @@ namespace ARCommon {
                 }
                 
                 break;
-                
-                
-                
         }
         
         return dimensions;
@@ -189,7 +186,7 @@ namespace ARCommon {
     
     //! Returns the native aspect ratio in pixels.
     static float getNativeAspectRatio(){
-      
+        
         ofVec2f dimensions = getDeviceDimensions(true);
         return dimensions.x / dimensions.y;
     }
@@ -199,8 +196,29 @@ namespace ARCommon {
         ofVec2f dimensions = getDeviceDimensions();
         return dimensions.x / dimensions.y;
     }
+    
+    // convert world xyz position to screen position.
+    ofVec2f worldToScreen(ofPoint worldPoint,ofMatrix4x4 projection,ofMatrix4x4 view){
+        
+        ofVec4f p =  ofVec4f(worldPoint.x, worldPoint.y, worldPoint.z, 1.0);
+        
+        p = p * view;
+        p = p * projection;
+        
+        p /= p.w;
+        
+        // convert coords to 0 - 1
+        p.x = p.x * 0.5 + 0.5;
+        p.y = p.y * 0.5 + 0.5;
+        
+        // convert coords to pixels
+        p.x *= ofGetWidth();
+        p.y *= ofGetHeight();
+        return ofVec2f(p.x, p.y);
+    }
 }
 
 
 
 #endif /* ARToolkitComponents_h */
+
