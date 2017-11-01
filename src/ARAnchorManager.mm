@@ -10,7 +10,9 @@ using namespace ARCommon;
 
 namespace ARCore {
     
-    ARAnchorManager::ARAnchorManager():shouldUpdatePlanes(false){
+    ARAnchorManager::ARAnchorManager():
+    shouldUpdatePlanes(false),
+    maxTrackedPlanes(0){
         
     }
     
@@ -142,60 +144,72 @@ namespace ARCore {
     }
     
     void ARAnchorManager::updatePlanes(){
-        // update any anchors found in the current frame by the system
-        for (NSInteger index = 0; index < anchorInstanceCount; index++) {
-            ARAnchor *anchor = session.currentFrame.anchors[index];
-            
-            // did we find a PlaneAnchor?
-            // note - you need to turn on planeDetection in your configuration
-            if([anchor isKindOfClass:[ARPlaneAnchor class]]){
-                ARPlaneAnchor* pa = (ARPlaneAnchor*) anchor;
+        
+        // if we aren't tracking the maximum number of planes or we want to track all possible planes,
+        // run the for loop. 
+        if(getNumPlanes() < maxTrackedPlanes || maxTrackedPlanes == 0){
+            // update any anchors found in the current frame by the system
+            for (NSInteger index = 0; index < anchorInstanceCount; index++) {
+                ARAnchor *anchor = session.currentFrame.anchors[index];
                 
-                // calc values from anchor.
-                ofMatrix4x4 paTransform = convert<matrix_float4x4, ofMatrix4x4>(pa.transform);
-                ofVec3f center = convert<vector_float3,ofVec3f>(pa.center);
-                ofVec3f extent = convert<vector_float3,ofVec3f>(pa.extent);
-                
-                
-                // neat trick to search in vector with c++ 11, seems to work better than for loop
-                // https://stackoverflow.com/questions/15517991/search-a-vector-of-objects-by-object-attribute
-                auto it = find_if(planes.begin(), planes.end(), [=](const PlaneAnchorObject& obj) {
-                    return obj.uuid == anchor.identifier;
-                });
-
-                // if it == planes.end() - means an item was not found.
-                if(it == planes.end()){
-                    PlaneAnchorObject plane;
+                // did we find a PlaneAnchor?
+                // note - you need to turn on planeDetection in your configuration
+                if([anchor isKindOfClass:[ARPlaneAnchor class]]){
+                    ARPlaneAnchor* pa = (ARPlaneAnchor*) anchor;
                     
-                    plane.transform = paTransform;
-                    plane.position.x = -extent.x / 2;
-                    plane.position.y = -extent.y / 2;
-                    plane.width = extent.x;
-                    plane.height = extent.z;
-                    plane.uuid = anchor.identifier;
-                    plane.rawAnchor = pa;
+                    // calc values from anchor.
+                    ofMatrix4x4 paTransform = convert<matrix_float4x4, ofMatrix4x4>(pa.transform);
+                    ofVec3f center = convert<vector_float3,ofVec3f>(pa.center);
+                    ofVec3f extent = convert<vector_float3,ofVec3f>(pa.extent);
                     
-                    planes.push_back(plane);
-                }
-                
-                // means item is found, check to see if we need to update
-                if(it != planes.end()){
-                    if(shouldUpdatePlanes){
-
-                        planes[index].transform = paTransform;
+                    
+                    // neat trick to search in vector with c++ 11, seems to work better than for loop
+                    // https://stackoverflow.com/questions/15517991/search-a-vector-of-objects-by-object-attribute
+                    auto it = find_if(planes.begin(), planes.end(), [=](const PlaneAnchorObject& obj) {
+                        return obj.uuid == anchor.identifier;
+                    });
+                    
+                    // if it == planes.end() - it means we aren't tracking this plane just yet.
+                    // if that's the case, then add it.
+                    if(it == planes.end()){
                         
-                        planes[index].position.x = -extent.x / 2;
-                        planes[index].position.y = -extent.y / 2;
-                        planes[index].width = extent.x;
-                        planes[index].height = extent.z;
-                        planes[index].uuid = anchor.identifier;
-                        planes[index].rawAnchor = pa;
+                        PlaneAnchorObject plane;
+                        
+                        plane.transform = paTransform;
+                        plane.position.x = -extent.x / 2;
+                        plane.position.y = -extent.y / 2;
+                        plane.width = extent.x;
+                        plane.height = extent.z;
+                        plane.uuid = anchor.identifier;
+                        plane.rawAnchor = pa;
+                        
+                        planes.push_back(plane);
                     }
+                    
+                    // this block triggers when a plane we're already tracking is found,
+                    // check to see if we need to update and update if need be
+                    if(it != planes.end()){
+                        if(shouldUpdatePlanes){
+                            
+                            planes[index].transform = paTransform;
+                            
+                            planes[index].position.x = -extent.x / 2;
+                            planes[index].position.y = -extent.y / 2;
+                            planes[index].width = extent.x;
+                            planes[index].height = extent.z;
+                            planes[index].uuid = anchor.identifier;
+                            planes[index].rawAnchor = pa;
+                        }
+                    }
+                    
                 }
                 
             }
-            
         }
+    }
+    
+    void ARAnchorManager::setNumberOfPlanesToTrack(int num){
+        maxTrackedPlanes = num;
     }
     
     void ARAnchorManager::clearAnchors(){

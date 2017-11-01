@@ -35,6 +35,9 @@ namespace ARCore {
         //! camera object to help draw the anchors
         ofCamera camera;
         
+        //! The number of planes we want to be tracking at any given point.
+        //! If 0 - it means we want to track every available plane
+        int maxTrackedPlanes;
     public:
         ARAnchorManager();
         ARAnchorManager(ARSession * session);
@@ -58,6 +61,9 @@ namespace ARCore {
                 return AnchorManagerRef(new ARAnchorManager(session));
             }
         }
+        
+        //! Sets the number of planes we want to track. By default, we track all available planes.
+        void setNumberOfPlanesToTrack(int num=0);
         
         //! Returns the vector of currently found planes
         std::vector<PlaneAnchorObject> getPlaneAnchors(){
