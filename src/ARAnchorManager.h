@@ -130,6 +130,9 @@ namespace ARCore {
         //! update function for dealing with planes.
         void updatePlanes();
         
+        //! draw a specific plane
+        void drawPlaneAt(ARCameraMatrices cameraMatrices,int index=0);
+        
     };
 }
 

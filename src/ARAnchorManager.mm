@@ -146,7 +146,7 @@ namespace ARCore {
     void ARAnchorManager::updatePlanes(){
         
         // if we aren't tracking the maximum number of planes or we want to track all possible planes,
-        // run the for loop. 
+        // run the for loop.
         if(getNumPlanes() < maxTrackedPlanes || maxTrackedPlanes == 0){
             // update any anchors found in the current frame by the system
             for (NSInteger index = 0; index < anchorInstanceCount; index++) {
@@ -267,6 +267,30 @@ namespace ARCore {
         ARAnchor *anchor = session.currentFrame.anchors[index];
         [session removeAnchor:anchor];
     }
+    
+    void ARAnchorManager::drawPlaneAt(ARCameraMatrices cameraMatrices,int index){
+        camera.begin();
+        
+        ofSetMatrixMode(OF_MATRIX_PROJECTION);
+        ofLoadMatrix(cameraMatrices.cameraProjection);
+        ofSetMatrixMode(OF_MATRIX_MODELVIEW);
+        ofLoadMatrix(cameraMatrices.cameraView);
+        
+        PlaneAnchorObject anchor = getPlaneAt(index);
+        
+        ofPushMatrix();
+        ofMultMatrix(anchor.transform);
+        ofFill();
+        ofSetColor(102,216,254,100);
+        ofRotateX(90);
+        ofTranslate(anchor.position.x,anchor.position.y);
+        ofDrawRectangle(-anchor.position.x/2,-anchor.position.z/2,0,anchor.width,anchor.height);
+        ofSetColor(255);
+        ofPopMatrix();
+        
+        camera.end();
+    }
+    
     
     void ARAnchorManager::drawPlanes(ARCameraMatrices cameraMatrices){
         camera.begin();
