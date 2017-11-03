@@ -76,7 +76,15 @@ namespace ARCore {
         CVOpenGLESTextureCacheRef _videoTextureCache;
         
         //! mesh to render camera image
-        ofMesh cameraPlane;
+        ofVbo vMesh;
+        
+        //! vertex data to render the camera image
+        float kImagePlaneVertexData[16] = {
+            -1.0, -1.0,  0.0, 1.0,
+            1.0, -1.0,  1.0, 1.0,
+            -1.0,  1.0,  0.0, 0.0,
+            1.0,  1.0,  1.0, 0.0,
+        };
         
         //! shader to color convert the camera image
         ofShader cameraConvertShader;

@@ -81,8 +81,7 @@ namespace ARCore {
         
         // ========== SHADER SETUP  ============= //
         // setup plane and shader in order to draw the camera feed
-        cameraPlane = ofMesh::plane(cam.getWidth(),cam.getHeight());
-        
+        vMesh.setVertexData(kImagePlaneVertexData, 4, 16, GL_DYNAMIC_DRAW);
         cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARShaders::camera_convert_vertex);
         cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::camera_convert_fragment);
         cameraConvertShader.linkProgram();
@@ -271,14 +270,13 @@ namespace ARCore {
         
         CGAffineTransform displayToCameraTransform = CGAffineTransformInvert([currentFrame displayTransformForOrientation:orientation viewportSize:viewportSize]);
         
-        for (int index = 0; index < 4; index++) {
-            //NSInteger textureCoordIndex = 4 * index + 2;
-            int textureCoordIndex = index;
-            ofVec2f texCoord = cameraPlane.getTexCoords()[textureCoordIndex];
-            
-            CGPoint textureCoord = CGPointMake(texCoord.x,texCoord.y);
+        for (NSInteger index = 0; index < 4; index++) {
+            NSInteger textureCoordIndex = 4 * index + 2;
+            CGPoint textureCoord = CGPointMake(kImagePlaneVertexData[textureCoordIndex], kImagePlaneVertexData[textureCoordIndex + 1]);
             CGPoint transformedCoord = CGPointApplyAffineTransform(textureCoord, displayToCameraTransform);
-            cameraPlane.setTexCoord(textureCoordIndex, ofVec2f(transformedCoord.x,transformedCoord.y));
+            kImagePlaneVertexData[textureCoordIndex] = transformedCoord.x;
+            kImagePlaneVertexData[textureCoordIndex + 1] = transformedCoord.y;
+            vMesh.updateVertexData(kImagePlaneVertexData, 16);
         }
     }
     
@@ -338,7 +336,6 @@ namespace ARCore {
         if(currentFrame){
             
             // update tex coords to try and better scale the image coming from the camera.
-            
             updatePlaneTexCoords();
             
             // do light estimates
@@ -365,7 +362,8 @@ namespace ARCore {
                     // write image to fbo
                     cameraFbo.begin();
                     cameraConvertShader.begin();
-                    cameraPlane.draw();
+              
+                    vMesh.draw(GL_TRIANGLE_STRIP, 0, 16);
                     cameraConvertShader.end();
                     cameraFbo.end();
                     
