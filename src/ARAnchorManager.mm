@@ -55,44 +55,11 @@ namespace ARCore {
     }
     
     // TODO this still needs a bit of work but it's good enough for the time being.
-    void ARAnchorManager::addAnchor(ofVec3f position){
-        
-        // set a default z if position.z is 0 so we can see the object. ;
-        if(position.z == 0){
-            position.z = -0.2;
-        }
+    void ARAnchorManager::addAnchor(ofVec3f position,ofMatrix4x4 projection,ofMatrix4x4 viewMatrix){
         
         if(session.currentFrame){
-            
-            // convert screen to world coordinates based on viewport.
-            // we're just guessing on the Z pos based on sample code from Xcode.
-            ofVec3f pos = camera.screenToWorld(ofVec3f(position.x,position.y,-0.2),ofRectangle(0,0,ofGetWindowWidth(),ofGetWindowHeight()));
-            
-            
-            // Create a transform with a translation of 0.2 meters in front of the camera
-            matrix_float4x4 translation = matrix_identity_float4x4;
-            translation.columns[2].z = -1.0;
-            
-            // x is actually refering to y - multiply by -1 to flip position
-            translation.columns[3].x = (pos.y * -1) * 0.01;
-            
-            // y is actually refering to x
-            translation.columns[3].y = pos.x * 0.01;
-            
-            // set z
-            translation.columns[3].z = position.z;
-            
-            // multiply translation by current camera position
-            matrix_float4x4 transform = matrix_multiply(session.currentFrame.camera.transform, translation);
-            
-            // Add a new anchor to the session
-            ARAnchor *anchor = [[ARAnchor alloc] initWithTransform:transform];
-            
-            // add ARObject
-            anchors.push_back(buildARObject(anchor, toMat4(transform)));
-            
-            // add anchor to ARKit
-            [session addAnchor:anchor];
+           
+            ofVec4f pos = ARCommon::screenToWorld(position, projection, viewMatrix);
             
         }
         

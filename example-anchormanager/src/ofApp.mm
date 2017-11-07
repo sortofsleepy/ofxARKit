@@ -139,7 +139,8 @@ void ofApp::exit() {
 
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs &touch){
-    anchors->addAnchor(ofVec2f(touch.x,touch.y));
+    
+    processor->addAnchor(ofVec3f(touch.x,touch.y,0.0));
 }
 
 //--------------------------------------------------------------

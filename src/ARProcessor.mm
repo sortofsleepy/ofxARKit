@@ -118,7 +118,12 @@ void ARProcessor::addAnchor(float zZoom){
 }
 
 void ARProcessor::addAnchor(ofVec3f position){
-    anchorController->addAnchor(position);
+    auto matrices = getCameraMatrices();
+    // model view matrix should be inverse of global transform matrix
+    ofMatrix4x4 inverse;
+    inverse.makeInvertOf(toMat4(session.currentFrame.camera.transform));
+    
+    anchorController->addAnchor(position,matrices.cameraProjection,inverse);
 }
 
 void ARProcessor::drawHorizontalPlanes(){

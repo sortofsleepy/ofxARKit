@@ -49,7 +49,7 @@ namespace ARCore {
         void addAnchor(float zZoom=-0.2);
         
         //! adds an anchor at the specified position.
-        void addAnchor(ofVec3f position);
+        void addAnchor(ofVec3f position,ofMatrix4x4 projection,ofMatrix4x4 viewMatrix);
         
         //! adds an ARObject to be tracked by ARKit.
         void addAnchor(ARObject anchor);
