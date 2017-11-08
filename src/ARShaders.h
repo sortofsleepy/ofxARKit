@@ -54,14 +54,28 @@ const std::string camera_convert_fragment = STRINGIFY(
                                                       // this is the yyuv texture from ARKit
                                                       uniform sampler2D yMap;
                                                       uniform sampler2D uvMap;
+                                                      uniform bool isPortraitOrientation;
                                                       varying vec2 vUv;
                                                       
                                                       
                                                       void main(){
                                                           
                                                           // flip uvs so image isn't inverted.
-                                                          vec2 textureCoordinate = 1.0 - vec2(vUv.s, vUv.t);
-                                                        
+                                                          vec2 textureCoordinate;
+                                                          
+                                                          // uv when portrait
+                                                          //vec2 textureCoordinate = vec2(vUv.s, 1.0 - vUv.t);
+                                                          
+                                                          // uv when landsape
+                                                          //vec2 textureCoordinate = vec2(1.0 - vUv.s,vUv.t);
+                                                          
+                                                          if(isPortraitOrientation){
+                                                               textureCoordinate = vec2(vUv.s, 1.0 - vUv.t);
+                                                          }else{
+                                                              textureCoordinate = vec2(1.0 - vUv.s,vUv.t);
+                                                          }
+                                                          
+                                                          
                                                           // Using BT.709 which is the standard for HDTV
                                                           mat3 colorConversionMatrix = mat3(
                                                                                             1.164,  1.164, 1.164,

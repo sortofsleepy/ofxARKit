@@ -70,6 +70,10 @@ namespace ARCore {
             return planes;
         }
         
+        int getNumAnchors(){
+            return anchors.size();
+        }
+        
         //! Allows you to loop through the anchors and do something
         //! with each anchor. Pass in a lambda function
         void loopAnchors(std::function<void(ARObject)> func);

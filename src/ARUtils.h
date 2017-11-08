@@ -218,6 +218,7 @@ namespace ARCommon {
         return ofVec2f(p.x, p.y);
     }
     
+    //! Convert screen position to a  world position. 
     static ofVec4f screenToWorld(ofVec3f position,ofMatrix4x4 projection,ofMatrix4x4 mvMatrix){
         ofRectangle viewport(0,0,ofGetWindowWidth(),ofGetWindowHeight());
         

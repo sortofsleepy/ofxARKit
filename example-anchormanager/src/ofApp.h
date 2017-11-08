@@ -33,7 +33,6 @@ public:
     
     // ====== AR STUFF ======== //
     ARSession * session;
-    ARCore::AnchorManagerRef anchors;
     ARRef processor;
     
     ofImage img;

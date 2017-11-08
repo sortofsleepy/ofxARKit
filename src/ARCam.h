@@ -130,6 +130,9 @@ namespace ARCore {
             return ARCamRef(new ARCam(session));
         }
         
+        //! grab FBO texture of current camera image
+        ofTexture getCameraImage();
+        
         //! Function to update and log the current tracking state from ARKit
         void logTrackingState();
         
