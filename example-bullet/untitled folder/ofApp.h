@@ -2,6 +2,9 @@
 
 #include "ofxiOS.h"
 #include "ofxARKit.h"
+#include "ofxBullet.h"
+#include <vector>
+#include "Button.h"
 class ofApp : public ofxiOSApp {
     
 public:
@@ -25,11 +28,18 @@ public:
     void gotFocus();
     void gotMemoryWarning();
     void deviceOrientationChanged(int newOrientation);
-
+    
     
     ofTrueTypeFont font;
-    
+    ofxBulletWorldRigid world;
+    ofxBulletBox ground;
     ofCamera camera;
+    
+    std::vector<ofxBulletBox*> boxes;
+    int maxBoxes;
+    
+    // button to signal you want to add a plane
+    Button addPlane;
     
     // ====== AR STUFF ======== //
     ARSession * session;

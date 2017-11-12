@@ -199,6 +199,8 @@ namespace ARCommon {
     }
     
     // convert world xyz position to screen position.
+    // TODO maybe this is what we ought to use instead to factor in orientation? Found on 11/7/17
+    // https://developer.apple.com/documentation/arkit/arcamera/2923538-projectpoint?language=objc
     static ofVec2f worldToScreen(ofPoint worldPoint,ofMatrix4x4 projection,ofMatrix4x4 view){
         
         ofVec4f p =  ofVec4f(worldPoint.x, worldPoint.y, worldPoint.z, 1.0);

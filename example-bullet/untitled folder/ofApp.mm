@@ -1,6 +1,7 @@
 #include "ofApp.h"
 
 
+
 //--------------------------------------------------------------
 ofApp :: ofApp (ARSession * session){
     this->session = session;
@@ -26,42 +27,48 @@ void ofApp::setup() {
     
     font.load("fonts/mono0755.ttf", fontSize);
     
-    processor = ARProcessor::create(session);
-    processor->setup();
+
+    // setup Bullet Physics
+    world.setup();
+    world.enableGrabbing();
+    world.enableDebugDraw();
+    world.setCamera(&camera);
+    
+    ground.create( world.world, ofVec3f(0., 5.5, 0.), 0., 100.f, 1.f, 100.f );
+    ground.setProperties(.25, .95);
+    ground.add();
+    
+    // set the max number of boxes
+    maxBoxes = 20;
 }
+
+
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    processor->update();
+    
+    world.update();
+    
+    
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
     ofEnableAlphaBlending();
-    
-    ofDisableDepthTest();
-    processor->draw();
+
     ofEnableDepthTest();
+    camera.begin();
     
-    processor->anchorController->loopAnchors([=](ARObject obj)->void {
-        camera.begin();
-        processor->setARCameraMatrices();
-        
-        ofPushMatrix();
-        ofMultMatrix(obj.modelMatrix);
-        
-        ofSetColor(255);
-        ofRotate(90,0,0,1);
-        
-        float aspect = ARCommon::getNativeAspectRatio();
-        img.draw(-aspect/8,-0.125,aspect/4,0.25);
-        
-        ofPopMatrix();
-        
-        camera.end();
-    });
+    ofSetLineWidth(1.f);
+    ofSetColor(255, 0, 200);
+    world.drawDebug();
     
-    ofDisableDepthTest();
+    ofSetColor(100, 100, 100);
+    ground.draw();
+    
+    camera.end();
+    
     // ========== DEBUG STUFF ============= //
     int w = MIN(ofGetWidth(), ofGetHeight()) * 0.6;
     int h = w;
@@ -79,7 +86,7 @@ void ofApp::draw() {
     font.drawString("screen width   = " + ofToString( ofGetWidth() ),       x, y+=p);
     font.drawString("screen height  = " + ofToString( ofGetHeight() ),      x, y+=p);
     
-
+    
     
 }
 
@@ -90,8 +97,6 @@ void ofApp::exit() {
 
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs &touch){
-    
-    processor->addAnchor(ofVec3f(touch.x,touch.y,0.0));
 }
 
 //--------------------------------------------------------------
@@ -126,8 +131,7 @@ void ofApp::gotMemoryWarning(){
 
 //--------------------------------------------------------------
 void ofApp::deviceOrientationChanged(int newOrientation){
-    processor->updateDeviceInterfaceOrientation();
-    processor->deviceOrientationChanged();
+    
 }
 
 

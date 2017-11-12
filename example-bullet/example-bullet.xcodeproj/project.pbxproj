@@ -134,9 +134,10 @@
 		ACA021A482F3E78826C5A05B /* btConvexPointCloudShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB6A07C9F4A61C63EC5D4099 /* btConvexPointCloudShape.cpp */; };
 		AE83F0CEA2C8D83D72618074 /* ofxBulletWorldRigid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39157C47D15F25CBEF1E29D3 /* ofxBulletWorldRigid.cpp */; };
 		AF5EB34078AD8B484DD655CF /* btGImpactCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94AFA2B1F79FD1DEB98F313 /* btGImpactCollisionAlgorithm.cpp */; };
-		B0799DB31FAA9063004FC944 /* MyAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = B0799DAD1FAA9053004FC944 /* MyAppDelegate.mm */; };
-		B0799DB41FAA9063004FC944 /* MyAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B0799DB01FAA9053004FC944 /* MyAppViewController.mm */; };
-		B0799DB51FAA9063004FC944 /* OFAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B0799DB21FAA9053004FC944 /* OFAppViewController.mm */; };
+		B0031CB41FB7D41800055705 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0031CB31FB7D41800055705 /* ARKit.framework */; };
+		B0031CBD1FB7D46D00055705 /* MyAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = B0031CB71FB7D45C00055705 /* MyAppDelegate.mm */; };
+		B0031CBE1FB7D46D00055705 /* MyAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B0031CBA1FB7D45D00055705 /* MyAppViewController.mm */; };
+		B0031CBF1FB7D46D00055705 /* OFAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B0031CBC1FB7D45D00055705 /* OFAppViewController.mm */; };
 		B433D152CF40B02121485833 /* btBvhTriangleMeshShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFD5BD3C5EE1EA39ED3EC00 /* btBvhTriangleMeshShape.cpp */; };
 		B43E810116C75B8352BD4D5B /* btHingeConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9F60465B1C1356221434C8D9 /* btHingeConstraint.cpp */; };
 		B68A789D3C215D6412CB0100 /* btTriangleIndexVertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 992DB51F7841629E014B4887 /* btTriangleIndexVertexArray.cpp */; };
@@ -518,14 +519,14 @@
 		AEF09CA4E5FE2E0F14A4ED9E /* btCollisionCreateFunc.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = btCollisionCreateFunc.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletCollision/CollisionDispatch/btCollisionCreateFunc.h; sourceTree = SOURCE_ROOT; };
 		AF0688DE09A7D9ACEB94AFDE /* btMatrixX.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = btMatrixX.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/LinearMath/btMatrixX.h; sourceTree = SOURCE_ROOT; };
 		AF5FD86BE45218E97B8E7C74 /* btTriangleCallback.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = btTriangleCallback.cpp; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletCollision/CollisionShapes/btTriangleCallback.cpp; sourceTree = SOURCE_ROOT; };
-		B0799DAC1FAA9053004FC944 /* MyAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAppDelegate.h; sourceTree = "<group>"; };
-		B0799DAD1FAA9053004FC944 /* MyAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAppDelegate.mm; sourceTree = "<group>"; };
-		B0799DAF1FAA9053004FC944 /* MyAppViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAppViewController.h; sourceTree = "<group>"; };
-		B0799DB01FAA9053004FC944 /* MyAppViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAppViewController.mm; sourceTree = "<group>"; };
-		B0799DB11FAA9053004FC944 /* OFAppViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OFAppViewController.h; sourceTree = "<group>"; };
-		B0799DB21FAA9053004FC944 /* OFAppViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OFAppViewController.mm; sourceTree = "<group>"; };
-		B0799DB61FAA90A4004FC944 /* Button.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
-		B0799DB71FAA9162004FC944 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B0031CB31FB7D41800055705 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
+		B0031CB61FB7D45C00055705 /* MyAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAppDelegate.h; sourceTree = "<group>"; };
+		B0031CB71FB7D45C00055705 /* MyAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAppDelegate.mm; sourceTree = "<group>"; };
+		B0031CB91FB7D45D00055705 /* MyAppViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAppViewController.h; sourceTree = "<group>"; };
+		B0031CBA1FB7D45D00055705 /* MyAppViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAppViewController.mm; sourceTree = "<group>"; };
+		B0031CBB1FB7D45D00055705 /* OFAppViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OFAppViewController.h; sourceTree = "<group>"; };
+		B0031CBC1FB7D45D00055705 /* OFAppViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OFAppViewController.mm; sourceTree = "<group>"; };
+		B0031CC11FB7D4C100055705 /* Button.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Button.h; path = src/Button.h; sourceTree = SOURCE_ROOT; };
 		B1CDAD9A67E3A39BC0112EC5 /* btWheelInfo.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = btWheelInfo.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletDynamics/Vehicle/btWheelInfo.h; sourceTree = SOURCE_ROOT; };
 		B1E4F94E34F8B120F10D8BFC /* btCompoundCompoundCollisionAlgorithm.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = btCompoundCompoundCollisionAlgorithm.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletCollision/CollisionDispatch/btCompoundCompoundCollisionAlgorithm.h; sourceTree = SOURCE_ROOT; };
 		B29FEAE219CE033A2486C64B /* btMinkowskiSumShape.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = btMinkowskiSumShape.h; path = ../../../addons/ofxBullet/libs/bullet2.8.2/include/BulletCollision/CollisionShapes/btMinkowskiSumShape.h; sourceTree = SOURCE_ROOT; };
@@ -689,6 +690,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0031CB41FB7D41800055705 /* ARKit.framework in Frameworks */,
 				E41D421413B3A95300A75A5D /* libofxiOS_iphoneos_Debug.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
@@ -796,7 +798,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				B0799DB71FAA9162004FC944 /* README.md */,
 				678E130917951536005B6D19 /* Icon.png */,
 				678E130717951530005B6D19 /* Icon@2x.png */,
 				678E130B1795153C005B6D19 /* Default.png */,
@@ -807,6 +808,7 @@
 				BB16F26B0F2B646B00518274 /* addons */,
 				BB16E9930F2B1E5900518274 /* libs */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				B0031CB21FB7D41800055705 /* Frameworks */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -1175,22 +1177,31 @@
 			name = include;
 			sourceTree = "<group>";
 		};
-		B0799DAB1FAA9053004FC944 /* delegates */ = {
+		B0031CB21FB7D41800055705 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B0799DAC1FAA9053004FC944 /* MyAppDelegate.h */,
-				B0799DAD1FAA9053004FC944 /* MyAppDelegate.mm */,
+				B0031CB31FB7D41800055705 /* ARKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B0031CB51FB7D45C00055705 /* delegates */ = {
+			isa = PBXGroup;
+			children = (
+				B0031CB61FB7D45C00055705 /* MyAppDelegate.h */,
+				B0031CB71FB7D45C00055705 /* MyAppDelegate.mm */,
 			);
 			path = delegates;
 			sourceTree = "<group>";
 		};
-		B0799DAE1FAA9053004FC944 /* viewcontrollers */ = {
+		B0031CB81FB7D45D00055705 /* viewcontrollers */ = {
 			isa = PBXGroup;
 			children = (
-				B0799DAF1FAA9053004FC944 /* MyAppViewController.h */,
-				B0799DB01FAA9053004FC944 /* MyAppViewController.mm */,
-				B0799DB11FAA9053004FC944 /* OFAppViewController.h */,
-				B0799DB21FAA9053004FC944 /* OFAppViewController.mm */,
+				B0031CC11FB7D4C100055705 /* Button.h */,
+				B0031CB91FB7D45D00055705 /* MyAppViewController.h */,
+				B0031CBA1FB7D45D00055705 /* MyAppViewController.mm */,
+				B0031CBB1FB7D45D00055705 /* OFAppViewController.h */,
+				B0031CBC1FB7D45D00055705 /* OFAppViewController.mm */,
 			);
 			path = viewcontrollers;
 			sourceTree = "<group>";
@@ -1452,12 +1463,11 @@
 		E4D8936A11527B74007E1F53 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				B0799DAB1FAA9053004FC944 /* delegates */,
-				B0799DAE1FAA9053004FC944 /* viewcontrollers */,
+				B0031CB51FB7D45C00055705 /* delegates */,
+				B0031CB81FB7D45D00055705 /* viewcontrollers */,
 				E4D8936B11527B74007E1F53 /* main.mm */,
 				E4D8936D11527B74007E1F53 /* ofApp.mm */,
 				E4D8936C11527B74007E1F53 /* ofApp.h */,
-				B0799DB61FAA90A4004FC944 /* Button.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1541,6 +1551,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0600;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = TW4BB5ETMV;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "example-bullet" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1613,9 +1628,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0799DB31FAA9063004FC944 /* MyAppDelegate.mm in Sources */,
-				B0799DB41FAA9063004FC944 /* MyAppViewController.mm in Sources */,
-				B0799DB51FAA9063004FC944 /* OFAppViewController.mm in Sources */,
+				B0031CBD1FB7D46D00055705 /* MyAppDelegate.mm in Sources */,
+				B0031CBE1FB7D46D00055705 /* MyAppViewController.mm in Sources */,
+				B0031CBF1FB7D46D00055705 /* OFAppViewController.mm in Sources */,
 				E4D8936E11527B74007E1F53 /* main.mm in Sources */,
 				E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */,
 				966DC6CFF8359AF2BCC8EAFD /* ARAnchorManager.mm in Sources */,
@@ -1799,11 +1814,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEVELOPMENT_TEAM = TW4BB5ETMV;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ofxiOS_Prefix.pch;
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
 				INFOPLIST_FILE = "ofxiOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.example-bullet";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
@@ -1812,11 +1829,13 @@
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = TW4BB5ETMV;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ofxiOS_Prefix.pch;
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
 				INFOPLIST_FILE = "ofxiOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.example-bullet";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
@@ -1844,6 +1863,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
+					src,
 					../../../addons/ofxARKit/src,
 					../../../addons/ofxBullet/libs,
 					../../../addons/ofxBullet/libs/bullet2.8.2,
@@ -1926,6 +1946,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
+					src,
 					../../../addons/ofxARKit/src,
 					../../../addons/ofxBullet/libs,
 					../../../addons/ofxBullet/libs/bullet2.8.2,
