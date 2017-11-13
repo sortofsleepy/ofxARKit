@@ -55,6 +55,7 @@ const std::string camera_convert_fragment = STRINGIFY(
                                                       uniform sampler2D yMap;
                                                       uniform sampler2D uvMap;
                                                       uniform bool isPortraitOrientation;
+                                                      uniform vec2 aspectRatio;
                                                       varying vec2 vUv;
                                                       
                                                       
@@ -70,10 +71,14 @@ const std::string camera_convert_fragment = STRINGIFY(
                                                           //vec2 textureCoordinate = vec2(1.0 - vUv.s,vUv.t);
                                                           
                                                           if(isPortraitOrientation){
-                                                               textureCoordinate = vec2(vUv.s, 1.0 - vUv.t);
+                                                              textureCoordinate = vec2(vUv.s, 1.0 - vUv.t);
+                                                             
                                                           }else{
                                                               textureCoordinate = vec2(1.0 - vUv.s,vUv.t);
                                                           }
+                                                          
+                                                          //textureCoordinate.x *= aspectRatio.x;
+                                                          //textureCoordinate.y *= aspectRatio.y;
                                                           
                                                           
                                                           // Using BT.709 which is the standard for HDTV

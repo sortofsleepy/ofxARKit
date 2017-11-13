@@ -68,7 +68,7 @@ namespace ARCore {
         cam.scaleTo(screen,OF_ASPECT_RATIO_KEEP);
         
         // scale up rectangle based on aspect ratio of scaled capture dimensions.
-        scaleVal = cam.getWidth() / cam.getHeight();
+        scaleVal = [[UIScreen mainScreen] scale];
         
         cam.scaleFromCenter(scaleVal);
         
@@ -77,7 +77,6 @@ namespace ARCore {
         
         // correct rotation of camera image
         rotation.makeRotationMatrix(-90, ofVec3f(0,0,1));
-        
         
         // ========== SHADER SETUP  ============= //
         // setup plane and shader in order to draw the camera feed
@@ -91,7 +90,7 @@ namespace ARCore {
         // any sized screen.
         // TODO perf tests - is 4000x4000 too big? Memory seems minimaly imapacted if at all.
         cameraFbo.allocate(4000,4000, GL_RGBA);
-        
+        cameraFbo.getTexture().getTextureData().bFlipTexture = true;
         
     }
     void ARCam::setCameraImageDimensions(float x, float y ){
@@ -100,98 +99,51 @@ namespace ARCore {
     }
     
     void ARCam::draw(){
-        cameraConvertShader.begin();
-       
-        switch(UIDevice.currentDevice.orientation){
-            case UIDeviceOrientationFaceUp:
-                
-                cameraConvertShader.setUniform1i("isPortraitOrientation", true);
-                break;
-                
-            case UIDeviceOrientationFaceDown:
-                break;
-                
-            case UIDeviceOrientationUnknown:
-                
-                cameraConvertShader.setUniform1i("isPortraitOrientation", true);
-                break;
-            case UIDeviceOrientationPortraitUpsideDown:
-                
-                cameraConvertShader.setUniform1i("isPortraitOrientation", true);
-                break;
-                
-            case UIDeviceOrientationPortrait:
-                
-                cameraConvertShader.setUniform1i("isPortraitOrientation", true);
-           
-                break;
-                
-            case UIDeviceOrientationLandscapeLeft:
-                
-                cameraConvertShader.setUniform1i("isPortraitOrientation", false);
-                break;
-                
-            case UIDeviceOrientationLandscapeRight:
-                
-                cameraConvertShader.setUniform1i("isPortraitOrientation", false);
-                break;
+        if(needsPerspectiveAdjustment){
+            // Adjust drawing as necessary .
+            switch(UIDevice.currentDevice.orientation){
+                case UIDeviceOrientationFaceUp:
+                    
+                    if(deviceOrientation == UIDeviceOrientationLandscapeLeft ||
+                       deviceOrientation == UIDeviceOrientationLandscapeRight){
+                        cameraFbo.draw(xShift,yShift,cam.getWidth(),cam.getHeight());
+                    }else{
+                        cameraFbo.draw(xShift,yShift,cameraDimensions.y,cameraDimensions.x);
+                    }
+                    break;
+                    
+                case UIDeviceOrientationFaceDown:
+                    break;
+                    
+                case UIDeviceOrientationUnknown:
+                    cameraFbo.draw(xShift,yShift,cameraDimensions.y,cameraDimensions.x);
+                    
+                    break;
+                case UIDeviceOrientationPortraitUpsideDown:
+                    cameraFbo.draw(xShift,yShift,cameraDimensions.y,cameraDimensions.x);
+                    break;
+                    
+                case UIDeviceOrientationPortrait:
+                    cameraFbo.draw(xShift,yShift,cameraDimensions.y,cameraDimensions.x);
+                    break;
+                    
+                case UIDeviceOrientationLandscapeLeft:
+                    cameraFbo.draw(xShift,yShift,cameraDimensions.x,cameraDimensions.y);
+                    
+                    break;
+                    
+                case UIDeviceOrientationLandscapeRight:
+                    cameraFbo.draw(xShift,yShift,cameraDimensions.x,cameraDimensions.y);
+                    break;
+            }
+            
+        }else{
+            // iphones seem to be impervious to this scaling issue so just draw it at the full height
+            // and width of the current viewport.
+            cameraFbo.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
         }
-        
-        vMesh.draw(GL_TRIANGLE_STRIP, 0, 16);
-        cameraConvertShader.end();
-        
    
     }
-    
-    /*
-     
-     // if we're on an iPad, things get weird. Adjust drawing based on viewport.
-     if(needsPerspectiveAdjustment){
-     
-     
-     // Adjust drawing as necessary .
-     switch(UIDevice.currentDevice.orientation){
-     case UIDeviceOrientationFaceUp:
-     
-     if(deviceOrientation == UIDeviceOrientationLandscapeLeft ||
-     deviceOrientation == UIDeviceOrientationLandscapeRight){
-     cameraFbo.draw(xShift,yShift,cam.getWidth(),cam.getHeight());
-     }else{
-     cameraFbo.draw(xShift,yShift,cameraDimensions.y,cameraDimensions.x);
-     }
-     break;
-     
-     case UIDeviceOrientationFaceDown:
-     break;
-     
-     case UIDeviceOrientationUnknown:
-     cameraFbo.draw(xShift,yShift,cameraDimensions.y,cameraDimensions.x);
-     
-     break;
-     case UIDeviceOrientationPortraitUpsideDown:
-     cameraFbo.draw(xShift,yShift,cameraDimensions.y,cameraDimensions.x);
-     break;
-     
-     case UIDeviceOrientationPortrait:
-     cameraFbo.draw(xShift,yShift,cameraDimensions.y,cameraDimensions.x);
-     break;
-     
-     case UIDeviceOrientationLandscapeLeft:
-     cameraFbo.draw(xShift,yShift,cameraDimensions.x,cameraDimensions.y);
-     
-     break;
-     
-     case UIDeviceOrientationLandscapeRight:
-     cameraFbo.draw(xShift,yShift,cameraDimensions.x,cameraDimensions.y);
-     break;
-     }
-     
-     }else{
-     // iphones seem to be impervious to this scaling issue so just draw it at the full height
-     // and width of the current viewport.
-     cameraFbo.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
-     }
-     */
     
     //! Sets the x and y position of where the camera image is placed.
     void ARCam::setCameraImagePosition(float xShift,float yShift){
@@ -404,14 +356,46 @@ namespace ARCore {
                     buildCameraFrame(pixelBuffer);
                     
                     // write image to fbo
-                   /*
                     cameraFbo.begin();
                     cameraConvertShader.begin();
+                    
+                    switch(UIDevice.currentDevice.orientation){
+                        case UIDeviceOrientationFaceUp:
+                            cameraConvertShader.setUniform1i("isPortraitOrientation", true);
+                            break;
+                        case UIDeviceOrientationFaceDown:
+                            break;
+                            
+                        case UIDeviceOrientationUnknown:
+                            
+                            cameraConvertShader.setUniform1i("isPortraitOrientation", true);
+                            break;
+                        case UIDeviceOrientationPortraitUpsideDown:
+                            
+                            cameraConvertShader.setUniform1i("isPortraitOrientation", true);
+                            break;
+                            
+                        case UIDeviceOrientationPortrait:
+                            
+                            cameraConvertShader.setUniform1i("isPortraitOrientation", true);
+                            
+                            break;
+                            
+                        case UIDeviceOrientationLandscapeLeft:
+                            
+                            cameraConvertShader.setUniform1i("isPortraitOrientation", false);
+                            break;
+                            
+                        case UIDeviceOrientationLandscapeRight:
+                            
+                            cameraConvertShader.setUniform1i("isPortraitOrientation", false);
+                            break;
+                    }
                     
                     vMesh.draw(GL_TRIANGLE_STRIP, 0, 16);
                     cameraConvertShader.end();
                     cameraFbo.end();
-                    */
+                  
                     
                 }
             }

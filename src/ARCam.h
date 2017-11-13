@@ -63,7 +63,7 @@ namespace ARCore {
         CGSize viewportSize;
         
         //! fbo to process and render camera manager into
-        ofFbo cameraFbo;
+        ofFbo cameraFbo,cameraRenderFbo;
         
         //! flag to let the shader know if we need to tweak perspective
         bool needsPerspectiveAdjustment;

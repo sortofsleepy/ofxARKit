@@ -43,23 +43,26 @@ void ofApp::draw() {
     processor->draw();
     ofEnableDepthTest();
     
-    processor->anchorController->loopAnchors([=](ARObject obj)->void {
-        camera.begin();
-        processor->setARCameraMatrices();
-        
-        ofPushMatrix();
-        ofMultMatrix(obj.modelMatrix);
-        
-        ofSetColor(255);
-        ofRotate(90,0,0,1);
-        
-        float aspect = ARCommon::getNativeAspectRatio();
-        img.draw(-aspect/8,-0.125,aspect/4,0.25);
-        
-        ofPopMatrix();
-        
-        camera.end();
-    });
+  
+    /*
+     processor->anchorController->loopAnchors([=](ARObject obj)->void {
+     camera.begin();
+     processor->setARCameraMatrices();
+     
+     ofPushMatrix();
+     ofMultMatrix(obj.modelMatrix);
+     
+     ofSetColor(255);
+     ofRotate(90,0,0,1);
+     
+     float aspect = ARCommon::getNativeAspectRatio();
+     img.draw(-aspect/8,-0.125,aspect/4,0.25);
+     
+     ofPopMatrix();
+     
+     camera.end();
+     });
+     */
     
     ofDisableDepthTest();
     // ========== DEBUG STUFF ============= //
