@@ -104,6 +104,10 @@ public:
     
    //======== CAMERA API ============ //
     
+    //! In the event a device is used while locking the orientation, this allows you to
+    //! force a certain interface orientation so you can still obtain the correct camera matrices.
+    void forceInterfaceOrientation(UIInterfaceOrientation orientation);
+    
     void deviceOrientationChanged();
     void updateDeviceInterfaceOrientation();
     void rotateCameraFrame(float angle);

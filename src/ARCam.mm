@@ -306,13 +306,21 @@ namespace ARCore {
         return ambientIntensity;
     }
     
+    void ARCam::setInterfaceOrientation(UIInterfaceOrientation orientation){
+        this->orientation = orientation;
+    }
+    
     void ARCam::update(){
         // if we haven't set a session - just stop things here.
         if(!session){
             return;
         }
         
-        
+        // TODO is this call useful? So far everything seems to be captured at 1280x720 no matter the device.
+        // May need to revisit later. Note it's here because calling it in setup results in 0 due to
+        // camera not having captured any information.
+        //CGSize size = session.currentFrame.camera.imageResolution;
+       
         currentFrame = session.currentFrame;
         trackingState = currentFrame.camera.trackingState;
         

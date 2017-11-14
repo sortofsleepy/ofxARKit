@@ -156,6 +156,10 @@ namespace ARCore {
         
         void updatePlaneTexCoords();
         
+        //! Allows you to force an orientation to make it easier to lock your device
+        //! to a certain orientation.
+        void setInterfaceOrientation(UIInterfaceOrientation orientation);
+        
         //! Sets the x and y position of where the camera image is placed.
         void setCameraImagePosition(float xShift=0,float yShift=0);
         

@@ -71,6 +71,9 @@ void ARProcessor::drawFrame(){
     draw();
 }
 // =========== CAMERA API ============ //
+void ARProcessor::forceInterfaceOrientation(UIInterfaceOrientation orientation){
+    camera->setInterfaceOrientation(orientation);
+}
 void ARProcessor::setARCameraMatrices(){
     camera->setARCameraMatrices();
 }
