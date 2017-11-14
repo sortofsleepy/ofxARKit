@@ -13,12 +13,11 @@ namespace ARCore {
     ARAnchorManager::ARAnchorManager():
     shouldUpdatePlanes(false),
     maxTrackedPlanes(0){
-        
+        _onPlaneAdded = nullptr;
     }
     
     ARAnchorManager::ARAnchorManager(ARSession * session):shouldUpdatePlanes(false){
         this->session = session;
-        
     }
     
     int ARAnchorManager::getNumPlanes(){
@@ -165,6 +164,10 @@ namespace ARCore {
                         plane.uuid = anchor.identifier;
                         plane.rawAnchor = pa;
                         
+                        if(_onPlaneAdded != nullptr){
+                            _onPlaneAdded(plane);
+                        }
+                        
                         planes.push_back(plane);
                     }
                     
@@ -299,6 +302,10 @@ namespace ARCore {
         }
         
         camera.end();
+    }
+    
+    void ARAnchorManager::onPlaneAdded(std::function<void(PlaneAnchorObject plane)> func){
+        _onPlaneAdded = func;
     }
     
 

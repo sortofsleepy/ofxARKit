@@ -38,6 +38,9 @@ namespace ARCore {
         //! The number of planes we want to be tracking at any given point.
         //! If 0 - it means we want to track every available plane
         int maxTrackedPlanes;
+        
+        //! The callback function to run when a plane is added.
+        std::function<void(PlaneAnchorObject plane)> _onPlaneAdded;
     public:
         ARAnchorManager();
         ARAnchorManager(ARSession * session);
@@ -70,6 +73,7 @@ namespace ARCore {
             return planes;
         }
         
+        //! Returns the current number of anchors.
         int getNumAnchors(){
             return anchors.size();
         }
@@ -137,6 +141,9 @@ namespace ARCore {
         //! draw a specific plane
         void drawPlaneAt(ARCommon::ARCameraMatrices cameraMatrices,int index=0);
         
+        //! Allows you to set a callback function to run when a new plane is added.
+        //! Returns the reference to that plane. 
+        void onPlaneAdded(std::function<void(PlaneAnchorObject plane)> func);
     };
 }
 
