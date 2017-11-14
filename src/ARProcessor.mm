@@ -123,7 +123,10 @@ void ARProcessor::addAnchor(ofVec3f position){
     ofMatrix4x4 inverse;
     inverse.makeInvertOf(toMat4(session.currentFrame.camera.transform));
     
-    anchorController->addAnchor(position,matrices.cameraProjection,inverse);
+    ofMatrix4x4 model = toMat4(session.currentFrame.camera.transform);
+    
+    
+    anchorController->addAnchor(position,matrices.cameraProjection,model * getCameraMatrices().cameraView);
 }
 
 void ARProcessor::drawHorizontalPlanes(){

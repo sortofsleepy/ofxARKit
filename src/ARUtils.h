@@ -227,7 +227,7 @@ namespace ARCommon {
         ofVec4f CameraXYZ;
         CameraXYZ.x = 2.0f * (position.x - viewport.x) / viewport.width - 1.0f;
         CameraXYZ.y = 1.0f - 2.0f *(position.y - viewport.y) / viewport.height;
-        CameraXYZ.z = -0.9;
+        CameraXYZ.z = position.z;
         CameraXYZ.w = -10.0;
         
         ofMatrix4x4 inverseCamera;

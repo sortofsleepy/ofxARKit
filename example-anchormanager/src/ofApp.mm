@@ -43,9 +43,28 @@ void ofApp::draw() {
     processor->draw();
     ofEnableDepthTest();
     
-  
+    processor->anchorController->loopAnchors([=](ARObject obj)->void {
+       
+        camera.begin();
+        processor->setARCameraMatrices();
+        
+        ofPushMatrix();
+        ofMultMatrix(obj.modelMatrix);
+        
+        ofSetColor(255);
+        ofRotate(90,0,0,1);
+        
+        float aspect = ARCommon::getNativeAspectRatio();
+        img.draw(-(0.25 / 2),-(0.25 / 2),0.25,0.25);
+        
+        ofPopMatrix();
+        
+        camera.end();
+        
+    });
+    
+    
     /*
-     processor->anchorController->loopAnchors([=](ARObject obj)->void {
      camera.begin();
      processor->setARCameraMatrices();
      
@@ -61,7 +80,6 @@ void ofApp::draw() {
      ofPopMatrix();
      
      camera.end();
-     });
      */
     
     ofDisableDepthTest();
@@ -94,7 +112,7 @@ void ofApp::exit() {
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs &touch){
     
-    processor->addAnchor(ofVec3f(touch.x,touch.y,0.0));
+    processor->addAnchor(ofVec3f(touch.x,touch.y,-1.0));
 }
 
 //--------------------------------------------------------------

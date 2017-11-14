@@ -60,13 +60,14 @@ namespace ARCore {
         if(session.currentFrame){
            
             ofVec4f pos = ARCommon::screenToWorld(position, projection, viewMatrix);
-            ofLog()<<pos;
+           
             // build matrix for the anchor
             matrix_float4x4 translation = matrix_identity_float4x4;
+            
             translation.columns[3].x = pos.x;
             translation.columns[3].y = pos.y;
-            translation.columns[3].z = pos.z;
-            
+            translation.columns[3].z = position.z;
+    
             matrix_float4x4 transform = matrix_multiply(session.currentFrame.camera.transform, translation);
             
             // Add a new anchor to the session
