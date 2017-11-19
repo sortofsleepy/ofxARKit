@@ -1,70 +1,171 @@
 //
-//  ARSessionSetup.h
-//  example-basic
+//  SessionSetup.h
 //
-//  Created by Joseph Chow on 9/14/17.
+//  Created by Joseph Chow on 11/16/17.
+//  Copyright © 2017 Joseph Chow. All rights reserved.
 //
 
-#ifndef ARSessionSetup_h
-#define ARSessionSetup_h
+#ifndef SessionSetup_h
+#define SessionSetup_h
 
 namespace ARCore {
     
-    //! Generates a new ARSession object.
-    //!
-    //! Pass in an alignment method for the ARKit to use in the new session. If you prefer to use a seperate delegate class, you can pass that in as the second parameter. You can also specify as to whether
-    //! or not audio data should get captured.
-    //!
-    //! Note that if audio data capture is desired, note that a delegate class IS required and needs to
-    //! implement the session:didOutputAudioSampleBuffer: method.
-    //! see https://developer.apple.com/documentation/arkit/arconfiguration/2923559-providesaudiodata?language=objc
-    static ARSession* generateNewSession(
-                                         ARWorldAlignment worldAlignment = ARWorldAlignmentCamera,
-                                         NSObject<ARSessionDelegate> * delegateClass=NULL,
-                                         bool providesAudio=false){
+    typedef struct {
+        bool useFaceTracking = false;
+        bool usePlaneTracking = false;
+        bool useLightEstimation = false;
+        bool useAudio = false;
+        NSObject<ARSessionDelegate> * delegateClass = NULL;
         
+        // the options for alignment are -
+        // 1. ARWorldAlignmentCamera - https://developer.apple.com/documentation/arkit/arworldalignment/arworldalignmentcamera?language=objc
+        // 2. ARWorldAlignmentGravityAndHeading - https://developer.apple.com/documentation/arkit/arworldalignment/arworldalignmentgravityandheading?language=objc
+        // 3. ARWorldAlignmentGravity - https://developer.apple.com/documentation/arkit/arworldalignment/arworldalignmentgravity?language=objc
+        
+        ARWorldAlignment worldAlignment = ARWorldAlignmentGravity;
+        ARPlaneDetection planeDetectionType;
+    }FormatState;
+    
+    class SFormat {
+        
+      
+        FormatState state;
      
+        
+    public:
+        SFormat(){};
+        
+       
+        FormatState getState(){
+            return state;
+        }
+        
+        NSObject<ARSessionDelegate> * getAudioState(){
+            return state.delegateClass;
+        }
+        
+        SFormat& enableLighting(){
+            state.useLightEstimation = true;
+            return *this;
+        }
+        
+        SFormat& enableFaceTracking(){
+            state.useFaceTracking = true;
+            return *this;
+        }
+        
+        SFormat& enablePlaneTracking(ARPlaneDetection planeDetectionType=ARPlaneDetectionHorizontal){
+            // not all devices can support plane tracking, check first to make sure it's supported.
+            if([ARWorldTrackingConfiguration isSupported]){
+                state.usePlaneTracking = true;
+                state.planeDetectionType = planeDetectionType;
+            }else {
+                NSLog(@"This device is unfortunately unable to use plane tracking");
+            }
+            
+            return *this;
+        }
+        
+        void enableAudio(NSObject<ARSessionDelegate> * delegateClass){
+            state.delegateClass = delegateClass;
+        }
+    };
+    
+    //! Generates a new ARSession object. Pass in a SFormat object describing the
+    //! settings you want to enable on the session.
+    static ARSession * generateNewSession(SFormat format){
         ARSession * session = [ARSession new];
         
-        // by default - we want to be able to detect planes. Check to see if that's possible
-        if([ARWorldTrackingConfiguration isSupported]){
+        auto state = format.getState();
+        
+       
+        
+        // first check if we want face tracking and if it's supported.
+        if(state.useFaceTracking){
             
-            ARWorldTrackingConfiguration * config = [ARWorldTrackingConfiguration new];
-            config.planeDetection = ARPlaneDetectionHorizontal;
-            config.lightEstimationEnabled = YES;
-            config.worldAlignment = worldAlignment;
-            
-            if(delegateClass != NULL){
-                session.delegate = delegateClass;
+            if([ARFaceTrackingConfiguration isSupported]){
+                ARFaceTrackingConfiguration * config = [ARFaceTrackingConfiguration new];
+                
+                if(state.useLightEstimation){
+                    config.lightEstimationEnabled = YES;
+                }
+                
+                config.worldAlignment = state.worldAlignment;
+                
+                if(state.delegateClass != NULL){
+                    session.delegate = state.delegateClass;
+                    
+                    // note that audio is only available when you use a delegate class.
+                    if(state.useAudio){
+                        config.providesAudioData = YES;
+                    }
+                }
+                
+                [session runWithConfiguration:config];
+                
+                return session;
+            }else{
+                NSLog(@"Unable to use face tracking configuration, defaulting to a more standard config.");
             }
-            
-            // note that audio data is only available as part of a delegate class.
-            if(providesAudio){
-                config.providesAudioData = YES;
-            }
-            
-            [session runWithConfiguration:config];
-        }else {
-            AROrientationTrackingConfiguration * config = [AROrientationTrackingConfiguration new];
-            config.lightEstimationEnabled = YES;
-            config.worldAlignment = worldAlignment;
-            
-            
-            if(delegateClass != NULL){
-                session.delegate = delegateClass;
-            }
-            
-            // note that audio data is only available as part of a delegate class.
-            if(providesAudio){
-                config.providesAudioData = YES;
-            }
-            
-            [session runWithConfiguration:config];
         }
         
         
+        if([ARWorldTrackingConfiguration isSupported]){
+            
+            ARWorldTrackingConfiguration * config = [ARWorldTrackingConfiguration new];
+            
+            if(state.usePlaneTracking){
+                // ofLog()<<"Using plane tracking";
+                config.planeDetection = state.planeDetectionType;
+            }
+            
+            if(state.useLightEstimation){
+                config.lightEstimationEnabled = YES;
+            }
+            
+            config.worldAlignment = state.worldAlignment;
+            
+            if(state.delegateClass != NULL){
+                session.delegate = state.delegateClass;
+                
+                // note that audio is only available when you use a delegate class.
+                if(state.useAudio){
+                    config.providesAudioData = YES;
+                }
+            }
+            
+            [session runWithConfiguration:config];
+            
+            
+        }else {
+            
+            AROrientationTrackingConfiguration * config = [AROrientationTrackingConfiguration new];
+            if(state.useLightEstimation){
+                config.lightEstimationEnabled = YES;
+            }
+            
+            config.worldAlignment = state.worldAlignment;
+            
+            if(state.delegateClass != NULL){
+                session.delegate = state.delegateClass;
+                
+                // note that audio is only available when you use a delegate class.
+                if(state.useAudio){
+                    config.providesAudioData = YES;
+                }
+            }
+            
+            [session runWithConfiguration:config];
+            
+        }
+        
+        
+        
+      
         return session;
+        
     }
-};
+}
 
-#endif /* ARSessionSetup_h */
+#endif /* SessionSetup_h */
+

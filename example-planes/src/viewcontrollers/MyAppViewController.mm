@@ -17,17 +17,10 @@
 
 - (void)loadView {
     [super loadView];
-    self.session = [ARSession new];
-    //self.session.delegate = self;
-    
-    // TODO should be ARWorldTrackingConfiguration now but not in current API(might need to re-download sdk)
-    ARWorldTrackingConfiguration *configuration = [ARWorldTrackingConfiguration new];
-
-    // setup horizontal plane detection
-    configuration.planeDetection = ARPlaneDetectionHorizontal;
-    
-    [self.session runWithConfiguration:configuration];
-
+  
+    ARCore::SFormat format;
+    format.enablePlaneTracking().enableLighting();
+    self.session = ARCore::generateNewSession(format);
     
     
     OFAppViewController *viewController;

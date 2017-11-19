@@ -54,7 +54,6 @@ void ofApp::draw() {
         ofSetColor(255);
         ofRotate(90,0,0,1);
         
-        float aspect = ARCommon::getNativeAspectRatio();
         img.draw(-(0.25 / 2),-(0.25 / 2),0.25,0.25);
         
         ofPopMatrix();
@@ -63,43 +62,10 @@ void ofApp::draw() {
         
     });
     
-    
-    /*
-     camera.begin();
-     processor->setARCameraMatrices();
-     
-     ofPushMatrix();
-     ofMultMatrix(obj.modelMatrix);
-     
-     ofSetColor(255);
-     ofRotate(90,0,0,1);
-     
-     float aspect = ARCommon::getNativeAspectRatio();
-     img.draw(-aspect/8,-0.125,aspect/4,0.25);
-     
-     ofPopMatrix();
-     
-     camera.end();
-     */
-    
     ofDisableDepthTest();
     // ========== DEBUG STUFF ============= //
-    int w = MIN(ofGetWidth(), ofGetHeight()) * 0.6;
-    int h = w;
-    int x = (ofGetWidth() - w)  * 0.5;
-    int y = (ofGetHeight() - h) * 0.5;
-    int p = 0;
-    
-    x = ofGetWidth()  * 0.2;
-    y = ofGetHeight() * 0.11;
-    p = ofGetHeight() * 0.035;
-    
-    
-    font.drawString("frame num      = " + ofToString( ofGetFrameNum() ),    x, y+=p);
-    font.drawString("frame rate     = " + ofToString( ofGetFrameRate() ),   x, y+=p);
-    font.drawString("screen width   = " + ofToString( ofGetWidth() ),       x, y+=p);
-    font.drawString("screen height  = " + ofToString( ofGetHeight() ),      x, y+=p);
-    
+   
+    processor->debugInfo.drawDebugInformation(font);
 
     
 }

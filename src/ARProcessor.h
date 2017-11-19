@@ -33,9 +33,6 @@ class ARProcessor {
     bool debugMode;
     
 public:
-    //! Default constructor
-    ARProcessor();
-    
     //! Constructor - pass in ARSession reference
     ARProcessor(ARSession * session);
     
@@ -73,11 +70,15 @@ public:
     //! An ARAnchorManager deals with handling Anchor objects in ARKit
     ARCore::AnchorManagerRef anchorController;
     
-    //! A debug class to help debug when features are detected
+    //! A debug class to help visualize feature detection.
     ARDebugUtils::PointCloudDebug pointCloud;
+    
+    //! Debug class to help render common debugging information.
+    ARDebugUtils::ARDebugInfo debugInfo;
     
     //! A class to handle camera functionality.
     ARCore::ARCamRef camera;
+    
     
     //! Returns the current tracking state of the ARKit framework.
     ARTrackingState getTrackingState();

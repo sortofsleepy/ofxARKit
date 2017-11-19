@@ -9,11 +9,10 @@
 using namespace ARCommon;
 using namespace ARCore;
 
-ARProcessor::ARProcessor(){
-}
-
 ARProcessor::ARProcessor(ARSession * session){
     this->session = session;
+    
+    debugInfo = ARDebugUtils::ARDebugInfo(session);
 }
 
 ARProcessor::~ARProcessor(){

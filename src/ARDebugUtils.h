@@ -23,53 +23,52 @@
 namespace ARDebugUtils {
     
     class ARDebugInfo {
-        ofTrueTypeFont font;
-
+      
         int x,y;
         ARSession * session;
     public:
-        ARDebugInfo(ARSession * session,int x=20,int y=20){
+        ARDebugInfo(){}
+        ARDebugInfo(ARSession * session,int x=40,int y=40){
             this->session = session;
             this->x = x;
             this->y = y;
-            font.load(OF_TTF_MONO, 24);
+            
         }
-        void drawDebugInformation(){
+        void drawDebugInformation(ofTrueTypeFont font){
             
             // get tracking state reason
             ARTrackingStateReason trackingStateReason = session.currentFrame.camera.trackingStateReason;
             
-        
-            ofPushMatrix();
-            // translate group
-            ofTranslate(x,y);
+    
+          
+            // ============== DRAW GENERAL DEBUG INFO ===================== //
+            font.drawString("frame num      = " + ofToString( ofGetFrameNum() ),    x, y);
+            font.drawString("frame rate     = " + ofToString( ofGetFrameRate() ),   x, y + 25);
+            font.drawString("screen width   = " + ofToString( ofGetWidth() ),       x, y + 50);
+            font.drawString("screen height  = " + ofToString( ofGetHeight() ),      x, y + 75);
             
-            // show frame rate
-            font.drawString("Frame Rate = " + ofToString(ofGetFrameRate()),0,0);
             
-            
-            // draw tracking state
+            // ============== DRAW TRACKING INFO ===================== //
             switch(trackingStateReason){
                 case ARTrackingStateReasonNone:
-                    font.drawString("Tracking state: Great!",0,30);
+                    font.drawString("Tracking state: Great!",x,y + 100);
                     
                     break;
                     
                 case ARTrackingStateReasonInitializing:
-                    font.drawString("Tracking state: Initializing!",0,30);
+                    font.drawString("Tracking state: Initializing!",x,y + 100);
                     break;
                     
                 case ARTrackingStateReasonExcessiveMotion:
-                    font.drawString("Tracking state: Excessive Motion!",0,30);
+                    font.drawString("Tracking state: Excessive Motion!",x,y + 100);
                     
                     break;
                     
                 case ARTrackingStateReasonInsufficientFeatures:
-                    font.drawString("Tracking state: Bad!",0,30);
+                    font.drawString("Tracking state: Bad!",0,y + 100);
                     break;
             }
-            ofPopMatrix();
-            
+          
             
         }
     };
