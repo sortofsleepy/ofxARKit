@@ -66,7 +66,7 @@ configuration.planeDetection = ARPlaneDetectionHorizontal;
 As to where to initialize, it really doesn't matter all that much, if your project setup is more in the form of a traditional IOS objective-c app, you can set things up in your view controller, or if your app is more like a normal oF app, you should be able to just as easily set things up in your `setup` function.
 
 # Current functionality 
-see the wiki for a brief description of current funcitonality. 
+[See the wiki](https://github.com/sortofsleepy/ofxARKit/wiki/Current-Functionality) for a brief description of current funcitonality. 
 
 ### Potential Hurdles in setup of ARKit
 Though ARKit is supported on all devices with an A9 chip(6s onwards I believe) - it is helpful to have a fairly recent device or you may experience near immediate degradation of tracking performance. That being said - ARKit is helpful in that manner by warning you of when you're loosing performance by spitting out a message to the effect of `...tracking performance reduced due to resource constraints...`
