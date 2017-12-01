@@ -79,7 +79,6 @@ public:
     //! A class to handle camera functionality.
     ARCore::ARCamRef camera;
     
-    
     //! Returns the current tracking state of the ARKit framework.
     ARTrackingState getTrackingState();
     

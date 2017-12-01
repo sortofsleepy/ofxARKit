@@ -124,6 +124,7 @@ namespace ARCore {
      
     }
     
+    
     void ARAnchorManager::updatePlanes(){
         
         // if we aren't tracking the maximum number of planes or we want to track all possible planes,
@@ -187,6 +188,55 @@ namespace ARCore {
                         }
                     }
                     
+                }
+                
+            }
+        }
+    }
+    
+    void ARAnchorManager::updateFaces(){
+        for (NSInteger index = 0; index < anchorInstanceCount; index++) {
+            ARAnchor *anchor = session.currentFrame.anchors[index];
+            
+            if([anchor isKindOfClass:[ARFaceAnchor class]]){
+                ARFaceAnchor * pa = (ARFaceAnchor*) anchor;
+                
+                ARFaceGeometry * geo = pa.geometry;
+                
+                // indices are const int16_t
+                // vertices are const vector_float3
+                // uvs are const vector_float2
+                // counts are all NSIntegers
+                
+                auto it = find_if(faces.begin(), faces.end(), [=](const FaceAnchorObject& obj) {
+                    return obj.uuid == anchor.identifier;
+                });
+                
+                // if we haven't found a face
+                if(it == faces.end()){
+                    FaceAnchorObject face;
+                    // transform vertices
+                    for(NSInteger i = 0; i < geo.vertexCount; ++i){
+                        vector_float3 vert = geo.vertices[i];
+                        vector_float2 uv = geo.textureCoordinates[i];
+                        
+                        
+                        face.vertices.push_back(convert<vector_float3, ofVec3f>(vert));
+                        face.uvs.push_back(convert<vector_float2, ofVec2f>(uv));
+                    }
+                    
+                    auto indices = geo.triangleIndices;
+                    face.indices = std::vector<uint16_t>(indices, indices + sizeof(indices) / sizeof(indices[0]));
+                    
+                    // push back new face
+                    faces.push_back(face);
+                
+                }
+                
+                // this block triggers when a plane we're already tracking is found,
+                // check to see if we need to update and update if need be
+                if(it != faces.end()){
+                   
                 }
                 
             }

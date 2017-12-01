@@ -26,6 +26,9 @@ namespace ARCore {
         //! reference to all currently found or added regular anchors
         std::vector<ARObject> anchors;
         
+        //! Reference to all currently found faces
+        std::vector<FaceAnchorObject> faces;
+        
         //! The number of anchors currently found
         NSInteger anchorInstanceCount;
         
@@ -137,6 +140,9 @@ namespace ARCore {
         
         //! update function for dealing with planes.
         void updatePlanes();
+        
+        //! updates face tracking info
+        void updateFaces();
         
         //! draw a specific plane
         void drawPlaneAt(ARCommon::ARCameraMatrices cameraMatrices,int index=0);

@@ -43,6 +43,18 @@ namespace ARObjects {
         }
     }ARObject;
     
+    //! The base class to build a Face geometry
+    typedef struct {
+        ARFaceAnchor * raw;
+        vector<ofVec3f> vertices;
+        vector<ofVec2f> uvs;
+        vector<uint16_t> indices;
+        ofMatrix4x4 transform;
+        
+        NSUUID * uuid;
+        
+    }FaceAnchorObject;
+    
     //! quickly constructs an standard ARObject 
     static inline ARObject buildARObject(ARAnchor * rawAnchor,ofMatrix4x4 modelMatrix,bool systemAdded=false){
         ARObject obj;
