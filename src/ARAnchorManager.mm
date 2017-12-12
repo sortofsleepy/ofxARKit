@@ -54,6 +54,7 @@ namespace ARCore {
     }
     
     // TODO this still needs a bit of work but it's good enough for the time being.
+    // Note that z position should still be considered in meters(anyone know of what ARKit defines as 1 meter by chance?)
     void ARAnchorManager::addAnchor(ofVec3f position,ofMatrix4x4 projection,ofMatrix4x4 viewMatrix){
         
         if(session.currentFrame){
@@ -66,7 +67,7 @@ namespace ARCore {
             translation.columns[3].x = pos.x;
             translation.columns[3].y = pos.y;
             translation.columns[3].z = position.z;
-    
+            
             matrix_float4x4 transform = matrix_multiply(session.currentFrame.camera.transform, translation);
             
             // Add a new anchor to the session
@@ -215,7 +216,8 @@ namespace ARCore {
                 // if we haven't found a face
                 if(it == faces.end()){
                     FaceAnchorObject face;
-                    // transform vertices
+                    
+                    // transform vertices and uvs
                     for(NSInteger i = 0; i < geo.vertexCount; ++i){
                         vector_float3 vert = geo.vertices[i];
                         vector_float2 uv = geo.textureCoordinates[i];
@@ -225,17 +227,44 @@ namespace ARCore {
                         face.uvs.push_back(convert<vector_float2, ofVec2f>(uv));
                     }
                     
+                    // set indices
                     auto indices = geo.triangleIndices;
                     face.indices = std::vector<uint16_t>(indices, indices + sizeof(indices) / sizeof(indices[0]));
+                    
+                    // store reference to raw anchor
+                    face.raw = pa;
+                    
+                    // store uuid
+                    face.uuid = pa.identifier;
                     
                     // push back new face
                     faces.push_back(face);
                 
                 }
                 
-                // this block triggers when a plane we're already tracking is found,
-                // check to see if we need to update and update if need be
+                // this block triggers when a face we're already tracking is found,
                 if(it != faces.end()){
+                    
+                    faces[index].vertices.clear();
+                    faces[index].uvs.clear();
+                    faces[index].indices.clear();
+                    
+                    // transform vertices and uvs
+                    for(NSInteger i = 0; i < geo.vertexCount; ++i){
+                        vector_float3 vert = geo.vertices[i];
+                        vector_float2 uv = geo.textureCoordinates[i];
+                        
+                        
+                        faces[index].vertices.push_back(convert<vector_float3, ofVec3f>(vert));
+                        faces[index].uvs.push_back(convert<vector_float2, ofVec2f>(uv));
+                    }
+                    
+                    // set indices
+                    auto indices = geo.triangleIndices;
+                    faces[index].indices.clear();
+                    
+                    // TODO not sure if this is gonna be too slow, but not sure if indices ever change all that drastically. If not, should look into re-writing values vs building a new vector.
+                    faces[index].indices = std::vector<uint16_t>(indices, indices + sizeof(indices) / sizeof(indices[0]));
                    
                 }
                 

@@ -36,24 +36,25 @@ namespace ARCore {
         SFormat(){};
         
        
+        // Returns the current state
         FormatState getState(){
             return state;
         }
         
-        NSObject<ARSessionDelegate> * getAudioState(){
-            return state.delegateClass;
-        }
-        
+        //! Enables light estimation for the session
         SFormat& enableLighting(){
             state.useLightEstimation = true;
             return *this;
         }
         
+        //! Enables face tracking for the session.
+        //! TODO does face tracking affect other things like lighting and plane detection?
         SFormat& enableFaceTracking(){
             state.useFaceTracking = true;
             return *this;
         }
         
+        //! Enables plane detection. Pass in a supported plane detection type.
         SFormat& enablePlaneTracking(ARPlaneDetection planeDetectionType=ARPlaneDetectionHorizontal){
             // not all devices can support plane tracking, check first to make sure it's supported.
             if([ARWorldTrackingConfiguration isSupported]){
@@ -66,8 +67,10 @@ namespace ARCore {
             return *this;
         }
         
-        void enableAudio(NSObject<ARSessionDelegate> * delegateClass){
+        //! Sets the delegate class for the session.
+        SFormat& setDelegate(NSObject<ARSessionDelegate> * delegateClass){
             state.delegateClass = delegateClass;
+            return *this;
         }
     };
     
@@ -78,9 +81,10 @@ namespace ARCore {
         
         auto state = format.getState();
         
-       
         
         // first check if we want face tracking and if it's supported.
+        // Currently unknown if this affects other possible tracking implementations since
+        // it has it's own configuration type.
         if(state.useFaceTracking){
             
             if([ARFaceTrackingConfiguration isSupported]){
@@ -110,6 +114,8 @@ namespace ARCore {
         }
         
         
+        // if face tracking is not available, should pass through to here where we
+        // figure out regular configuration, starting with determining if we can do plane detection.
         if([ARWorldTrackingConfiguration isSupported]){
             
             ARWorldTrackingConfiguration * config = [ARWorldTrackingConfiguration new];
@@ -138,7 +144,7 @@ namespace ARCore {
             
             
         }else {
-            
+            // if we can't do plane detection, switch to regular tracking.
             AROrientationTrackingConfiguration * config = [AROrientationTrackingConfiguration new];
             if(state.useLightEstimation){
                 config.lightEstimationEnabled = YES;

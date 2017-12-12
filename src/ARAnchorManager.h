@@ -14,10 +14,16 @@
 #include "ARUtils.h"
 #include "ARObjects.h"
 using namespace ARObjects;
+
+
+/**
+ Basic helper class to help with managing anchors.
+ Note that Apple specifies ARKit dimensions in "meters" as opposed to
+ pixels like a regular oF app.
+ */
 namespace ARCore {
     typedef std::shared_ptr<class ARAnchorManager>AnchorManagerRef;
-    
-    //! This is a helper class to help manage anchors.
+
     class ARAnchorManager {
         
         //! Stores data of all currently found planes.

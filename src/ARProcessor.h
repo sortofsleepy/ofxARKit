@@ -110,6 +110,9 @@ public:
     //! updates plane information
     void updatePlanes();
     
+    //======== FACE API ============ //
+    void updateFaces();
+    
    //======== CAMERA API ============ //
     
     //! In the event a device is used while locking the orientation, this allows you to

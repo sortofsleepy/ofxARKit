@@ -37,6 +37,8 @@ void ARProcessor::logTrackingState(){
 }
 
 void ARProcessor::restartSession(){
+    // note - I don't know if this actually works once a session has been
+    // stopped, may have to recreate session.
     [session runWithConfiguration:session.configuration];
 }
 
@@ -128,6 +130,11 @@ void ARProcessor::addAnchor(ofVec3f position){
 
 void ARProcessor::drawHorizontalPlanes(){
     anchorController->drawPlanes(camera->getCameraMatrices());
+}
+
+// ======= FACE API ========= //
+void ARProcessor::updateFaces(){
+    anchorController->updateFaces();
 }
 
 // ======== DEBUG API =========== //
