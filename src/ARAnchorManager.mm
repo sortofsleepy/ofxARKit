@@ -10,13 +10,14 @@ using namespace ARCommon;
 
 namespace ARCore {
     
-    ARAnchorManager::ARAnchorManager():shouldUpdatePlanes(false){
-        
+    ARAnchorManager::ARAnchorManager():
+    shouldUpdatePlanes(false),
+    maxTrackedPlanes(0){
+        _onPlaneAdded = nullptr;
     }
     
     ARAnchorManager::ARAnchorManager(ARSession * session):shouldUpdatePlanes(false){
         this->session = session;
-        
     }
     
     int ARAnchorManager::getNumPlanes(){
@@ -53,45 +54,28 @@ namespace ARCore {
     }
     
     // TODO this still needs a bit of work but it's good enough for the time being.
-    void ARAnchorManager::addAnchor(ofVec3f position){
-        
-        // set a default z if position.z is 0 so we can see the object. ;
-        if(position.z == 0){
-            position.z = -0.2;
-        }
+    // Note that z position should still be considered in meters(anyone know of what ARKit defines as 1 meter by chance?)
+    void ARAnchorManager::addAnchor(ofVec3f position,ofMatrix4x4 projection,ofMatrix4x4 viewMatrix){
         
         if(session.currentFrame){
-            
-            // convert screen to world coordinates based on viewport.
-            // we're just guessing on the Z pos based on sample code from Xcode.
-            ofVec3f pos = camera.screenToWorld(ofVec3f(position.x,position.y,-0.2),ofRectangle(0,0,ofGetWindowWidth(),ofGetWindowHeight()));
-            
-            
-            // Create a transform with a translation of 0.2 meters in front of the camera
+           
+            ofVec4f pos = ARCommon::screenToWorld(position, projection, viewMatrix);
+           
+            // build matrix for the anchor
             matrix_float4x4 translation = matrix_identity_float4x4;
-            translation.columns[2].z = -1.0;
             
-            // x is actually refering to y - multiply by -1 to flip position
-            translation.columns[3].x = (pos.y * -1) * 0.01;
-            
-            // y is actually refering to x
-            translation.columns[3].y = pos.x * 0.01;
-            
-            // set z
+            translation.columns[3].x = pos.x;
+            translation.columns[3].y = pos.y;
             translation.columns[3].z = position.z;
             
-            // multiply translation by current camera position
             matrix_float4x4 transform = matrix_multiply(session.currentFrame.camera.transform, translation);
             
             // Add a new anchor to the session
             ARAnchor *anchor = [[ARAnchor alloc] initWithTransform:transform];
             
-            // add ARObject
             anchors.push_back(buildARObject(anchor, toMat4(transform)));
             
-            // add anchor to ARKit
             [session addAnchor:anchor];
-            
         }
         
     }
@@ -141,61 +125,155 @@ namespace ARCore {
      
     }
     
+    
     void ARAnchorManager::updatePlanes(){
-        // update any anchors found in the current frame by the system
-        for (NSInteger index = 0; index < anchorInstanceCount; index++) {
-            ARAnchor *anchor = session.currentFrame.anchors[index];
-            
-            // did we find a PlaneAnchor?
-            // note - you need to turn on planeDetection in your configuration
-            if([anchor isKindOfClass:[ARPlaneAnchor class]]){
-                ARPlaneAnchor* pa = (ARPlaneAnchor*) anchor;
+        
+        // if we aren't tracking the maximum number of planes or we want to track all possible planes,
+        // run the for loop.
+        if(getNumPlanes() < maxTrackedPlanes || maxTrackedPlanes == 0){
+            // update any anchors found in the current frame by the system
+            for (NSInteger index = 0; index < anchorInstanceCount; index++) {
+                ARAnchor *anchor = session.currentFrame.anchors[index];
                 
-                // calc values from anchor.
-                ofMatrix4x4 paTransform = convert<matrix_float4x4, ofMatrix4x4>(pa.transform);
-                ofVec3f center = convert<vector_float3,ofVec3f>(pa.center);
-                ofVec3f extent = convert<vector_float3,ofVec3f>(pa.extent);
-                
-                
-                // neat trick to search in vector with c++ 11, seems to work better than for loop
-                // https://stackoverflow.com/questions/15517991/search-a-vector-of-objects-by-object-attribute
-                auto it = find_if(planes.begin(), planes.end(), [=](const PlaneAnchorObject& obj) {
-                    return obj.uuid == anchor.identifier;
-                });
-
-                // if it == planes.end() - means an item was not found.
-                if(it == planes.end()){
-                    PlaneAnchorObject plane;
+                // did we find a PlaneAnchor?
+                // note - you need to turn on planeDetection in your configuration
+                if([anchor isKindOfClass:[ARPlaneAnchor class]]){
+                    ARPlaneAnchor* pa = (ARPlaneAnchor*) anchor;
                     
-                    plane.transform = paTransform;
-                    plane.position.x = -extent.x / 2;
-                    plane.position.y = -extent.y / 2;
-                    plane.width = extent.x;
-                    plane.height = extent.z;
-                    plane.uuid = anchor.identifier;
-                    plane.rawAnchor = pa;
+                    // calc values from anchor.
+                    ofMatrix4x4 paTransform = convert<matrix_float4x4, ofMatrix4x4>(pa.transform);
+                    ofVec3f center = convert<vector_float3,ofVec3f>(pa.center);
+                    ofVec3f extent = convert<vector_float3,ofVec3f>(pa.extent);
                     
-                    planes.push_back(plane);
-                }
-                
-                // means item is found, check to see if we need to update
-                if(it != planes.end()){
-                    if(shouldUpdatePlanes){
-
-                        planes[index].transform = paTransform;
+                    
+                    // neat trick to search in vector with c++ 11, seems to work better than for loop
+                    // https://stackoverflow.com/questions/15517991/search-a-vector-of-objects-by-object-attribute
+                    auto it = find_if(planes.begin(), planes.end(), [=](const PlaneAnchorObject& obj) {
+                        return obj.uuid == anchor.identifier;
+                    });
+                    
+                    // if it == planes.end() - it means we aren't tracking this plane just yet.
+                    // if that's the case, then add it.
+                    if(it == planes.end()){
                         
-                        planes[index].position.x = -extent.x / 2;
-                        planes[index].position.y = -extent.y / 2;
-                        planes[index].width = extent.x;
-                        planes[index].height = extent.z;
-                        planes[index].uuid = anchor.identifier;
-                        planes[index].rawAnchor = pa;
+                        PlaneAnchorObject plane;
+                        
+                        plane.transform = paTransform;
+                        plane.position.x = -extent.x / 2;
+                        plane.position.y = -extent.y / 2;
+                        plane.width = extent.x;
+                        plane.height = extent.z;
+                        plane.uuid = anchor.identifier;
+                        plane.rawAnchor = pa;
+                        
+                        if(_onPlaneAdded != nullptr){
+                            _onPlaneAdded(plane);
+                        }
+                        
+                        planes.push_back(plane);
                     }
+                    
+                    // this block triggers when a plane we're already tracking is found,
+                    // check to see if we need to update and update if need be
+                    if(it != planes.end()){
+                        if(shouldUpdatePlanes){
+                            
+                            planes[index].transform = paTransform;
+                            
+                            planes[index].position.x = -extent.x / 2;
+                            planes[index].position.y = -extent.y / 2;
+                            planes[index].width = extent.x;
+                            planes[index].height = extent.z;
+                            planes[index].uuid = anchor.identifier;
+                            planes[index].rawAnchor = pa;
+                        }
+                    }
+                    
                 }
                 
             }
-            
         }
+    }
+    
+    void ARAnchorManager::updateFaces(){
+        for (NSInteger index = 0; index < anchorInstanceCount; index++) {
+            ARAnchor *anchor = session.currentFrame.anchors[index];
+            
+            if([anchor isKindOfClass:[ARFaceAnchor class]]){
+                ARFaceAnchor * pa = (ARFaceAnchor*) anchor;
+                
+                ARFaceGeometry * geo = pa.geometry;
+                
+                // indices are const int16_t
+                // vertices are const vector_float3
+                // uvs are const vector_float2
+                // counts are all NSIntegers
+                
+                auto it = find_if(faces.begin(), faces.end(), [=](const FaceAnchorObject& obj) {
+                    return obj.uuid == anchor.identifier;
+                });
+                
+                // if we haven't found a face
+                if(it == faces.end()){
+                    FaceAnchorObject face;
+                    
+                    // transform vertices and uvs
+                    for(NSInteger i = 0; i < geo.vertexCount; ++i){
+                        vector_float3 vert = geo.vertices[i];
+                        vector_float2 uv = geo.textureCoordinates[i];
+                        
+                        
+                        face.vertices.push_back(convert<vector_float3, ofVec3f>(vert));
+                        face.uvs.push_back(convert<vector_float2, ofVec2f>(uv));
+                    }
+                    
+                    // set indices
+                    auto indices = geo.triangleIndices;
+                    face.indices = std::vector<uint16_t>(indices, indices + sizeof(indices) / sizeof(indices[0]));
+                    
+                    // store reference to raw anchor
+                    face.raw = pa;
+                    
+                    // store uuid
+                    face.uuid = pa.identifier;
+                    
+                    // push back new face
+                    faces.push_back(face);
+                
+                }
+                
+                // this block triggers when a face we're already tracking is found,
+                if(it != faces.end()){
+                    
+                    faces[index].vertices.clear();
+                    faces[index].uvs.clear();
+                    faces[index].indices.clear();
+                    
+                    // transform vertices and uvs
+                    for(NSInteger i = 0; i < geo.vertexCount; ++i){
+                        vector_float3 vert = geo.vertices[i];
+                        vector_float2 uv = geo.textureCoordinates[i];
+                        
+                        
+                        faces[index].vertices.push_back(convert<vector_float3, ofVec3f>(vert));
+                        faces[index].uvs.push_back(convert<vector_float2, ofVec2f>(uv));
+                    }
+                    
+                    // set indices
+                    auto indices = geo.triangleIndices;
+                    faces[index].indices.clear();
+                    
+                    // TODO not sure if this is gonna be too slow, but not sure if indices ever change all that drastically. If not, should look into re-writing values vs building a new vector.
+                    faces[index].indices = std::vector<uint16_t>(indices, indices + sizeof(indices) / sizeof(indices[0]));
+                   
+                }
+                
+            }
+        }
+    }
+    
+    void ARAnchorManager::setNumberOfPlanesToTrack(int num){
+        maxTrackedPlanes = num;
     }
     
     void ARAnchorManager::clearAnchors(){
@@ -254,6 +332,30 @@ namespace ARCore {
         [session removeAnchor:anchor];
     }
     
+    void ARAnchorManager::drawPlaneAt(ARCameraMatrices cameraMatrices,int index){
+        camera.begin();
+        
+        ofSetMatrixMode(OF_MATRIX_PROJECTION);
+        ofLoadMatrix(cameraMatrices.cameraProjection);
+        ofSetMatrixMode(OF_MATRIX_MODELVIEW);
+        ofLoadMatrix(cameraMatrices.cameraView);
+        
+        PlaneAnchorObject anchor = getPlaneAt(index);
+        
+        ofPushMatrix();
+        ofMultMatrix(anchor.transform);
+        ofFill();
+        ofSetColor(102,216,254,100);
+        ofRotateX(90);
+        ofTranslate(anchor.position.x,anchor.position.y);
+        ofDrawRectangle(-anchor.position.x/2,-anchor.position.z/2,0,anchor.width,anchor.height);
+        ofSetColor(255);
+        ofPopMatrix();
+        
+        camera.end();
+    }
+    
+    
     void ARAnchorManager::drawPlanes(ARCameraMatrices cameraMatrices){
         camera.begin();
         
@@ -279,6 +381,10 @@ namespace ARCore {
         }
         
         camera.end();
+    }
+    
+    void ARAnchorManager::onPlaneAdded(std::function<void(PlaneAnchorObject plane)> func){
+        _onPlaneAdded = func;
     }
     
 

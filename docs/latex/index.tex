@@ -1,0 +1,54 @@
+open\+Frameworks + A\+R\+Kit
+
+\subsection*{A Basic toolkit for an I\+OS app with A\+R\+Kit support.}
+
+This is an open\+Frameworks addon that provides some helper classes for working within A\+R\+Kit.
+
+\section*{Installation and project setup}
+
+{\bfseries First}
+\begin{DoxyItemize}
+\item \href{https://developer.apple.com/xcode/}{\tt get Xcode}
+\item \href{https://www.apple.com/ios/ios-11/}{\tt get i\+OS 11}
+\end{DoxyItemize}
+
+{\bfseries then}
+\begin{DoxyItemize}
+\item Download open\+Frameworks \href{http://openframeworks.cc/versions/v0.9.8/of_v0.9.8_ios_release.zip}{\tt here}
+\item clone this repo into your addons folder
+\item start a new project with the project generator.
+\end{DoxyItemize}
+
+{\bfseries After you\textquotesingle{}ve opened up the project file}
+\begin{DoxyItemize}
+\item add the A\+R\+Kit framework to your project
+\end{DoxyItemize}
+
+
+
+
+\begin{DoxyItemize}
+\item add a permission setting in your {\ttfamily ofx\+I\+O\+S-\/\+Info.\+plist} file. See Permissions below.
+\item set the project target for I\+OS 11 
+\end{DoxyItemize}
+
+Note that you may have to repeat these steps if you make any changes to your project via the generator.
+
+\section*{Initializing A\+R\+Kit}
+
+To get started, you need to initialize the A\+R\+Kit framework. This can be done a couple of different ways. ofx\+A\+R\+Kit provides a helper api to quickly initialize a session without too much fuss.
+
+{\bfseries Session\+Setup} 
+\begin{DoxyCode}
+\{c++\}
+    ARCore::SFormat format;
+    format.enablePlaneTracking().enableLighting();
+    auto session = ARCore::generateNewSession(format);
+\end{DoxyCode}
+
+
+the {\ttfamily S\+Format} object is a way to enable various features of A\+R\+Kit in a more straightforward manner. Passing an instance of an {\ttfamily S\+Format} object to {\ttfamily \hyperlink{namespace_a_r_core_a66ae704f1eff4b085765cc73635db8eb}{A\+R\+Core\+::generate\+New\+Session}} will automatically generate a new {\ttfamily A\+R\+Session} object, while ensuring the specified features are useable on your device.
+
+You can of course, write things by hand which isn\textquotesingle{}t too difficult either.
+
+{\bfseries Raw Objective-\/C} ```objective-\/c 

@@ -27,7 +27,20 @@ __After you've opened up the project file__
 Note that you may have to repeat these steps if you make any changes to your project via the generator.
 
 # Initializing ARKit
-To initialize the ARKit framework
+To get started, you need to initialize the ARKit framework. This can be done a couple of different ways. ofxARKit provides a helper api to quickly initialize a session without too much fuss. 
+
+__SessionSetup__
+```c++
+    ARCore::SFormat format;
+    format.enablePlaneTracking().enableLighting();
+    auto session = ARCore::generateNewSession(format);
+```
+
+the `SFormat` object is a way to enable various features of ARKit in a more straightforward manner. Passing an instance of an `SFormat` object to `ARCore::generateNewSession` will automatically generate a new `ARSession` object, while ensuring the specified features are useable on your device. 
+
+You can of course, write things by hand which isn't too difficult either.
+
+__Raw Objective-C__
 ```objective-c
 @interface <your view controller name>()
 @property (nonatomic, strong) ARSession *session;
@@ -49,26 +62,11 @@ configuration.planeDetection = ARPlaneDetectionHorizontal;
 // start the session
 [self.session runWithConfiguration:configuration];
 ```
-note that - assuming you're using objective c++(which should be the default for ios oF projects), you could just as easily skip adding a view controller and just initialize in ofApp.h/.mm. 
 
-Lastly - include `ofxARKit.h`, this will give you access to all of the class files as well as the `ARProcessor` api class. Note that when you include `ofxARKit.h`, you'll be able to include a helper header called `ARSessionSetup.h` which includes a helper function for generating a new session.
+As to where to initialize, it really doesn't matter all that much, if your project setup is more in the form of a traditional IOS objective-c app, you can set things up in your view controller, or if your app is more like a normal oF app, you should be able to just as easily set things up in your `setup` function.
 
 # Current functionality 
-There are a number of classes and other files in the addon that deal with different areas relating to ARKit, like setting up the camera, dealing with feature detection, or dealing with plane detection.
-
-The class `ARProcessor` deals with joining all of these different bits of functionality in a (hopefully) easy to use API, but each of the classes can be used as standalone classes as well.
-
-There are the following classes/files that are part of the addon
-* `ARAnchorManager` : deals with managing `ARAnchor` objects as well as `ARPlaneAnchor` objects.
-* `ARCam` : deals with managing the camera data found by ARKit and generating something that can be displayed.
-* `ARDebugUtils` : as the name suggests - this deals with debugging helpers. At the moment, it's able to handle feature detection and drawing a point cloud.
-* `ARObject` : this is a header file that declares `PlaneAnchorObject` and `ARObject`. These structs are used to store converted ARKit data into something more oF friendly.
-* `ARShaders` : this stores the core shaders needed by the addon.
-* `ARSessionSetup` : provides a helper function for quickly generating a new session. 
-* `ARUtils.h` : this stores various utility functions
-
-Note that if you've used the addon pior to 8/29/2017, though I did my best to not make any api changes, there is a very tiny chance your code may break.
-
+[See the wiki](https://github.com/sortofsleepy/ofxARKit/wiki/Current-Functionality) for a brief description of current funcitonality. 
 
 ### Potential Hurdles in setup of ARKit
 Though ARKit is supported on all devices with an A9 chip(6s onwards I believe) - it is helpful to have a fairly recent device or you may experience near immediate degradation of tracking performance. That being said - ARKit is helpful in that manner by warning you of when you're loosing performance by spitting out a message to the effect of `...tracking performance reduced due to resource constraints...`
@@ -77,10 +75,11 @@ FPS appears to be minimally affected, but like the message says, things might no
 
 If you see the message pop up, the ARKit api offers a limited function set to see what the reason might be in the degredation of tracking quality. You can log the current tracking status by 
 
-* calling `logTrackingState` in `ARProcessor` or `ARCam`. Will log to the console a basic string describing the status. 
+* calling `logTrackingState` in `ARCam`. Will log to the console a basic string describing the status. 
 * you can also call `getTrackingState` in either class to get the raw tracking state from ARKit. 
+* `ARProcessor` provides a `debugInfo` object which is an instance of `ARDebugInfo` which can be used as well. Using this will also provide information about FPS, etc.
 
-Note that in order for those functions to work, you'll need to call the `setup` function of either of those classes and pass in the boolean `true`
+Note that in order for those functions to work, you'll need to call the `setup` function of either of `ARCam` or `ARProcessor` and pass in the boolean `true`
 
 # Permissions
 For ARKit - You'll have to enable the `Privacy - Camera Usage Description` in your `ofxiOS-Info.plist` file. The value for this field is just the string you want to show users when you ask for camera permissions. If you've never touched a plist file before, no worries! Its very easy to change. 

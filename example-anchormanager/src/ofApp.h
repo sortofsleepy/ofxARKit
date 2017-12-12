@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ofxiOS.h"
-#include <ARKit/ARKit.h>
 #include "ofxARKit.h"
 class ofApp : public ofxiOSApp {
     
@@ -30,10 +29,10 @@ public:
     
     ofTrueTypeFont font;
     
+    ofCamera camera;
     
     // ====== AR STUFF ======== //
     ARSession * session;
-    ARCore::AnchorManagerRef anchors;
     ARRef processor;
     
     ofImage img;

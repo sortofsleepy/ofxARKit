@@ -33,9 +33,6 @@ class ARProcessor {
     bool debugMode;
     
 public:
-    //! Default constructor
-    ARProcessor();
-    
     //! Constructor - pass in ARSession reference
     ARProcessor(ARSession * session);
     
@@ -66,19 +63,26 @@ public:
     //! TODO needs testing - unknown if we can just pull the previous config. 
     void restartSession();
     
+    //! Toggles debug mode
     void toggleDebug();
     // ========== OBJECTS ==================== //
     
     //! An ARAnchorManager deals with handling Anchor objects in ARKit
     ARCore::AnchorManagerRef anchorController;
     
-    //! A debug class to help debug when features are detected
+    //! A debug class to help visualize feature detection.
     ARDebugUtils::PointCloudDebug pointCloud;
+    
+    //! Debug class to help render common debugging information.
+    ARDebugUtils::ARDebugInfo debugInfo;
     
     //! A class to handle camera functionality.
     ARCore::ARCamRef camera;
     
+    //! Returns the current tracking state of the ARKit framework.
     ARTrackingState getTrackingState();
+    
+    //! Logs the current tracking state of the ARKit framework.
     void logTrackingState();
     
     //======== DEBUG API ============ //
@@ -87,7 +91,11 @@ public:
     void drawPointCloud();
 
     //======== ANCHORS API ============ //
+    
+    //! Adds an anchor at the origin. Allows to optionally pass in a custom z value.
     void addAnchor(float zZoom=-0.2);
+    
+    //! Adds an anchor at a specified position. Note that z value is up to you to set.
     void addAnchor(ofVec3f position);
     //======== PLANE API ============ //
 
@@ -102,14 +110,32 @@ public:
     //! updates plane information
     void updatePlanes();
     
+    //======== FACE API ============ //
+    void updateFaces();
+    
    //======== CAMERA API ============ //
     
+    //! In the event a device is used while locking the orientation, this allows you to
+    //! force a certain interface orientation so you can still obtain the correct camera matrices.
+    void forceInterfaceOrientation(UIInterfaceOrientation orientation);
+    
+    //! Signals when the device orientation has changed - which also adjusts
+    //! rotation of the camera image depending on the orientation.
     void deviceOrientationChanged();
+    
+    //! Updates the interface orientation based on the current device orientation. This is to ensure
+    //! The camera matrices remain correctly oriented to the current orientation.
     void updateDeviceInterfaceOrientation();
+    
+    //! Forces the camera frame to rotate.
     void rotateCameraFrame(float angle);
     
+    //! Get the light intensity currently detected.
     float getLightIntensity();
+    
+    //! Returns the camera's current transform matrix as a vec3.
     ofVec3f getCameraPosition();
+    
     //! Helper to quickly set up ARKit projection and view matrices for 2D drawing in oF
     void setARCameraMatrices();
     

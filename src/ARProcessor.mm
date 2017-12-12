@@ -9,11 +9,10 @@
 using namespace ARCommon;
 using namespace ARCore;
 
-ARProcessor::ARProcessor(){
-}
-
 ARProcessor::ARProcessor(ARSession * session){
     this->session = session;
+    
+    debugInfo = ARDebugUtils::ARDebugInfo(session);
 }
 
 ARProcessor::~ARProcessor(){
@@ -38,6 +37,8 @@ void ARProcessor::logTrackingState(){
 }
 
 void ARProcessor::restartSession(){
+    // note - I don't know if this actually works once a session has been
+    // stopped, may have to recreate session.
     [session runWithConfiguration:session.configuration];
 }
 
@@ -71,6 +72,9 @@ void ARProcessor::drawFrame(){
     draw();
 }
 // =========== CAMERA API ============ //
+void ARProcessor::forceInterfaceOrientation(UIInterfaceOrientation orientation){
+    camera->setInterfaceOrientation(orientation);
+}
 void ARProcessor::setARCameraMatrices(){
     camera->setARCameraMatrices();
 }
@@ -118,11 +122,19 @@ void ARProcessor::addAnchor(float zZoom){
 }
 
 void ARProcessor::addAnchor(ofVec3f position){
-    anchorController->addAnchor(position);
+    auto matrices = getCameraMatrices();
+ 
+    ofMatrix4x4 model = toMat4(session.currentFrame.camera.transform);
+    anchorController->addAnchor(position,matrices.cameraProjection,model * getCameraMatrices().cameraView);
 }
 
 void ARProcessor::drawHorizontalPlanes(){
     anchorController->drawPlanes(camera->getCameraMatrices());
+}
+
+// ======= FACE API ========= //
+void ARProcessor::updateFaces(){
+    anchorController->updateFaces();
 }
 
 // ======== DEBUG API =========== //

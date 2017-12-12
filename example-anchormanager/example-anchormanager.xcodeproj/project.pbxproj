@@ -87,6 +87,7 @@
 		B047BE621F50AB5900FD6583 /* ARObjects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARObjects.h; path = ../src/ARObjects.h; sourceTree = "<group>"; };
 		B07F9A351F55DDE60031FC25 /* ARCam.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = ARCam.mm; path = ../src/ARCam.mm; sourceTree = "<group>"; };
 		B07F9A361F55DDE60031FC25 /* ARCam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARCam.h; path = ../src/ARCam.h; sourceTree = "<group>"; };
+		B0EA67011FBE26DD0000CCD3 /* ARSessionSetup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARSessionSetup.h; path = ../src/ARSessionSetup.h; sourceTree = "<group>"; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BB16EBD80F2B2AB500518274 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB24DDC910DA781C00E9C588 /* ofxiOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ofxiOS-Info.plist"; sourceTree = "<group>"; };
@@ -188,6 +189,7 @@
 		65605B10F492D4585BA50B2D /* src */ = {
 			isa = PBXGroup;
 			children = (
+				B0EA67011FBE26DD0000CCD3 /* ARSessionSetup.h */,
 				B02A0FBA1F49D298002A69F3 /* ARAnchorManager.h */,
 				B047BE621F50AB5900FD6583 /* ARObjects.h */,
 				B02A0FBF1F49D2D1002A69F3 /* ARDebugUtils.h */,

@@ -1,0 +1,53 @@
+\hypertarget{namespace_a_r_core}{}\section{A\+R\+Core Namespace Reference}
+\label{namespace_a_r_core}\index{A\+R\+Core@{A\+R\+Core}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_a_r_core_1_1_a_r_anchor_manager}{A\+R\+Anchor\+Manager}
+\item 
+class \hyperlink{class_a_r_core_1_1_a_r_cam}{A\+R\+Cam}
+\begin{DoxyCompactList}\small\item\em This class manages dealing with the camera image coming in from A\+R\+Kit. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_a_r_core_1_1_format_state}{Format\+State}
+\item 
+class \hyperlink{class_a_r_core_1_1_s_format}{S\+Format}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef std\+::shared\+\_\+ptr$<$ class \hyperlink{class_a_r_core_1_1_a_r_anchor_manager}{A\+R\+Anchor\+Manager} $>$ \hyperlink{namespace_a_r_core_a3f2b9ba00b51ce19c1010f554a66a512}{Anchor\+Manager\+Ref}
+\item 
+typedef std\+::shared\+\_\+ptr$<$ class \hyperlink{class_a_r_core_1_1_a_r_cam}{A\+R\+Cam} $>$ \hyperlink{namespace_a_r_core_a4ebe9e23907235fcf76bf65440fde0e0}{A\+R\+Cam\+Ref}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static A\+R\+Session $\ast$ \hyperlink{namespace_a_r_core_a66ae704f1eff4b085765cc73635db8eb}{generate\+New\+Session} (\hyperlink{class_a_r_core_1_1_s_format}{S\+Format} format)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Basic helper class to help with managing anchors. Note that Apple specifies A\+R\+Kit dimensions in \char`\"{}meters\char`\"{} as opposed to pixels like a regular oF app. 
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{namespace_a_r_core_a3f2b9ba00b51ce19c1010f554a66a512}\label{namespace_a_r_core_a3f2b9ba00b51ce19c1010f554a66a512}} 
+\index{A\+R\+Core@{A\+R\+Core}!Anchor\+Manager\+Ref@{Anchor\+Manager\+Ref}}
+\index{Anchor\+Manager\+Ref@{Anchor\+Manager\+Ref}!A\+R\+Core@{A\+R\+Core}}
+\subsubsection{\texorpdfstring{Anchor\+Manager\+Ref}{AnchorManagerRef}}
+{\footnotesize\ttfamily typedef std\+::shared\+\_\+ptr$<$class \hyperlink{class_a_r_core_1_1_a_r_anchor_manager}{A\+R\+Anchor\+Manager}$>$ \hyperlink{namespace_a_r_core_a3f2b9ba00b51ce19c1010f554a66a512}{A\+R\+Core\+::\+Anchor\+Manager\+Ref}}
+
+\mbox{\Hypertarget{namespace_a_r_core_a4ebe9e23907235fcf76bf65440fde0e0}\label{namespace_a_r_core_a4ebe9e23907235fcf76bf65440fde0e0}} 
+\index{A\+R\+Core@{A\+R\+Core}!A\+R\+Cam\+Ref@{A\+R\+Cam\+Ref}}
+\index{A\+R\+Cam\+Ref@{A\+R\+Cam\+Ref}!A\+R\+Core@{A\+R\+Core}}
+\subsubsection{\texorpdfstring{A\+R\+Cam\+Ref}{ARCamRef}}
+{\footnotesize\ttfamily typedef std\+::shared\+\_\+ptr$<$class \hyperlink{class_a_r_core_1_1_a_r_cam}{A\+R\+Cam}$>$ \hyperlink{namespace_a_r_core_a4ebe9e23907235fcf76bf65440fde0e0}{A\+R\+Core\+::\+A\+R\+Cam\+Ref}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespace_a_r_core_a66ae704f1eff4b085765cc73635db8eb}\label{namespace_a_r_core_a66ae704f1eff4b085765cc73635db8eb}} 
+\index{A\+R\+Core@{A\+R\+Core}!generate\+New\+Session@{generate\+New\+Session}}
+\index{generate\+New\+Session@{generate\+New\+Session}!A\+R\+Core@{A\+R\+Core}}
+\subsubsection{\texorpdfstring{generate\+New\+Session()}{generateNewSession()}}
+{\footnotesize\ttfamily static A\+R\+Session$\ast$ A\+R\+Core\+::generate\+New\+Session (\begin{DoxyParamCaption}\item[{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}}]{format }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Generates a new A\+R\+Session object. Pass in a \hyperlink{class_a_r_core_1_1_s_format}{S\+Format} object describing the settings you want to enable on the session. 

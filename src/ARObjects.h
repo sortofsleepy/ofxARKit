@@ -43,6 +43,38 @@ namespace ARObjects {
         }
     }ARObject;
     
+    //! The base class to build a Face geometry
+    typedef struct {
+        
+        // raw anchor
+        ARFaceAnchor * raw;
+        
+        // reference to vertices
+        vector<ofVec3f> vertices;
+        
+        // reference to uvs
+        vector<ofVec2f> uvs;
+        
+        // reference to indices
+        vector<uint16_t> indices;
+        
+        NSUUID * uuid;
+        
+        // here for convinience, but you may want to build your own.
+        ofMesh faceMesh;
+        
+        void rebuildFace(){
+            
+            // clear previous contents
+            faceMesh.clear();
+            
+            faceMesh.addVertices(vertices);
+            faceMesh.addTexCoords(uvs);
+            faceMesh.addIndices(indices);
+        }
+        
+    }FaceAnchorObject;
+    
     //! quickly constructs an standard ARObject 
     static inline ARObject buildARObject(ARAnchor * rawAnchor,ofMatrix4x4 modelMatrix,bool systemAdded=false){
         ARObject obj;

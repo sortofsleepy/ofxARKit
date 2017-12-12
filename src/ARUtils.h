@@ -3,6 +3,7 @@
 //
 //  Created by Joseph Chow on 8/16/17.
 //
+#pragma once
 
 #ifndef ARToolkitComponents_h
 #define ARToolkitComponents_h
@@ -31,12 +32,12 @@ namespace ARCommon {
     }
     
     //! convert to oF mat4
-    const ofMatrix4x4 static inline toMat4( const matrix_float4x4& mat ) {
+    static const ofMatrix4x4 static inline toMat4( const matrix_float4x4& mat ) {
         return convert<matrix_float4x4, ofMatrix4x4>(mat);
     }
     
     //! convert to simd based mat4
-    const matrix_float4x4 toSIMDMat4(ofMatrix4x4 &mat){
+    static const matrix_float4x4 toSIMDMat4(ofMatrix4x4 &mat){
         return convert<ofMatrix4x4,matrix_float4x4>(mat);
     }
     
@@ -198,7 +199,9 @@ namespace ARCommon {
     }
     
     // convert world xyz position to screen position.
-    ofVec2f worldToScreen(ofPoint worldPoint,ofMatrix4x4 projection,ofMatrix4x4 view){
+    // TODO maybe this is what we ought to use instead to factor in orientation? Found on 11/7/17
+    // https://developer.apple.com/documentation/arkit/arcamera/2923538-projectpoint?language=objc
+    static ofVec2f worldToScreen(ofPoint worldPoint,ofMatrix4x4 projection,ofMatrix4x4 view){
         
         ofVec4f p =  ofVec4f(worldPoint.x, worldPoint.y, worldPoint.z, 1.0);
         
@@ -215,6 +218,22 @@ namespace ARCommon {
         p.x *= ofGetWidth();
         p.y *= ofGetHeight();
         return ofVec2f(p.x, p.y);
+    }
+    
+    //! Convert screen position to a  world position. 
+    static ofVec4f screenToWorld(ofVec3f position,ofMatrix4x4 projection,ofMatrix4x4 mvMatrix){
+        ofRectangle viewport(0,0,ofGetWindowWidth(),ofGetWindowHeight());
+        
+        ofVec4f CameraXYZ;
+        CameraXYZ.x = 2.0f * (position.x - viewport.x) / viewport.width - 1.0f;
+        CameraXYZ.y = 1.0f - 2.0f *(position.y - viewport.y) / viewport.height;
+        CameraXYZ.z = position.z;
+        CameraXYZ.w = -10.0;
+        
+        ofMatrix4x4 inverseCamera;
+        inverseCamera.makeInvertOf(mvMatrix * projection);
+        
+        return CameraXYZ * inverseCamera;
     }
 }
 

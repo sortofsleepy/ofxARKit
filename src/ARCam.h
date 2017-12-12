@@ -63,7 +63,7 @@ namespace ARCore {
         CGSize viewportSize;
         
         //! fbo to process and render camera manager into
-        ofFbo cameraFbo;
+        ofFbo cameraFbo,cameraRenderFbo;
         
         //! flag to let the shader know if we need to tweak perspective
         bool needsPerspectiveAdjustment;
@@ -76,7 +76,15 @@ namespace ARCore {
         CVOpenGLESTextureCacheRef _videoTextureCache;
         
         //! mesh to render camera image
-        ofMesh cameraPlane;
+        ofVbo vMesh;
+        
+        //! vertex data to render the camera image
+        float kImagePlaneVertexData[16] = {
+            -1.0, -1.0,  0.0, 1.0,
+            1.0, -1.0,  1.0, 1.0,
+            -1.0,  1.0,  0.0, 0.0,
+            1.0,  1.0,  1.0, 0.0,
+        };
         
         //! shader to color convert the camera image
         ofShader cameraConvertShader;
@@ -122,6 +130,9 @@ namespace ARCore {
             return ARCamRef(new ARCam(session));
         }
         
+        //! grab FBO texture of current camera image
+        ofTexture getCameraImage();
+        
         //! Function to update and log the current tracking state from ARKit
         void logTrackingState();
         
@@ -144,6 +155,10 @@ namespace ARCore {
         void draw();
         
         void updatePlaneTexCoords();
+        
+        //! Allows you to force an orientation to make it easier to lock your device
+        //! to a certain orientation.
+        void setInterfaceOrientation(UIInterfaceOrientation orientation);
         
         //! Sets the x and y position of where the camera image is placed.
         void setCameraImagePosition(float xShift=0,float yShift=0);

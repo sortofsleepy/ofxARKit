@@ -14,10 +14,16 @@
 #include "ARUtils.h"
 #include "ARObjects.h"
 using namespace ARObjects;
+
+
+/**
+ Basic helper class to help with managing anchors.
+ Note that Apple specifies ARKit dimensions in "meters" as opposed to
+ pixels like a regular oF app.
+ */
 namespace ARCore {
     typedef std::shared_ptr<class ARAnchorManager>AnchorManagerRef;
-    
-    //! This is a helper class to help manage anchors.
+
     class ARAnchorManager {
         
         //! Stores data of all currently found planes.
@@ -25,6 +31,9 @@ namespace ARCore {
         
         //! reference to all currently found or added regular anchors
         std::vector<ARObject> anchors;
+        
+        //! Reference to all currently found faces
+        std::vector<FaceAnchorObject> faces;
         
         //! The number of anchors currently found
         NSInteger anchorInstanceCount;
@@ -35,6 +44,12 @@ namespace ARCore {
         //! camera object to help draw the anchors
         ofCamera camera;
         
+        //! The number of planes we want to be tracking at any given point.
+        //! If 0 - it means we want to track every available plane
+        int maxTrackedPlanes;
+        
+        //! The callback function to run when a plane is added.
+        std::function<void(PlaneAnchorObject plane)> _onPlaneAdded;
     public:
         ARAnchorManager();
         ARAnchorManager(ARSession * session);
@@ -46,7 +61,7 @@ namespace ARCore {
         void addAnchor(float zZoom=-0.2);
         
         //! adds an anchor at the specified position.
-        void addAnchor(ofVec3f position);
+        void addAnchor(ofVec3f position,ofMatrix4x4 projection,ofMatrix4x4 viewMatrix);
         
         //! adds an ARObject to be tracked by ARKit.
         void addAnchor(ARObject anchor);
@@ -59,9 +74,17 @@ namespace ARCore {
             }
         }
         
+        //! Sets the number of planes we want to track. By default, we track all available planes.
+        void setNumberOfPlanesToTrack(int num=0);
+        
         //! Returns the vector of currently found planes
         std::vector<PlaneAnchorObject> getPlaneAnchors(){
             return planes;
+        }
+        
+        //! Returns the current number of anchors.
+        int getNumAnchors(){
+            return anchors.size();
         }
         
         //! Allows you to loop through the anchors and do something
@@ -124,6 +147,15 @@ namespace ARCore {
         //! update function for dealing with planes.
         void updatePlanes();
         
+        //! updates face tracking info
+        void updateFaces();
+        
+        //! draw a specific plane
+        void drawPlaneAt(ARCommon::ARCameraMatrices cameraMatrices,int index=0);
+        
+        //! Allows you to set a callback function to run when a new plane is added.
+        //! Returns the reference to that plane. 
+        void onPlaneAdded(std::function<void(PlaneAnchorObject plane)> func);
     };
 }
 

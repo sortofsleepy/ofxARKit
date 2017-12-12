@@ -1,31 +1,6 @@
 #include "ofApp.h"
 
 
-
-void logSIMD(const simd::float4x4 &matrix)
-{
-    std::stringstream output;
-    int columnCount = sizeof(matrix.columns) / sizeof(matrix.columns[0]);
-    for (int column = 0; column < columnCount; column++) {
-        int rowCount = sizeof(matrix.columns[column]) / sizeof(matrix.columns[column][0]);
-        for (int row = 0; row < rowCount; row++) {
-            output << std::setfill(' ') << std::setw(9) << matrix.columns[column][row];
-            output << ' ';
-        }
-        output << std::endl;
-    }
-    output << std::endl;
-}
-
-ofMatrix4x4 matFromSimd(const simd::float4x4 &matrix){
-    ofMatrix4x4 mat;
-    mat.set(matrix.columns[0].x,matrix.columns[0].y,matrix.columns[0].z,matrix.columns[0].w,
-            matrix.columns[1].x,matrix.columns[1].y,matrix.columns[1].z,matrix.columns[1].w,
-            matrix.columns[2].x,matrix.columns[2].y,matrix.columns[2].z,matrix.columns[2].w,
-            matrix.columns[3].x,matrix.columns[3].y,matrix.columns[3].z,matrix.columns[3].w);
-    return mat;
-}
-
 //--------------------------------------------------------------
 ofApp :: ofApp (ARSession * session){
     this->session = session;
@@ -51,34 +26,15 @@ void ofApp::setup() {
     
     font.load("fonts/mono0755.ttf", fontSize);
     
-    
-    
     processor = ARProcessor::create(session);
     processor->setup();
-    
-    anchors = ARCore::ARAnchorManager::create(session);
-    
-    
-    
-    
 }
-
-
-vector < matrix_float4x4 > mats;
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    
     processor->update();
-    
-    mats.clear();
-    
-    anchors->update();
-    
 }
 
-
-ofCamera camera;
 //--------------------------------------------------------------
 void ofApp::draw() {
     ofEnableAlphaBlending();
@@ -87,9 +43,7 @@ void ofApp::draw() {
     processor->draw();
     ofEnableDepthTest();
     
-    
-    // This loops through all of the added anchors.
-    anchors->loopAnchors([=](ARObject obj) -> void {
+    processor->anchorController->loopAnchors([=](ARObject obj)->void {
        
         camera.begin();
         processor->setARCameraMatrices();
@@ -100,8 +54,7 @@ void ofApp::draw() {
         ofSetColor(255);
         ofRotate(90,0,0,1);
         
-        float aspect = ARCommon::getNativeAspectRatio();
-        img.draw(-aspect/8,-0.125,aspect/4,0.25);
+        img.draw(-(0.25 / 2),-(0.25 / 2),0.25,0.25);
         
         ofPopMatrix();
         
@@ -109,25 +62,10 @@ void ofApp::draw() {
         
     });
     
-
     ofDisableDepthTest();
     // ========== DEBUG STUFF ============= //
-    int w = MIN(ofGetWidth(), ofGetHeight()) * 0.6;
-    int h = w;
-    int x = (ofGetWidth() - w)  * 0.5;
-    int y = (ofGetHeight() - h) * 0.5;
-    int p = 0;
-    
-    x = ofGetWidth()  * 0.2;
-    y = ofGetHeight() * 0.11;
-    p = ofGetHeight() * 0.035;
-    
-    
-    font.drawString("frame num      = " + ofToString( ofGetFrameNum() ),    x, y+=p);
-    font.drawString("frame rate     = " + ofToString( ofGetFrameRate() ),   x, y+=p);
-    font.drawString("screen width   = " + ofToString( ofGetWidth() ),       x, y+=p);
-    font.drawString("screen height  = " + ofToString( ofGetHeight() ),      x, y+=p);
-    
+   
+    processor->debugInfo.drawDebugInformation(font);
 
     
 }
@@ -139,7 +77,8 @@ void ofApp::exit() {
 
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs &touch){
-    anchors->addAnchor(ofVec2f(touch.x,touch.y));
+    
+    processor->addAnchor(ofVec3f(touch.x,touch.y,-0.2));
 }
 
 //--------------------------------------------------------------
