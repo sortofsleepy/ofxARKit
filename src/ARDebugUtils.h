@@ -65,7 +65,7 @@ namespace ARDebugUtils {
                     break;
                     
                 case ARTrackingStateReasonInsufficientFeatures:
-                    font.drawString("Tracking state: Bad!",0,y + 100);
+                    font.drawString("Tracking state: Bad!",x,y + 100);
                     break;
             }
           

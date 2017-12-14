@@ -17,15 +17,6 @@ void logSIMD(const simd::float4x4 &matrix)
     output << std::endl;
 }
 
-ofMatrix4x4 matFromSimd(const simd::float4x4 &matrix){
-    ofMatrix4x4 mat;
-    mat.set(matrix.columns[0].x,matrix.columns[0].y,matrix.columns[0].z,matrix.columns[0].w,
-            matrix.columns[1].x,matrix.columns[1].y,matrix.columns[1].z,matrix.columns[1].w,
-            matrix.columns[2].x,matrix.columns[2].y,matrix.columns[2].z,matrix.columns[2].w,
-            matrix.columns[3].x,matrix.columns[3].y,matrix.columns[3].z,matrix.columns[3].w);
-    return mat;
-}
-
 //--------------------------------------------------------------
 ofApp :: ofApp (ARSession * session){
     this->session = session;
@@ -51,48 +42,20 @@ void ofApp::setup() {
     
     font.load("fonts/mono0755.ttf", fontSize);
     
-    
-    
     processor = ARProcessor::create(session);
-    
     processor->setup();
-    
-    
-    
     
 }
 
 
-vector < matrix_float4x4 > mats;
 
 //--------------------------------------------------------------
 void ofApp::update(){
     
     processor->update();
     
-    mats.clear();
-    
-    if (session.currentFrame){
-        NSInteger anchorInstanceCount = session.currentFrame.anchors.count;
-        
-        for (NSInteger index = 0; index < anchorInstanceCount; index++) {
-            ARAnchor *anchor = session.currentFrame.anchors[index];
-            
-            // Flip Z axis to convert geometry from right handed to left handed
-            matrix_float4x4 coordinateSpaceTransform = matrix_identity_float4x4;
-            coordinateSpaceTransform.columns[2].z = -1.0;
-            
-            matrix_float4x4 newMat = matrix_multiply(anchor.transform, coordinateSpaceTransform);
-            mats.push_back(newMat);
-            logSIMD(newMat);
-            //anchorUniforms->modelMatrix = matrix_multiply(anchor.transform, coordinateSpaceTransform);
-        }
-    }
-    
 }
 
-
-ofCamera camera;
 //--------------------------------------------------------------
 void ofApp::draw() {
     ofEnableAlphaBlending();
@@ -108,49 +71,52 @@ void ofApp::draw() {
             camera.begin();
             processor->setARCameraMatrices();
             
-            for (int i = 0; i < mats.size(); i++){
+            for (int i = 0; i < session.currentFrame.anchors.count; i++){
+                ARAnchor * anchor = session.currentFrame.anchors[i];
                 ofPushMatrix();
-                //mats[i].operator=(const simd_float4x4 &)
-                ofMatrix4x4 mat;
-                mat.set(mats[i].columns[0].x, mats[i].columns[0].y,mats[i].columns[0].z,mats[i].columns[0].w,
-                        mats[i].columns[1].x, mats[i].columns[1].y,mats[i].columns[1].z,mats[i].columns[1].w,
-                        mats[i].columns[2].x, mats[i].columns[2].y,mats[i].columns[2].z,mats[i].columns[2].w,
-                        mats[i].columns[3].x, mats[i].columns[3].y,mats[i].columns[3].z,mats[i].columns[3].w);
+                ofMatrix4x4 mat = ARCommon::convert<matrix_float4x4, ofMatrix4x4>(anchor.transform);
                 ofMultMatrix(mat);
-
+                
                 ofSetColor(255);
                 ofRotate(90,0,0,1);
                 
-                float aspect = ARCommon::getNativeAspectRatio();
-                img.draw(-aspect/8,-0.125,aspect/4,0.25);
-              
-
+                img.draw(-0.025 / 2, -0.025 / 2,0.025,0.025);
+                
+                
                 ofPopMatrix();
             }
-            
+          
             camera.end();
         }
         
     }
     ofDisableDepthTest();
     // ========== DEBUG STUFF ============= //
-    int w = MIN(ofGetWidth(), ofGetHeight()) * 0.6;
-    int h = w;
-    int x = (ofGetWidth() - w)  * 0.5;
-    int y = (ofGetHeight() - h) * 0.5;
-    int p = 0;
-    
-    x = ofGetWidth()  * 0.2;
-    y = ofGetHeight() * 0.11;
-    p = ofGetHeight() * 0.035;
-    
-    //ofSetColor(ofColor::black);
-    font.drawString("frame num      = " + ofToString( ofGetFrameNum() ),    x, y+=p);
-    font.drawString("frame rate     = " + ofToString( ofGetFrameRate() ),   x, y+=p);
-    font.drawString("screen width   = " + ofToString( ofGetWidth() ),       x, y+=p);
-    font.drawString("screen height  = " + ofToString( ofGetHeight() ),      x, y+=p);
+    processor->debugInfo.drawDebugInformation(font);
     
 
+
+    /*
+     for (int i = 0; i < mats.size(); i++){
+     ofPushMatrix();
+     ofMatrix4x4 mat;
+     mat.set(mats[i].columns[0].x, mats[i].columns[0].y,mats[i].columns[0].z,mats[i].columns[0].w,
+     mats[i].columns[1].x, mats[i].columns[1].y,mats[i].columns[1].z,mats[i].columns[1].w,
+     mats[i].columns[2].x, mats[i].columns[2].y,mats[i].columns[2].z,mats[i].columns[2].w,
+     mats[i].columns[3].x, mats[i].columns[3].y,mats[i].columns[3].z,mats[i].columns[3].w);
+     ofMultMatrix(mat);
+     
+     ofSetColor(255);
+     ofRotate(90,0,0,1);
+     
+     float aspect = ARCommon::getNativeAspectRatio();
+     img.draw(-aspect/8,-0.125,aspect/4,0.25);
+     
+     
+     ofPopMatrix();
+     }
+     
+     */
     
 }
 
@@ -161,8 +127,18 @@ void ofApp::exit() {
 
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs &touch){
-    
-    processor->anchorController->addAnchor();
+    if (session.currentFrame){
+        ARFrame *currentFrame = [session currentFrame];
+        
+        matrix_float4x4 translation = matrix_identity_float4x4;
+        translation.columns[3].z = -0.2;
+        matrix_float4x4 transform = matrix_multiply(currentFrame.camera.transform, translation);
+        
+        // Add a new anchor to the session
+        ARAnchor *anchor = [[ARAnchor alloc] initWithTransform:transform];
+        
+        [session addAnchor:anchor];
+    }
 }
 
 //--------------------------------------------------------------
