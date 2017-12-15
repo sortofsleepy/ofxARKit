@@ -100,30 +100,7 @@ void ofApp::draw() {
     ofDisableDepthTest();
     // ========== DEBUG STUFF ============= //
     processor->debugInfo.drawDebugInformation(font);
-    
-
-
-    /*
-     for (int i = 0; i < mats.size(); i++){
-     ofPushMatrix();
-     ofMatrix4x4 mat;
-     mat.set(mats[i].columns[0].x, mats[i].columns[0].y,mats[i].columns[0].z,mats[i].columns[0].w,
-     mats[i].columns[1].x, mats[i].columns[1].y,mats[i].columns[1].z,mats[i].columns[1].w,
-     mats[i].columns[2].x, mats[i].columns[2].y,mats[i].columns[2].z,mats[i].columns[2].w,
-     mats[i].columns[3].x, mats[i].columns[3].y,mats[i].columns[3].z,mats[i].columns[3].w);
-     ofMultMatrix(mat);
-     
-     ofSetColor(255);
-     ofRotate(90,0,0,1);
-     
-     float aspect = ARCommon::getNativeAspectRatio();
-     img.draw(-aspect/8,-0.125,aspect/4,0.25);
-     
-     
-     ofPopMatrix();
-     }
-     
-     */
+   
     
 }
 
