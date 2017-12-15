@@ -73,6 +73,13 @@ void ofApp::draw() {
             
             for (int i = 0; i < session.currentFrame.anchors.count; i++){
                 ARAnchor * anchor = session.currentFrame.anchors[i];
+                
+                // note - if you need to differentiate between different types of anchors, there is a 
+                // "isKindOfClass" method in objective-c that could be used. For example, if you wanted to 
+                // check for a Plane anchor, you could put this in an if statement.
+                // if([anchor isKindOfClass:[ARPlaneAnchor class]]) { // do something if we find a plane anchor}
+                // Not important for this example but something good to remember.
+                
                 ofPushMatrix();
                 ofMatrix4x4 mat = ARCommon::convert<matrix_float4x4, ofMatrix4x4>(anchor.transform);
                 ofMultMatrix(mat);
