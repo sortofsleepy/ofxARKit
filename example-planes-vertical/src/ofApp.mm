@@ -58,15 +58,11 @@ void ofApp::setup() {
 }
 
 
-vector < matrix_float4x4 > mats;
-
 //--------------------------------------------------------------
 void ofApp::update(){
     
     processor->update();
     processor->updatePlanes();
-    mats.clear();
-    
 }
 
 
