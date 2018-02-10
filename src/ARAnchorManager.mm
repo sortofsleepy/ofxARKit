@@ -11,12 +11,13 @@ using namespace ARCommon;
 namespace ARCore {
     
     ARAnchorManager::ARAnchorManager():
-    shouldUpdatePlanes(false),
+    shouldUpdatePlanes(true),
     maxTrackedPlanes(0){
         _onPlaneAdded = nullptr;
     }
     
-    ARAnchorManager::ARAnchorManager(ARSession * session):shouldUpdatePlanes(false){
+    ARAnchorManager::ARAnchorManager(ARSession * session):shouldUpdatePlanes(true),
+    maxTrackedPlanes(0){
         this->session = session;
         maxTrackedPlanes = 0;
     }
