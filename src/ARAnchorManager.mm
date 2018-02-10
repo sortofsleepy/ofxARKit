@@ -18,6 +18,7 @@ namespace ARCore {
     
     ARAnchorManager::ARAnchorManager(ARSession * session):shouldUpdatePlanes(false){
         this->session = session;
+        maxTrackedPlanes = 0;
     }
     
     int ARAnchorManager::getNumPlanes(){
@@ -122,7 +123,7 @@ namespace ARCore {
         
         // update number of anchors currently tracked
         anchorInstanceCount = session.currentFrame.anchors.count;
-     
+        ofLogError()<<anchorInstanceCount<<endl;
     }
     
     
@@ -138,6 +139,7 @@ namespace ARCore {
                 // did we find a PlaneAnchor?
                 // note - you need to turn on planeDetection in your configuration
                 if([anchor isKindOfClass:[ARPlaneAnchor class]]){
+                    ofLog()<<"Found plane";
                     ARPlaneAnchor* pa = (ARPlaneAnchor*) anchor;
                     
                     // calc values from anchor.
@@ -254,9 +256,14 @@ namespace ARCore {
                         }
                     }
                     
+                } else {
+                    
+                    ofLog()<<"Found something else?";
                 }
                 
             }
+        } else {
+            ofLogError()<<"Exceeded max planes";
         }
     }
     
