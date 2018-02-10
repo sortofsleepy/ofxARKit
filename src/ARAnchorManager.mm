@@ -18,6 +18,7 @@ namespace ARCore {
     
     ARAnchorManager::ARAnchorManager(ARSession * session):shouldUpdatePlanes(false){
         this->session = session;
+        maxTrackedPlanes = 0;
     }
     
     int ARAnchorManager::getNumPlanes(){
