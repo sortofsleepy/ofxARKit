@@ -140,8 +140,6 @@ namespace ARCore {
                 if([anchor isKindOfClass:[ARPlaneAnchor class]]){
                     ARPlaneAnchor* pa = (ARPlaneAnchor*) anchor;
                     
-                    ARPlaneGeometry * geo = pa.geometry;
-                    
                     // calc values from anchor.
                     ofMatrix4x4 paTransform = convert<matrix_float4x4, ofMatrix4x4>(pa.transform);
                     ofVec3f center = convert<vector_float3,ofVec3f>(pa.center);
@@ -171,28 +169,33 @@ namespace ARCore {
                         
                         // setup geometry
                         
-                        // transform vertices and uvs
-                        for(NSInteger i = 0; i < geo.vertexCount; ++i){
-                            vector_float3 vert = geo.vertices[i];
-                            vector_float2 uv = geo.textureCoordinates[i];
-                            ofVec3f v = convert<vector_float3, ofVec3f>(vert);
-//                            std::swap(v.y, v.z);
-                            plane.vertices.push_back(v);
-                            plane.uvs.push_back(convert<vector_float2, ofVec2f>(uv));
+                        if (@available(iOS 11.3, *)) {
+                            ARPlaneGeometry * geo = pa.geometry;
+                            // transform vertices and uvs
+                            for(NSInteger i = 0; i < geo.vertexCount; ++i){
+                                vector_float3 vert = geo.vertices[i];
+                                vector_float2 uv = geo.textureCoordinates[i];
+                                ofVec3f v = convert<vector_float3, ofVec3f>(vert);
+                                //                            std::swap(v.y, v.z);
+                                plane.vertices.push_back(v);
+                                plane.uvs.push_back(convert<vector_float2, ofVec2f>(uv));
+                            }
+                            //                        plane.planeMesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
+                            plane.planeMesh.addVertices(plane.vertices);
+                            plane.planeMesh.addTexCoords(plane.uvs);
+                            
+                            // set indices
+                            for (NSInteger i=0; i < geo.triangleCount; i++){
+                                plane.planeMesh.addTriangle(geo.triangleIndices[ i*3 + 0 ],
+                                                            geo.triangleIndices[ i*3 + 1 ],
+                                                            geo.triangleIndices[ i*3 + 2 ]);
+                            }
+                            //auto indices = geo.triangleIndices;
+                            //plane.indices = std::vector<uint16_t>(indices, indices + sizeof(indices) / sizeof(indices[0]));
+                            
+                        } else {
+                            // Fallback on earlier versions
                         }
-//                        plane.planeMesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
-                        plane.planeMesh.addVertices(plane.vertices);
-                        plane.planeMesh.addTexCoords(plane.uvs);
-                        
-                        // set indices
-                        for (NSInteger i=0; i < geo.triangleCount; i++){
-                            plane.planeMesh.addTriangle(geo.triangleIndices[ i*3 + 0 ],
-                                                        geo.triangleIndices[ i*3 + 1 ],
-                                                        geo.triangleIndices[ i*3 + 2 ]);
-                        }
-                        
-                        //auto indices = geo.triangleIndices;
-                        //plane.indices = std::vector<uint16_t>(indices, indices + sizeof(indices) / sizeof(indices[0]));
                         
                         if(_onPlaneAdded != nullptr){
                             _onPlaneAdded(plane);
@@ -218,30 +221,35 @@ namespace ARCore {
                             planes[index].uuid = anchor.identifier;
                             planes[index].rawAnchor = pa;
                             
-                            // refresh geom
-                            // transform vertices and uvs
-                            for(NSInteger i = 0; i < geo.vertexCount; ++i){
-                                vector_float3 vert = geo.vertices[i];
-                                vector_float2 uv = geo.textureCoordinates[i];
+                            
+                            // refresh geom, if it exists
+                            if (@available(iOS 11.3, *)) {
+                                ARPlaneGeometry * geo = pa.geometry;
                                 
-                                ofVec3f v = convert<vector_float3, ofVec3f>(vert);
-//                                std::swap(v.y, v.z);
-                                planes[index].vertices.push_back(v);
-//                                planes[index].vertices.push_back(convert<vector_float3, ofVec3f>(vert));
-                                planes[index].uvs.push_back(convert<vector_float2, ofVec2f>(uv));
-                            }
-                            
-                            planes[index].planeMesh.addVertices(planes[index].vertices);
-                            planes[index].planeMesh.addTexCoords(planes[index].uvs);
-                            
-                            // set indices
-//                            auto indices = geo.triangleIndices;
-//                            planes[index].indices = std::vector<uint16_t>(indices, indices + sizeof(indices) / sizeof(indices[0]));
-                            
-                            for (NSInteger i=0; i < geo.triangleCount; i++){
-                                planes[index].planeMesh.addTriangle(geo.triangleIndices[ i*3 + 0 ],
-                                                            geo.triangleIndices[ i*3 + 1 ],
-                                                            geo.triangleIndices[ i*3 + 2 ]);
+                                // transform vertices and uvs
+                                for(NSInteger i = 0; i < geo.vertexCount; ++i){
+                                    vector_float3 vert = geo.vertices[i];
+                                    vector_float2 uv = geo.textureCoordinates[i];
+                                    
+                                    ofVec3f v = convert<vector_float3, ofVec3f>(vert);
+    //                                std::swap(v.y, v.z);
+                                    planes[index].vertices.push_back(v);
+    //                                planes[index].vertices.push_back(convert<vector_float3, ofVec3f>(vert));
+                                    planes[index].uvs.push_back(convert<vector_float2, ofVec2f>(uv));
+                                }
+                                
+                                planes[index].planeMesh.addVertices(planes[index].vertices);
+                                planes[index].planeMesh.addTexCoords(planes[index].uvs);
+                                
+                                // set indices
+    //                            auto indices = geo.triangleIndices;
+    //                            planes[index].indices = std::vector<uint16_t>(indices, indices + sizeof(indices) / sizeof(indices[0]));
+                                
+                                for (NSInteger i=0; i < geo.triangleCount; i++){
+                                    planes[index].planeMesh.addTriangle(geo.triangleIndices[ i*3 + 0 ],
+                                                                geo.triangleIndices[ i*3 + 1 ],
+                                                                geo.triangleIndices[ i*3 + 2 ]);
+                                }
                             }
                         }
                     }
