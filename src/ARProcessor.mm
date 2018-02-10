@@ -128,7 +128,7 @@ void ARProcessor::addAnchor(ofVec3f position){
     anchorController->addAnchor(position,matrices.cameraProjection,model * getCameraMatrices().cameraView);
 }
 
-void ARProcessor::drawHorizontalPlanes(){
+void ARProcessor::drawPlanes(){
     anchorController->drawPlanes(camera->getCameraMatrices());
 }
 

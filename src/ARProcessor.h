@@ -99,13 +99,13 @@ public:
     void addAnchor(ofVec3f position);
     //======== PLANE API ============ //
 
-    //! Returns the current set of horizontal planes.
-    std::vector<PlaneAnchorObject> getHorizontalPlanes(){
+    //! Returns the current set of planes.
+    std::vector<PlaneAnchorObject> getPlanes(){
         return anchorController->getPlaneAnchors();
     }
     
     //! Draws the current set of horizontal planes
-    void drawHorizontalPlanes();
+    void drawPlanes();
     
     //! updates plane information
     void updatePlanes();
