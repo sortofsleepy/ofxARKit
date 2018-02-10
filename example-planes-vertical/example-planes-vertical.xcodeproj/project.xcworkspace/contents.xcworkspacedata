@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/joschow1/Documents/openFrameworks/addons/ofxARKit/example-planes/example-planes.xcodeproj">
+      location = "self:/Users/brettrenfer/Dropbox (Personal)/Code/OF/of_v0.9.8_ios_release/addons/ofxARKit/example-planes-vertical/example-planes-vertical.xcodeproj">
    </FileRef>
 </Workspace>

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-               BuildableName = "example-planes.app"
-               BlueprintName = "example-planes"
-               ReferencedContainer = "container:example-planes.xcodeproj">
+               BuildableName = "example-planes-vertical.app"
+               BlueprintName = "example-planes-vertical"
+               ReferencedContainer = "container:example-planes-vertical.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -26,7 +26,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -34,19 +33,18 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "example-planes.app"
-            BlueprintName = "example-planes"
-            ReferencedContainer = "container:example-planes.xcodeproj">
+            BuildableName = "example-planes-vertical.app"
+            BlueprintName = "example-planes-vertical"
+            ReferencedContainer = "container:example-planes-vertical.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -60,9 +58,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "example-planes.app"
-            BlueprintName = "example-planes"
-            ReferencedContainer = "container:example-planes.xcodeproj">
+            BuildableName = "example-planes-vertical.app"
+            BlueprintName = "example-planes-vertical"
+            ReferencedContainer = "container:example-planes-vertical.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -79,9 +77,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "example-planes.app"
-            BlueprintName = "example-planes"
-            ReferencedContainer = "container:example-planes.xcodeproj">
+            BuildableName = "example-planes-vertical.app"
+            BlueprintName = "example-planes-vertical"
+            ReferencedContainer = "container:example-planes-vertical.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
