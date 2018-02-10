@@ -124,7 +124,6 @@ namespace ARCore {
         
         // update number of anchors currently tracked
         anchorInstanceCount = session.currentFrame.anchors.count;
-        ofLogError()<<anchorInstanceCount<<endl;
     }
     
     
