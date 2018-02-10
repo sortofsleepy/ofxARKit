@@ -139,7 +139,6 @@ namespace ARCore {
                 // did we find a PlaneAnchor?
                 // note - you need to turn on planeDetection in your configuration
                 if([anchor isKindOfClass:[ARPlaneAnchor class]]){
-                    ofLog()<<"Found plane";
                     ARPlaneAnchor* pa = (ARPlaneAnchor*) anchor;
                     
                     // calc values from anchor.
@@ -256,14 +255,9 @@ namespace ARCore {
                         }
                     }
                     
-                } else {
-                    
-                    ofLog()<<"Found something else?";
                 }
                 
             }
-        } else {
-            ofLogError()<<"Exceeded max planes";
         }
     }
     
