@@ -17,7 +17,7 @@ namespace ARCore {
     }
     
     ARAnchorManager::ARAnchorManager(ARSession * session):
-    shouldUpdatePlanes(false),
+    shouldUpdatePlanes(true),
     maxTrackedPlanes(0){
         this->session = session;
     }
@@ -175,9 +175,14 @@ namespace ARCore {
         // if we aren't tracking the maximum number of planes or we want to track all possible planes,
         // run the for loop.
         if(getNumPlanes() < maxTrackedPlanes || maxTrackedPlanes == 0){
+            // track UUIDs in array
+            vector<NSUUID *> uuids;
+            
             // update any anchors found in the current frame by the system
             for (NSInteger index = 0; index < anchorInstanceCount; index++) {
                 ARAnchor *anchor = session.currentFrame.anchors[index];
+                
+                uuids.push_back(anchor.identifier);
                 
                 // did we find a PlaneAnchor?
                 // note - you need to turn on planeDetection in your configuration
@@ -265,9 +270,6 @@ namespace ARCore {
                             if (@available(iOS 11.3, *)) {
                                 ARPlaneGeometry * geo = pa.geometry;
                                 
-                                // just a lil uuid -> hue fer fun
-                                
-                                
                                 // transform vertices and uvs
                                 for(NSInteger i = 0; i < geo.vertexCount; ++i){
                                     vector_float3 vert = geo.vertices[i];
@@ -290,6 +292,21 @@ namespace ARCore {
                     
                 }
                 
+            }
+            
+            // clean up planes
+            
+            if(shouldUpdatePlanes && planes.size() > 0){
+                for ( int i=planes.size()-1; i>=0; --i ){
+                    
+                    auto f_it = find_if(uuids.begin(), uuids.end(), [=](const NSUUID * obj) {
+                        return obj == planes[i].uuid;
+                    });
+                    if ( f_it == uuids.end() ){
+                        planes.erase( planes.begin() + i );
+//                        [session removeAnchor:planes[i].rawAnchor];
+                    }
+                }
             }
         }
     }
