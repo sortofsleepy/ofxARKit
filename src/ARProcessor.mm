@@ -67,6 +67,9 @@ void ARProcessor::updatePlanes(){
     anchorController->updatePlanes();
 }
 
+void ARProcessor::updateImages(){
+    anchorController->updateImages();
+}
 
 void ARProcessor::drawFrame(){
     draw();

@@ -113,6 +113,9 @@ public:
     //! updates plane information
     void updatePlanes();
     
+    //! updates image recognition information
+    void updateImages();
+    
     //======== FACE API ============ //
     void updateFaces();
     

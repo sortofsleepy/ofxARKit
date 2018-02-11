@@ -53,6 +53,7 @@ void ofApp::setup() {
 void ofApp::update(){
     
     processor->update();
+    processor->updateImages();
     
 }
 
@@ -74,21 +75,18 @@ void ofApp::draw() {
             for (int i = 0; i < session.currentFrame.anchors.count; i++){
                 ARAnchor * anchor = session.currentFrame.anchors[i];
                 
-                // note - if you need to differentiate between different types of anchors, there is a 
-                // "isKindOfClass" method in objective-c that could be used. For example, if you wanted to 
-                // check for a Plane anchor, you could put this in an if statement.
-                // if([anchor isKindOfClass:[ARPlaneAnchor class]]) { // do something if we find a plane anchor}
-                // Not important for this example but something good to remember.
-                
                 ofPushMatrix();
                 ofMatrix4x4 mat = ARCommon::convert<matrix_float4x4, ofMatrix4x4>(anchor.transform);
                 ofMultMatrix(mat);
                 
                 ofSetColor(255);
-                ofRotate(90,0,0,1);
-                
-                img.draw(-0.025 / 2, -0.025 / 2,0.025,0.025);
-                
+                ofRotateX(90);
+                if([anchor isKindOfClass:[ARImageAnchor class]]) {
+                    ARImageAnchor * im = (ARImageAnchor*) anchor;
+                    auto w = im.referenceImage.physicalSize.width;
+                    auto h = im.referenceImage.physicalSize.height;
+                    img.draw(-w/2., -h/2., w, h);
+                }
                 
                 ofPopMatrix();
             }
@@ -111,18 +109,6 @@ void ofApp::exit() {
 
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs &touch){
-    if (session.currentFrame){
-        ARFrame *currentFrame = [session currentFrame];
-        
-        matrix_float4x4 translation = matrix_identity_float4x4;
-        translation.columns[3].z = -0.2;
-        matrix_float4x4 transform = matrix_multiply(currentFrame.camera.transform, translation);
-        
-        // Add a new anchor to the session
-        ARAnchor *anchor = [[ARAnchor alloc] initWithTransform:transform];
-        
-        [session addAnchor:anchor];
-    }
 }
 
 //--------------------------------------------------------------
@@ -132,7 +118,7 @@ void ofApp::touchMoved(ofTouchEventArgs &touch){
 
 //--------------------------------------------------------------
 void ofApp::touchUp(ofTouchEventArgs &touch){
-    
+    processor->anchorController->clearAnchors();
 }
 
 //--------------------------------------------------------------
