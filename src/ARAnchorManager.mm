@@ -16,10 +16,10 @@ namespace ARCore {
         _onPlaneAdded = nullptr;
     }
     
-    ARAnchorManager::ARAnchorManager(ARSession * session):shouldUpdatePlanes(true),
+    ARAnchorManager::ARAnchorManager(ARSession * session):
+    shouldUpdatePlanes(false),
     maxTrackedPlanes(0){
         this->session = session;
-        maxTrackedPlanes = 0;
     }
     
     int ARAnchorManager::getNumPlanes(){
