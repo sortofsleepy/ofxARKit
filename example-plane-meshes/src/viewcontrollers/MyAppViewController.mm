@@ -20,7 +20,8 @@
   
     ARCore::SFormat format;
     
-    format.enablePlaneTracking().setHighRes(false);//.enableLighting();
+//    format.enableVerticalPlaneTracking().setHighRes(false);//.enableLighting();
+    format.enablePlaneTracking().setHighRes(true).enableLighting();
     self.session = ARCore::generateNewSession(format);
     
     

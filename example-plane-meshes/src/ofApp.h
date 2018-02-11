@@ -35,8 +35,6 @@ public:
     ARSession * session;
     ARRef processor;
     
-    ofImage img;
-    
 };
 
 

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-               BuildableName = "example-planes-vertical.app"
-               BlueprintName = "example-planes-vertical"
-               ReferencedContainer = "container:example-planes-vertical.xcodeproj">
+               BuildableName = "example-plane-meshes.app"
+               BlueprintName = "example-plane-meshes"
+               ReferencedContainer = "container:example-plane-meshes.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "example-planes-vertical.app"
-            BlueprintName = "example-planes-vertical"
-            ReferencedContainer = "container:example-planes-vertical.xcodeproj">
+            BuildableName = "example-plane-meshes.app"
+            BlueprintName = "example-plane-meshes"
+            ReferencedContainer = "container:example-plane-meshes.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -58,9 +58,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "example-planes-vertical.app"
-            BlueprintName = "example-planes-vertical"
-            ReferencedContainer = "container:example-planes-vertical.xcodeproj">
+            BuildableName = "example-plane-meshes.app"
+            BlueprintName = "example-plane-meshes"
+            ReferencedContainer = "container:example-plane-meshes.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -77,9 +77,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "example-planes-vertical.app"
-            BlueprintName = "example-planes-vertical"
-            ReferencedContainer = "container:example-planes-vertical.xcodeproj">
+            BuildableName = "example-plane-meshes.app"
+            BlueprintName = "example-plane-meshes"
+            ReferencedContainer = "container:example-plane-meshes.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
