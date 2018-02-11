@@ -203,13 +203,14 @@ namespace ARCore {
                         PlaneAnchorObject plane;
                         
                         plane.transform = paTransform;
-                        plane.position.x = -extent.x / 2;
-                        plane.position.y = -extent.y / 2;
+                        plane.position.x = center.x;
+                        plane.position.y = center.y;
                         plane.width = extent.x;
                         plane.height = extent.z;
                         plane.uuid = anchor.identifier;
                         plane.rawAnchor = pa;
                         plane.alignment = pa.alignment;
+                        plane.debugColor = ofFloatColor(ofRandom(.5,1.f),ofRandom(.5,1.f),ofRandom(.5,1.f));
                         
                         // setup geometry
                         
@@ -219,24 +220,18 @@ namespace ARCore {
                             for(NSInteger i = 0; i < geo.vertexCount; ++i){
                                 vector_float3 vert = geo.vertices[i];
                                 vector_float2 uv = geo.textureCoordinates[i];
-                                ofVec3f v = convert<vector_float3, ofVec3f>(vert);
-                                //                            std::swap(v.y, v.z);
-                                plane.vertices.push_back(v);
+                                plane.vertices.push_back(convert<vector_float3, ofVec3f>(vert));
                                 plane.uvs.push_back(convert<vector_float2, ofVec2f>(uv));
+                                plane.colors.push_back(plane.debugColor);
                             }
-                            //                        plane.planeMesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
-                            plane.planeMesh.addVertices(plane.vertices);
-                            plane.planeMesh.addTexCoords(plane.uvs);
                             
-                            // set indices
+                             //set indices
                             for (NSInteger i=0; i < geo.triangleCount; i++){
-                                plane.planeMesh.addTriangle(geo.triangleIndices[ i*3 + 0 ],
-                                                            geo.triangleIndices[ i*3 + 1 ],
-                                                            geo.triangleIndices[ i*3 + 2 ]);
+                                plane.indices.push_back(geo.triangleIndices[ i*3 + 0 ]);
+                                plane.indices.push_back(geo.triangleIndices[ i*3 + 1 ]);
+                                plane.indices.push_back(geo.triangleIndices[ i*3 + 2 ]);
                             }
-                            //auto indices = geo.triangleIndices;
-                            //plane.indices = std::vector<uint16_t>(indices, indices + sizeof(indices) / sizeof(indices[0]));
-                            
+                            plane.buildMesh();
                         } else {
                             // Fallback on earlier versions
                         }
@@ -255,6 +250,7 @@ namespace ARCore {
                             planes[index].uvs.clear();
                             planes[index].indices.clear();
                             planes[index].vertices.clear();
+                            planes[index].colors.clear();
                             
                             planes[index].transform = paTransform;
                             
@@ -265,35 +261,29 @@ namespace ARCore {
                             planes[index].uuid = anchor.identifier;
                             planes[index].rawAnchor = pa;
                             
-                            
                             // refresh geom, if it exists
                             if (@available(iOS 11.3, *)) {
                                 ARPlaneGeometry * geo = pa.geometry;
+                                
+                                // just a lil uuid -> hue fer fun
+                                
                                 
                                 // transform vertices and uvs
                                 for(NSInteger i = 0; i < geo.vertexCount; ++i){
                                     vector_float3 vert = geo.vertices[i];
                                     vector_float2 uv = geo.textureCoordinates[i];
-                                    
-                                    ofVec3f v = convert<vector_float3, ofVec3f>(vert);
-    //                                std::swap(v.y, v.z);
-                                    planes[index].vertices.push_back(v);
-    //                                planes[index].vertices.push_back(convert<vector_float3, ofVec3f>(vert));
+                                    planes[index].colors.push_back(planes[index].debugColor);
+                                    planes[index].vertices.push_back(convert<vector_float3, ofVec3f>(vert));
                                     planes[index].uvs.push_back(convert<vector_float2, ofVec2f>(uv));
                                 }
                                 
-                                planes[index].planeMesh.addVertices(planes[index].vertices);
-                                planes[index].planeMesh.addTexCoords(planes[index].uvs);
-                                
                                 // set indices
-    //                            auto indices = geo.triangleIndices;
-    //                            planes[index].indices = std::vector<uint16_t>(indices, indices + sizeof(indices) / sizeof(indices[0]));
-                                
                                 for (NSInteger i=0; i < geo.triangleCount; i++){
-                                    planes[index].planeMesh.addTriangle(geo.triangleIndices[ i*3 + 0 ],
-                                                                geo.triangleIndices[ i*3 + 1 ],
-                                                                geo.triangleIndices[ i*3 + 2 ]);
+                                    planes[index].indices.push_back(geo.triangleIndices[ i*3 + 0 ]);
+                                    planes[index].indices.push_back(geo.triangleIndices[ i*3 + 1 ]);
+                                    planes[index].indices.push_back(geo.triangleIndices[ i*3 + 2 ]);
                                 }
+                                planes[index].buildMesh();
                             }
                         }
                     }
@@ -456,7 +446,7 @@ namespace ARCore {
         ofSetColor(102,216,254,100);
         ofRotateX(90);
         ofTranslate(anchor.position.x,anchor.position.y);
-        ofDrawRectangle(-anchor.position.x/2,-anchor.position.z/2,0,anchor.width,anchor.height);
+        ofDrawRectangle(-anchor.width/2,-anchor.height/2,0,anchor.width,anchor.height);
         ofSetColor(255);
         ofPopMatrix();
         
@@ -479,39 +469,35 @@ namespace ARCore {
                 ofMultMatrix(anchor.transform);
                 ofFill();
                 ofSetColor(102,216,254,100);
-                ofPushMatrix();
-                    ofRotateX(90);
-                    if ( anchor.getAlignment() == ARPlaneAnchorAlignmentHorizontal ){
-                        ofSetColor(255,216,254,100);
-                    }
-            
-                    ofTranslate(anchor.position.x,anchor.position.y);
-                    ofDrawRectangle(-anchor.position.x/2,-anchor.position.z/2,0,anchor.width,anchor.height);
-                    ofSetColor(255);
-                ofPopMatrix();
-            
-                ofPushMatrix();
-//                if ( anchor.getAlignment() == ARPlaneAnchorAlignmentHorizontal ){
-//                }
-                anchor.planeMesh.drawWireframe();
-                ofPopMatrix();
-            
-//                ofPushMatrix();
-//                for ( auto & v : anchor.planeMesh.getVertices() ){
-//                    ofSetColor(255,0,0);
-//                    ofDrawCircle(v.x, v.y, .001);
-//                    ofSetColor(0,255,0);
-//                    ofDrawCircle(v.x, 0, .001);
-//                    ofSetColor(0,0,255);
-//                    ofDrawCircle(0, v.y, .001);
-//                    ofSetColor(0,255,255);
-//                    ofDrawCircle(0, 0, v.z, .001);
-//                }
-//                ofPopMatrix();
-            
+                ofRotateX(90);
+                if ( anchor.getAlignment() == ARPlaneAnchorAlignmentHorizontal ){
+                    ofSetColor(255,216,254,100);
+                }
+        
+                ofTranslate(anchor.position.x,anchor.position.y);
+                ofDrawRectangle(-anchor.width/2,-anchor.height/2,0,anchor.width,anchor.height);
+                ofSetColor(255);
             ofPopMatrix();
+        }
+        
+        camera.end();
+    }
+    
+    void ARAnchorManager::drawPlaneMeshes(ARCameraMatrices cameraMatrices){
+        camera.begin();
+        
+        ofSetMatrixMode(OF_MATRIX_PROJECTION);
+        ofLoadMatrix(cameraMatrices.cameraProjection);
+        ofSetMatrixMode(OF_MATRIX_MODELVIEW);
+        ofLoadMatrix(cameraMatrices.cameraView);
+        
+        for(int i = 0; i < getNumPlanes(); ++i){
+            PlaneAnchorObject anchor = getPlaneAt(i);
             
-            
+            ofPushMatrix();
+            ofMultMatrix(anchor.transform);
+            anchor.planeMesh.draw();
+            ofPopMatrix();
         }
         
         camera.end();

@@ -147,6 +147,9 @@ namespace ARCore {
         //! Draws all currently found planes.
         void drawPlanes(ARCommon::ARCameraMatrices cameraMatrices);
         
+        // draws geometry instead of rects
+        void drawPlaneMeshes(ARCommon::ARCameraMatrices cameraMatrices);
+        
         //! Draw all images
         void drawImages(ARCommon::ARCameraMatrices cameraMatrices);
         

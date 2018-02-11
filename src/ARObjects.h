@@ -39,16 +39,18 @@ namespace ARObjects {
         // reference to indices
         vector<uint16_t> indices;
         
+        // colors, just for fun
+        ofFloatColor debugColor;
+        vector<ofFloatColor> colors;
+        
         void buildMesh(){
             
             // clear previous contents
             planeMesh.clear();
-            
             planeMesh.addVertices(vertices);
             planeMesh.addTexCoords(uvs);
             planeMesh.addIndices(indices);
-            
-//            ofLog()<<"INDICES "<<indices.size()<<endl;
+            planeMesh.addColors(colors);
         }
     }PlaneAnchorObject;
     

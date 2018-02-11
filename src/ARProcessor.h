@@ -104,8 +104,11 @@ public:
         return anchorController->getPlaneAnchors();
     }
     
-    //! Draws the current set of horizontal planes
+    //! Draws the current set of planes
     void drawPlanes();
+    
+    //! Draws the current set of plane meshes
+    void drawPlaneMeshes();
     
     //! updates plane information
     void updatePlanes();

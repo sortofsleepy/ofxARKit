@@ -128,8 +128,13 @@ void ARProcessor::addAnchor(ofVec3f position){
     anchorController->addAnchor(position,matrices.cameraProjection,model * getCameraMatrices().cameraView);
 }
 
+// ======= DRAW API ========= //
 void ARProcessor::drawPlanes(){
     anchorController->drawPlanes(camera->getCameraMatrices());
+}
+
+void ARProcessor::drawPlaneMeshes(){
+    anchorController->drawPlaneMeshes(camera->getCameraMatrices());
 }
 
 // ======= FACE API ========= //
