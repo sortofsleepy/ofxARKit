@@ -13,6 +13,7 @@ namespace ARCore {
     typedef struct {
         bool useFaceTracking = false;
         bool usePlaneTracking = false;
+        bool useImageDetection = false;
         bool useLightEstimation = false;
         bool useAudio = false;
         bool useHighRes = true;
@@ -27,6 +28,8 @@ namespace ARCore {
         
         ARWorldAlignment worldAlignment = ARWorldAlignmentGravity;
         ARPlaneDetection planeDetectionType;
+        
+        string imageBundleName = "AR Resources";
         
     }FormatState;
     
@@ -55,6 +58,13 @@ namespace ARCore {
         //! TODO does face tracking affect other things like lighting and plane detection?
         SFormat& enableFaceTracking(){
             state.useFaceTracking = true;
+            return *this;
+        }
+        
+        //! Enables feature detection
+        SFormat & enableImageDetection(string imageBundleName = "AR Resources"){
+            state.useImageDetection = true;
+            state.imageBundleName = imageBundleName;
             return *this;
         }
         
@@ -157,7 +167,6 @@ namespace ARCore {
             }
         }
         
-        
         // if face tracking is not available, should pass through to here where we
         // figure out regular configuration, starting with determining if we can do plane detection.
         if([ARWorldTrackingConfiguration isSupported]){
@@ -170,6 +179,14 @@ namespace ARCore {
             
             if(state.useLightEstimation){
                 config.lightEstimationEnabled = YES;
+            }
+            
+            // image detection
+            if (@available(iOS 11.3, *)) {
+                if ( state.useImageDetection ){
+//                    NSSet<ARReferenceImage *> *)referenceImagesInGroupNamed:(NSString *)name bundle:(nullable NSBundle *)bundle;
+                    config.detectionImages = [ARReferenceImage referenceImagesInGroupNamed:[NSString stringWithUTF8String:state.imageBundleName.c_str()] bundle:[NSBundle mainBundle]];
+                }
             }
             
             config.worldAlignment = state.worldAlignment;

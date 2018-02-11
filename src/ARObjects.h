@@ -105,6 +105,16 @@ namespace ARObjects {
         
     }FaceAnchorObject;
     
+    typedef struct {
+        ARImageAnchor * raw;
+        string imageName = "";
+        float width;
+        float height;
+        ofMatrix4x4 transform;
+        NSUUID * uuid;
+        
+    } ImageAnchorObject;
+    
     //! quickly constructs an standard ARObject 
     static inline ARObject buildARObject(ARAnchor * rawAnchor,ofMatrix4x4 modelMatrix,bool systemAdded=false){
         ARObject obj;

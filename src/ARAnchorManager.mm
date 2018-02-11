@@ -126,6 +126,49 @@ namespace ARCore {
         anchorInstanceCount = session.currentFrame.anchors.count;
     }
     
+    void ARAnchorManager::updateImages(){
+        for (NSInteger index = 0; index < anchorInstanceCount; index++) {
+            ARAnchor *anchor = session.currentFrame.anchors[index];
+            
+            if (@available(iOS 11.3, *)) {
+                if([anchor isKindOfClass:[ARImageAnchor class]]){
+                    ARImageAnchor * im = (ARImageAnchor*) anchor;
+                   
+                    // calc values from anchor.
+                    NSUUID * uuid = im.identifier;
+                    ofMatrix4x4 transform = convert<matrix_float4x4, ofMatrix4x4>(im.transform);
+                    string image = std::string([im.referenceImage.name UTF8String]);
+                    float width = im.referenceImage.physicalSize.width;
+                    float height = im.referenceImage.physicalSize.height;
+                    
+                    auto it = find_if(images.begin(), images.end(), [=](const ImageAnchorObject& obj) {
+                        return obj.uuid == uuid;
+                    });
+                    
+                    // new imageAnchor
+                    if ( it == images.end() ){
+                        ImageAnchorObject imAnchor;
+                        imAnchor.imageName = image;
+                        imAnchor.raw = im;
+                        imAnchor.uuid = uuid;
+                        imAnchor.width = width;
+                        imAnchor.height = height;
+                        imAnchor.transform = transform;
+                        images.push_back(imAnchor);
+                        
+                        if(_onImageRecognized != nullptr){
+                            _onImageRecognized(imAnchor);
+                        }
+                    }
+                    // old imageAnchor
+                    else {
+                        // do we need to update anything else besides this?
+                        images[index].transform = transform;
+                    }
+                }
+            }
+        }
+    }
     
     void ARAnchorManager::updatePlanes(){
         
@@ -215,8 +258,8 @@ namespace ARCore {
                             
                             planes[index].transform = paTransform;
                             
-                            planes[index].position.x = -extent.x / 2;
-                            planes[index].position.y = -extent.y / 2;
+                            planes[index].position.x = center.x;
+                            planes[index].position.y = center.y;
                             planes[index].width = extent.x;
                             planes[index].height = extent.z;
                             planes[index].uuid = anchor.identifier;
@@ -260,6 +303,7 @@ namespace ARCore {
             }
         }
     }
+    
     
     void ARAnchorManager::updateFaces(){
         for (NSInteger index = 0; index < anchorInstanceCount; index++) {
@@ -436,10 +480,9 @@ namespace ARCore {
                 ofFill();
                 ofSetColor(102,216,254,100);
                 ofPushMatrix();
+                    ofRotateX(90);
                     if ( anchor.getAlignment() == ARPlaneAnchorAlignmentHorizontal ){
-                        ofRotateX(90);
-                    } else {
-                        ofLogError()<<"VERT";
+                        ofSetColor(255,216,254,100);
                     }
             
                     ofTranslate(anchor.position.x,anchor.position.y);
@@ -448,32 +491,48 @@ namespace ARCore {
                 ofPopMatrix();
             
                 ofPushMatrix();
-                if ( anchor.getAlignment() == ARPlaneAnchorAlignmentHorizontal ){
-                    ofRotateX(90);
-                } else {
-                    ofLogError()<<"VERT";
-                }
+//                if ( anchor.getAlignment() == ARPlaneAnchorAlignmentHorizontal ){
+//                }
                 anchor.planeMesh.drawWireframe();
                 ofPopMatrix();
             
-                ofPushMatrix();
-                for ( auto & v : anchor.planeMesh.getVertices() ){
-                    ofSetColor(255,0,0);
-                    ofDrawCircle(v.x, v.y, .001);
-                    ofSetColor(0,255,0);
-                    ofDrawCircle(v.x, 0, .001);
-                    ofSetColor(0,0,255);
-                    ofDrawCircle(0, v.y, .001);
-                    ofSetColor(0,255,255);
-                    ofDrawCircle(0, 0, v.z, .001);
-                }
-                ofPopMatrix();
+//                ofPushMatrix();
+//                for ( auto & v : anchor.planeMesh.getVertices() ){
+//                    ofSetColor(255,0,0);
+//                    ofDrawCircle(v.x, v.y, .001);
+//                    ofSetColor(0,255,0);
+//                    ofDrawCircle(v.x, 0, .001);
+//                    ofSetColor(0,0,255);
+//                    ofDrawCircle(0, v.y, .001);
+//                    ofSetColor(0,255,255);
+//                    ofDrawCircle(0, 0, v.z, .001);
+//                }
+//                ofPopMatrix();
             
             ofPopMatrix();
             
             
         }
         
+        camera.end();
+    }
+    
+    void ARAnchorManager::drawImages(ARCameraMatrices cameraMatrices){
+        camera.begin();
+        
+        ofSetMatrixMode(OF_MATRIX_PROJECTION);
+        ofLoadMatrix(cameraMatrices.cameraProjection);
+        ofSetMatrixMode(OF_MATRIX_MODELVIEW);
+        ofLoadMatrix(cameraMatrices.cameraView);
+        
+        for (auto & anchor : images){
+            ofPushMatrix();
+            ofMultMatrix(anchor.transform);
+            ofFill();
+            ofSetColor(102,216,254,100);
+            ofDrawRectangle(0,0,anchor.width,anchor.height);
+            ofPopMatrix();
+        }
         camera.end();
     }
     
