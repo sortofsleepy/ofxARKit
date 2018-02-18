@@ -32,6 +32,10 @@ class ARProcessor {
     //! A flag to indicate whether or not we're in debug mode
     bool debugMode;
     
+protected:
+    //! ARReferenceImages
+    vector<ARReferenceImage * > arRefImages;
+    
 public:
     //! Constructor - pass in ARSession reference
     ARProcessor(ARSession * session);
@@ -112,6 +116,19 @@ public:
     
     //! updates plane information
     void updatePlanes();
+    
+    //======== IMAGE API ============ //
+    // to-do: make other getters return reference—lots of copying happening!
+    // to-do: probably should be getImages() const
+    std::vector<ImageAnchorObject> & getImages(){
+        return anchorController->getImageAnchors();
+    }
+    
+    //! returns a list of names of all reference images
+    vector<string> getReferenceImages();
+    
+    //! returns raw ARImageReference array
+    vector<ARReferenceImage *> & getARReferenceImages();
     
     //! updates image recognition information
     void updateImages();

@@ -164,6 +164,7 @@ namespace ARCore {
                     else {
                         // do we need to update anything else besides this?
                         images[index].transform = transform;
+                        
                     }
                 }
             }

@@ -88,6 +88,10 @@ namespace ARCore {
             return planes;
         }
         
+        vector<ImageAnchorObject> & getImageAnchors(){
+            return images;
+        }
+        
         //! Returns the current number of anchors.
         int getNumAnchors(){
             return anchors.size();

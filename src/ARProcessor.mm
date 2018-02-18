@@ -37,6 +37,9 @@ void ARProcessor::logTrackingState(){
 }
 
 void ARProcessor::restartSession(){
+    // clear reference images (you may setup new ones when you start new sesh)
+    arRefImages.clear();
+    
     // note - I don't know if this actually works once a session has been
     // stopped, may have to recreate session.
     [session runWithConfiguration:session.configuration];
@@ -69,6 +72,36 @@ void ARProcessor::updatePlanes(){
 
 void ARProcessor::updateImages(){
     anchorController->updateImages();
+}
+
+vector<string> ARProcessor::getReferenceImages() {
+    static vector<string> imageNames;
+    
+    if (@available(iOS 11.3, *)) {
+        imageNames.clear();
+        auto & imgs = getARReferenceImages();
+        for ( auto * img : imgs ){
+            string str = string(img.name.UTF8String);
+            imageNames.push_back(str);
+        }
+    }
+    return imageNames;
+}
+
+vector<ARReferenceImage *> & ARProcessor::getARReferenceImages(){
+    if ( arRefImages.empty() ){
+        ARConfiguration * config = session.configuration;
+        if([config isKindOfClass:[ARWorldTrackingConfiguration class]]){
+            ARWorldTrackingConfiguration * wConfig = (ARWorldTrackingConfiguration*) session.configuration;
+            
+            NSSet<ARReferenceImage *> * images = wConfig.detectionImages;
+            for(ARReferenceImage * img in images) {
+                arRefImages.push_back( img );
+            }
+        }
+    }
+    
+    return arRefImages;
 }
 
 void ARProcessor::drawFrame(){

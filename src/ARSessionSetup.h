@@ -184,7 +184,8 @@ namespace ARCore {
             // image detection
             if (@available(iOS 11.3, *)) {
                 if ( state.useImageDetection ){
-//                    NSSet<ARReferenceImage *> *)referenceImagesInGroupNamed:(NSString *)name bundle:(nullable NSBundle *)bundle;
+                    // this looks crazier than it is!
+                    // basically, it just passes in the name of your resource group
                     config.detectionImages = [ARReferenceImage referenceImagesInGroupNamed:[NSString stringWithUTF8String:state.imageBundleName.c_str()] bundle:[NSBundle mainBundle]];
                 }
             }
