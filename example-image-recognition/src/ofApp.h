@@ -31,11 +31,13 @@ public:
     vector<ARAnchor*> anchors;
     ofCamera camera;
     ofTrueTypeFont font;
-    ofImage img;
+    vector<ofImage> images;
 
     // ====== AR STUFF ======== //
     ARSession * session;
     ARRef processor;
+    
+    map<string, ofImage> imageMessages;
 
     
 };

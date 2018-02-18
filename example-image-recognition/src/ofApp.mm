@@ -34,7 +34,11 @@ ofApp :: ~ofApp () {
 void ofApp::setup() {
     ofBackground(127);
     
-    img.load("OpenFrameworks.png");
+    // of 1, 2, 3
+    for (int i=0; i<3;i++){
+        images.push_back(ofImage());
+        images.back().load("OpenFrameworks"+ofToString(i+1)+".png");
+    }
     
     int fontSize = 8;
     if (ofxiOSGetOFWindow()->isRetinaSupportedOnDevice())
@@ -45,6 +49,9 @@ void ofApp::setup() {
     processor = ARProcessor::create(session);
     processor->setup();
     
+    // image names aren't loaded until session is ready
+    // could use a callback or something, but for now
+    // stuff is in update
 }
 
 
@@ -55,6 +62,28 @@ void ofApp::update(){
     processor->update();
     processor->updateImages();
     
+    static bool bImagesSetup = false;
+    
+    if ( !bImagesSetup ){
+        
+        // a not very exciting way to do different stuff for different images
+        vector<string> names = processor->getReferenceImages();
+        
+        if (names.size() > 0 ){
+            bImagesSetup = true;
+            int index = 0;
+            for ( auto name : names ){
+                // associate image to name
+                ofLogError()<<(images[index].isAllocated())<<":"<<name;
+                imageMessages[name] = images[index];
+                index++;
+                // loop around if made more AR images than OF ones
+                if ( index >= images.size() ){
+                    index = 0;
+                }
+            }
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -85,7 +114,12 @@ void ofApp::draw() {
                     ARImageAnchor * im = (ARImageAnchor*) anchor;
                     auto w = im.referenceImage.physicalSize.width;
                     auto h = im.referenceImage.physicalSize.height;
-                    img.draw(-w/2., -h/2., w, h);
+                    
+                    // get corresponding image
+                    // change name to string
+                    string str = im.referenceImage.name.UTF8String;
+                    ofImage & image = imageMessages[str];
+                    image.draw(-w/2., -h/2., w, h);
                 }
                 
                 ofPopMatrix();
