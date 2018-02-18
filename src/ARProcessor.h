@@ -32,6 +32,10 @@ class ARProcessor {
     //! A flag to indicate whether or not we're in debug mode
     bool debugMode;
     
+protected:
+    //! ARReferenceImages
+    vector<ARReferenceImage * > arRefImages;
+    
 public:
     //! Constructor - pass in ARSession reference
     ARProcessor(ARSession * session);
@@ -99,16 +103,35 @@ public:
     void addAnchor(ofVec3f position);
     //======== PLANE API ============ //
 
-    //! Returns the current set of horizontal planes.
-    std::vector<PlaneAnchorObject> getHorizontalPlanes(){
+    //! Returns the current set of planes.
+    std::vector<PlaneAnchorObject> getPlanes(){
         return anchorController->getPlaneAnchors();
     }
     
-    //! Draws the current set of horizontal planes
-    void drawHorizontalPlanes();
+    //! Draws the current set of planes
+    void drawPlanes();
+    
+    //! Draws the current set of plane meshes
+    void drawPlaneMeshes();
     
     //! updates plane information
     void updatePlanes();
+    
+    //======== IMAGE API ============ //
+    // to-do: make other getters return reference—lots of copying happening!
+    // to-do: probably should be getImages() const
+    std::vector<ImageAnchorObject> & getImages(){
+        return anchorController->getImageAnchors();
+    }
+    
+    //! returns a list of names of all reference images
+    vector<string> getReferenceImages();
+    
+    //! returns raw ARImageReference array
+    vector<ARReferenceImage *> & getARReferenceImages();
+    
+    //! updates image recognition information
+    void updateImages();
     
     //======== FACE API ============ //
     void updateFaces();

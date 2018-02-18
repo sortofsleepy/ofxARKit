@@ -20,7 +20,38 @@ namespace ARObjects {
         float height;
         ofMatrix4x4 transform;
         NSUUID * uuid;
-        ARPlaneAnchor * rawAnchor;        
+        ARPlaneAnchor * rawAnchor;
+        ARPlaneAnchorAlignment alignment;
+        
+        ARPlaneAnchorAlignment getAlignment(){
+            return alignment;
+        }
+        
+        // here for convinience, but you may want to build your own.
+        ofMesh planeMesh;
+        
+        // reference to vertices
+        vector<ofVec3f> vertices;
+        
+        // reference to uvs
+        vector<ofVec2f> uvs;
+        
+        // reference to indices
+        vector<uint16_t> indices;
+        
+        // colors, just for fun
+        ofFloatColor debugColor;
+        vector<ofFloatColor> colors;
+        
+        void buildMesh(){
+            
+            // clear previous contents
+            planeMesh.clear();
+            planeMesh.addVertices(vertices);
+            planeMesh.addTexCoords(uvs);
+            planeMesh.addIndices(indices);
+            planeMesh.addColors(colors);
+        }
     }PlaneAnchorObject;
     
     //! The base class you can use to build your AR object. Provides a model matrix and a mesh for easy tracking by ARKit.
@@ -41,6 +72,7 @@ namespace ARObjects {
         NSUUID * getUUID(){
             return rawAnchor.identifier;
         }
+        
     }ARObject;
     
     //! The base class to build a Face geometry
@@ -74,6 +106,16 @@ namespace ARObjects {
         }
         
     }FaceAnchorObject;
+    
+    typedef struct {
+        ARImageAnchor * raw;
+        string imageName = "";
+        float width;
+        float height;
+        ofMatrix4x4 transform;
+        NSUUID * uuid;
+        
+    } ImageAnchorObject;
     
     //! quickly constructs an standard ARObject 
     static inline ARObject buildARObject(ARAnchor * rawAnchor,ofMatrix4x4 modelMatrix,bool systemAdded=false){

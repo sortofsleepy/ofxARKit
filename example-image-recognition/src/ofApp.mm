@@ -17,15 +17,6 @@ void logSIMD(const simd::float4x4 &matrix)
     output << std::endl;
 }
 
-ofMatrix4x4 matFromSimd(const simd::float4x4 &matrix){
-    ofMatrix4x4 mat;
-    mat.set(matrix.columns[0].x,matrix.columns[0].y,matrix.columns[0].z,matrix.columns[0].w,
-            matrix.columns[1].x,matrix.columns[1].y,matrix.columns[1].z,matrix.columns[1].w,
-            matrix.columns[2].x,matrix.columns[2].y,matrix.columns[2].z,matrix.columns[2].w,
-            matrix.columns[3].x,matrix.columns[3].y,matrix.columns[3].z,matrix.columns[3].w);
-    return mat;
-}
-
 //--------------------------------------------------------------
 ofApp :: ofApp (ARSession * session){
     this->session = session;
@@ -43,7 +34,11 @@ ofApp :: ~ofApp () {
 void ofApp::setup() {
     ofBackground(127);
     
-    img.load("OpenFrameworks.png");
+    // of 1, 2, 3
+    for (int i=0; i<3;i++){
+        images.push_back(ofImage());
+        images.back().load("OpenFrameworks"+ofToString(i+1)+".png");
+    }
     
     int fontSize = 8;
     if (ofxiOSGetOFWindow()->isRetinaSupportedOnDevice())
@@ -51,28 +46,46 @@ void ofApp::setup() {
     
     font.load("fonts/mono0755.ttf", fontSize);
     
-    
     processor = ARProcessor::create(session);
     processor->setup();
-
+    
+    // image names aren't loaded until session is ready
+    // could use a callback or something, but for now
+    // stuff is in update
 }
 
 
-vector < matrix_float4x4 > mats;
 
 //--------------------------------------------------------------
 void ofApp::update(){
     
     processor->update();
-
-    processor->updatePlanes();
-
-    mats.clear();
+    processor->updateImages();
     
+    static bool bImagesSetup = false;
+    
+    if ( !bImagesSetup ){
+        
+        // a not very exciting way to do different stuff for different images
+        vector<string> names = processor->getReferenceImages();
+        
+        if (names.size() > 0 ){
+            bImagesSetup = true;
+            int index = 0;
+            for ( auto name : names ){
+                // associate image to name
+                ofLogError()<<(images[index].isAllocated())<<":"<<name;
+                imageMessages[name] = images[index];
+                index++;
+                // loop around if made more AR images than OF ones
+                if ( index >= images.size() ){
+                    index = 0;
+                }
+            }
+        }
+    }
 }
 
-
-ofCamera camera;
 //--------------------------------------------------------------
 void ofApp::draw() {
     ofEnableAlphaBlending();
@@ -81,27 +94,45 @@ void ofApp::draw() {
     processor->draw();
     ofEnableDepthTest();
     
-    processor->drawHorizontalPlanes();
     
+    if (session.currentFrame){
+        if (session.currentFrame.camera){
+           
+            camera.begin();
+            processor->setARCameraMatrices();
+            
+            for (int i = 0; i < session.currentFrame.anchors.count; i++){
+                ARAnchor * anchor = session.currentFrame.anchors[i];
+                
+                ofPushMatrix();
+                ofMatrix4x4 mat = ARCommon::convert<matrix_float4x4, ofMatrix4x4>(anchor.transform);
+                ofMultMatrix(mat);
+                
+                ofSetColor(255);
+                ofRotateX(90);
+                if([anchor isKindOfClass:[ARImageAnchor class]]) {
+                    ARImageAnchor * im = (ARImageAnchor*) anchor;
+                    auto w = im.referenceImage.physicalSize.width;
+                    auto h = im.referenceImage.physicalSize.height;
+                    
+                    // get corresponding image
+                    // change name to string
+                    string str = im.referenceImage.name.UTF8String;
+                    ofImage & image = imageMessages[str];
+                    image.draw(-w/2., -h/2., w, h);
+                }
+                
+                ofPopMatrix();
+            }
+          
+            camera.end();
+        }
+        
+    }
     ofDisableDepthTest();
     // ========== DEBUG STUFF ============= //
-    int w = MIN(ofGetWidth(), ofGetHeight()) * 0.6;
-    int h = w;
-    int x = (ofGetWidth() - w)  * 0.5;
-    int y = (ofGetHeight() - h) * 0.5;
-    int p = 0;
-    
-    x = ofGetWidth()  * 0.2;
-    y = ofGetHeight() * 0.11;
-    p = ofGetHeight() * 0.035;
-    
-    
-    font.drawString("frame num      = " + ofToString( ofGetFrameNum() ),    x, y+=p);
-    font.drawString("frame rate     = " + ofToString( ofGetFrameRate() ),   x, y+=p);
-    font.drawString("screen width   = " + ofToString( ofGetWidth() ),       x, y+=p);
-    font.drawString("screen height  = " + ofToString( ofGetHeight() ),      x, y+=p);
-    
-    
+    processor->debugInfo.drawDebugInformation(font);
+   
     
 }
 
@@ -121,7 +152,7 @@ void ofApp::touchMoved(ofTouchEventArgs &touch){
 
 //--------------------------------------------------------------
 void ofApp::touchUp(ofTouchEventArgs &touch){
-    
+    processor->anchorController->clearAnchors();
 }
 
 //--------------------------------------------------------------
@@ -146,6 +177,8 @@ void ofApp::gotMemoryWarning(){
 
 //--------------------------------------------------------------
 void ofApp::deviceOrientationChanged(int newOrientation){
+    processor->updateDeviceInterfaceOrientation();
+    processor->deviceOrientationChanged();
     
 }
 

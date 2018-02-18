@@ -1,0 +1,20 @@
+{
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  },
+  "resources" : [
+    {
+      "filename" : "iphone-4.7.arreferenceimage"
+    },
+    {
+      "filename" : "macbookpro-13.arreferenceimage"
+    },
+    {
+      "filename" : "macbookpro-15_inv.arreferenceimage"
+    },
+    {
+      "filename" : "macbookpro-15.arreferenceimage"
+    }
+  ]
+}
