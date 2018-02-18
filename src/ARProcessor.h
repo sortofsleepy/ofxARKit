@@ -34,8 +34,9 @@ class ARProcessor {
     
 protected:
     //! ARReferenceImages
-    vector<ARReferenceImage * > arRefImages;
-    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_3
+        vector<ARReferenceImage * > arRefImages;
+#endif
 public:
     //! Constructor - pass in ARSession reference
     ARProcessor(ARSession * session);
@@ -128,8 +129,9 @@ public:
     vector<string> getReferenceImages();
     
     //! returns raw ARImageReference array
-    vector<ARReferenceImage *> & getARReferenceImages();
-    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_3
+        vector<ARReferenceImage *> & getARReferenceImages();
+#endif
     //! updates image recognition information
     void updateImages();
     
