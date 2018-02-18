@@ -37,6 +37,9 @@ void ARProcessor::logTrackingState(){
 }
 
 void ARProcessor::restartSession(){
+    // clear reference images (you may setup new ones when you start new sesh)
+    arRefImages.clear();
+    
     // note - I don't know if this actually works once a session has been
     // stopped, may have to recreate session.
     [session runWithConfiguration:session.configuration];
@@ -60,13 +63,48 @@ void ARProcessor::update(){
     }
     
     anchorController->update();
-    
+    anchorController->updatePlanes();
 }
 
 void ARProcessor::updatePlanes(){
     anchorController->updatePlanes();
 }
 
+void ARProcessor::updateImages(){
+    anchorController->updateImages();
+}
+
+vector<string> ARProcessor::getReferenceImages() {
+    static vector<string> imageNames;
+    
+    if (@available(iOS 11.3, *)) {
+        imageNames.clear();
+        auto & imgs = getARReferenceImages();
+        for ( auto * img : imgs ){
+            string str = string(img.name.UTF8String);
+            imageNames.push_back(str);
+        }
+    }
+    return imageNames;
+}
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_3
+    vector<ARReferenceImage *> & ARProcessor::getARReferenceImages(){
+        if ( arRefImages.empty() ){
+            ARConfiguration * config = session.configuration;
+            if([config isKindOfClass:[ARWorldTrackingConfiguration class]]){
+                ARWorldTrackingConfiguration * wConfig = (ARWorldTrackingConfiguration*) session.configuration;
+                
+                NSSet<ARReferenceImage *> * images = wConfig.detectionImages;
+                for(ARReferenceImage * img in images) {
+                    arRefImages.push_back( img );
+                }
+            }
+        }
+        
+        return arRefImages;
+    }
+#endif
 
 void ARProcessor::drawFrame(){
     draw();
@@ -128,8 +166,13 @@ void ARProcessor::addAnchor(ofVec3f position){
     anchorController->addAnchor(position,matrices.cameraProjection,model * getCameraMatrices().cameraView);
 }
 
-void ARProcessor::drawHorizontalPlanes(){
+// ======= DRAW API ========= //
+void ARProcessor::drawPlanes(){
     anchorController->drawPlanes(camera->getCameraMatrices());
+}
+
+void ARProcessor::drawPlaneMeshes(){
+    anchorController->drawPlaneMeshes(camera->getCameraMatrices());
 }
 
 // ======= FACE API ========= //

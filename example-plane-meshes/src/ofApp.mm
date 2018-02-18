@@ -1,31 +1,5 @@
 #include "ofApp.h"
 
-
-
-void logSIMD(const simd::float4x4 &matrix)
-{
-    std::stringstream output;
-    int columnCount = sizeof(matrix.columns) / sizeof(matrix.columns[0]);
-    for (int column = 0; column < columnCount; column++) {
-        int rowCount = sizeof(matrix.columns[column]) / sizeof(matrix.columns[column][0]);
-        for (int row = 0; row < rowCount; row++) {
-            output << std::setfill(' ') << std::setw(9) << matrix.columns[column][row];
-            output << ' ';
-        }
-        output << std::endl;
-    }
-    output << std::endl;
-}
-
-ofMatrix4x4 matFromSimd(const simd::float4x4 &matrix){
-    ofMatrix4x4 mat;
-    mat.set(matrix.columns[0].x,matrix.columns[0].y,matrix.columns[0].z,matrix.columns[0].w,
-            matrix.columns[1].x,matrix.columns[1].y,matrix.columns[1].z,matrix.columns[1].w,
-            matrix.columns[2].x,matrix.columns[2].y,matrix.columns[2].z,matrix.columns[2].w,
-            matrix.columns[3].x,matrix.columns[3].y,matrix.columns[3].z,matrix.columns[3].w);
-    return mat;
-}
-
 //--------------------------------------------------------------
 ofApp :: ofApp (ARSession * session){
     this->session = session;
@@ -43,8 +17,7 @@ ofApp :: ~ofApp () {
 void ofApp::setup() {
     ofBackground(127);
     
-    img.load("OpenFrameworks.png");
-    
+    // shader from lighting example
     int fontSize = 8;
     if (ofxiOSGetOFWindow()->isRetinaSupportedOnDevice())
         fontSize *= 2;
@@ -58,17 +31,11 @@ void ofApp::setup() {
 }
 
 
-vector < matrix_float4x4 > mats;
-
 //--------------------------------------------------------------
 void ofApp::update(){
     
     processor->update();
-
     processor->updatePlanes();
-
-    mats.clear();
-    
 }
 
 
@@ -81,8 +48,11 @@ void ofApp::draw() {
     processor->draw();
     ofEnableDepthTest();
     
-    processor->drawHorizontalPlanes();
-    
+    if ( ofGetMousePressed() ){
+        processor->drawPlaneMeshes();
+    } else {
+        processor->drawPlanes();
+    }
     ofDisableDepthTest();
     // ========== DEBUG STUFF ============= //
     int w = MIN(ofGetWidth(), ofGetHeight()) * 0.6;
@@ -96,12 +66,13 @@ void ofApp::draw() {
     p = ofGetHeight() * 0.035;
     
     
-    font.drawString("frame num      = " + ofToString( ofGetFrameNum() ),    x, y+=p);
-    font.drawString("frame rate     = " + ofToString( ofGetFrameRate() ),   x, y+=p);
-    font.drawString("screen width   = " + ofToString( ofGetWidth() ),       x, y+=p);
-    font.drawString("screen height  = " + ofToString( ofGetHeight() ),      x, y+=p);
+//    font.drawString("frame num      = " + ofToString( ofGetFrameNum() ),    x, y+=p);
+//    font.drawString("frame rate     = " + ofToString( ofGetFrameRate() ),   x, y+=p);
+//    font.drawString("screen width   = " + ofToString( ofGetWidth() ),       x, y+=p);
+    font.drawString("planes  = " + ofToString( processor->getPlanes().size() ),      x, y+=p);
+//
     
-    
+    processor->debugInfo.drawDebugInformation(font);
     
 }
 
