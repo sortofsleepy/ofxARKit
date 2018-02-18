@@ -98,7 +98,25 @@ namespace ARCore {
         cameraDimensions.y = y;
     }
     
-    void ARCam::draw(){
+    void ARCam::drawScaled(int x, int y, float w, float h){
+        
+        
+        if(x == 0){
+            x = xShift;
+        }
+        
+        if(y == 0){
+            y = yShift;
+        }
+        
+        if(w == 0){
+            w = cameraDimensions.x;
+        }
+        
+        if(h == 0){
+            h = cameraDimensions.y;
+        }
+        
         if(needsPerspectiveAdjustment){
             // Adjust drawing as necessary .
             switch(UIDevice.currentDevice.orientation){
@@ -143,6 +161,46 @@ namespace ARCore {
             cameraFbo.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
         }
    
+    }
+    
+    void ARCam::draw(){
+        cameraConvertShader.begin();
+        
+        switch(UIDevice.currentDevice.orientation){
+            case UIDeviceOrientationFaceUp:
+            cameraConvertShader.setUniform1i("isPortraitOrientation", true);
+            break;
+            case UIDeviceOrientationFaceDown:
+            break;
+            
+            case UIDeviceOrientationUnknown:
+            
+            cameraConvertShader.setUniform1i("isPortraitOrientation", true);
+            break;
+            case UIDeviceOrientationPortraitUpsideDown:
+            
+            cameraConvertShader.setUniform1i("isPortraitOrientation", true);
+            break;
+            
+            case UIDeviceOrientationPortrait:
+            
+            cameraConvertShader.setUniform1i("isPortraitOrientation", true);
+            
+            break;
+            
+            case UIDeviceOrientationLandscapeLeft:
+            
+            cameraConvertShader.setUniform1i("isPortraitOrientation", false);
+            break;
+            
+            case UIDeviceOrientationLandscapeRight:
+            
+            cameraConvertShader.setUniform1i("isPortraitOrientation", false);
+            break;
+        }
+        
+        vMesh.draw(GL_TRIANGLE_STRIP, 0, 16);
+        cameraConvertShader.end();
     }
     
     //! Sets the x and y position of where the camera image is placed.

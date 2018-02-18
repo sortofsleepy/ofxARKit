@@ -154,6 +154,10 @@ namespace ARCore {
         //! draws the camera frame.
         void draw();
         
+        //! Draws a scaled version of the camera image based on the properties passed in.
+        //! Will default to class properties if no new values are passed as parameters.
+        void drawScaled(int x=0,int y=0, float w = 0, float h = 0);
+        
         void updatePlaneTexCoords();
         
         //! Allows you to force an orientation to make it easier to lock your device
