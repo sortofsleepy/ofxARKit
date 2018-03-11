@@ -29,14 +29,13 @@ namespace ARCore {
         //! Stores data of all currently found planes.
         std::vector<PlaneAnchorObject> planes;
         
-        //! Stores data of all currently found images.
-        std::vector<ImageAnchorObject> images;
-        
         //! reference to all currently found or added regular anchors
         std::vector<ARObject> anchors;
         
+#ifdef AR_FACE_TRACKING
         //! Reference to all currently found faces
         std::vector<FaceAnchorObject> faces;
+#endif
         
         //! The number of anchors currently found
         NSInteger anchorInstanceCount;
@@ -53,9 +52,6 @@ namespace ARCore {
         
         //! The callback function to run when a plane is added.
         std::function<void(PlaneAnchorObject plane)> _onPlaneAdded;
-        
-        //! The callback function to run when a image is recognized.
-        std::function<void(ImageAnchorObject plane)> _onImageRecognized;
     public:
         ARAnchorManager();
         ARAnchorManager(ARSession * session);
@@ -86,10 +82,6 @@ namespace ARCore {
         //! Returns the vector of currently found planes
         std::vector<PlaneAnchorObject> getPlaneAnchors(){
             return planes;
-        }
-        
-        vector<ImageAnchorObject> & getImageAnchors(){
-            return images;
         }
         
         //! Returns the current number of anchors.
@@ -151,23 +143,16 @@ namespace ARCore {
         //! Draws all currently found planes.
         void drawPlanes(ARCommon::ARCameraMatrices cameraMatrices);
         
-        // draws geometry instead of rects
-        void drawPlaneMeshes(ARCommon::ARCameraMatrices cameraMatrices);
-        
-        //! Draw all images
-        void drawImages(ARCommon::ARCameraMatrices cameraMatrices);
-        
         //! general update function, currently increments the counter to keep track of the number of system + user anchors.
         void update();
         
         //! update function for dealing with planes.
         void updatePlanes();
         
-        //! update image anchors
-        void updateImages();
-        
+#ifdef AR_FACE_TRACKING
         //! updates face tracking info
         void updateFaces();
+#endif
         
         //! draw a specific plane
         void drawPlaneAt(ARCommon::ARCameraMatrices cameraMatrices,int index=0);
