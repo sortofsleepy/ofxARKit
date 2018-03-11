@@ -132,10 +132,12 @@ void ARProcessor::drawHorizontalPlanes(){
     anchorController->drawPlanes(camera->getCameraMatrices());
 }
 
+#ifdef AR_FACE_TRACKING
 // ======= FACE API ========= //
 void ARProcessor::updateFaces(){
     anchorController->updateFaces();
 }
+#endif
 
 // ======== DEBUG API =========== //
 

@@ -7,6 +7,8 @@
 #ifndef ofxARKit_h
 #define ofxARKit_h
 
+#define AR_FACE_TRACKING false
+
 #include <ARKit/ARKit.h>
 #include "ARUtils.h"
 #include "ARDebugUtils.h"

@@ -43,6 +43,7 @@ namespace ARObjects {
         }
     }ARObject;
     
+#ifdef AR_FACE_TRACKING
     //! The base class to build a Face geometry
     typedef struct {
         
@@ -75,6 +76,7 @@ namespace ARObjects {
         
     }FaceAnchorObject;
     
+#endif
     //! quickly constructs an standard ARObject 
     static inline ARObject buildARObject(ARAnchor * rawAnchor,ofMatrix4x4 modelMatrix,bool systemAdded=false){
         ARObject obj;

@@ -197,6 +197,7 @@ namespace ARCore {
         }
     }
     
+#ifdef AR_FACE_TRACKING
     void ARAnchorManager::updateFaces(){
         for (NSInteger index = 0; index < anchorInstanceCount; index++) {
             ARAnchor *anchor = session.currentFrame.anchors[index];
@@ -273,6 +274,7 @@ namespace ARCore {
             }
         }
     }
+#endif
     
     void ARAnchorManager::setNumberOfPlanesToTrack(int num){
         maxTrackedPlanes = num;
