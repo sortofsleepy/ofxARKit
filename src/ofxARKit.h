@@ -7,7 +7,7 @@
 #ifndef ofxARKit_h
 #define ofxARKit_h
 
-#define AR_FACE_TRACKING false
+#include "ARFaceTrackingBool.h"
 
 #include <ARKit/ARKit.h>
 #include "ARUtils.h"
