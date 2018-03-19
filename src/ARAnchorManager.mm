@@ -238,7 +238,6 @@ namespace ARCore {
                        face.indices.push_back((int)ii);
 
                    }
-                    // face.indices = std::vector<uint16_t>(indices, indices + sizeof(indices) / sizeof(indices[0]));
 
                     // store reference to raw anchor
                     face.raw = pa;

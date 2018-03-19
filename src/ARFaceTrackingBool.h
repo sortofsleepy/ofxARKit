@@ -4,10 +4,6 @@
 //
 //  Created by Andrés Cuervo on 3/15/18.
 //
-
-#ifndef ARFaceTracking_h
-#define ARFaceTracking_h
-
+#ifndef AR_FACE_TRACKING
 #define AR_FACE_TRACKING true
-
 #endif /* ARFaceTracking_h */
