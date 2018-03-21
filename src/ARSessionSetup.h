@@ -80,7 +80,7 @@ namespace ARCore {
         
         auto state = format.getState();
         
-#ifdef AR_FACE_TRACKING
+#if AR_FACE_TRACKING
         // first check if we want face tracking and if it's supported.
         // Currently unknown if this affects other possible tracking implementations since
         // it has it's own configuration type.
