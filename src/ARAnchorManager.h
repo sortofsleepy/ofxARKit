@@ -31,7 +31,7 @@ namespace ARCore {
         //! reference to all currently found or added regular anchors
         std::vector<ARObject> anchors;
 
-#ifdef AR_FACE_TRACKING
+#if AR_FACE_TRACKING
         //! Reference to all currently found faces
         std::vector<FaceAnchorObject> faces;
 #endif
@@ -82,7 +82,7 @@ namespace ARCore {
         std::vector<PlaneAnchorObject> getPlaneAnchors(){
             return planes;
         }
-#ifdef AR_FACE_TRACKING
+#if AR_FACE_TRACKING
         std::vector<FaceAnchorObject> getFaces(){
             return faces;
         }
@@ -152,7 +152,7 @@ namespace ARCore {
         //! update function for dealing with planes.
         void updatePlanes();
 
-#ifdef AR_FACE_TRACKING
+#if AR_FACE_TRACKING
         //! updates face tracking info
         void updateFaces();
 #endif

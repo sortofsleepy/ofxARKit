@@ -110,7 +110,7 @@ public:
     void updatePlanes();
 
     //======== FACE API ============ //
-#ifdef AR_FACE_TRACKING
+#if AR_FACE_TRACKING
     void updateFaces();
     std::vector<FaceAnchorObject> getFaces();
 #endif

@@ -41,7 +41,7 @@ namespace ARObjects {
         }
     }ARObject;
     
-#ifdef AR_FACE_TRACKING
+#if AR_FACE_TRACKING
     //! The base class to build a Face geometry
     typedef struct {
         
