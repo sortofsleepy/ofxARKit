@@ -136,7 +136,11 @@ public:
     void updateImages();
     
     //======== FACE API ============ //
+#if AR_FACE_TRACKING
     void updateFaces();
+    std::vector<FaceAnchorObject> getFaces();
+#endif
+    
     
    //======== CAMERA API ============ //
     

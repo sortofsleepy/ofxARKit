@@ -1,4 +1,3 @@
-//
 //  ARObjects.hpp
 //
 //  Created by Joseph Chow on 8/25/17.
@@ -9,7 +8,6 @@
 
 #include <stdio.h>
 #include "ofMain.h"
-#include <ARKit/ARKit.h>
 
 namespace ARObjects {
     
@@ -43,7 +41,7 @@ namespace ARObjects {
         }
     }ARObject;
     
-#ifdef AR_FACE_TRACKING
+#if AR_FACE_TRACKING
     //! The base class to build a Face geometry
     typedef struct {
         
@@ -52,6 +50,9 @@ namespace ARObjects {
         
         // reference to vertices
         vector<ofVec3f> vertices;
+        
+        int vertexCount;
+        int triangleCount;
         
         // reference to uvs
         vector<ofVec2f> uvs;
@@ -75,9 +76,8 @@ namespace ARObjects {
         }
         
     }FaceAnchorObject;
-    
 #endif
-    //! quickly constructs an standard ARObject 
+    //! quickly constructs an standard ARObject
     static inline ARObject buildARObject(ARAnchor * rawAnchor,ofMatrix4x4 modelMatrix,bool systemAdded=false){
         ARObject obj;
         obj.rawAnchor = rawAnchor;

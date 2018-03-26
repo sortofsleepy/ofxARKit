@@ -15,7 +15,6 @@
 
 #define STRINGIFY(A) #A
 
-
 #ifdef OF_TARGET_IPHONE
 #include "ofMain.h"
 #endif
@@ -72,7 +71,6 @@ namespace ARDebugUtils {
             
         }
     };
-    
     
     //! Helper class for recognizing features and drawing the resulting point cloud.
 

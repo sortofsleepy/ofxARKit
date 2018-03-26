@@ -132,13 +132,15 @@ void ARProcessor::drawHorizontalPlanes(){
     anchorController->drawPlanes(camera->getCameraMatrices());
 }
 
-#ifdef AR_FACE_TRACKING
+#if AR_FACE_TRACKING
 // ======= FACE API ========= //
+std::vector<FaceAnchorObject> ARProcessor::getFaces(){
+    return anchorController->getFaces();
+}
 void ARProcessor::updateFaces(){
     anchorController->updateFaces();
 }
 #endif
-
 // ======== DEBUG API =========== //
 
 void ARProcessor::drawPointCloud(){

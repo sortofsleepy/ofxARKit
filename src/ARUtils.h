@@ -10,6 +10,7 @@
 
 #define STRINGIFY(A) #A
 #include "ofMain.h"
+#include "ARFaceTrackingBool.h"
 
 namespace ARCommon {
     
