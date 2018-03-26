@@ -1,14 +1,15 @@
 # Asset catalog builder
 # reads a directory of images and bundles things into an asset catelog readable by XCode. 
+# Note that this assumes you've added an Assets.xcassets folder to your project. 
 
 import sys
 import os
 import argparse
 import pip 
-import json 
+
 
 from glob import glob
-from utils import checkForPackage
+from utils import checkForPackage,write_json
 
 
 # read arguments
@@ -17,10 +18,6 @@ parser.add_argument('--image_dir',type=str)
 parser.add_argument('--output_dir',type=str)
 
 args = parser.parse_args()
-
-############## CHECK FOR REQUIREMENTS ############ 
-
-
 
 ################ SETUP VARIABLES ################## 
 image_dir = "" 
@@ -42,20 +39,15 @@ else:
 images = glob(image_dir)
 
 if(len(images) < 50):
-    print("This script probably is not worth running since you appear to not have many images.")
-    print("Are you sure you want to continue using this? It will wipe out any additions already made")
-    answer = input("Press y to continue or n to quit... \n")
+    print("This script probably is not worth running since you appear to have only a few images.")
+    print("Are you sure you want to continue using this? It may wipe out any additions already made")
+    answer = input("Press any key to continue or n to quit... \n")
 
     if(answer == "n"):
         sys.exit()    
     
 
-        
-
-
 ################ CHECK IF ASSETS CATALOG EXISTS ################## 
-
-# Note that - if it does exist, this script will overwrite any work you might have already done. 
 
 # first check of Image.xcassets folder exists
 base_path = "Image.xcassets"
@@ -76,8 +68,16 @@ for path in paths:
         os.makedirs(fullpath)
 
 # also may need a contents.json file 
-default_contents_json= "{\"info\" : {\"version\" : 1,\"author\" : \"xcode\"}}"
+default_contents_json = {
+    "info":{
+        "version":1,
+        "author":"xcode"
+    }
+
+}
+
+# write contents.json file if it doesn't exist. 
 if(os.path.exists(base_path + "/" + "Contents.json") == False):
-    file_obj = open(base_path + "/" + "Contents.json", "w")
-    file_obj.write(default_contents_json)
-    file_obj.close()
+    write_json(base_path,"Contents.json",default_contents_json)
+
+################ START BUILDING DICTIONARY ###############
