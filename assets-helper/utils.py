@@ -33,6 +33,17 @@ def pixels_to_inches(value):
     # TODO 96 ppi might not work totally well, needs testing
     return value / 96
 
+# get the resolution for the image (normal, retina, 1x,2x,etc)
+def get_res(string):
+    sep = string.split("_")
+    extRes = sep[len(sep) - 1]
+    extRes = extRes.split(".")
+    if len(extRes) == 1:
+        return "1x"
+    else:
+        return extRes[0]
+
+    
 
 # returns the image dimensions
 # code based on code from @scardiine 
