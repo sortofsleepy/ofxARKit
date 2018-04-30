@@ -18,3 +18,7 @@ It's written in Python - so chances are pretty good you already have that runnin
 Use
 ====
 Run this script from the root of your project folder. 
+
+To-dos
+====
+* need to figure out dimensions still but should be able to finaly build paths and files correctly. 
