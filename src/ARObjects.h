@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include "ofMain.h"
+#include "ARFaceTrackingBool.h"
 
 namespace ARObjects {
     
