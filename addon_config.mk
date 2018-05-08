@@ -17,7 +17,7 @@
 meta:
 	ADDON_NAME = ofxARKit
 	ADDON_DESCRIPTION = A starting point for openFramworks and ARKit experimenting.
-	ADDON_AUTHOR = sortofsleepy
+	ADDON_AUTHOR = sortofsleepy and other contributors 
 	ADDON_TAGS = "AR" "iOS"
 	ADDON_URL = https://github.com/sortofsleepy/ofxARKit
 
