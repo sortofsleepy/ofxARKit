@@ -12,8 +12,12 @@ namespace ARCore {
     typedef struct {
         bool useFaceTracking = false;
         bool usePlaneTracking = false;
+        bool useImageDetection = false;
         bool useLightEstimation = false;
         bool useAudio = false;
+        bool useHighRes = true;
+        bool useAutoFocus = true;
+        
         NSObject<ARSessionDelegate> * delegateClass = NULL;
         
         // the options for alignment are -
@@ -23,6 +27,9 @@ namespace ARCore {
         
         ARWorldAlignment worldAlignment = ARWorldAlignmentGravity;
         ARPlaneDetection planeDetectionType;
+        
+        string imageBundleName = "AR Resources";
+        
     }FormatState;
     
     class SFormat {
@@ -53,12 +60,54 @@ namespace ARCore {
             return *this;
         }
         
-        //! Enables plane detection. Pass in a supported plane detection type.
-        SFormat& enablePlaneTracking(ARPlaneDetection planeDetectionType=ARPlaneDetectionHorizontal){
+        //! Enables feature detection
+        SFormat & enableImageDetection(string imageBundleName = "AR Resources"){
+            state.useImageDetection = true;
+            state.imageBundleName = imageBundleName;
+            return *this;
+        }
+        
+        //! Enables plane detection - vertical and horizontal
+        SFormat& enablePlaneTracking(){
             // not all devices can support plane tracking, check first to make sure it's supported.
             if([ARWorldTrackingConfiguration isSupported]){
                 state.usePlaneTracking = true;
-                state.planeDetectionType = planeDetectionType;
+                if (@available(iOS 11.3, *)) {
+                    state.planeDetectionType = ARPlaneDetectionHorizontal | ARPlaneDetectionVertical;
+                } else {
+                    // Fallback on earlier versions
+                    state.planeDetectionType = ARPlaneDetectionHorizontal;
+                }
+            }else {
+                NSLog(@"This device is unfortunately unable to use plane tracking");
+            }
+            return *this;
+        }
+        
+        //! Enables horizontal plane detection.
+        SFormat& enableHorizontalPlaneTracking(){
+            // not all devices can support plane tracking, check first to make sure it's supported.
+            if([ARWorldTrackingConfiguration isSupported]){
+                state.usePlaneTracking = true;
+                state.planeDetectionType = ARPlaneDetectionHorizontal;
+            }else {
+                NSLog(@"This device is unfortunately unable to use plane tracking");
+            }
+            
+            return *this;
+        }
+        
+        //! Enables vertical plane detection.
+        SFormat& enableVerticalPlaneTracking(){
+            // not all devices can support plane tracking, check first to make sure it's supported.
+            if([ARWorldTrackingConfiguration isSupported]){
+                state.usePlaneTracking = true;
+                if (@available(iOS 11.3, *)) {
+                    state.planeDetectionType = ARPlaneDetectionVertical;
+                } else {
+                    state.planeDetectionType = ARPlaneDetectionHorizontal;
+                    NSLog(@"This version of iOS is too old to support vertical plane tracking.");
+                }
             }else {
                 NSLog(@"This device is unfortunately unable to use plane tracking");
             }
@@ -69,6 +118,11 @@ namespace ARCore {
         //! Sets the delegate class for the session.
         SFormat& setDelegate(NSObject<ARSessionDelegate> * delegateClass){
             state.delegateClass = delegateClass;
+            return *this;
+        }
+        
+        SFormat& setHighRes( bool bHighRes ){
+            state.useHighRes = bHighRes;
             return *this;
         }
     };
@@ -113,7 +167,6 @@ namespace ARCore {
         }
 #endif
         
-        
         // if face tracking is not available, should pass through to here where we
         // figure out regular configuration, starting with determining if we can do plane detection.
         if([ARWorldTrackingConfiguration isSupported]){
@@ -121,7 +174,6 @@ namespace ARCore {
             ARWorldTrackingConfiguration * config = [ARWorldTrackingConfiguration new];
             
             if(state.usePlaneTracking){
-                // ofLog()<<"Using plane tracking";
                 config.planeDetection = state.planeDetectionType;
             }
             
@@ -129,7 +181,32 @@ namespace ARCore {
                 config.lightEstimationEnabled = YES;
             }
             
+            // image detection
+            if (@available(iOS 11.3, *)) {
+                if ( state.useImageDetection ){
+                    // this looks crazier than it is!
+                    // basically, it just passes in the name of your resource group
+                    config.detectionImages = [ARReferenceImage referenceImagesInGroupNamed:[NSString stringWithUTF8String:state.imageBundleName.c_str()] bundle:[NSBundle mainBundle]];
+                }
+            }
+            
             config.worldAlignment = state.worldAlignment;
+            if (@available(iOS 11.3, *)) {
+                if ( state.useAutoFocus ){
+                    config.autoFocusEnabled = true;
+                }
+            }
+            
+            if (@available(iOS 11.3, *)) {
+                // WIP API: high res = default 1080p (first item in configs array)
+                if (state.useHighRes){
+                    config.videoFormat = ARWorldTrackingConfiguration.supportedVideoFormats[0];
+                
+                // Backup is lowest res avail; right now seems to be 720p
+                } else {
+                    config.videoFormat = ARWorldTrackingConfiguration.supportedVideoFormats.lastObject;
+                }
+            }
             
             if(state.delegateClass != NULL){
                 session.delegate = state.delegateClass;

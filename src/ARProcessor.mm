@@ -11,14 +11,14 @@ using namespace ARCore;
 
 ARProcessor::ARProcessor(ARSession * session){
     this->session = session;
-
+    
     debugInfo = ARDebugUtils::ARDebugInfo(session);
 }
 
 ARProcessor::~ARProcessor(){
     pauseSession();
     session = nullptr;
-
+    
     // remove this instance of the ARCam - if there are other ARCams around, they will still be in memory
     camera.reset();
     anchorController.reset();
@@ -58,8 +58,9 @@ void ARProcessor::update(){
     if(debugMode){
         pointCloud.updatePointCloud(session.currentFrame);
     }
-
+    
     anchorController->update();
+    
 }
 
 void ARProcessor::updatePlanes(){
@@ -122,7 +123,7 @@ void ARProcessor::addAnchor(float zZoom){
 
 void ARProcessor::addAnchor(ofVec3f position){
     auto matrices = getCameraMatrices();
-
+ 
     ofMatrix4x4 model = toMat4(session.currentFrame.camera.transform);
     anchorController->addAnchor(position,matrices.cameraProjection,model * getCameraMatrices().cameraView);
 }
@@ -140,7 +141,6 @@ void ARProcessor::updateFaces(){
     anchorController->updateFaces();
 }
 #endif
-
 // ======== DEBUG API =========== //
 
 void ARProcessor::drawPointCloud(){
