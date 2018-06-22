@@ -121,9 +121,9 @@ public:
     //======== IMAGE API ============ //
     // to-do: make other getters return reference—lots of copying happening!
     // to-do: probably should be getImages() const
-    std::vector<ImageAnchorObject> & getImages(){
-        return anchorController->getImageAnchors();
-    }
+    //std::vector<ImageAnchorObject> & getImages(){
+    //    return anchorController->getImageAnchors();
+   //}
     
     //! returns a list of names of all reference images
     vector<string> getReferenceImages();

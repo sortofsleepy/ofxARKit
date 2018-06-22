@@ -128,9 +128,9 @@ void ARProcessor::addAnchor(ofVec3f position){
     anchorController->addAnchor(position,matrices.cameraProjection,model * getCameraMatrices().cameraView);
 }
 
-void ARProcessor::drawHorizontalPlanes(){
-    anchorController->drawPlanes(camera->getCameraMatrices());
-}
+//void ARProcessor::drawHorizontalPlanes(){
+//    anchorController->drawPlanes(camera->getCameraMatrices());
+//}
 
 #if AR_FACE_TRACKING
 // ======= FACE API ========= //
