@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/joschow1/Documents/openFrameworks/addons/ofxARKit/example-lighting/example-lighting.xcodeproj">
+      location = "self:/Users/sortofsleepy/Documents/of_v0.10.0_ios_release/addons/ofxARKit/example-lighting/example-lighting.xcodeproj">
    </FileRef>
 </Workspace>

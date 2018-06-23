@@ -7,6 +7,8 @@
 #ifndef SessionSetup_h
 #define SessionSetup_h
 
+#include <string>
+using namespace std;
 namespace ARCore {
     
     typedef struct {
