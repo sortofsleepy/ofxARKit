@@ -8,10 +8,10 @@ This is an openFrameworks addon that provides some helper classes for working wi
 # Installation and project setup
 __First__
 * [get Xcode](https://developer.apple.com/xcode/)
-* [get iOS 11](https://www.apple.com/ios/ios-11/)
+* [get the latest version of iOS](https://www.apple.com/ios)
 
 __then__
-* Download openFrameworks [here](http://openframeworks.cc/versions/v0.9.8/of_v0.9.8_ios_release.zip)
+* Download openFrameworks [here](https://openframeworks.cc/versions/v0.10.0/of_v0.10.0_ios_release.zip)
 * clone this repo into your addons folder
 * start a new project with the project generator. 
 

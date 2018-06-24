@@ -107,7 +107,11 @@ public:
     //! Returns the current set of planes.
     std::vector<PlaneAnchorObject> getPlanes(){
         return anchorController->getPlaneAnchors();
+    
     }
+    
+    //! Draw horizontal planes
+    void drawHorizontalPlanes();
     
     //! Draws the current set of planes
     void drawPlanes();

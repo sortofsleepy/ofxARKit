@@ -127,10 +127,19 @@ void ARProcessor::addAnchor(ofVec3f position){
     ofMatrix4x4 model = toMat4(session.currentFrame.camera.transform);
     anchorController->addAnchor(position,matrices.cameraProjection,model * getCameraMatrices().cameraView);
 }
+//! Draws the current set of planes
+void ARProcessor::drawPlanes(){
+    anchorController->drawPlanes(camera->getCameraMatrices());
+}
 
-//void ARProcessor::drawHorizontalPlanes(){
-//    anchorController->drawPlanes(camera->getCameraMatrices());
-//}
+//! Draws the current set of plane meshes
+//! TODO - who made this example again? Not sure what should go here - Joe
+void ARProcessor::drawPlaneMeshes(){}
+
+
+void ARProcessor::drawHorizontalPlanes(){
+    anchorController->drawPlanes(camera->getCameraMatrices());
+}
 
 #if AR_FACE_TRACKING
 // ======= FACE API ========= //
