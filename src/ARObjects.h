@@ -22,6 +22,15 @@ namespace ARObjects {
         ARPlaneAnchor * rawAnchor;        
     }PlaneAnchorObject;
     
+    typedef struct {
+        ofVec3f position;
+        float width;
+        float height;
+        ofMatrix4x4 transform;
+        NSUUID * uuid;
+        ARImageAnchor * rawAnchor;
+    }ImageAnchorObject;
+    
     //! The base class you can use to build your AR object. Provides a model matrix and a mesh for easy tracking by ARKit.
     typedef struct {
         
