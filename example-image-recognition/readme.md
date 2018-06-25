@@ -12,7 +12,7 @@ Setting up new images:
 * Click the "+" icon at the bottom, and select 'AR Resource Group'
 * Add images to your Resource Group
 * Drag images into the specified area, either from within Xcode or from Finder
-* Specify the real-life physical dimensions of your images
+* Specify the real-life physical dimensions of your images 
 * Click on each image in your Resource Group
 * In the right sidebar, click the far-most icon at the top right ("Attributes")
 

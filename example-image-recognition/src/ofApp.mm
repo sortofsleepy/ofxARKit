@@ -44,7 +44,7 @@ void ofApp::draw() {
     processor->draw();
     ofEnableDepthTest();
    
-    
+    // if we have a valid frame - render something!
     if(processor->isValidFrame()){
         camera.begin();
         processor->setARCameraMatrices();
@@ -56,9 +56,13 @@ void ofApp::draw() {
             auto w = anchor.width;
             auto h = anchor.height;
             
+            
             ofPushMatrix();
             ofMultMatrix(anchor.transform);
             
+            // for simplicity - just gonna draw a white plane.
+            // Note - there may be a slight delay before something is drawn.
+            // TODO figure out why there is a delay and how to avoid if possible. 
             ofRotateXDeg(90);
             ofDrawRectangle(-w / 2, -h / 2, w, h);
             
