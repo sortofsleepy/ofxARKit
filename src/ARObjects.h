@@ -24,6 +24,7 @@ namespace ARObjects {
     
     typedef struct {
         ofVec3f position;
+        std::string imageName;
         float width;
         float height;
         ofMatrix4x4 transform;

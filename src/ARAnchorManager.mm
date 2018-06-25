@@ -11,13 +11,13 @@ using namespace ARCommon;
 namespace ARCore {
 
     ARAnchorManager::ARAnchorManager():
-    shouldUpdatePlanes(false),
+    shouldUpdatePlanes(true),
     maxTrackedPlanes(0){
         _onPlaneAdded = nullptr;
     }
 
     ARAnchorManager::ARAnchorManager(ARSession * session):
-    shouldUpdatePlanes(false),
+    shouldUpdatePlanes(true),
     maxTrackedPlanes(0){
         this->session = session;
     }
@@ -130,9 +130,44 @@ namespace ARCore {
     void ARAnchorManager::updateImageAnchors(){
         for (NSInteger index = 0; index < anchorInstanceCount; index++) {
             ARAnchor *anchor = session.currentFrame.anchors[index];
-
-            if([anchor isKindOfClass:[ARImageAnchor class]]){
-                ofLog()<<"image found!";
+            
+            if (@available(iOS 11.3, *)) {
+                if([anchor isKindOfClass:[ARImageAnchor class]]){
+                    ARImageAnchor * im = (ARImageAnchor*) anchor;
+                    
+                    // calc values from anchor.
+                    NSUUID * uuid = im.identifier;
+                    ofMatrix4x4 transform = convert<matrix_float4x4, ofMatrix4x4>(im.transform);
+                    string image = std::string([im.referenceImage.name UTF8String]);
+                    float width = im.referenceImage.physicalSize.width;
+                    float height = im.referenceImage.physicalSize.height;
+                    
+                    auto it = find_if(imageAnchors.begin(), imageAnchors.end(), [=](const ImageAnchorObject& obj) {
+                        return obj.uuid == uuid;
+                    });
+                    
+                    // new imageAnchor
+                    if ( it == imageAnchors.end() ){
+                        ImageAnchorObject imAnchor;
+                        imAnchor.imageName = image;
+                        imAnchor.rawAnchor = im;
+                        imAnchor.uuid = uuid;
+                        imAnchor.width = width;
+                        imAnchor.height = height;
+                        imAnchor.transform = transform;
+                        imageAnchors.push_back(imAnchor);
+                        
+                        if(_onImageRecognized != nullptr){
+                            _onImageRecognized(imAnchor);
+                        }
+                    }
+                    // old imageAnchor
+                    else {
+                        // do we need to update anything else besides this?
+                        imageAnchors[index].transform = transform;
+                        
+                    }
+                }
             }
         }
     }

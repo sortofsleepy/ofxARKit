@@ -30,7 +30,13 @@ namespace ARCore {
 
         //! reference to all currently found or added regular anchors
         std::vector<ARObject> anchors;
+        
+        std::vector<ImageAnchorObject> imageAnchors;
+        
+        //! The callback function to run when a image is recognized.
+        std::function<void(ImageAnchorObject plane)> _onImageRecognized;
 
+        
 #if AR_FACE_TRACKING
         //! Reference to all currently found faces
         std::vector<FaceAnchorObject> faces;
@@ -81,6 +87,11 @@ namespace ARCore {
         //! Returns the vector of currently found planes
         std::vector<PlaneAnchorObject> getPlaneAnchors(){
             return planes;
+        }
+        
+        //! Returns the vector of currently found reference image anchors
+        std::vector<ImageAnchorObject> getImageAnchors(){
+            return imageAnchors;
         }
 #if AR_FACE_TRACKING
         std::vector<FaceAnchorObject> getFaces(){

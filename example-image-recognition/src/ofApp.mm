@@ -40,9 +40,30 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-    
+    ofDisableDepthTest();
     processor->draw();
+    ofEnableDepthTest();
    
+    
+    if(processor->isValidFrame()){
+        camera.begin();
+        processor->setARCameraMatrices();
+        
+        auto imageAnchors = processor->getImages();
+        
+        for(int i = 0; i < imageAnchors.size(); ++i){
+            auto anchor = imageAnchors[i];
+            
+            
+        }
+        
+        
+        camera.end();
+    }
+    
+    
+    
+    
     // ========== DEBUG STUFF ============= //
     processor->debugInfo.drawDebugInformation(font);
    
