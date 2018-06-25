@@ -53,8 +53,16 @@ void ofApp::draw() {
         
         for(int i = 0; i < imageAnchors.size(); ++i){
             auto anchor = imageAnchors[i];
+            auto w = anchor.width;
+            auto h = anchor.height;
             
+            ofPushMatrix();
+            ofMultMatrix(anchor.transform);
             
+            ofRotateXDeg(90);
+            ofDrawRectangle(-w / 2, -h / 2, w, h);
+            
+            ofPopMatrix();
         }
         
         

@@ -470,30 +470,38 @@ namespace ARCore {
     }
 
     void ARAnchorManager::drawPlanes(ARCameraMatrices cameraMatrices){
-        camera.begin();
-
-        ofSetMatrixMode(OF_MATRIX_PROJECTION);
-        ofLoadMatrix(cameraMatrices.cameraProjection);
-        ofSetMatrixMode(OF_MATRIX_MODELVIEW);
-        ofLoadMatrix(cameraMatrices.cameraView);
-
-        for(int i = 0; i < getNumPlanes(); ++i){
-            PlaneAnchorObject anchor = getPlaneAt(i);
-
-
-            ofPushMatrix();
-            ofMultMatrix(anchor.transform);
-            ofFill();
-            ofSetColor(102,216,254,100);
-            ofRotateX(90);
-            ofTranslate(anchor.position.x,anchor.position.y);
-            ofDrawRectangle(-anchor.position.x/2,-anchor.position.z/2,0,anchor.width,anchor.height);
-            ofSetColor(255);
-            ofPopMatrix();
-
+        
+        // if using 11.3+ - use built in plane meshes.
+        // otherwise use oF rectangle
+        if(ARCommon::isIos113()){
+            drawPlaneMeshes(cameraMatrices);
+        }else{
+            
+            camera.begin();
+            
+            ofSetMatrixMode(OF_MATRIX_PROJECTION);
+            ofLoadMatrix(cameraMatrices.cameraProjection);
+            ofSetMatrixMode(OF_MATRIX_MODELVIEW);
+            ofLoadMatrix(cameraMatrices.cameraView);
+            
+            for(int i = 0; i < getNumPlanes(); ++i){
+                PlaneAnchorObject anchor = getPlaneAt(i);
+                
+                
+                ofPushMatrix();
+                ofMultMatrix(anchor.transform);
+                ofFill();
+                ofSetColor(102,216,254,100);
+                ofRotateX(90);
+                ofTranslate(anchor.position.x,anchor.position.y);
+                ofDrawRectangle(-anchor.position.x/2,-anchor.position.z/2,0,anchor.width,anchor.height);
+                ofSetColor(255);
+                ofPopMatrix();
+                
+            }
+            
+            camera.end();
         }
-
-        camera.end();
     }
 
     void ARAnchorManager::onPlaneAdded(std::function<void(PlaneAnchorObject plane)> func){
