@@ -2,6 +2,7 @@
 //  ofxARKit.h
 //
 //  Created by Joseph Chow on 8/19/17.
+//  With additional help by contributors.
 //
 
 #ifndef ofxARKit_h

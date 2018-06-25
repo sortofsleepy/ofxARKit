@@ -2,6 +2,7 @@
 //  ARUtils
 //
 //  Created by Joseph Chow on 8/16/17.
+//  With additional help by contributors.
 //
 #pragma once
 
@@ -42,7 +43,7 @@ namespace ARCommon {
     }
     
     //! convert to oF mat4
-    static const ofMatrix4x4 static inline toMat4( const matrix_float4x4& mat ) {
+    static inline const ofMatrix4x4 toMat4( const matrix_float4x4& mat ) {
         return convert<matrix_float4x4, ofMatrix4x4>(mat);
     }
     

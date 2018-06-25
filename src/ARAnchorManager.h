@@ -156,6 +156,11 @@ namespace ARCore {
 
         //! Draws all currently found planes.
         void drawPlanes(ARCommon::ARCameraMatrices cameraMatrices);
+        
+        //! Draws all currently found planes - for 11.3+ devices that can take advantage
+        //! of built-in plane mesh.
+        //! TODO need to unify functions a bit so things are less confusing. 
+        void drawPlaneMeshes(ARCommon::ARCameraMatrices cameraMatrices);
 
         //! general update function, currently increments the counter to keep track of the number of system + user anchors.
         void update();
