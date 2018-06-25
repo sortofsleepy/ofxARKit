@@ -135,7 +135,10 @@ public:
             return false;
         }
     }
-    
+    //! returns raw ARImageReference array
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_3
+    vector<ARReferenceImage *> & getARReferenceImages();
+#endif
     //======== IMAGE API ============ //
     // to-do: make other getters return reference—lots of copying happening!
     // to-do: probably should be getImages() const
@@ -145,11 +148,6 @@ public:
     
     //! returns a list of names of all reference images
     vector<string> getReferenceImages();
-    
-    //! returns raw ARImageReference array
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_3
-        vector<ARReferenceImage *> & getARReferenceImages();
-#endif
     
     //======== FACE API ============ //
 #if AR_FACE_TRACKING

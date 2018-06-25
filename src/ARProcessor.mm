@@ -153,6 +153,24 @@ void ARProcessor::updateFaces(){
     anchorController->updateFaces();
 }
 #endif
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_3
+vector<ARReferenceImage *> & ARProcessor::getARReferenceImages(){
+    if ( arRefImages.empty() ){
+        ARConfiguration * config = session.configuration;
+        if([config isKindOfClass:[ARWorldTrackingConfiguration class]]){
+            ARWorldTrackingConfiguration * wConfig = (ARWorldTrackingConfiguration*) session.configuration;
+            
+            NSSet<ARReferenceImage *> * images = wConfig.detectionImages;
+            for(ARReferenceImage * img in images) {
+                arRefImages.push_back( img );
+            }
+        }
+    }
+    
+    return arRefImages;
+}
+#endif
 // ======== DEBUG API =========== //
 
 void ARProcessor::drawPointCloud(){
