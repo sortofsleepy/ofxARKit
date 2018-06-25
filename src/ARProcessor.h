@@ -122,6 +122,7 @@ public:
     //! updates plane information
     void updatePlanes();
     
+    void updateImages();
     //======== IMAGE API ============ //
     // to-do: make other getters return reference—lots of copying happening!
     // to-do: probably should be getImages() const
@@ -136,8 +137,6 @@ public:
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_3
         vector<ARReferenceImage *> & getARReferenceImages();
 #endif
-    //! updates image recognition information
-    void updateImages();
     
     //======== FACE API ============ //
 #if AR_FACE_TRACKING

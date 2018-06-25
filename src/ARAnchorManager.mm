@@ -127,6 +127,15 @@ namespace ARCore {
 
     }
 
+    void ARAnchorManager::updateImageAnchors(){
+        for (NSInteger index = 0; index < anchorInstanceCount; index++) {
+            ARAnchor *anchor = session.currentFrame.anchors[index];
+
+            if([anchor isKindOfClass:[ARImageAnchor class]]){
+                ofLog()<<"image found!";
+            }
+        }
+    }
 
     void ARAnchorManager::updatePlanes(){
 

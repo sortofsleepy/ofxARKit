@@ -151,6 +151,8 @@ namespace ARCore {
 
         //! update function for dealing with planes.
         void updatePlanes();
+        
+        void updateImageAnchors();
 
 #if AR_FACE_TRACKING
         //! updates face tracking info
