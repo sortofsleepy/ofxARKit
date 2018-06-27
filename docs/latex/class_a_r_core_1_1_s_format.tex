@@ -7,18 +7,26 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_a_r_core_1_1_s_format_ae73326e3801cb8a94ef235acf1b6ea0a}{S\+Format} ()
+\mbox{\hyperlink{class_a_r_core_1_1_s_format_ae73326e3801cb8a94ef235acf1b6ea0a}{S\+Format}} ()
 \item 
-\hyperlink{struct_a_r_core_1_1_format_state}{Format\+State} \hyperlink{class_a_r_core_1_1_s_format_a99e7aa08fc727c1f45a6a2277b5764fb}{get\+State} ()
+\mbox{\hyperlink{struct_a_r_core_1_1_format_state}{Format\+State}} \mbox{\hyperlink{class_a_r_core_1_1_s_format_a99e7aa08fc727c1f45a6a2277b5764fb}{get\+State}} ()
 \item 
-\hyperlink{class_a_r_core_1_1_s_format}{S\+Format} \& \hyperlink{class_a_r_core_1_1_s_format_a3e4a19abf7ccdb7911148dcbc016e08d}{enable\+Lighting} ()
+\mbox{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}} \& \mbox{\hyperlink{class_a_r_core_1_1_s_format_a3e4a19abf7ccdb7911148dcbc016e08d}{enable\+Lighting}} ()
 \begin{DoxyCompactList}\small\item\em Enables light estimation for the session. \end{DoxyCompactList}\item 
-\hyperlink{class_a_r_core_1_1_s_format}{S\+Format} \& \hyperlink{class_a_r_core_1_1_s_format_ae7a325750d00b407e35531f4ea2acf1f}{enable\+Face\+Tracking} ()
+\mbox{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}} \& \mbox{\hyperlink{class_a_r_core_1_1_s_format_ae7a325750d00b407e35531f4ea2acf1f}{enable\+Face\+Tracking}} ()
 \item 
-\hyperlink{class_a_r_core_1_1_s_format}{S\+Format} \& \hyperlink{class_a_r_core_1_1_s_format_a3510e35fe6436e5622312f44d5bfc1df}{enable\+Plane\+Tracking} (A\+R\+Plane\+Detection plane\+Detection\+Type=A\+R\+Plane\+Detection\+Horizontal)
-\begin{DoxyCompactList}\small\item\em Enables plane detection. Pass in a supported plane detection type. \end{DoxyCompactList}\item 
-\hyperlink{class_a_r_core_1_1_s_format}{S\+Format} \& \hyperlink{class_a_r_core_1_1_s_format_a944fac3b51c5193dcb306bd482f4f1f1}{set\+Delegate} (N\+S\+Object$<$ A\+R\+Session\+Delegate $>$ $\ast$delegate\+Class)
-\begin{DoxyCompactList}\small\item\em Sets the delegate class for the session. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}} \& \mbox{\hyperlink{class_a_r_core_1_1_s_format_a3346614171dc017dda8adc8cf0823daa}{enable\+Image\+Detection}} (string image\+Bundle\+Name=\char`\"{}AR Resources\char`\"{})
+\begin{DoxyCompactList}\small\item\em Enables feature detection. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}} \& \mbox{\hyperlink{class_a_r_core_1_1_s_format_a645b86ef5095920838f8a826ae77ced1}{enable\+Plane\+Tracking}} ()
+\begin{DoxyCompactList}\small\item\em Enables plane detection -\/ vertical and horizontal. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}} \& \mbox{\hyperlink{class_a_r_core_1_1_s_format_a3e84a3a07404e993efa7dbf2bb2aa484}{enable\+Horizontal\+Plane\+Tracking}} ()
+\begin{DoxyCompactList}\small\item\em Enables horizontal plane detection. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}} \& \mbox{\hyperlink{class_a_r_core_1_1_s_format_a50041dc949c7e00b5febb8c8f102f386}{enable\+Vertical\+Plane\+Tracking}} ()
+\begin{DoxyCompactList}\small\item\em Enables vertical plane detection. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}} \& \mbox{\hyperlink{class_a_r_core_1_1_s_format_a944fac3b51c5193dcb306bd482f4f1f1}{set\+Delegate}} (N\+S\+Object$<$ A\+R\+Session\+Delegate $>$ $\ast$delegate\+Class)
+\begin{DoxyCompactList}\small\item\em Sets the delegate class for the session. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}} \& \mbox{\hyperlink{class_a_r_core_1_1_s_format_ab8ae6c580251e595bcd1304b4c858ab1}{set\+High\+Res}} (bool b\+High\+Res)
+\end{DoxyCompactItemize}
 
 
 \subsection{Constructor \& Destructor Documentation}
@@ -35,46 +43,82 @@
 \index{A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}!enable\+Face\+Tracking@{enable\+Face\+Tracking}}
 \index{enable\+Face\+Tracking@{enable\+Face\+Tracking}!A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}}
 \subsubsection{\texorpdfstring{enable\+Face\+Tracking()}{enableFaceTracking()}}
-{\footnotesize\ttfamily \hyperlink{class_a_r_core_1_1_s_format}{S\+Format}\& A\+R\+Core\+::\+S\+Format\+::enable\+Face\+Tracking (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}}\& A\+R\+Core\+::\+S\+Format\+::enable\+Face\+Tracking (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-Enables face tracking for the session. T\+O\+DO does face tracking affect other things like lighting and plane detection? \mbox{\Hypertarget{class_a_r_core_1_1_s_format_a3e4a19abf7ccdb7911148dcbc016e08d}\label{class_a_r_core_1_1_s_format_a3e4a19abf7ccdb7911148dcbc016e08d}} 
+Enables face tracking for the session. T\+O\+DO does face tracking affect other things like lighting and plane detection? \mbox{\Hypertarget{class_a_r_core_1_1_s_format_a3e84a3a07404e993efa7dbf2bb2aa484}\label{class_a_r_core_1_1_s_format_a3e84a3a07404e993efa7dbf2bb2aa484}} 
+\index{A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}!enable\+Horizontal\+Plane\+Tracking@{enable\+Horizontal\+Plane\+Tracking}}
+\index{enable\+Horizontal\+Plane\+Tracking@{enable\+Horizontal\+Plane\+Tracking}!A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}}
+\subsubsection{\texorpdfstring{enable\+Horizontal\+Plane\+Tracking()}{enableHorizontalPlaneTracking()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}}\& A\+R\+Core\+::\+S\+Format\+::enable\+Horizontal\+Plane\+Tracking (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Enables horizontal plane detection. 
+
+\mbox{\Hypertarget{class_a_r_core_1_1_s_format_a3346614171dc017dda8adc8cf0823daa}\label{class_a_r_core_1_1_s_format_a3346614171dc017dda8adc8cf0823daa}} 
+\index{A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}!enable\+Image\+Detection@{enable\+Image\+Detection}}
+\index{enable\+Image\+Detection@{enable\+Image\+Detection}!A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}}
+\subsubsection{\texorpdfstring{enable\+Image\+Detection()}{enableImageDetection()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}}\& A\+R\+Core\+::\+S\+Format\+::enable\+Image\+Detection (\begin{DoxyParamCaption}\item[{string}]{image\+Bundle\+Name = {\ttfamily \char`\"{}AR~Resources\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Enables feature detection. 
+
+\mbox{\Hypertarget{class_a_r_core_1_1_s_format_a3e4a19abf7ccdb7911148dcbc016e08d}\label{class_a_r_core_1_1_s_format_a3e4a19abf7ccdb7911148dcbc016e08d}} 
 \index{A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}!enable\+Lighting@{enable\+Lighting}}
 \index{enable\+Lighting@{enable\+Lighting}!A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}}
 \subsubsection{\texorpdfstring{enable\+Lighting()}{enableLighting()}}
-{\footnotesize\ttfamily \hyperlink{class_a_r_core_1_1_s_format}{S\+Format}\& A\+R\+Core\+::\+S\+Format\+::enable\+Lighting (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}}\& A\+R\+Core\+::\+S\+Format\+::enable\+Lighting (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 Enables light estimation for the session. 
 
-\mbox{\Hypertarget{class_a_r_core_1_1_s_format_a3510e35fe6436e5622312f44d5bfc1df}\label{class_a_r_core_1_1_s_format_a3510e35fe6436e5622312f44d5bfc1df}} 
+\mbox{\Hypertarget{class_a_r_core_1_1_s_format_a645b86ef5095920838f8a826ae77ced1}\label{class_a_r_core_1_1_s_format_a645b86ef5095920838f8a826ae77ced1}} 
 \index{A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}!enable\+Plane\+Tracking@{enable\+Plane\+Tracking}}
 \index{enable\+Plane\+Tracking@{enable\+Plane\+Tracking}!A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}}
 \subsubsection{\texorpdfstring{enable\+Plane\+Tracking()}{enablePlaneTracking()}}
-{\footnotesize\ttfamily \hyperlink{class_a_r_core_1_1_s_format}{S\+Format}\& A\+R\+Core\+::\+S\+Format\+::enable\+Plane\+Tracking (\begin{DoxyParamCaption}\item[{A\+R\+Plane\+Detection}]{plane\+Detection\+Type = {\ttfamily ARPlaneDetectionHorizontal} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}}\& A\+R\+Core\+::\+S\+Format\+::enable\+Plane\+Tracking (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Enables plane detection. Pass in a supported plane detection type. 
+Enables plane detection -\/ vertical and horizontal. 
+
+\mbox{\Hypertarget{class_a_r_core_1_1_s_format_a50041dc949c7e00b5febb8c8f102f386}\label{class_a_r_core_1_1_s_format_a50041dc949c7e00b5febb8c8f102f386}} 
+\index{A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}!enable\+Vertical\+Plane\+Tracking@{enable\+Vertical\+Plane\+Tracking}}
+\index{enable\+Vertical\+Plane\+Tracking@{enable\+Vertical\+Plane\+Tracking}!A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}}
+\subsubsection{\texorpdfstring{enable\+Vertical\+Plane\+Tracking()}{enableVerticalPlaneTracking()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}}\& A\+R\+Core\+::\+S\+Format\+::enable\+Vertical\+Plane\+Tracking (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Enables vertical plane detection. 
 
 \mbox{\Hypertarget{class_a_r_core_1_1_s_format_a99e7aa08fc727c1f45a6a2277b5764fb}\label{class_a_r_core_1_1_s_format_a99e7aa08fc727c1f45a6a2277b5764fb}} 
 \index{A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}!get\+State@{get\+State}}
 \index{get\+State@{get\+State}!A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}}
 \subsubsection{\texorpdfstring{get\+State()}{getState()}}
-{\footnotesize\ttfamily \hyperlink{struct_a_r_core_1_1_format_state}{Format\+State} A\+R\+Core\+::\+S\+Format\+::get\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_a_r_core_1_1_format_state}{Format\+State}} A\+R\+Core\+::\+S\+Format\+::get\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{class_a_r_core_1_1_s_format_a944fac3b51c5193dcb306bd482f4f1f1}\label{class_a_r_core_1_1_s_format_a944fac3b51c5193dcb306bd482f4f1f1}} 
 \index{A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}!set\+Delegate@{set\+Delegate}}
 \index{set\+Delegate@{set\+Delegate}!A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}}
 \subsubsection{\texorpdfstring{set\+Delegate()}{setDelegate()}}
-{\footnotesize\ttfamily \hyperlink{class_a_r_core_1_1_s_format}{S\+Format}\& A\+R\+Core\+::\+S\+Format\+::set\+Delegate (\begin{DoxyParamCaption}\item[{N\+S\+Object$<$ A\+R\+Session\+Delegate $>$ $\ast$}]{delegate\+Class }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}}\& A\+R\+Core\+::\+S\+Format\+::set\+Delegate (\begin{DoxyParamCaption}\item[{N\+S\+Object$<$ A\+R\+Session\+Delegate $>$ $\ast$}]{delegate\+Class }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 Sets the delegate class for the session. 
 
+\mbox{\Hypertarget{class_a_r_core_1_1_s_format_ab8ae6c580251e595bcd1304b4c858ab1}\label{class_a_r_core_1_1_s_format_ab8ae6c580251e595bcd1304b4c858ab1}} 
+\index{A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}!set\+High\+Res@{set\+High\+Res}}
+\index{set\+High\+Res@{set\+High\+Res}!A\+R\+Core\+::\+S\+Format@{A\+R\+Core\+::\+S\+Format}}
+\subsubsection{\texorpdfstring{set\+High\+Res()}{setHighRes()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_a_r_core_1_1_s_format}{S\+Format}}\& A\+R\+Core\+::\+S\+Format\+::set\+High\+Res (\begin{DoxyParamCaption}\item[{bool}]{b\+High\+Res }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-src/\hyperlink{_a_r_session_setup_8h}{A\+R\+Session\+Setup.\+h}\end{DoxyCompactItemize}
+src/\mbox{\hyperlink{_a_r_session_setup_8h}{A\+R\+Session\+Setup.\+h}}\end{DoxyCompactItemize}

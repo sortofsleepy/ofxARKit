@@ -2,39 +2,100 @@
 \label{struct_a_r_objects_1_1_plane_anchor_object}\index{A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}}
 
 
-This defines the basic data structure of a Plane.  
-
-
-
-
 {\ttfamily \#include $<$A\+R\+Objects.\+h$>$}
 
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+A\+R\+Plane\+Anchor\+Alignment \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object_af6bf6bb1f2b61e1adbbc82a2cf6e6ed3}{get\+Alignment}} ()
+\item 
+void \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object_a12b80e3c39460ed256a85ceab15a4b8b}{build\+Mesh}} ()
+\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-of\+Vec3f \hyperlink{struct_a_r_objects_1_1_plane_anchor_object_a1e91b9c289ed6a8379e8106479b30650}{position}
+of\+Vec3f \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object_a1e91b9c289ed6a8379e8106479b30650}{position}}
 \item 
-float \hyperlink{struct_a_r_objects_1_1_plane_anchor_object_a66571f63611c3fe8c8161c18b5d163cc}{width}
+float \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object_a66571f63611c3fe8c8161c18b5d163cc}{width}}
 \item 
-float \hyperlink{struct_a_r_objects_1_1_plane_anchor_object_a7114f6bc16cf36662c1a73e34d2d2314}{height}
+float \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object_a7114f6bc16cf36662c1a73e34d2d2314}{height}}
 \item 
-of\+Matrix4x4 \hyperlink{struct_a_r_objects_1_1_plane_anchor_object_a683ab536baa0f5b81b11deeca121ce5b}{transform}
+of\+Matrix4x4 \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object_a683ab536baa0f5b81b11deeca121ce5b}{transform}}
 \item 
-N\+S\+U\+U\+ID $\ast$ \hyperlink{struct_a_r_objects_1_1_plane_anchor_object_ab20601adc6ffd5698f0c91acf861c92b}{uuid}
+N\+S\+U\+U\+ID $\ast$ \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object_ab20601adc6ffd5698f0c91acf861c92b}{uuid}}
 \item 
-A\+R\+Plane\+Anchor $\ast$ \hyperlink{struct_a_r_objects_1_1_plane_anchor_object_a4d6b3acc9e0a17fe3f5357f99a176101}{raw\+Anchor}
+A\+R\+Plane\+Anchor $\ast$ \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object_a4d6b3acc9e0a17fe3f5357f99a176101}{raw\+Anchor}}
+\item 
+A\+R\+Plane\+Anchor\+Alignment \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object_ab7a90a7ff3d371f52d5d17ad43dbf455}{alignment}}
+\item 
+of\+Mesh \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object_a4e969735f7f7c20dbd821179731b3de0}{plane\+Mesh}}
+\item 
+vector$<$ glm\+::vec3 $>$ \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object_a56f396287d04ad40aed3284306e92ad6}{vertices}}
+\item 
+vector$<$ glm\+::vec2 $>$ \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object_a9359d0197b40bb929452047317b2d86c}{uvs}}
+\item 
+vector$<$ uint16\+\_\+t $>$ \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object_a25688480cf760eafe5625c62006f8461}{indices}}
+\item 
+of\+Float\+Color \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object_ad6a82e20d0123eca70172d3ea4d3c924}{debug\+Color}}
+\item 
+vector$<$ of\+Float\+Color $>$ \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object_a39036e2966bc7a6c9cec88f5689cd65b}{colors}}
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-This defines the basic data structure of a Plane. 
+This defines the basic data structure of a Plane This defines the basic data structure of a Plane 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_a_r_objects_1_1_plane_anchor_object_a12b80e3c39460ed256a85ceab15a4b8b}\label{struct_a_r_objects_1_1_plane_anchor_object_a12b80e3c39460ed256a85ceab15a4b8b}} 
+\index{A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}!build\+Mesh@{build\+Mesh}}
+\index{build\+Mesh@{build\+Mesh}!A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}}
+\subsubsection{\texorpdfstring{build\+Mesh()}{buildMesh()}}
+{\footnotesize\ttfamily void A\+R\+Objects\+::\+Plane\+Anchor\+Object\+::build\+Mesh (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{struct_a_r_objects_1_1_plane_anchor_object_af6bf6bb1f2b61e1adbbc82a2cf6e6ed3}\label{struct_a_r_objects_1_1_plane_anchor_object_af6bf6bb1f2b61e1adbbc82a2cf6e6ed3}} 
+\index{A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}!get\+Alignment@{get\+Alignment}}
+\index{get\+Alignment@{get\+Alignment}!A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}}
+\subsubsection{\texorpdfstring{get\+Alignment()}{getAlignment()}}
+{\footnotesize\ttfamily A\+R\+Plane\+Anchor\+Alignment A\+R\+Objects\+::\+Plane\+Anchor\+Object\+::get\+Alignment (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
 
 \subsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_a_r_objects_1_1_plane_anchor_object_ab7a90a7ff3d371f52d5d17ad43dbf455}\label{struct_a_r_objects_1_1_plane_anchor_object_ab7a90a7ff3d371f52d5d17ad43dbf455}} 
+\index{A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}!alignment@{alignment}}
+\index{alignment@{alignment}!A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}}
+\subsubsection{\texorpdfstring{alignment}{alignment}}
+{\footnotesize\ttfamily A\+R\+Plane\+Anchor\+Alignment A\+R\+Objects\+::\+Plane\+Anchor\+Object\+::alignment}
+
+\mbox{\Hypertarget{struct_a_r_objects_1_1_plane_anchor_object_a39036e2966bc7a6c9cec88f5689cd65b}\label{struct_a_r_objects_1_1_plane_anchor_object_a39036e2966bc7a6c9cec88f5689cd65b}} 
+\index{A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}!colors@{colors}}
+\index{colors@{colors}!A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}}
+\subsubsection{\texorpdfstring{colors}{colors}}
+{\footnotesize\ttfamily vector$<$of\+Float\+Color$>$ A\+R\+Objects\+::\+Plane\+Anchor\+Object\+::colors}
+
+\mbox{\Hypertarget{struct_a_r_objects_1_1_plane_anchor_object_ad6a82e20d0123eca70172d3ea4d3c924}\label{struct_a_r_objects_1_1_plane_anchor_object_ad6a82e20d0123eca70172d3ea4d3c924}} 
+\index{A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}!debug\+Color@{debug\+Color}}
+\index{debug\+Color@{debug\+Color}!A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}}
+\subsubsection{\texorpdfstring{debug\+Color}{debugColor}}
+{\footnotesize\ttfamily of\+Float\+Color A\+R\+Objects\+::\+Plane\+Anchor\+Object\+::debug\+Color}
+
 \mbox{\Hypertarget{struct_a_r_objects_1_1_plane_anchor_object_a7114f6bc16cf36662c1a73e34d2d2314}\label{struct_a_r_objects_1_1_plane_anchor_object_a7114f6bc16cf36662c1a73e34d2d2314}} 
 \index{A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}!height@{height}}
 \index{height@{height}!A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}}
 \subsubsection{\texorpdfstring{height}{height}}
 {\footnotesize\ttfamily float A\+R\+Objects\+::\+Plane\+Anchor\+Object\+::height}
+
+\mbox{\Hypertarget{struct_a_r_objects_1_1_plane_anchor_object_a25688480cf760eafe5625c62006f8461}\label{struct_a_r_objects_1_1_plane_anchor_object_a25688480cf760eafe5625c62006f8461}} 
+\index{A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}!indices@{indices}}
+\index{indices@{indices}!A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}}
+\subsubsection{\texorpdfstring{indices}{indices}}
+{\footnotesize\ttfamily vector$<$uint16\+\_\+t$>$ A\+R\+Objects\+::\+Plane\+Anchor\+Object\+::indices}
+
+\mbox{\Hypertarget{struct_a_r_objects_1_1_plane_anchor_object_a4e969735f7f7c20dbd821179731b3de0}\label{struct_a_r_objects_1_1_plane_anchor_object_a4e969735f7f7c20dbd821179731b3de0}} 
+\index{A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}!plane\+Mesh@{plane\+Mesh}}
+\index{plane\+Mesh@{plane\+Mesh}!A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}}
+\subsubsection{\texorpdfstring{plane\+Mesh}{planeMesh}}
+{\footnotesize\ttfamily of\+Mesh A\+R\+Objects\+::\+Plane\+Anchor\+Object\+::plane\+Mesh}
 
 \mbox{\Hypertarget{struct_a_r_objects_1_1_plane_anchor_object_a1e91b9c289ed6a8379e8106479b30650}\label{struct_a_r_objects_1_1_plane_anchor_object_a1e91b9c289ed6a8379e8106479b30650}} 
 \index{A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}!position@{position}}
@@ -60,6 +121,18 @@ This defines the basic data structure of a Plane.
 \subsubsection{\texorpdfstring{uuid}{uuid}}
 {\footnotesize\ttfamily N\+S\+U\+U\+ID$\ast$ A\+R\+Objects\+::\+Plane\+Anchor\+Object\+::uuid}
 
+\mbox{\Hypertarget{struct_a_r_objects_1_1_plane_anchor_object_a9359d0197b40bb929452047317b2d86c}\label{struct_a_r_objects_1_1_plane_anchor_object_a9359d0197b40bb929452047317b2d86c}} 
+\index{A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}!uvs@{uvs}}
+\index{uvs@{uvs}!A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}}
+\subsubsection{\texorpdfstring{uvs}{uvs}}
+{\footnotesize\ttfamily vector$<$glm\+::vec2$>$ A\+R\+Objects\+::\+Plane\+Anchor\+Object\+::uvs}
+
+\mbox{\Hypertarget{struct_a_r_objects_1_1_plane_anchor_object_a56f396287d04ad40aed3284306e92ad6}\label{struct_a_r_objects_1_1_plane_anchor_object_a56f396287d04ad40aed3284306e92ad6}} 
+\index{A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}!vertices@{vertices}}
+\index{vertices@{vertices}!A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}}
+\subsubsection{\texorpdfstring{vertices}{vertices}}
+{\footnotesize\ttfamily vector$<$glm\+::vec3$>$ A\+R\+Objects\+::\+Plane\+Anchor\+Object\+::vertices}
+
 \mbox{\Hypertarget{struct_a_r_objects_1_1_plane_anchor_object_a66571f63611c3fe8c8161c18b5d163cc}\label{struct_a_r_objects_1_1_plane_anchor_object_a66571f63611c3fe8c8161c18b5d163cc}} 
 \index{A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}!width@{width}}
 \index{width@{width}!A\+R\+Objects\+::\+Plane\+Anchor\+Object@{A\+R\+Objects\+::\+Plane\+Anchor\+Object}}
@@ -70,4 +143,4 @@ This defines the basic data structure of a Plane.
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-src/\hyperlink{_a_r_objects_8h}{A\+R\+Objects.\+h}\end{DoxyCompactItemize}
+src/\mbox{\hyperlink{_a_r_objects_8h}{A\+R\+Objects.\+h}}\end{DoxyCompactItemize}

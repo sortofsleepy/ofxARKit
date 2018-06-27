@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['debugcolor',['debugColor',['../struct_a_r_objects_1_1_plane_anchor_object.html#ad6a82e20d0123eca70172d3ea4d3c924',1,'ARObjects::PlaneAnchorObject']]],
   ['debuginfo',['debugInfo',['../class_a_r_processor.html#a6b7b4d5ac724bd93a7828759f7f6da4e',1,'ARProcessor']]],
   ['delegateclass',['delegateClass',['../struct_a_r_core_1_1_format_state.html#a2ac08b9efa1d91b0a5a431e3d0a73aaa',1,'ARCore::FormatState']]],
   ['deviceorientationchanged',['deviceOrientationChanged',['../class_a_r_processor.html#ac065970f90243b08b9d004a4220d0345',1,'ARProcessor']]],
@@ -8,6 +9,8 @@ var searchData=
   ['drawframe',['drawFrame',['../class_a_r_processor.html#a685469fa6b66b8b5d935f6f45a2ef599',1,'ARProcessor']]],
   ['drawhorizontalplanes',['drawHorizontalPlanes',['../class_a_r_processor.html#a6a61a7e03821410bc1a715fd32159662',1,'ARProcessor']]],
   ['drawplaneat',['drawPlaneAt',['../class_a_r_core_1_1_a_r_anchor_manager.html#a68742132d494088fcf6be20c776ca0c6',1,'ARCore::ARAnchorManager']]],
-  ['drawplanes',['drawPlanes',['../class_a_r_core_1_1_a_r_anchor_manager.html#a7ec2178e8754fa04b00cc600c60cb852',1,'ARCore::ARAnchorManager']]],
-  ['drawpointcloud',['drawPointCloud',['../class_a_r_processor.html#ae938bf188d56d8b30b141b2fa23e96f8',1,'ARProcessor']]]
+  ['drawplanemeshes',['drawPlaneMeshes',['../class_a_r_core_1_1_a_r_anchor_manager.html#a84a5f1c8b7fbe62c32aa901f2c97d612',1,'ARCore::ARAnchorManager::drawPlaneMeshes()'],['../class_a_r_processor.html#a516f256cd561a6f572f8741a2dec9c25',1,'ARProcessor::drawPlaneMeshes()']]],
+  ['drawplanes',['drawPlanes',['../class_a_r_core_1_1_a_r_anchor_manager.html#a7ec2178e8754fa04b00cc600c60cb852',1,'ARCore::ARAnchorManager::drawPlanes()'],['../class_a_r_processor.html#acb7b24b21a47b4f4aa9d4d2c07a60d56',1,'ARProcessor::drawPlanes()']]],
+  ['drawpointcloud',['drawPointCloud',['../class_a_r_processor.html#ae938bf188d56d8b30b141b2fa23e96f8',1,'ARProcessor']]],
+  ['drawscaled',['drawScaled',['../class_a_r_core_1_1_a_r_cam.html#a5512aeae7ea9edb7daf9c9c07d15d402',1,'ARCore::ARCam']]]
 ];

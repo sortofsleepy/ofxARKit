@@ -1,45 +1,48 @@
 \hypertarget{_a_r_utils_8h}{}\section{src/\+A\+R\+Utils.h File Reference}
 \label{_a_r_utils_8h}\index{src/\+A\+R\+Utils.\+h@{src/\+A\+R\+Utils.\+h}}
 {\ttfamily \#include \char`\"{}of\+Main.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}A\+R\+Face\+Tracking\+Bool.\+h\char`\"{}}\newline
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices}
+struct \mbox{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices}}
 \begin{DoxyCompactList}\small\item\em joined camera matrices as one object. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \hyperlink{namespace_a_r_common}{A\+R\+Common}
+ \mbox{\hyperlink{namespace_a_r_common}{A\+R\+Common}}
 \end{DoxyCompactItemize}
 \subsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \hyperlink{_a_r_utils_8h_ad331f6e0982862a12a66503c7e12334e}{A\+R\+Toolkit\+Components\+\_\+h}
+\#define \mbox{\hyperlink{_a_r_utils_8h_ad331f6e0982862a12a66503c7e12334e}{A\+R\+Toolkit\+Components\+\_\+h}}
 \item 
-\#define \hyperlink{_a_r_utils_8h_ab06e1eb2e9bf38e0d452b1f796aed208}{S\+T\+R\+I\+N\+G\+I\+FY}(A)~\#A
+\#define \mbox{\hyperlink{_a_r_utils_8h_ab06e1eb2e9bf38e0d452b1f796aed208}{S\+T\+R\+I\+N\+G\+I\+FY}}(A)~\#A
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename T , typename U $>$ }\\const static U \hyperlink{namespace_a_r_common_ab67b42b84c068f0c4ab2401ea3af86c6}{A\+R\+Common\+::convert} (const T \&t)
+{\footnotesize template$<$typename T , typename U $>$ }\\const static U \mbox{\hyperlink{namespace_a_r_common_ab67b42b84c068f0c4ab2401ea3af86c6}{A\+R\+Common\+::convert}} (const T \&t)
 \item 
-static const static of\+Matrix4x4 \hyperlink{namespace_a_r_common_a7ea27fb9de7e7890d46de5bea9b535e6}{A\+R\+Common\+::to\+Mat4} (const matrix\+\_\+float4x4 \&mat)
+static bool \mbox{\hyperlink{namespace_a_r_common_a7939654fc3c2d04150e4cbf6953429d9}{A\+R\+Common\+::is\+Ios113}} ()
+\begin{DoxyCompactList}\small\item\em Helper function to determine if user is running at least ios 11.\+3. \end{DoxyCompactList}\item 
+static const of\+Matrix4x4 \mbox{\hyperlink{namespace_a_r_common_a4c4194125c19eb18f43b61b991261dbf}{A\+R\+Common\+::to\+Mat4}} (const matrix\+\_\+float4x4 \&mat)
 \begin{DoxyCompactList}\small\item\em convert to oF mat4 \end{DoxyCompactList}\item 
-static const matrix\+\_\+float4x4 \hyperlink{namespace_a_r_common_a94f59f549eb5aec3f077b54ae5e5df86}{A\+R\+Common\+::to\+S\+I\+M\+D\+Mat4} (of\+Matrix4x4 \&mat)
+static const matrix\+\_\+float4x4 \mbox{\hyperlink{namespace_a_r_common_a94f59f549eb5aec3f077b54ae5e5df86}{A\+R\+Common\+::to\+S\+I\+M\+D\+Mat4}} (of\+Matrix4x4 \&mat)
 \begin{DoxyCompactList}\small\item\em convert to simd based mat4 \end{DoxyCompactList}\item 
-static of\+Vec3f \hyperlink{namespace_a_r_common_a5a232f6315a3a5b74678034efadd5d20}{A\+R\+Common\+::get\+Anchor\+X\+YZ} (of\+Matrix4x4 mat)
+static of\+Vec3f \mbox{\hyperlink{namespace_a_r_common_a5a232f6315a3a5b74678034efadd5d20}{A\+R\+Common\+::get\+Anchor\+X\+YZ}} (of\+Matrix4x4 mat)
 \item 
-static of\+Matrix4x4 \hyperlink{namespace_a_r_common_aec58705c71590506c5f1f86e927f11e1}{A\+R\+Common\+::model\+Mat\+From\+Transform} (matrix\+\_\+float4x4 transform)
+static of\+Matrix4x4 \mbox{\hyperlink{namespace_a_r_common_aec58705c71590506c5f1f86e927f11e1}{A\+R\+Common\+::model\+Mat\+From\+Transform}} (matrix\+\_\+float4x4 transform)
 \begin{DoxyCompactList}\small\item\em Constructs a generalized model matrix for a S\+I\+MD mat4. \end{DoxyCompactList}\item 
-static of\+Vec2f \hyperlink{namespace_a_r_common_a37407572659749170d1906046fa1921c}{A\+R\+Common\+::get\+Device\+Dimensions} (bool use\+Native=false)
+static of\+Vec2f \mbox{\hyperlink{namespace_a_r_common_a37407572659749170d1906046fa1921c}{A\+R\+Common\+::get\+Device\+Dimensions}} (bool use\+Native=false)
 \item 
-static float \hyperlink{namespace_a_r_common_a00f3449531f154cba4a751128117052f}{A\+R\+Common\+::get\+Native\+Aspect\+Ratio} ()
+static float \mbox{\hyperlink{namespace_a_r_common_a00f3449531f154cba4a751128117052f}{A\+R\+Common\+::get\+Native\+Aspect\+Ratio}} ()
 \begin{DoxyCompactList}\small\item\em Returns the native aspect ratio in pixels. \end{DoxyCompactList}\item 
-static float \hyperlink{namespace_a_r_common_a5c33a5f3620614da8b3be53f6811d7ca}{A\+R\+Common\+::get\+Aspect\+Ratio} ()
+static float \mbox{\hyperlink{namespace_a_r_common_a5c33a5f3620614da8b3be53f6811d7ca}{A\+R\+Common\+::get\+Aspect\+Ratio}} ()
 \begin{DoxyCompactList}\small\item\em Returns the aspect ratio in points. \end{DoxyCompactList}\item 
-static of\+Vec2f \hyperlink{namespace_a_r_common_a9cd9f43005e2612ab5054dc3aec90fcf}{A\+R\+Common\+::world\+To\+Screen} (of\+Point world\+Point, of\+Matrix4x4 projection, of\+Matrix4x4 view)
+static of\+Vec2f \mbox{\hyperlink{namespace_a_r_common_a9cd9f43005e2612ab5054dc3aec90fcf}{A\+R\+Common\+::world\+To\+Screen}} (of\+Point world\+Point, of\+Matrix4x4 projection, of\+Matrix4x4 view)
 \item 
-static of\+Vec4f \hyperlink{namespace_a_r_common_acc8f469a4596dc7173993ce58068bd2d}{A\+R\+Common\+::screen\+To\+World} (of\+Vec3f position, of\+Matrix4x4 projection, of\+Matrix4x4 mv\+Matrix)
+static of\+Vec4f \mbox{\hyperlink{namespace_a_r_common_acc8f469a4596dc7173993ce58068bd2d}{A\+R\+Common\+::screen\+To\+World}} (of\+Vec3f position, of\+Matrix4x4 projection, of\+Matrix4x4 mv\+Matrix)
 \begin{DoxyCompactList}\small\item\em Convert screen position to a world position. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 

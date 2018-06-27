@@ -12,71 +12,73 @@ This class manages dealing with the camera image coming in from A\+R\+Kit.
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_a_r_core_1_1_a_r_cam_aac3da0758960b1cc5787eae0b7efffe1}{A\+R\+Cam} (A\+R\+Session $\ast$session)
+\mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_aac3da0758960b1cc5787eae0b7efffe1}{A\+R\+Cam}} (A\+R\+Session $\ast$session)
 \item 
-of\+Texture \hyperlink{class_a_r_core_1_1_a_r_cam_a7e0e81c2a201955219364f5e3f1b1915}{get\+Camera\+Image} ()
+of\+Texture \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_a7e0e81c2a201955219364f5e3f1b1915}{get\+Camera\+Image}} ()
 \begin{DoxyCompactList}\small\item\em grab F\+BO texture of current camera image \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_cam_aea3513907e5805e6bffb08b7d65c0fc7}{log\+Tracking\+State} ()
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_aea3513907e5805e6bffb08b7d65c0fc7}{log\+Tracking\+State}} ()
 \begin{DoxyCompactList}\small\item\em Function to update and log the current tracking state from A\+R\+Kit. \end{DoxyCompactList}\item 
-A\+R\+Tracking\+State \hyperlink{class_a_r_core_1_1_a_r_cam_abef41c0e5914cb2404b26317921d16a1}{get\+Tracking\+State} ()
+A\+R\+Tracking\+State \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_abef41c0e5914cb2404b26317921d16a1}{get\+Tracking\+State}} ()
 \begin{DoxyCompactList}\small\item\em Get the current tracking state. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_cam_ad32236d8551ac38943f088f16afb8002}{toggle\+Debug} ()
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_ad32236d8551ac38943f088f16afb8002}{toggle\+Debug}} ()
 \begin{DoxyCompactList}\small\item\em Toggles debug mode on/off. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_cam_a5abe4cdd0ae36986899afaeae16c6bf2}{setup} (bool debug\+Mode=false)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_a5abe4cdd0ae36986899afaeae16c6bf2}{setup}} (bool debug\+Mode=false)
 \begin{DoxyCompactList}\small\item\em Sets up all the necessary properties and values to get the camera running. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_cam_a900296e2ff23dfa7deb8bfab58fd0729}{update} ()
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_a900296e2ff23dfa7deb8bfab58fd0729}{update}} ()
 \begin{DoxyCompactList}\small\item\em Updates camera values. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_cam_ac6506992ee88e0acd20d851849ebfa18}{draw} ()
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_ac6506992ee88e0acd20d851849ebfa18}{draw}} ()
 \begin{DoxyCompactList}\small\item\em draws the camera frame. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_cam_a577095ff1d35c84708f578d07df5ac33}{update\+Plane\+Tex\+Coords} ()
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_a5512aeae7ea9edb7daf9c9c07d15d402}{draw\+Scaled}} (int x=0, int y=0, float w=0, float h=0)
 \item 
-void \hyperlink{class_a_r_core_1_1_a_r_cam_ab4af1b504437a61f5ecec331ad2bd52c}{set\+Interface\+Orientation} (U\+I\+Interface\+Orientation orientation)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_a577095ff1d35c84708f578d07df5ac33}{update\+Plane\+Tex\+Coords}} ()
 \item 
-void \hyperlink{class_a_r_core_1_1_a_r_cam_ae287390a140e20f856c44988f706efa5}{set\+Camera\+Image\+Position} (float x\+Shift=0, float y\+Shift=0)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_ab4af1b504437a61f5ecec331ad2bd52c}{set\+Interface\+Orientation}} (U\+I\+Interface\+Orientation orientation)
+\item 
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_ae287390a140e20f856c44988f706efa5}{set\+Camera\+Image\+Position}} (float x\+Shift=0, float y\+Shift=0)
 \begin{DoxyCompactList}\small\item\em Sets the x and y position of where the camera image is placed. \end{DoxyCompactList}\item 
-of\+Rectangle \hyperlink{class_a_r_core_1_1_a_r_cam_abd6a08f527d91cb750b03ef12a52afe5}{get\+Camera\+Image\+Bounds} ()
+of\+Rectangle \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_abd6a08f527d91cb750b03ef12a52afe5}{get\+Camera\+Image\+Bounds}} ()
 \item 
-A\+R\+Light\+Estimate $\ast$ \hyperlink{class_a_r_core_1_1_a_r_cam_ad11f88524d97445892956def3864523e}{get\+Lighting\+Conditions} ()
+A\+R\+Light\+Estimate $\ast$ \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_ad11f88524d97445892956def3864523e}{get\+Lighting\+Conditions}} ()
 \begin{DoxyCompactList}\small\item\em retrieves the current lighting conditions that A\+R\+Kit is seeing. \end{DoxyCompactList}\item 
-float \hyperlink{class_a_r_core_1_1_a_r_cam_a98cb7f152cbc3028d258705da1591a55}{get\+Ambient\+Intensity} ()
+float \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_a98cb7f152cbc3028d258705da1591a55}{get\+Ambient\+Intensity}} ()
 \begin{DoxyCompactList}\small\item\em Returns the ambient intensity of the lighting. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_cam_ac554b8254ea4a22f122f25542694dafa}{set\+A\+R\+Camera\+Matrices} ()
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_ac554b8254ea4a22f122f25542694dafa}{set\+A\+R\+Camera\+Matrices}} ()
 \item 
-void \hyperlink{class_a_r_core_1_1_a_r_cam_a040d67ba6abb95e914760ca6e64ac664}{set\+Camera\+Near\+Clip} (float near)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_a040d67ba6abb95e914760ca6e64ac664}{set\+Camera\+Near\+Clip}} (float near)
 \begin{DoxyCompactList}\small\item\em sets the camera\textquotesingle{}s near clip distance \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_cam_aa29191b58c0e6613850916526c6ab380}{set\+Camera\+Far\+Clip} (float far)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_aa29191b58c0e6613850916526c6ab380}{set\+Camera\+Far\+Clip}} (float far)
 \begin{DoxyCompactList}\small\item\em sets camera far clip distance \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_cam_a0c910d5c7f637ce2820132255dfb67f7}{update\+Device\+Orientation} ()
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_a0c910d5c7f637ce2820132255dfb67f7}{update\+Device\+Orientation}} ()
 \begin{DoxyCompactList}\small\item\em Adjusts the camera image rotation. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_cam_a1813b2b0f2665741173228ffff518d67}{update\+Rotation\+Matrix} (float angle)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_a1813b2b0f2665741173228ffff518d67}{update\+Rotation\+Matrix}} (float angle)
 \item 
-void \hyperlink{class_a_r_core_1_1_a_r_cam_ae2ecd3007e6684d1686c89d2ac3e7020}{adjust\+Perspective\+Correction} (float \hyperlink{class_a_r_core_1_1_a_r_cam_ac17d3b7fd12f51b2c54b7241efd36cd4}{zoom\+Level})
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_ae2ecd3007e6684d1686c89d2ac3e7020}{adjust\+Perspective\+Correction}} (float \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_ac17d3b7fd12f51b2c54b7241efd36cd4}{zoom\+Level}})
 \begin{DoxyCompactList}\small\item\em adjusts the perspective correction zoom(\+Note\+: primarily for larger devices) \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_cam_ac649b1e884931f123afd4dcecc1e3e6c}{update\+Interface\+Orientation} ()
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_ac649b1e884931f123afd4dcecc1e3e6c}{update\+Interface\+Orientation}} ()
 \begin{DoxyCompactList}\small\item\em Updates the current Interface orientation setting so camera projection/view matrices remain correct. \end{DoxyCompactList}\item 
-\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices} \hyperlink{class_a_r_core_1_1_a_r_cam_a0061e3c56e3d30e6fec64235d9397809}{get\+Matrices\+For\+Orientation} (U\+I\+Interface\+Orientation orientation=U\+I\+Interface\+Orientation\+Portrait, float near=1.\+0, float far=1000.\+0)
+\mbox{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices}} \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_a0061e3c56e3d30e6fec64235d9397809}{get\+Matrices\+For\+Orientation}} (U\+I\+Interface\+Orientation orientation=U\+I\+Interface\+Orientation\+Portrait, float near=1.\+0, float far=1000.\+0)
 \begin{DoxyCompactList}\small\item\em Returns Projection and View matrices for the specified orientation. \end{DoxyCompactList}\item 
-of\+Matrix4x4 \hyperlink{class_a_r_core_1_1_a_r_cam_a19409c89b0bcbaad62e5d405d194f8a7}{get\+Projection\+Matrix} ()
+of\+Matrix4x4 \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_a19409c89b0bcbaad62e5d405d194f8a7}{get\+Projection\+Matrix}} ()
 \begin{DoxyCompactList}\small\item\em returns the current projection matrix from the camera \end{DoxyCompactList}\item 
-of\+Matrix4x4 \hyperlink{class_a_r_core_1_1_a_r_cam_a7ca28300844875464c7821620665d3b5}{get\+View\+Matrix} ()
+of\+Matrix4x4 \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_a7ca28300844875464c7821620665d3b5}{get\+View\+Matrix}} ()
 \begin{DoxyCompactList}\small\item\em returns the current view matrix from the camera \end{DoxyCompactList}\item 
-of\+Matrix4x4 \hyperlink{class_a_r_core_1_1_a_r_cam_a280c37d6b4aa16169637cf3f5332c9d3}{get\+Transform\+Matrix} ()
+of\+Matrix4x4 \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_a280c37d6b4aa16169637cf3f5332c9d3}{get\+Transform\+Matrix}} ()
 \begin{DoxyCompactList}\small\item\em returns the current transform with the camera\textquotesingle{}s position in AR space \end{DoxyCompactList}\item 
-\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices} \hyperlink{class_a_r_core_1_1_a_r_cam_a1398ffe9720425cfbc99635b08bc80d6}{get\+Camera\+Matrices} ()
+\mbox{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices}} \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_a1398ffe9720425cfbc99635b08bc80d6}{get\+Camera\+Matrices}} ()
 \begin{DoxyCompactList}\small\item\em returns a reference to the current set of camera matrices as seen by A\+R\+Kit \end{DoxyCompactList}\item 
-of\+Texture \hyperlink{class_a_r_core_1_1_a_r_cam_ae816096383bfc8fbcf6b67ab82b3d629}{get\+Camera\+Texture} ()
+of\+Texture \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_ae816096383bfc8fbcf6b67ab82b3d629}{get\+Camera\+Texture}} ()
 \begin{DoxyCompactList}\small\item\em Returns the converted texture coming from A\+R\+Kit after converting both layers to a single image. \end{DoxyCompactList}\item 
-of\+Fbo \hyperlink{class_a_r_core_1_1_a_r_cam_a4c8f3c9b55f5852dc7a8554fe6ac0888}{get\+F\+BO} ()
+of\+Fbo \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_a4c8f3c9b55f5852dc7a8554fe6ac0888}{get\+F\+BO}} ()
 \begin{DoxyCompactList}\small\item\em Returns the F\+BO used to join the camera image. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{namespace_a_r_core_a4ebe9e23907235fcf76bf65440fde0e0}{A\+R\+Cam\+Ref} \hyperlink{class_a_r_core_1_1_a_r_cam_ad4a6c0ebf786ea4e745cc8e95790681a}{create} (A\+R\+Session $\ast$session)
-\begin{DoxyCompactList}\small\item\em Creates a new \hyperlink{class_a_r_core_1_1_a_r_cam}{A\+R\+Cam} reference. \end{DoxyCompactList}\end{DoxyCompactItemize}
+static \mbox{\hyperlink{namespace_a_r_core_a4ebe9e23907235fcf76bf65440fde0e0}{A\+R\+Cam\+Ref}} \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_ad4a6c0ebf786ea4e745cc8e95790681a}{create}} (A\+R\+Session $\ast$session)
+\begin{DoxyCompactList}\small\item\em Creates a new \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam}{A\+R\+Cam}} reference. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-float \hyperlink{class_a_r_core_1_1_a_r_cam_ac17d3b7fd12f51b2c54b7241efd36cd4}{zoom\+Level}
+float \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam_ac17d3b7fd12f51b2c54b7241efd36cd4}{zoom\+Level}}
 \begin{DoxyCompactList}\small\item\em used to help correct perspective distortion for some devices. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -107,11 +109,11 @@ adjusts the perspective correction zoom(\+Note\+: primarily for larger devices)
 \index{A\+R\+Core\+::\+A\+R\+Cam@{A\+R\+Core\+::\+A\+R\+Cam}!create@{create}}
 \index{create@{create}!A\+R\+Core\+::\+A\+R\+Cam@{A\+R\+Core\+::\+A\+R\+Cam}}
 \subsubsection{\texorpdfstring{create()}{create()}}
-{\footnotesize\ttfamily static \hyperlink{namespace_a_r_core_a4ebe9e23907235fcf76bf65440fde0e0}{A\+R\+Cam\+Ref} A\+R\+Core\+::\+A\+R\+Cam\+::create (\begin{DoxyParamCaption}\item[{A\+R\+Session $\ast$}]{session }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{namespace_a_r_core_a4ebe9e23907235fcf76bf65440fde0e0}{A\+R\+Cam\+Ref}} A\+R\+Core\+::\+A\+R\+Cam\+::create (\begin{DoxyParamCaption}\item[{A\+R\+Session $\ast$}]{session }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
-Creates a new \hyperlink{class_a_r_core_1_1_a_r_cam}{A\+R\+Cam} reference. 
+Creates a new \mbox{\hyperlink{class_a_r_core_1_1_a_r_cam}{A\+R\+Cam}} reference. 
 
 \mbox{\Hypertarget{class_a_r_core_1_1_a_r_cam_ac6506992ee88e0acd20d851849ebfa18}\label{class_a_r_core_1_1_a_r_cam_ac6506992ee88e0acd20d851849ebfa18}} 
 \index{A\+R\+Core\+::\+A\+R\+Cam@{A\+R\+Core\+::\+A\+R\+Cam}!draw@{draw}}
@@ -123,7 +125,13 @@ Creates a new \hyperlink{class_a_r_core_1_1_a_r_cam}{A\+R\+Cam} reference.
 
 draws the camera frame. 
 
-\mbox{\Hypertarget{class_a_r_core_1_1_a_r_cam_a98cb7f152cbc3028d258705da1591a55}\label{class_a_r_core_1_1_a_r_cam_a98cb7f152cbc3028d258705da1591a55}} 
+\mbox{\Hypertarget{class_a_r_core_1_1_a_r_cam_a5512aeae7ea9edb7daf9c9c07d15d402}\label{class_a_r_core_1_1_a_r_cam_a5512aeae7ea9edb7daf9c9c07d15d402}} 
+\index{A\+R\+Core\+::\+A\+R\+Cam@{A\+R\+Core\+::\+A\+R\+Cam}!draw\+Scaled@{draw\+Scaled}}
+\index{draw\+Scaled@{draw\+Scaled}!A\+R\+Core\+::\+A\+R\+Cam@{A\+R\+Core\+::\+A\+R\+Cam}}
+\subsubsection{\texorpdfstring{draw\+Scaled()}{drawScaled()}}
+{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Cam\+::draw\+Scaled (\begin{DoxyParamCaption}\item[{int}]{x = {\ttfamily 0},  }\item[{int}]{y = {\ttfamily 0},  }\item[{float}]{w = {\ttfamily 0},  }\item[{float}]{h = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+Draws a scaled version of the camera image based on the properties passed in. Will default to class properties if no new values are passed as parameters. \mbox{\Hypertarget{class_a_r_core_1_1_a_r_cam_a98cb7f152cbc3028d258705da1591a55}\label{class_a_r_core_1_1_a_r_cam_a98cb7f152cbc3028d258705da1591a55}} 
 \index{A\+R\+Core\+::\+A\+R\+Cam@{A\+R\+Core\+::\+A\+R\+Cam}!get\+Ambient\+Intensity@{get\+Ambient\+Intensity}}
 \index{get\+Ambient\+Intensity@{get\+Ambient\+Intensity}!A\+R\+Core\+::\+A\+R\+Cam@{A\+R\+Core\+::\+A\+R\+Cam}}
 \subsubsection{\texorpdfstring{get\+Ambient\+Intensity()}{getAmbientIntensity()}}
@@ -153,7 +161,7 @@ Returns the calculated bounds of the camera image. Useful in calculating the x a
 \index{A\+R\+Core\+::\+A\+R\+Cam@{A\+R\+Core\+::\+A\+R\+Cam}!get\+Camera\+Matrices@{get\+Camera\+Matrices}}
 \index{get\+Camera\+Matrices@{get\+Camera\+Matrices}!A\+R\+Core\+::\+A\+R\+Cam@{A\+R\+Core\+::\+A\+R\+Cam}}
 \subsubsection{\texorpdfstring{get\+Camera\+Matrices()}{getCameraMatrices()}}
-{\footnotesize\ttfamily \hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices} A\+R\+Core\+::\+A\+R\+Cam\+::get\+Camera\+Matrices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices}} A\+R\+Core\+::\+A\+R\+Cam\+::get\+Camera\+Matrices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -193,7 +201,7 @@ retrieves the current lighting conditions that A\+R\+Kit is seeing.
 \index{A\+R\+Core\+::\+A\+R\+Cam@{A\+R\+Core\+::\+A\+R\+Cam}!get\+Matrices\+For\+Orientation@{get\+Matrices\+For\+Orientation}}
 \index{get\+Matrices\+For\+Orientation@{get\+Matrices\+For\+Orientation}!A\+R\+Core\+::\+A\+R\+Cam@{A\+R\+Core\+::\+A\+R\+Cam}}
 \subsubsection{\texorpdfstring{get\+Matrices\+For\+Orientation()}{getMatricesForOrientation()}}
-{\footnotesize\ttfamily \hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Camera\+Matrices} A\+R\+Core\+::\+A\+R\+Cam\+::get\+Matrices\+For\+Orientation (\begin{DoxyParamCaption}\item[{U\+I\+Interface\+Orientation}]{orientation = {\ttfamily UIInterfaceOrientationPortrait},  }\item[{float}]{near = {\ttfamily 1.0},  }\item[{float}]{far = {\ttfamily 1000.0} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Camera\+Matrices}} A\+R\+Core\+::\+A\+R\+Cam\+::get\+Matrices\+For\+Orientation (\begin{DoxyParamCaption}\item[{U\+I\+Interface\+Orientation}]{orientation = {\ttfamily UIInterfaceOrientationPortrait},  }\item[{float}]{near = {\ttfamily 1.0},  }\item[{float}]{far = {\ttfamily 1000.0} }\end{DoxyParamCaption})}
 
 
 
@@ -370,5 +378,5 @@ used to help correct perspective distortion for some devices.
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-src/\hyperlink{_a_r_cam_8h}{A\+R\+Cam.\+h}\item 
-src/\hyperlink{_a_r_cam_8mm}{A\+R\+Cam.\+mm}\end{DoxyCompactItemize}
+src/\mbox{\hyperlink{_a_r_cam_8h}{A\+R\+Cam.\+h}}\item 
+src/\mbox{\hyperlink{_a_r_cam_8mm}{A\+R\+Cam.\+mm}}\end{DoxyCompactItemize}

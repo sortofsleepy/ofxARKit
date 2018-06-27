@@ -7,71 +7,75 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_ad4f5727e58d9b4c6f582c50ba5ac0f49}{A\+R\+Anchor\+Manager} ()
+\mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_ad4f5727e58d9b4c6f582c50ba5ac0f49}{A\+R\+Anchor\+Manager}} ()
 \item 
-\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a471dcdacaedea4647a04c34052742a61}{A\+R\+Anchor\+Manager} (A\+R\+Session $\ast$session)
+\mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a471dcdacaedea4647a04c34052742a61}{A\+R\+Anchor\+Manager}} (A\+R\+Session $\ast$session)
 \item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a462546bf84296188fd899d533a3c17bd}{add\+Anchor} (float z\+Zoom=-\/0.\+2)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a462546bf84296188fd899d533a3c17bd}{add\+Anchor}} (float z\+Zoom=-\/0.\+2)
 \begin{DoxyCompactList}\small\item\em Adds an anchor based on the current position of the camera -\/ basically at (0,0) with a slight z offset. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_adcd398aa9ed15e22b7110fcbfa8bd929}{add\+Anchor} (of\+Vec3f position, of\+Matrix4x4 projection, of\+Matrix4x4 view\+Matrix)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_adcd398aa9ed15e22b7110fcbfa8bd929}{add\+Anchor}} (of\+Vec3f position, of\+Matrix4x4 projection, of\+Matrix4x4 view\+Matrix)
 \begin{DoxyCompactList}\small\item\em adds an anchor at the specified position. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_ae710a985f06cfe488f218f49e8d0329a}{add\+Anchor} (\hyperlink{struct_a_r_objects_1_1_a_r_object}{A\+R\+Object} anchor)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_ae710a985f06cfe488f218f49e8d0329a}{add\+Anchor}} (\mbox{\hyperlink{struct_a_r_objects_1_1_a_r_object}{A\+R\+Object}} anchor)
 \begin{DoxyCompactList}\small\item\em adds an A\+R\+Object to be tracked by A\+R\+Kit. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_ab3ec0ff668e2adab3a0526ad79abd9f3}{set\+Number\+Of\+Planes\+To\+Track} (int num=0)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_ab3ec0ff668e2adab3a0526ad79abd9f3}{set\+Number\+Of\+Planes\+To\+Track}} (int num=0)
 \begin{DoxyCompactList}\small\item\em Sets the number of planes we want to track. By default, we track all available planes. \end{DoxyCompactList}\item 
-std\+::vector$<$ \hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object} $>$ \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a46a02253729234aef5617512f48e9211}{get\+Plane\+Anchors} ()
+std\+::vector$<$ \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object}} $>$ \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a46a02253729234aef5617512f48e9211}{get\+Plane\+Anchors}} ()
 \begin{DoxyCompactList}\small\item\em Returns the vector of currently found planes. \end{DoxyCompactList}\item 
-int \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a68b5139137f46a426374178cd43b653d}{get\+Num\+Anchors} ()
+std\+::vector$<$ \mbox{\hyperlink{struct_a_r_objects_1_1_image_anchor_object}{Image\+Anchor\+Object}} $>$ \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a9e4f4cc3de7334ff38184f6a00b619f5}{get\+Image\+Anchors}} ()
+\begin{DoxyCompactList}\small\item\em Returns the vector of currently found reference image anchors. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a68b5139137f46a426374178cd43b653d}{get\+Num\+Anchors}} ()
 \begin{DoxyCompactList}\small\item\em Returns the current number of anchors. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a687246a5f0aacaac63053c0e05081e11}{loop\+Anchors} (std\+::function$<$ void(\hyperlink{struct_a_r_objects_1_1_a_r_object}{A\+R\+Object})$>$ func)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a687246a5f0aacaac63053c0e05081e11}{loop\+Anchors}} (std\+::function$<$ void(\mbox{\hyperlink{struct_a_r_objects_1_1_a_r_object}{A\+R\+Object}})$>$ func)
 \item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a03ee4092b5d958f8b1467e0a0e62f9b9}{loop\+Anchors} (std\+::function$<$ void(\hyperlink{struct_a_r_objects_1_1_a_r_object}{A\+R\+Object}, int index)$>$ func)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a03ee4092b5d958f8b1467e0a0e62f9b9}{loop\+Anchors}} (std\+::function$<$ void(\mbox{\hyperlink{struct_a_r_objects_1_1_a_r_object}{A\+R\+Object}}, int index)$>$ func)
 \item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a170e30f7226b84eaede22392f08d5521}{loop\+Plane\+Anchors} (std\+::function$<$ void(\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object})$>$ func)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a170e30f7226b84eaede22392f08d5521}{loop\+Plane\+Anchors}} (std\+::function$<$ void(\mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object}})$>$ func)
 \begin{DoxyCompactList}\small\item\em Allows you to loop through planes and do something with each plane. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a6f3215e085a92b1165b3da58138adbfc}{loop\+Plane\+Anchors} (std\+::function$<$ void(\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object}, int index)$>$ func)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a6f3215e085a92b1165b3da58138adbfc}{loop\+Plane\+Anchors}} (std\+::function$<$ void(\mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object}}, int index)$>$ func)
 \begin{DoxyCompactList}\small\item\em Allows you to loop through planes and do something with each plane. \end{DoxyCompactList}\item 
-\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object} \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_ac885fded5a2a2f5c0b58506786e069f1}{get\+Plane\+At} (int index=0)
+\mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object}} \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_ac885fded5a2a2f5c0b58506786e069f1}{get\+Plane\+At}} (int index=0)
 \begin{DoxyCompactList}\small\item\em Returns the Plane\+Anchor\+Object associated with found planes. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a78da6cdbe64e12e49dc67adef5ac085b}{toggle\+Plane\+Upate} ()
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a78da6cdbe64e12e49dc67adef5ac085b}{toggle\+Plane\+Upate}} ()
 \begin{DoxyCompactList}\small\item\em Toggles whether or not planes should be updated at each iteration. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_aeaa578780e37129fb899b3f5a762af63}{remove\+Anchor\+Directly} (int index=0)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_aeaa578780e37129fb899b3f5a762af63}{remove\+Anchor\+Directly}} (int index=0)
 \item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_aec308e2f34682a568b2bda022a21a3ed}{clear\+Plane\+Anchors} ()
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_aec308e2f34682a568b2bda022a21a3ed}{clear\+Plane\+Anchors}} ()
 \begin{DoxyCompactList}\small\item\em clears all existing plane anchors being tracked. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a65690e39286b733631eb52c8e740bc79}{remove\+Plane} (N\+S\+U\+U\+ID $\ast$anchor\+Id)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a65690e39286b733631eb52c8e740bc79}{remove\+Plane}} (N\+S\+U\+U\+ID $\ast$anchor\+Id)
 \begin{DoxyCompactList}\small\item\em Removes a plane anchor based on it\textquotesingle{}s U\+U\+ID. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a7d01736351089d31708ca4c577da99a4}{remove\+Plane} (int index=0)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a7d01736351089d31708ca4c577da99a4}{remove\+Plane}} (int index=0)
 \begin{DoxyCompactList}\small\item\em removes a plane anchor based on it\textquotesingle{}s index in the planes vector \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_af78ff242457a15c5073b8a2557a96974}{clear\+Anchors} ()
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_af78ff242457a15c5073b8a2557a96974}{clear\+Anchors}} ()
 \begin{DoxyCompactList}\small\item\em Clears all existing anchors. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a28ed88e530bc1991e59f26e6b580d5c5}{remove\+Anchor} (N\+S\+U\+U\+ID $\ast$anchor\+Id)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a28ed88e530bc1991e59f26e6b580d5c5}{remove\+Anchor}} (N\+S\+U\+U\+ID $\ast$anchor\+Id)
 \begin{DoxyCompactList}\small\item\em removes anchor with the specified uuid \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a471d6e5694d6aecb810b65a909cf72b1}{remove\+Anchor} (int index=0)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a471d6e5694d6aecb810b65a909cf72b1}{remove\+Anchor}} (int index=0)
 \begin{DoxyCompactList}\small\item\em removes the anchor with the specified index. \end{DoxyCompactList}\item 
-int \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a1da3445edbf4474d1207d30b691cfb4f}{get\+Num\+Planes} ()
+int \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a1da3445edbf4474d1207d30b691cfb4f}{get\+Num\+Planes}} ()
 \begin{DoxyCompactList}\small\item\em Get the number of planes detected. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a7ec2178e8754fa04b00cc600c60cb852}{draw\+Planes} (\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices} camera\+Matrices)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a7ec2178e8754fa04b00cc600c60cb852}{draw\+Planes}} (\mbox{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices}} camera\+Matrices)
 \begin{DoxyCompactList}\small\item\em Draws all currently found planes. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_af4b19656d608761d25661d6720a4c2f3}{update} ()
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a84a5f1c8b7fbe62c32aa901f2c97d612}{draw\+Plane\+Meshes}} (\mbox{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices}} camera\+Matrices)
+\item 
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_af4b19656d608761d25661d6720a4c2f3}{update}} ()
 \begin{DoxyCompactList}\small\item\em general update function, currently increments the counter to keep track of the number of system + user anchors. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_aa35c3487e0ba5980ff6b2fb43414bd57}{update\+Planes} ()
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_aa35c3487e0ba5980ff6b2fb43414bd57}{update\+Planes}} ()
 \begin{DoxyCompactList}\small\item\em update function for dealing with planes. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a7148268b0a3e575bdad9e0d60dba505c}{update\+Faces} ()
-\begin{DoxyCompactList}\small\item\em updates face tracking info \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a68742132d494088fcf6be20c776ca0c6}{draw\+Plane\+At} (\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices} camera\+Matrices, int index=0)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a6b5fc9e3d6e318fb1be3a7cc4e867b16}{update\+Image\+Anchors}} ()
+\item 
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a68742132d494088fcf6be20c776ca0c6}{draw\+Plane\+At}} (\mbox{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices}} camera\+Matrices, int index=0)
 \begin{DoxyCompactList}\small\item\em draw a specific plane \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a1823c29c5b2d0d407e66b98378bf8c5f}{on\+Plane\+Added} (std\+::function$<$ void(\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object} plane)$>$ func)
+void \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_a1823c29c5b2d0d407e66b98378bf8c5f}{on\+Plane\+Added}} (std\+::function$<$ void(\mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object}} plane)$>$ func)
 \end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{namespace_a_r_core_a3f2b9ba00b51ce19c1010f554a66a512}{Anchor\+Manager\+Ref} \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_ab1293c2f5911e273573b1df3643fd086}{create} (A\+R\+Session $\ast$session)
+static \mbox{\hyperlink{namespace_a_r_core_a3f2b9ba00b51ce19c1010f554a66a512}{Anchor\+Manager\+Ref}} \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_ab1293c2f5911e273573b1df3643fd086}{create}} (A\+R\+Session $\ast$session)
 \end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-bool \hyperlink{class_a_r_core_1_1_a_r_anchor_manager_af67de0a611ff8a2786891eabb0ca571f}{should\+Update\+Planes}
+bool \mbox{\hyperlink{class_a_r_core_1_1_a_r_anchor_manager_af67de0a611ff8a2786891eabb0ca571f}{should\+Update\+Planes}}
 \begin{DoxyCompactList}\small\item\em Flag for whether or not planes should be updated. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -115,7 +119,7 @@ adds an anchor at the specified position.
 \index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!add\+Anchor@{add\+Anchor}}
 \index{add\+Anchor@{add\+Anchor}!A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}}
 \subsubsection{\texorpdfstring{add\+Anchor()}{addAnchor()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::add\+Anchor (\begin{DoxyParamCaption}\item[{\hyperlink{struct_a_r_objects_1_1_a_r_object}{A\+R\+Object}}]{anchor }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::add\+Anchor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_a_r_objects_1_1_a_r_object}{A\+R\+Object}}}]{anchor }\end{DoxyParamCaption})}
 
 
 
@@ -145,27 +149,43 @@ clears all existing plane anchors being tracked.
 \index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!create@{create}}
 \index{create@{create}!A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}}
 \subsubsection{\texorpdfstring{create()}{create()}}
-{\footnotesize\ttfamily static \hyperlink{namespace_a_r_core_a3f2b9ba00b51ce19c1010f554a66a512}{Anchor\+Manager\+Ref} A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::create (\begin{DoxyParamCaption}\item[{A\+R\+Session $\ast$}]{session }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{namespace_a_r_core_a3f2b9ba00b51ce19c1010f554a66a512}{Anchor\+Manager\+Ref}} A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::create (\begin{DoxyParamCaption}\item[{A\+R\+Session $\ast$}]{session }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 \mbox{\Hypertarget{class_a_r_core_1_1_a_r_anchor_manager_a68742132d494088fcf6be20c776ca0c6}\label{class_a_r_core_1_1_a_r_anchor_manager_a68742132d494088fcf6be20c776ca0c6}} 
 \index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!draw\+Plane\+At@{draw\+Plane\+At}}
 \index{draw\+Plane\+At@{draw\+Plane\+At}!A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}}
 \subsubsection{\texorpdfstring{draw\+Plane\+At()}{drawPlaneAt()}}
-{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::draw\+Plane\+At (\begin{DoxyParamCaption}\item[{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices}}]{camera\+Matrices,  }\item[{int}]{index = {\ttfamily 0} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::draw\+Plane\+At (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices}}}]{camera\+Matrices,  }\item[{int}]{index = {\ttfamily 0} }\end{DoxyParamCaption})}
 
 
 
 draw a specific plane 
 
-\mbox{\Hypertarget{class_a_r_core_1_1_a_r_anchor_manager_a7ec2178e8754fa04b00cc600c60cb852}\label{class_a_r_core_1_1_a_r_anchor_manager_a7ec2178e8754fa04b00cc600c60cb852}} 
+\mbox{\Hypertarget{class_a_r_core_1_1_a_r_anchor_manager_a84a5f1c8b7fbe62c32aa901f2c97d612}\label{class_a_r_core_1_1_a_r_anchor_manager_a84a5f1c8b7fbe62c32aa901f2c97d612}} 
+\index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!draw\+Plane\+Meshes@{draw\+Plane\+Meshes}}
+\index{draw\+Plane\+Meshes@{draw\+Plane\+Meshes}!A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}}
+\subsubsection{\texorpdfstring{draw\+Plane\+Meshes()}{drawPlaneMeshes()}}
+{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::draw\+Plane\+Meshes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices}}}]{camera\+Matrices }\end{DoxyParamCaption})}
+
+Draws all currently found planes -\/ for 11.\+3+ devices that can take advantage of built-\/in plane mesh. T\+O\+DO need to unify functions a bit so things are less confusing. \mbox{\Hypertarget{class_a_r_core_1_1_a_r_anchor_manager_a7ec2178e8754fa04b00cc600c60cb852}\label{class_a_r_core_1_1_a_r_anchor_manager_a7ec2178e8754fa04b00cc600c60cb852}} 
 \index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!draw\+Planes@{draw\+Planes}}
 \index{draw\+Planes@{draw\+Planes}!A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}}
 \subsubsection{\texorpdfstring{draw\+Planes()}{drawPlanes()}}
-{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::draw\+Planes (\begin{DoxyParamCaption}\item[{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices}}]{camera\+Matrices }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::draw\+Planes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices}}}]{camera\+Matrices }\end{DoxyParamCaption})}
 
 
 
 Draws all currently found planes. 
+
+\mbox{\Hypertarget{class_a_r_core_1_1_a_r_anchor_manager_a9e4f4cc3de7334ff38184f6a00b619f5}\label{class_a_r_core_1_1_a_r_anchor_manager_a9e4f4cc3de7334ff38184f6a00b619f5}} 
+\index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!get\+Image\+Anchors@{get\+Image\+Anchors}}
+\index{get\+Image\+Anchors@{get\+Image\+Anchors}!A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}}
+\subsubsection{\texorpdfstring{get\+Image\+Anchors()}{getImageAnchors()}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_a_r_objects_1_1_image_anchor_object}{Image\+Anchor\+Object}}$>$ A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::get\+Image\+Anchors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the vector of currently found reference image anchors. 
 
 \mbox{\Hypertarget{class_a_r_core_1_1_a_r_anchor_manager_a68b5139137f46a426374178cd43b653d}\label{class_a_r_core_1_1_a_r_anchor_manager_a68b5139137f46a426374178cd43b653d}} 
 \index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!get\+Num\+Anchors@{get\+Num\+Anchors}}
@@ -191,7 +211,7 @@ Get the number of planes detected.
 \index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!get\+Plane\+Anchors@{get\+Plane\+Anchors}}
 \index{get\+Plane\+Anchors@{get\+Plane\+Anchors}!A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}}
 \subsubsection{\texorpdfstring{get\+Plane\+Anchors()}{getPlaneAnchors()}}
-{\footnotesize\ttfamily std\+::vector$<$\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object}$>$ A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::get\+Plane\+Anchors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object}}$>$ A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::get\+Plane\+Anchors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -201,7 +221,7 @@ Returns the vector of currently found planes.
 \index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!get\+Plane\+At@{get\+Plane\+At}}
 \index{get\+Plane\+At@{get\+Plane\+At}!A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}}
 \subsubsection{\texorpdfstring{get\+Plane\+At()}{getPlaneAt()}}
-{\footnotesize\ttfamily \hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object} A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::get\+Plane\+At (\begin{DoxyParamCaption}\item[{int}]{index = {\ttfamily 0} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object}} A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::get\+Plane\+At (\begin{DoxyParamCaption}\item[{int}]{index = {\ttfamily 0} }\end{DoxyParamCaption})}
 
 
 
@@ -211,19 +231,19 @@ Returns the Plane\+Anchor\+Object associated with found planes.
 \index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!loop\+Anchors@{loop\+Anchors}}
 \index{loop\+Anchors@{loop\+Anchors}!A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}}
 \subsubsection{\texorpdfstring{loop\+Anchors()}{loopAnchors()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::loop\+Anchors (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(\hyperlink{struct_a_r_objects_1_1_a_r_object}{A\+R\+Object})$>$}]{func }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::loop\+Anchors (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(\mbox{\hyperlink{struct_a_r_objects_1_1_a_r_object}{A\+R\+Object}})$>$}]{func }\end{DoxyParamCaption})}
 
 Allows you to loop through the anchors and do something with each anchor. Pass in a lambda function \mbox{\Hypertarget{class_a_r_core_1_1_a_r_anchor_manager_a03ee4092b5d958f8b1467e0a0e62f9b9}\label{class_a_r_core_1_1_a_r_anchor_manager_a03ee4092b5d958f8b1467e0a0e62f9b9}} 
 \index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!loop\+Anchors@{loop\+Anchors}}
 \index{loop\+Anchors@{loop\+Anchors}!A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}}
 \subsubsection{\texorpdfstring{loop\+Anchors()}{loopAnchors()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::loop\+Anchors (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(\hyperlink{struct_a_r_objects_1_1_a_r_object}{A\+R\+Object}, int index)$>$}]{func }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::loop\+Anchors (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(\mbox{\hyperlink{struct_a_r_objects_1_1_a_r_object}{A\+R\+Object}}, int index)$>$}]{func }\end{DoxyParamCaption})}
 
 Allows you to loop through the anchors and do something with each anchor. Pass in a lambda function. Returns the current index in the loop as well as it\textquotesingle{}s anchor. \mbox{\Hypertarget{class_a_r_core_1_1_a_r_anchor_manager_a170e30f7226b84eaede22392f08d5521}\label{class_a_r_core_1_1_a_r_anchor_manager_a170e30f7226b84eaede22392f08d5521}} 
 \index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!loop\+Plane\+Anchors@{loop\+Plane\+Anchors}}
 \index{loop\+Plane\+Anchors@{loop\+Plane\+Anchors}!A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}}
 \subsubsection{\texorpdfstring{loop\+Plane\+Anchors()}{loopPlaneAnchors()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::loop\+Plane\+Anchors (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object})$>$}]{func }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::loop\+Plane\+Anchors (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(\mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object}})$>$}]{func }\end{DoxyParamCaption})}
 
 
 
@@ -233,7 +253,7 @@ Allows you to loop through planes and do something with each plane.
 \index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!loop\+Plane\+Anchors@{loop\+Plane\+Anchors}}
 \index{loop\+Plane\+Anchors@{loop\+Plane\+Anchors}!A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}}
 \subsubsection{\texorpdfstring{loop\+Plane\+Anchors()}{loopPlaneAnchors()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::loop\+Plane\+Anchors (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object}, int index)$>$}]{func }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::loop\+Plane\+Anchors (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(\mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object}}, int index)$>$}]{func }\end{DoxyParamCaption})}
 
 
 
@@ -243,7 +263,7 @@ Allows you to loop through planes and do something with each plane.
 \index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!on\+Plane\+Added@{on\+Plane\+Added}}
 \index{on\+Plane\+Added@{on\+Plane\+Added}!A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}}
 \subsubsection{\texorpdfstring{on\+Plane\+Added()}{onPlaneAdded()}}
-{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::on\+Plane\+Added (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object} plane)$>$}]{func }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::on\+Plane\+Added (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(\mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object}} plane)$>$}]{func }\end{DoxyParamCaption})}
 
 Allows you to set a callback function to run when a new plane is added. Returns the reference to that plane. \mbox{\Hypertarget{class_a_r_core_1_1_a_r_anchor_manager_a28ed88e530bc1991e59f26e6b580d5c5}\label{class_a_r_core_1_1_a_r_anchor_manager_a28ed88e530bc1991e59f26e6b580d5c5}} 
 \index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!remove\+Anchor@{remove\+Anchor}}
@@ -321,15 +341,11 @@ Toggles whether or not planes should be updated at each iteration.
 
 general update function, currently increments the counter to keep track of the number of system + user anchors. 
 
-\mbox{\Hypertarget{class_a_r_core_1_1_a_r_anchor_manager_a7148268b0a3e575bdad9e0d60dba505c}\label{class_a_r_core_1_1_a_r_anchor_manager_a7148268b0a3e575bdad9e0d60dba505c}} 
-\index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!update\+Faces@{update\+Faces}}
-\index{update\+Faces@{update\+Faces}!A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}}
-\subsubsection{\texorpdfstring{update\+Faces()}{updateFaces()}}
-{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::update\+Faces (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-updates face tracking info 
+\mbox{\Hypertarget{class_a_r_core_1_1_a_r_anchor_manager_a6b5fc9e3d6e318fb1be3a7cc4e867b16}\label{class_a_r_core_1_1_a_r_anchor_manager_a6b5fc9e3d6e318fb1be3a7cc4e867b16}} 
+\index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!update\+Image\+Anchors@{update\+Image\+Anchors}}
+\index{update\+Image\+Anchors@{update\+Image\+Anchors}!A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}}
+\subsubsection{\texorpdfstring{update\+Image\+Anchors()}{updateImageAnchors()}}
+{\footnotesize\ttfamily void A\+R\+Core\+::\+A\+R\+Anchor\+Manager\+::update\+Image\+Anchors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{class_a_r_core_1_1_a_r_anchor_manager_aa35c3487e0ba5980ff6b2fb43414bd57}\label{class_a_r_core_1_1_a_r_anchor_manager_aa35c3487e0ba5980ff6b2fb43414bd57}} 
 \index{A\+R\+Core\+::\+A\+R\+Anchor\+Manager@{A\+R\+Core\+::\+A\+R\+Anchor\+Manager}!update\+Planes@{update\+Planes}}
@@ -358,5 +374,5 @@ Flag for whether or not planes should be updated.
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-src/\hyperlink{_a_r_anchor_manager_8h}{A\+R\+Anchor\+Manager.\+h}\item 
-src/\hyperlink{_a_r_anchor_manager_8mm}{A\+R\+Anchor\+Manager.\+mm}\end{DoxyCompactItemize}
+src/\mbox{\hyperlink{_a_r_anchor_manager_8h}{A\+R\+Anchor\+Manager.\+h}}\item 
+src/\mbox{\hyperlink{_a_r_anchor_manager_8mm}{A\+R\+Anchor\+Manager.\+mm}}\end{DoxyCompactItemize}

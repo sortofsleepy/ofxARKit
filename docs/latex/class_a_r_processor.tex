@@ -7,86 +7,103 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_a_r_processor_a2dda14173a82870379c111d13a0562d6}{A\+R\+Processor} (A\+R\+Session $\ast$session)
+\mbox{\hyperlink{class_a_r_processor_a2dda14173a82870379c111d13a0562d6}{A\+R\+Processor}} (A\+R\+Session $\ast$session)
 \begin{DoxyCompactList}\small\item\em Constructor -\/ pass in A\+R\+Session reference. \end{DoxyCompactList}\item 
-\hyperlink{class_a_r_processor_a9bd83aa6f017e308d1e55e709621ae84}{$\sim$\+A\+R\+Processor} ()
+\mbox{\hyperlink{class_a_r_processor_a9bd83aa6f017e308d1e55e709621ae84}{$\sim$\+A\+R\+Processor}} ()
 \begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_processor_a1a41547daccb7c6810bc2693ea6d5487}{setup} (bool debug\+Mode=false)
+void \mbox{\hyperlink{class_a_r_processor_a1a41547daccb7c6810bc2693ea6d5487}{setup}} (bool debug\+Mode=false)
 \begin{DoxyCompactList}\small\item\em Sets up all the necessary components for A\+R\+Kit. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_processor_a76b6cbb62dcc0aa87e38e48cc8dbe621}{update} ()
+void \mbox{\hyperlink{class_a_r_processor_a76b6cbb62dcc0aa87e38e48cc8dbe621}{update}} ()
 \begin{DoxyCompactList}\small\item\em Updates all the A\+R\+Kit components. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_processor_a20418bd305702c3346a109da9e1afcb0}{draw} ()
+void \mbox{\hyperlink{class_a_r_processor_a20418bd305702c3346a109da9e1afcb0}{draw}} ()
 \begin{DoxyCompactList}\small\item\em Draws the camera frame. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_processor_a685469fa6b66b8b5d935f6f45a2ef599}{draw\+Frame} ()
+void \mbox{\hyperlink{class_a_r_processor_a685469fa6b66b8b5d935f6f45a2ef599}{draw\+Frame}} ()
 \begin{DoxyCompactList}\small\item\em Alias for drawing the camera frame for better semantics. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_processor_a035d352220785ee03e1bb15ba6bf688d}{pause\+Session} ()
+void \mbox{\hyperlink{class_a_r_processor_a035d352220785ee03e1bb15ba6bf688d}{pause\+Session}} ()
 \begin{DoxyCompactList}\small\item\em Pauses the A\+R\+Kit session. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_processor_a121cd3925743680196771ce07058d52e}{restart\+Session} ()
+void \mbox{\hyperlink{class_a_r_processor_a121cd3925743680196771ce07058d52e}{restart\+Session}} ()
 \item 
-void \hyperlink{class_a_r_processor_a832585774cbeb04cc181f01c193940b5}{toggle\+Debug} ()
+void \mbox{\hyperlink{class_a_r_processor_a832585774cbeb04cc181f01c193940b5}{toggle\+Debug}} ()
 \begin{DoxyCompactList}\small\item\em Toggles debug mode. \end{DoxyCompactList}\item 
-A\+R\+Tracking\+State \hyperlink{class_a_r_processor_aa53d195b42b23d9208071692fd5ac28d}{get\+Tracking\+State} ()
+A\+R\+Tracking\+State \mbox{\hyperlink{class_a_r_processor_aa53d195b42b23d9208071692fd5ac28d}{get\+Tracking\+State}} ()
 \begin{DoxyCompactList}\small\item\em Returns the current tracking state of the A\+R\+Kit framework. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_processor_a3ae7b56c7d5f555ec84dbd1f1f0a8f65}{log\+Tracking\+State} ()
+void \mbox{\hyperlink{class_a_r_processor_a3ae7b56c7d5f555ec84dbd1f1f0a8f65}{log\+Tracking\+State}} ()
 \begin{DoxyCompactList}\small\item\em Logs the current tracking state of the A\+R\+Kit framework. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_processor_ae938bf188d56d8b30b141b2fa23e96f8}{draw\+Point\+Cloud} ()
+void \mbox{\hyperlink{class_a_r_processor_ae938bf188d56d8b30b141b2fa23e96f8}{draw\+Point\+Cloud}} ()
 \begin{DoxyCompactList}\small\item\em draws point cloud \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_processor_a535a8b2d9f2d89ab187962fc8f9ba55d}{add\+Anchor} (float z\+Zoom=-\/0.\+2)
+void \mbox{\hyperlink{class_a_r_processor_a535a8b2d9f2d89ab187962fc8f9ba55d}{add\+Anchor}} (float z\+Zoom=-\/0.\+2)
 \begin{DoxyCompactList}\small\item\em Adds an anchor at the origin. Allows to optionally pass in a custom z value. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_processor_af4e627093ee86883736c89c2a627af42}{add\+Anchor} (of\+Vec3f position)
+void \mbox{\hyperlink{class_a_r_processor_af4e627093ee86883736c89c2a627af42}{add\+Anchor}} (of\+Vec3f position)
 \begin{DoxyCompactList}\small\item\em Adds an anchor at a specified position. Note that z value is up to you to set. \end{DoxyCompactList}\item 
-std\+::vector$<$ \hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object} $>$ \hyperlink{class_a_r_processor_a3cd70af245be375d56a06e2ea8d068f9}{get\+Horizontal\+Planes} ()
-\begin{DoxyCompactList}\small\item\em Returns the current set of horizontal planes. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_processor_a6a61a7e03821410bc1a715fd32159662}{draw\+Horizontal\+Planes} ()
-\begin{DoxyCompactList}\small\item\em Draws the current set of horizontal planes. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_processor_aaa1488d9082ec598fd4aeb5c5c43d999}{update\+Planes} ()
+std\+::vector$<$ \mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object}} $>$ \mbox{\hyperlink{class_a_r_processor_a7989d984ccedbb31b0299adfe1fb1ac4}{get\+Planes}} ()
+\begin{DoxyCompactList}\small\item\em Returns the current set of planes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_a_r_processor_a6a61a7e03821410bc1a715fd32159662}{draw\+Horizontal\+Planes}} ()
+\begin{DoxyCompactList}\small\item\em Draw horizontal planes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_a_r_processor_acb7b24b21a47b4f4aa9d4d2c07a60d56}{draw\+Planes}} ()
+\begin{DoxyCompactList}\small\item\em Draws the current set of planes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_a_r_processor_a516f256cd561a6f572f8741a2dec9c25}{draw\+Plane\+Meshes}} ()
+\begin{DoxyCompactList}\small\item\em Draws the current set of plane meshes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_a_r_processor_aaa1488d9082ec598fd4aeb5c5c43d999}{update\+Planes}} ()
 \begin{DoxyCompactList}\small\item\em updates plane information \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_processor_a53dbd6040f277ee7f7ef08f79240cdfb}{update\+Faces} ()
+void \mbox{\hyperlink{class_a_r_processor_a287729321790fb840cb27a49e65f68a8}{update\+Images}} ()
 \item 
-void \hyperlink{class_a_r_processor_a1100d09ed407ae8d1f4e95a9698e548d}{force\+Interface\+Orientation} (U\+I\+Interface\+Orientation orientation)
+bool \mbox{\hyperlink{class_a_r_processor_a0ef0ae984393513e3d3417bf659e022a}{is\+Valid\+Frame}} ()
 \item 
-void \hyperlink{class_a_r_processor_ac065970f90243b08b9d004a4220d0345}{device\+Orientation\+Changed} ()
+vector$<$ A\+R\+Reference\+Image $\ast$ $>$ \& \mbox{\hyperlink{class_a_r_processor_a07f2f86123829bee3b92115a0636855c}{get\+A\+R\+Reference\+Images}} ()
+\begin{DoxyCompactList}\small\item\em returns raw A\+R\+Image\+Reference array \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_a_r_objects_1_1_image_anchor_object}{Image\+Anchor\+Object}} $>$ \mbox{\hyperlink{class_a_r_processor_aa21d943bcd4020fe98d7c9d1a9f14844}{get\+Images}} ()
 \item 
-void \hyperlink{class_a_r_processor_a48797c1a249b2f115d0151396bc1eb9c}{update\+Device\+Interface\+Orientation} ()
+vector$<$ string $>$ \mbox{\hyperlink{class_a_r_processor_a7a44fddbb4da117c40aa762368d92c54}{get\+Reference\+Images}} ()
+\begin{DoxyCompactList}\small\item\em returns a list of names of all reference images \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_a_r_processor_a1100d09ed407ae8d1f4e95a9698e548d}{force\+Interface\+Orientation}} (U\+I\+Interface\+Orientation orientation)
 \item 
-void \hyperlink{class_a_r_processor_a2514281144c680e13c02562c74746ceb}{rotate\+Camera\+Frame} (float angle)
+void \mbox{\hyperlink{class_a_r_processor_ac065970f90243b08b9d004a4220d0345}{device\+Orientation\+Changed}} ()
+\item 
+void \mbox{\hyperlink{class_a_r_processor_a48797c1a249b2f115d0151396bc1eb9c}{update\+Device\+Interface\+Orientation}} ()
+\item 
+void \mbox{\hyperlink{class_a_r_processor_a2514281144c680e13c02562c74746ceb}{rotate\+Camera\+Frame}} (float angle)
 \begin{DoxyCompactList}\small\item\em Forces the camera frame to rotate. \end{DoxyCompactList}\item 
-float \hyperlink{class_a_r_processor_a3e6d897db3a54b004f3eac337110765e}{get\+Light\+Intensity} ()
+float \mbox{\hyperlink{class_a_r_processor_a3e6d897db3a54b004f3eac337110765e}{get\+Light\+Intensity}} ()
 \begin{DoxyCompactList}\small\item\em Get the light intensity currently detected. \end{DoxyCompactList}\item 
-of\+Vec3f \hyperlink{class_a_r_processor_a06030d617c338b3c395c48498733ddb7}{get\+Camera\+Position} ()
+of\+Vec3f \mbox{\hyperlink{class_a_r_processor_a06030d617c338b3c395c48498733ddb7}{get\+Camera\+Position}} ()
 \begin{DoxyCompactList}\small\item\em Returns the camera\textquotesingle{}s current transform matrix as a vec3. \end{DoxyCompactList}\item 
-void \hyperlink{class_a_r_processor_a2ffd8b9518388be29eba6affe4d4d152}{set\+A\+R\+Camera\+Matrices} ()
+void \mbox{\hyperlink{class_a_r_processor_a2ffd8b9518388be29eba6affe4d4d152}{set\+A\+R\+Camera\+Matrices}} ()
 \begin{DoxyCompactList}\small\item\em Helper to quickly set up A\+R\+Kit projection and view matrices for 2D drawing in oF. \end{DoxyCompactList}\item 
-\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices} \hyperlink{class_a_r_processor_abcd684d805e880aed72c2eb56a65978f}{get\+Matrices\+For\+Orientation} (U\+I\+Interface\+Orientation orientation=U\+I\+Interface\+Orientation\+Portrait, float near=0.\+01, float far=1000.\+0)
+\mbox{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices}} \mbox{\hyperlink{class_a_r_processor_abcd684d805e880aed72c2eb56a65978f}{get\+Matrices\+For\+Orientation}} (U\+I\+Interface\+Orientation orientation=U\+I\+Interface\+Orientation\+Portrait, float near=0.\+01, float far=1000.\+0)
 \begin{DoxyCompactList}\small\item\em Returns Projection and View matrices for the specified orientation. \end{DoxyCompactList}\item 
-of\+Texture \hyperlink{class_a_r_processor_a5eb8045000bc6e0ad3d41d7bbf832047}{get\+Camera\+Texture} ()
+of\+Texture \mbox{\hyperlink{class_a_r_processor_a5eb8045000bc6e0ad3d41d7bbf832047}{get\+Camera\+Texture}} ()
 \begin{DoxyCompactList}\small\item\em Return the camera image as a texture. \end{DoxyCompactList}\item 
-\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices} \hyperlink{class_a_r_processor_a82a9b334360ebccd844e7cf5584eff8b}{get\+Camera\+Matrices} ()
+\mbox{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices}} \mbox{\hyperlink{class_a_r_processor_a82a9b334360ebccd844e7cf5584eff8b}{get\+Camera\+Matrices}} ()
 \begin{DoxyCompactList}\small\item\em Get the camera matrix set. \end{DoxyCompactList}\item 
-of\+Matrix4x4 \hyperlink{class_a_r_processor_a0f7cf764c73a8fc3964be088156766ea}{get\+Projection\+Matrix} ()
+of\+Matrix4x4 \mbox{\hyperlink{class_a_r_processor_a0f7cf764c73a8fc3964be088156766ea}{get\+Projection\+Matrix}} ()
 \item 
-of\+Matrix4x4 \hyperlink{class_a_r_processor_a2e1d4cde9029bad28ac797c94e73096a}{get\+View\+Matrix} ()
+of\+Matrix4x4 \mbox{\hyperlink{class_a_r_processor_a2e1d4cde9029bad28ac797c94e73096a}{get\+View\+Matrix}} ()
 \begin{DoxyCompactList}\small\item\em returns the current view matrix from the camera \end{DoxyCompactList}\item 
-of\+Matrix4x4 \hyperlink{class_a_r_processor_aea093b6d054daa0c75de6f7a492a19ff}{get\+Camera\+Transform\+Matrix} ()
+of\+Matrix4x4 \mbox{\hyperlink{class_a_r_processor_aea093b6d054daa0c75de6f7a492a19ff}{get\+Camera\+Transform\+Matrix}} ()
 \begin{DoxyCompactList}\small\item\em Returns the camera\textquotesingle{}s current transform matrix. \end{DoxyCompactList}\item 
-of\+Fbo \hyperlink{class_a_r_processor_a8436dc786e91fb933879d90a4ab396d5}{get\+F\+BO} ()
+of\+Fbo \mbox{\hyperlink{class_a_r_processor_a8436dc786e91fb933879d90a4ab396d5}{get\+F\+BO}} ()
 \begin{DoxyCompactList}\small\item\em Returns the camera\textquotesingle{}s F\+BO. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{_a_r_processor_8h_aa8c5643290d0692cc71388c3f0f1623a}{A\+R\+Ref} \hyperlink{class_a_r_processor_affa1cf36e94e3015c436fd30626dd773}{create} (A\+R\+Session $\ast$session)
+static \mbox{\hyperlink{_a_r_processor_8h_aa8c5643290d0692cc71388c3f0f1623a}{A\+R\+Ref}} \mbox{\hyperlink{class_a_r_processor_affa1cf36e94e3015c436fd30626dd773}{create}} (A\+R\+Session $\ast$session)
 \begin{DoxyCompactList}\small\item\em creates a new A\+R\+Ref \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{namespace_a_r_core_a3f2b9ba00b51ce19c1010f554a66a512}{A\+R\+Core\+::\+Anchor\+Manager\+Ref} \hyperlink{class_a_r_processor_a8a1a8f16b30d2b0b4839a30d7ba4763d}{anchor\+Controller}
+\mbox{\hyperlink{namespace_a_r_core_a3f2b9ba00b51ce19c1010f554a66a512}{A\+R\+Core\+::\+Anchor\+Manager\+Ref}} \mbox{\hyperlink{class_a_r_processor_a8a1a8f16b30d2b0b4839a30d7ba4763d}{anchor\+Controller}}
 \begin{DoxyCompactList}\small\item\em An A\+R\+Anchor\+Manager deals with handling Anchor objects in A\+R\+Kit. \end{DoxyCompactList}\item 
-\hyperlink{class_a_r_debug_utils_1_1_point_cloud_debug}{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug} \hyperlink{class_a_r_processor_a555e829fbf6b625537f6fd7cd9557002}{point\+Cloud}
+\mbox{\hyperlink{class_a_r_debug_utils_1_1_point_cloud_debug}{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}} \mbox{\hyperlink{class_a_r_processor_a555e829fbf6b625537f6fd7cd9557002}{point\+Cloud}}
 \begin{DoxyCompactList}\small\item\em A debug class to help visualize feature detection. \end{DoxyCompactList}\item 
-\hyperlink{class_a_r_debug_utils_1_1_a_r_debug_info}{A\+R\+Debug\+Utils\+::\+A\+R\+Debug\+Info} \hyperlink{class_a_r_processor_a6b7b4d5ac724bd93a7828759f7f6da4e}{debug\+Info}
+\mbox{\hyperlink{class_a_r_debug_utils_1_1_a_r_debug_info}{A\+R\+Debug\+Utils\+::\+A\+R\+Debug\+Info}} \mbox{\hyperlink{class_a_r_processor_a6b7b4d5ac724bd93a7828759f7f6da4e}{debug\+Info}}
 \begin{DoxyCompactList}\small\item\em Debug class to help render common debugging information. \end{DoxyCompactList}\item 
-\hyperlink{namespace_a_r_core_a4ebe9e23907235fcf76bf65440fde0e0}{A\+R\+Core\+::\+A\+R\+Cam\+Ref} \hyperlink{class_a_r_processor_a0df4995c56cb187db281726d7631d9ed}{camera}
+\mbox{\hyperlink{namespace_a_r_core_a4ebe9e23907235fcf76bf65440fde0e0}{A\+R\+Core\+::\+A\+R\+Cam\+Ref}} \mbox{\hyperlink{class_a_r_processor_a0df4995c56cb187db281726d7631d9ed}{camera}}
 \begin{DoxyCompactList}\small\item\em A class to handle camera functionality. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ A\+R\+Reference\+Image $\ast$$>$ \mbox{\hyperlink{class_a_r_processor_a153e891c386d86a01008ec655a4bbf20}{ar\+Ref\+Images}}
+\begin{DoxyCompactList}\small\item\em A\+R\+Reference\+Images. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -140,7 +157,7 @@ Adds an anchor at a specified position. Note that z value is up to you to set.
 \index{A\+R\+Processor@{A\+R\+Processor}!create@{create}}
 \index{create@{create}!A\+R\+Processor@{A\+R\+Processor}}
 \subsubsection{\texorpdfstring{create()}{create()}}
-{\footnotesize\ttfamily static \hyperlink{_a_r_processor_8h_aa8c5643290d0692cc71388c3f0f1623a}{A\+R\+Ref} A\+R\+Processor\+::create (\begin{DoxyParamCaption}\item[{A\+R\+Session $\ast$}]{session }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{_a_r_processor_8h_aa8c5643290d0692cc71388c3f0f1623a}{A\+R\+Ref}} A\+R\+Processor\+::create (\begin{DoxyParamCaption}\item[{A\+R\+Session $\ast$}]{session }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
@@ -180,7 +197,27 @@ Alias for drawing the camera frame for better semantics.
 
 
 
-Draws the current set of horizontal planes. 
+Draw horizontal planes. 
+
+\mbox{\Hypertarget{class_a_r_processor_a516f256cd561a6f572f8741a2dec9c25}\label{class_a_r_processor_a516f256cd561a6f572f8741a2dec9c25}} 
+\index{A\+R\+Processor@{A\+R\+Processor}!draw\+Plane\+Meshes@{draw\+Plane\+Meshes}}
+\index{draw\+Plane\+Meshes@{draw\+Plane\+Meshes}!A\+R\+Processor@{A\+R\+Processor}}
+\subsubsection{\texorpdfstring{draw\+Plane\+Meshes()}{drawPlaneMeshes()}}
+{\footnotesize\ttfamily void A\+R\+Processor\+::draw\+Plane\+Meshes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Draws the current set of plane meshes. 
+
+Draws the current set of plane meshes T\+O\+DO -\/ who made this example again? Not sure what should go here -\/ Joe \mbox{\Hypertarget{class_a_r_processor_acb7b24b21a47b4f4aa9d4d2c07a60d56}\label{class_a_r_processor_acb7b24b21a47b4f4aa9d4d2c07a60d56}} 
+\index{A\+R\+Processor@{A\+R\+Processor}!draw\+Planes@{draw\+Planes}}
+\index{draw\+Planes@{draw\+Planes}!A\+R\+Processor@{A\+R\+Processor}}
+\subsubsection{\texorpdfstring{draw\+Planes()}{drawPlanes()}}
+{\footnotesize\ttfamily void A\+R\+Processor\+::draw\+Planes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Draws the current set of planes. 
 
 \mbox{\Hypertarget{class_a_r_processor_ae938bf188d56d8b30b141b2fa23e96f8}\label{class_a_r_processor_ae938bf188d56d8b30b141b2fa23e96f8}} 
 \index{A\+R\+Processor@{A\+R\+Processor}!draw\+Point\+Cloud@{draw\+Point\+Cloud}}
@@ -198,11 +235,21 @@ draws point cloud
 \subsubsection{\texorpdfstring{force\+Interface\+Orientation()}{forceInterfaceOrientation()}}
 {\footnotesize\ttfamily void A\+R\+Processor\+::force\+Interface\+Orientation (\begin{DoxyParamCaption}\item[{U\+I\+Interface\+Orientation}]{orientation }\end{DoxyParamCaption})}
 
-In the event a device is used while locking the orientation, this allows you to force a certain interface orientation so you can still obtain the correct camera matrices. \mbox{\Hypertarget{class_a_r_processor_a82a9b334360ebccd844e7cf5584eff8b}\label{class_a_r_processor_a82a9b334360ebccd844e7cf5584eff8b}} 
+In the event a device is used while locking the orientation, this allows you to force a certain interface orientation so you can still obtain the correct camera matrices. \mbox{\Hypertarget{class_a_r_processor_a07f2f86123829bee3b92115a0636855c}\label{class_a_r_processor_a07f2f86123829bee3b92115a0636855c}} 
+\index{A\+R\+Processor@{A\+R\+Processor}!get\+A\+R\+Reference\+Images@{get\+A\+R\+Reference\+Images}}
+\index{get\+A\+R\+Reference\+Images@{get\+A\+R\+Reference\+Images}!A\+R\+Processor@{A\+R\+Processor}}
+\subsubsection{\texorpdfstring{get\+A\+R\+Reference\+Images()}{getARReferenceImages()}}
+{\footnotesize\ttfamily vector$<$ A\+R\+Reference\+Image $\ast$ $>$ \& A\+R\+Processor\+::get\+A\+R\+Reference\+Images (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+returns raw A\+R\+Image\+Reference array 
+
+\mbox{\Hypertarget{class_a_r_processor_a82a9b334360ebccd844e7cf5584eff8b}\label{class_a_r_processor_a82a9b334360ebccd844e7cf5584eff8b}} 
 \index{A\+R\+Processor@{A\+R\+Processor}!get\+Camera\+Matrices@{get\+Camera\+Matrices}}
 \index{get\+Camera\+Matrices@{get\+Camera\+Matrices}!A\+R\+Processor@{A\+R\+Processor}}
 \subsubsection{\texorpdfstring{get\+Camera\+Matrices()}{getCameraMatrices()}}
-{\footnotesize\ttfamily \hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices} A\+R\+Processor\+::get\+Camera\+Matrices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Common\+::\+A\+R\+Camera\+Matrices}} A\+R\+Processor\+::get\+Camera\+Matrices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -248,15 +295,11 @@ Returns the camera\textquotesingle{}s current transform matrix.
 
 Returns the camera\textquotesingle{}s F\+BO. 
 
-\mbox{\Hypertarget{class_a_r_processor_a3cd70af245be375d56a06e2ea8d068f9}\label{class_a_r_processor_a3cd70af245be375d56a06e2ea8d068f9}} 
-\index{A\+R\+Processor@{A\+R\+Processor}!get\+Horizontal\+Planes@{get\+Horizontal\+Planes}}
-\index{get\+Horizontal\+Planes@{get\+Horizontal\+Planes}!A\+R\+Processor@{A\+R\+Processor}}
-\subsubsection{\texorpdfstring{get\+Horizontal\+Planes()}{getHorizontalPlanes()}}
-{\footnotesize\ttfamily std\+::vector$<$\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object}$>$ A\+R\+Processor\+::get\+Horizontal\+Planes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-
-Returns the current set of horizontal planes. 
+\mbox{\Hypertarget{class_a_r_processor_aa21d943bcd4020fe98d7c9d1a9f14844}\label{class_a_r_processor_aa21d943bcd4020fe98d7c9d1a9f14844}} 
+\index{A\+R\+Processor@{A\+R\+Processor}!get\+Images@{get\+Images}}
+\index{get\+Images@{get\+Images}!A\+R\+Processor@{A\+R\+Processor}}
+\subsubsection{\texorpdfstring{get\+Images()}{getImages()}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_a_r_objects_1_1_image_anchor_object}{Image\+Anchor\+Object}}$>$ A\+R\+Processor\+::get\+Images (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{class_a_r_processor_a3e6d897db3a54b004f3eac337110765e}\label{class_a_r_processor_a3e6d897db3a54b004f3eac337110765e}} 
 \index{A\+R\+Processor@{A\+R\+Processor}!get\+Light\+Intensity@{get\+Light\+Intensity}}
@@ -272,17 +315,37 @@ Get the light intensity currently detected.
 \index{A\+R\+Processor@{A\+R\+Processor}!get\+Matrices\+For\+Orientation@{get\+Matrices\+For\+Orientation}}
 \index{get\+Matrices\+For\+Orientation@{get\+Matrices\+For\+Orientation}!A\+R\+Processor@{A\+R\+Processor}}
 \subsubsection{\texorpdfstring{get\+Matrices\+For\+Orientation()}{getMatricesForOrientation()}}
-{\footnotesize\ttfamily \hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Camera\+Matrices} A\+R\+Processor\+::get\+Matrices\+For\+Orientation (\begin{DoxyParamCaption}\item[{U\+I\+Interface\+Orientation}]{orientation = {\ttfamily UIInterfaceOrientationPortrait},  }\item[{float}]{near = {\ttfamily 0.01},  }\item[{float}]{far = {\ttfamily 1000.0} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Camera\+Matrices}} A\+R\+Processor\+::get\+Matrices\+For\+Orientation (\begin{DoxyParamCaption}\item[{U\+I\+Interface\+Orientation}]{orientation = {\ttfamily UIInterfaceOrientationPortrait},  }\item[{float}]{near = {\ttfamily 0.01},  }\item[{float}]{far = {\ttfamily 1000.0} }\end{DoxyParamCaption})}
 
 
 
 Returns Projection and View matrices for the specified orientation. 
+
+\mbox{\Hypertarget{class_a_r_processor_a7989d984ccedbb31b0299adfe1fb1ac4}\label{class_a_r_processor_a7989d984ccedbb31b0299adfe1fb1ac4}} 
+\index{A\+R\+Processor@{A\+R\+Processor}!get\+Planes@{get\+Planes}}
+\index{get\+Planes@{get\+Planes}!A\+R\+Processor@{A\+R\+Processor}}
+\subsubsection{\texorpdfstring{get\+Planes()}{getPlanes()}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_a_r_objects_1_1_plane_anchor_object}{Plane\+Anchor\+Object}}$>$ A\+R\+Processor\+::get\+Planes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the current set of planes. 
 
 \mbox{\Hypertarget{class_a_r_processor_a0f7cf764c73a8fc3964be088156766ea}\label{class_a_r_processor_a0f7cf764c73a8fc3964be088156766ea}} 
 \index{A\+R\+Processor@{A\+R\+Processor}!get\+Projection\+Matrix@{get\+Projection\+Matrix}}
 \index{get\+Projection\+Matrix@{get\+Projection\+Matrix}!A\+R\+Processor@{A\+R\+Processor}}
 \subsubsection{\texorpdfstring{get\+Projection\+Matrix()}{getProjectionMatrix()}}
 {\footnotesize\ttfamily of\+Matrix4x4 A\+R\+Processor\+::get\+Projection\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_a_r_processor_a7a44fddbb4da117c40aa762368d92c54}\label{class_a_r_processor_a7a44fddbb4da117c40aa762368d92c54}} 
+\index{A\+R\+Processor@{A\+R\+Processor}!get\+Reference\+Images@{get\+Reference\+Images}}
+\index{get\+Reference\+Images@{get\+Reference\+Images}!A\+R\+Processor@{A\+R\+Processor}}
+\subsubsection{\texorpdfstring{get\+Reference\+Images()}{getReferenceImages()}}
+{\footnotesize\ttfamily vector$<$string$>$ A\+R\+Processor\+::get\+Reference\+Images (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+returns a list of names of all reference images 
 
 \mbox{\Hypertarget{class_a_r_processor_aa53d195b42b23d9208071692fd5ac28d}\label{class_a_r_processor_aa53d195b42b23d9208071692fd5ac28d}} 
 \index{A\+R\+Processor@{A\+R\+Processor}!get\+Tracking\+State@{get\+Tracking\+State}}
@@ -304,7 +367,13 @@ Returns the current tracking state of the A\+R\+Kit framework.
 
 returns the current view matrix from the camera 
 
-\mbox{\Hypertarget{class_a_r_processor_a3ae7b56c7d5f555ec84dbd1f1f0a8f65}\label{class_a_r_processor_a3ae7b56c7d5f555ec84dbd1f1f0a8f65}} 
+\mbox{\Hypertarget{class_a_r_processor_a0ef0ae984393513e3d3417bf659e022a}\label{class_a_r_processor_a0ef0ae984393513e3d3417bf659e022a}} 
+\index{A\+R\+Processor@{A\+R\+Processor}!is\+Valid\+Frame@{is\+Valid\+Frame}}
+\index{is\+Valid\+Frame@{is\+Valid\+Frame}!A\+R\+Processor@{A\+R\+Processor}}
+\subsubsection{\texorpdfstring{is\+Valid\+Frame()}{isValidFrame()}}
+{\footnotesize\ttfamily bool A\+R\+Processor\+::is\+Valid\+Frame (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Helps ensure we are able to start making use of A\+R\+Kit found features. \mbox{\Hypertarget{class_a_r_processor_a3ae7b56c7d5f555ec84dbd1f1f0a8f65}\label{class_a_r_processor_a3ae7b56c7d5f555ec84dbd1f1f0a8f65}} 
 \index{A\+R\+Processor@{A\+R\+Processor}!log\+Tracking\+State@{log\+Tracking\+State}}
 \index{log\+Tracking\+State@{log\+Tracking\+State}!A\+R\+Processor@{A\+R\+Processor}}
 \subsubsection{\texorpdfstring{log\+Tracking\+State()}{logTrackingState()}}
@@ -386,11 +455,11 @@ Updates all the A\+R\+Kit components.
 \subsubsection{\texorpdfstring{update\+Device\+Interface\+Orientation()}{updateDeviceInterfaceOrientation()}}
 {\footnotesize\ttfamily void A\+R\+Processor\+::update\+Device\+Interface\+Orientation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Updates the interface orientation based on the current device orientation. This is to ensure The camera matrices remain correctly oriented to the current orientation. \mbox{\Hypertarget{class_a_r_processor_a53dbd6040f277ee7f7ef08f79240cdfb}\label{class_a_r_processor_a53dbd6040f277ee7f7ef08f79240cdfb}} 
-\index{A\+R\+Processor@{A\+R\+Processor}!update\+Faces@{update\+Faces}}
-\index{update\+Faces@{update\+Faces}!A\+R\+Processor@{A\+R\+Processor}}
-\subsubsection{\texorpdfstring{update\+Faces()}{updateFaces()}}
-{\footnotesize\ttfamily void A\+R\+Processor\+::update\+Faces (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+Updates the interface orientation based on the current device orientation. This is to ensure The camera matrices remain correctly oriented to the current orientation. \mbox{\Hypertarget{class_a_r_processor_a287729321790fb840cb27a49e65f68a8}\label{class_a_r_processor_a287729321790fb840cb27a49e65f68a8}} 
+\index{A\+R\+Processor@{A\+R\+Processor}!update\+Images@{update\+Images}}
+\index{update\+Images@{update\+Images}!A\+R\+Processor@{A\+R\+Processor}}
+\subsubsection{\texorpdfstring{update\+Images()}{updateImages()}}
+{\footnotesize\ttfamily void A\+R\+Processor\+::update\+Images (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{class_a_r_processor_aaa1488d9082ec598fd4aeb5c5c43d999}\label{class_a_r_processor_aaa1488d9082ec598fd4aeb5c5c43d999}} 
 \index{A\+R\+Processor@{A\+R\+Processor}!update\+Planes@{update\+Planes}}
@@ -409,17 +478,27 @@ updates plane information
 \index{A\+R\+Processor@{A\+R\+Processor}!anchor\+Controller@{anchor\+Controller}}
 \index{anchor\+Controller@{anchor\+Controller}!A\+R\+Processor@{A\+R\+Processor}}
 \subsubsection{\texorpdfstring{anchor\+Controller}{anchorController}}
-{\footnotesize\ttfamily \hyperlink{namespace_a_r_core_a3f2b9ba00b51ce19c1010f554a66a512}{A\+R\+Core\+::\+Anchor\+Manager\+Ref} A\+R\+Processor\+::anchor\+Controller}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_a_r_core_a3f2b9ba00b51ce19c1010f554a66a512}{A\+R\+Core\+::\+Anchor\+Manager\+Ref}} A\+R\+Processor\+::anchor\+Controller}
 
 
 
 An A\+R\+Anchor\+Manager deals with handling Anchor objects in A\+R\+Kit. 
 
+\mbox{\Hypertarget{class_a_r_processor_a153e891c386d86a01008ec655a4bbf20}\label{class_a_r_processor_a153e891c386d86a01008ec655a4bbf20}} 
+\index{A\+R\+Processor@{A\+R\+Processor}!ar\+Ref\+Images@{ar\+Ref\+Images}}
+\index{ar\+Ref\+Images@{ar\+Ref\+Images}!A\+R\+Processor@{A\+R\+Processor}}
+\subsubsection{\texorpdfstring{ar\+Ref\+Images}{arRefImages}}
+{\footnotesize\ttfamily vector$<$A\+R\+Reference\+Image $\ast$ $>$ A\+R\+Processor\+::ar\+Ref\+Images\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+A\+R\+Reference\+Images. 
+
 \mbox{\Hypertarget{class_a_r_processor_a0df4995c56cb187db281726d7631d9ed}\label{class_a_r_processor_a0df4995c56cb187db281726d7631d9ed}} 
 \index{A\+R\+Processor@{A\+R\+Processor}!camera@{camera}}
 \index{camera@{camera}!A\+R\+Processor@{A\+R\+Processor}}
 \subsubsection{\texorpdfstring{camera}{camera}}
-{\footnotesize\ttfamily \hyperlink{namespace_a_r_core_a4ebe9e23907235fcf76bf65440fde0e0}{A\+R\+Core\+::\+A\+R\+Cam\+Ref} A\+R\+Processor\+::camera}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_a_r_core_a4ebe9e23907235fcf76bf65440fde0e0}{A\+R\+Core\+::\+A\+R\+Cam\+Ref}} A\+R\+Processor\+::camera}
 
 
 
@@ -429,7 +508,7 @@ A class to handle camera functionality.
 \index{A\+R\+Processor@{A\+R\+Processor}!debug\+Info@{debug\+Info}}
 \index{debug\+Info@{debug\+Info}!A\+R\+Processor@{A\+R\+Processor}}
 \subsubsection{\texorpdfstring{debug\+Info}{debugInfo}}
-{\footnotesize\ttfamily \hyperlink{class_a_r_debug_utils_1_1_a_r_debug_info}{A\+R\+Debug\+Utils\+::\+A\+R\+Debug\+Info} A\+R\+Processor\+::debug\+Info}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_a_r_debug_utils_1_1_a_r_debug_info}{A\+R\+Debug\+Utils\+::\+A\+R\+Debug\+Info}} A\+R\+Processor\+::debug\+Info}
 
 
 
@@ -439,7 +518,7 @@ Debug class to help render common debugging information.
 \index{A\+R\+Processor@{A\+R\+Processor}!point\+Cloud@{point\+Cloud}}
 \index{point\+Cloud@{point\+Cloud}!A\+R\+Processor@{A\+R\+Processor}}
 \subsubsection{\texorpdfstring{point\+Cloud}{pointCloud}}
-{\footnotesize\ttfamily \hyperlink{class_a_r_debug_utils_1_1_point_cloud_debug}{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug} A\+R\+Processor\+::point\+Cloud}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_a_r_debug_utils_1_1_point_cloud_debug}{A\+R\+Debug\+Utils\+::\+Point\+Cloud\+Debug}} A\+R\+Processor\+::point\+Cloud}
 
 
 
@@ -449,5 +528,5 @@ A debug class to help visualize feature detection.
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-src/\hyperlink{_a_r_processor_8h}{A\+R\+Processor.\+h}\item 
-src/\hyperlink{_a_r_processor_8mm}{A\+R\+Processor.\+mm}\end{DoxyCompactItemize}
+src/\mbox{\hyperlink{_a_r_processor_8h}{A\+R\+Processor.\+h}}\item 
+src/\mbox{\hyperlink{_a_r_processor_8mm}{A\+R\+Processor.\+mm}}\end{DoxyCompactItemize}

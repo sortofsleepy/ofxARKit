@@ -3,30 +3,32 @@
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Camera\+Matrices}
+struct \mbox{\hyperlink{struct_a_r_common_1_1_a_r_camera_matrices}{A\+R\+Camera\+Matrices}}
 \begin{DoxyCompactList}\small\item\em joined camera matrices as one object. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename T , typename U $>$ }\\const static U \hyperlink{namespace_a_r_common_ab67b42b84c068f0c4ab2401ea3af86c6}{convert} (const T \&t)
+{\footnotesize template$<$typename T , typename U $>$ }\\const static U \mbox{\hyperlink{namespace_a_r_common_ab67b42b84c068f0c4ab2401ea3af86c6}{convert}} (const T \&t)
 \item 
-static const static of\+Matrix4x4 \hyperlink{namespace_a_r_common_a7ea27fb9de7e7890d46de5bea9b535e6}{to\+Mat4} (const matrix\+\_\+float4x4 \&mat)
+static bool \mbox{\hyperlink{namespace_a_r_common_a7939654fc3c2d04150e4cbf6953429d9}{is\+Ios113}} ()
+\begin{DoxyCompactList}\small\item\em Helper function to determine if user is running at least ios 11.\+3. \end{DoxyCompactList}\item 
+static const of\+Matrix4x4 \mbox{\hyperlink{namespace_a_r_common_a4c4194125c19eb18f43b61b991261dbf}{to\+Mat4}} (const matrix\+\_\+float4x4 \&mat)
 \begin{DoxyCompactList}\small\item\em convert to oF mat4 \end{DoxyCompactList}\item 
-static const matrix\+\_\+float4x4 \hyperlink{namespace_a_r_common_a94f59f549eb5aec3f077b54ae5e5df86}{to\+S\+I\+M\+D\+Mat4} (of\+Matrix4x4 \&mat)
+static const matrix\+\_\+float4x4 \mbox{\hyperlink{namespace_a_r_common_a94f59f549eb5aec3f077b54ae5e5df86}{to\+S\+I\+M\+D\+Mat4}} (of\+Matrix4x4 \&mat)
 \begin{DoxyCompactList}\small\item\em convert to simd based mat4 \end{DoxyCompactList}\item 
-static of\+Vec3f \hyperlink{namespace_a_r_common_a5a232f6315a3a5b74678034efadd5d20}{get\+Anchor\+X\+YZ} (of\+Matrix4x4 mat)
+static of\+Vec3f \mbox{\hyperlink{namespace_a_r_common_a5a232f6315a3a5b74678034efadd5d20}{get\+Anchor\+X\+YZ}} (of\+Matrix4x4 mat)
 \item 
-static of\+Matrix4x4 \hyperlink{namespace_a_r_common_aec58705c71590506c5f1f86e927f11e1}{model\+Mat\+From\+Transform} (matrix\+\_\+float4x4 transform)
+static of\+Matrix4x4 \mbox{\hyperlink{namespace_a_r_common_aec58705c71590506c5f1f86e927f11e1}{model\+Mat\+From\+Transform}} (matrix\+\_\+float4x4 transform)
 \begin{DoxyCompactList}\small\item\em Constructs a generalized model matrix for a S\+I\+MD mat4. \end{DoxyCompactList}\item 
-static of\+Vec2f \hyperlink{namespace_a_r_common_a37407572659749170d1906046fa1921c}{get\+Device\+Dimensions} (bool use\+Native=false)
+static of\+Vec2f \mbox{\hyperlink{namespace_a_r_common_a37407572659749170d1906046fa1921c}{get\+Device\+Dimensions}} (bool use\+Native=false)
 \item 
-static float \hyperlink{namespace_a_r_common_a00f3449531f154cba4a751128117052f}{get\+Native\+Aspect\+Ratio} ()
+static float \mbox{\hyperlink{namespace_a_r_common_a00f3449531f154cba4a751128117052f}{get\+Native\+Aspect\+Ratio}} ()
 \begin{DoxyCompactList}\small\item\em Returns the native aspect ratio in pixels. \end{DoxyCompactList}\item 
-static float \hyperlink{namespace_a_r_common_a5c33a5f3620614da8b3be53f6811d7ca}{get\+Aspect\+Ratio} ()
+static float \mbox{\hyperlink{namespace_a_r_common_a5c33a5f3620614da8b3be53f6811d7ca}{get\+Aspect\+Ratio}} ()
 \begin{DoxyCompactList}\small\item\em Returns the aspect ratio in points. \end{DoxyCompactList}\item 
-static of\+Vec2f \hyperlink{namespace_a_r_common_a9cd9f43005e2612ab5054dc3aec90fcf}{world\+To\+Screen} (of\+Point world\+Point, of\+Matrix4x4 projection, of\+Matrix4x4 view)
+static of\+Vec2f \mbox{\hyperlink{namespace_a_r_common_a9cd9f43005e2612ab5054dc3aec90fcf}{world\+To\+Screen}} (of\+Point world\+Point, of\+Matrix4x4 projection, of\+Matrix4x4 view)
 \item 
-static of\+Vec4f \hyperlink{namespace_a_r_common_acc8f469a4596dc7173993ce58068bd2d}{screen\+To\+World} (of\+Vec3f position, of\+Matrix4x4 projection, of\+Matrix4x4 mv\+Matrix)
+static of\+Vec4f \mbox{\hyperlink{namespace_a_r_common_acc8f469a4596dc7173993ce58068bd2d}{screen\+To\+World}} (of\+Vec3f position, of\+Matrix4x4 projection, of\+Matrix4x4 mv\+Matrix)
 \begin{DoxyCompactList}\small\item\em Convert screen position to a world position. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -70,6 +72,16 @@ Returns the device dimensions. Pass in true if you want to return the dimensions
 
 Returns the native aspect ratio in pixels. 
 
+\mbox{\Hypertarget{namespace_a_r_common_a7939654fc3c2d04150e4cbf6953429d9}\label{namespace_a_r_common_a7939654fc3c2d04150e4cbf6953429d9}} 
+\index{A\+R\+Common@{A\+R\+Common}!is\+Ios113@{is\+Ios113}}
+\index{is\+Ios113@{is\+Ios113}!A\+R\+Common@{A\+R\+Common}}
+\subsubsection{\texorpdfstring{is\+Ios113()}{isIos113()}}
+{\footnotesize\ttfamily static bool A\+R\+Common\+::is\+Ios113 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Helper function to determine if user is running at least ios 11.\+3. 
+
 \mbox{\Hypertarget{namespace_a_r_common_aec58705c71590506c5f1f86e927f11e1}\label{namespace_a_r_common_aec58705c71590506c5f1f86e927f11e1}} 
 \index{A\+R\+Common@{A\+R\+Common}!model\+Mat\+From\+Transform@{model\+Mat\+From\+Transform}}
 \index{model\+Mat\+From\+Transform@{model\+Mat\+From\+Transform}!A\+R\+Common@{A\+R\+Common}}
@@ -90,11 +102,11 @@ Constructs a generalized model matrix for a S\+I\+MD mat4.
 
 Convert screen position to a world position. 
 
-\mbox{\Hypertarget{namespace_a_r_common_a7ea27fb9de7e7890d46de5bea9b535e6}\label{namespace_a_r_common_a7ea27fb9de7e7890d46de5bea9b535e6}} 
+\mbox{\Hypertarget{namespace_a_r_common_a4c4194125c19eb18f43b61b991261dbf}\label{namespace_a_r_common_a4c4194125c19eb18f43b61b991261dbf}} 
 \index{A\+R\+Common@{A\+R\+Common}!to\+Mat4@{to\+Mat4}}
 \index{to\+Mat4@{to\+Mat4}!A\+R\+Common@{A\+R\+Common}}
 \subsubsection{\texorpdfstring{to\+Mat4()}{toMat4()}}
-{\footnotesize\ttfamily static const static of\+Matrix4x4 A\+R\+Common\+::to\+Mat4 (\begin{DoxyParamCaption}\item[{const matrix\+\_\+float4x4 \&}]{mat }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static const of\+Matrix4x4 A\+R\+Common\+::to\+Mat4 (\begin{DoxyParamCaption}\item[{const matrix\+\_\+float4x4 \&}]{mat }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
