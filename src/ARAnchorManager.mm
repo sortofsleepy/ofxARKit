@@ -5,19 +5,20 @@
 //
 
 #include "ARAnchorManager.h"
+#include "ARUtils.h"
 using namespace std;
 using namespace ARCommon;
 
 namespace ARCore {
 
     ARAnchorManager::ARAnchorManager():
-    shouldUpdatePlanes(false),
+    shouldUpdatePlanes(true),
     maxTrackedPlanes(0){
         _onPlaneAdded = nullptr;
     }
 
     ARAnchorManager::ARAnchorManager(ARSession * session):
-    shouldUpdatePlanes(false),
+    shouldUpdatePlanes(true),
     maxTrackedPlanes(0){
         this->session = session;
     }
@@ -127,12 +128,60 @@ namespace ARCore {
 
     }
 
+    void ARAnchorManager::updateImageAnchors(){
+        for (NSInteger index = 0; index < anchorInstanceCount; index++) {
+            ARAnchor *anchor = session.currentFrame.anchors[index];
+            
+            if (ARCommon::isIos113()) {
+                if([anchor isKindOfClass:[ARImageAnchor class]]){
+                    ARImageAnchor * im = (ARImageAnchor*) anchor;
+                    
+                    // calc values from anchor.
+                    NSUUID * uuid = im.identifier;
+                    ofMatrix4x4 transform = convert<matrix_float4x4, ofMatrix4x4>(im.transform);
+                    string image = std::string([im.referenceImage.name UTF8String]);
+                    float width = im.referenceImage.physicalSize.width;
+                    float height = im.referenceImage.physicalSize.height;
+                    
+                    auto it = find_if(imageAnchors.begin(), imageAnchors.end(), [=](const ImageAnchorObject& obj) {
+                        return obj.uuid == uuid;
+                    });
+                    
+                    // new imageAnchor
+                    if ( it == imageAnchors.end() ){
+                        ImageAnchorObject imAnchor;
+                        imAnchor.imageName = image;
+                        imAnchor.rawAnchor = im;
+                        imAnchor.uuid = uuid;
+                        imAnchor.width = width;
+                        imAnchor.height = height;
+                        imAnchor.transform = transform;
+                        imageAnchors.push_back(imAnchor);
+                        
+                        if(_onImageRecognized != nullptr){
+                            _onImageRecognized(imAnchor);
+                        }
+                    }
+                    // old imageAnchor
+                    else {
+                        // do we need to update anything else besides this?
+                        imageAnchors[index].transform = transform;
+                        
+                    }
+                }
+            }
+        }
+    }
 
     void ARAnchorManager::updatePlanes(){
 
         // if we aren't tracking the maximum number of planes or we want to track all possible planes,
         // run the for loop.
         if(getNumPlanes() < maxTrackedPlanes || maxTrackedPlanes == 0){
+            
+            // track UUIDs in array
+            vector<NSUUID *> uuids;
+            
             // update any anchors found in the current frame by the system
             for (NSInteger index = 0; index < anchorInstanceCount; index++) {
                 ARAnchor *anchor = session.currentFrame.anchors[index];
@@ -167,11 +216,35 @@ namespace ARCore {
                         plane.height = extent.z;
                         plane.uuid = anchor.identifier;
                         plane.rawAnchor = pa;
+                        
+                        if (ARCommon::isIos113()) {
+                            ARPlaneGeometry * geo = pa.geometry;
+                            // transform vertices and uvs
+                            for(NSInteger i = 0; i < geo.vertexCount; ++i){
+                                vector_float3 vert = geo.vertices[i];
+                                vector_float2 uv = geo.textureCoordinates[i];
+                                plane.vertices.push_back(convert<vector_float3, glm::vec3>(vert));
+                                plane.uvs.push_back(convert<vector_float2, glm::vec2>(uv));
+                                plane.colors.push_back(plane.debugColor);
+                            }
+                            
+                            //set indices
+                            for (NSInteger i=0; i < geo.triangleCount; i++){
+                                plane.indices.push_back(geo.triangleIndices[ i*3 + 0 ]);
+                                plane.indices.push_back(geo.triangleIndices[ i*3 + 1 ]);
+                                plane.indices.push_back(geo.triangleIndices[ i*3 + 2 ]);
+                            }
+                            plane.buildMesh();
+                        } else {
+                            // Fallback on earlier versions
+                        }
+                        
 
                         if(_onPlaneAdded != nullptr){
                             _onPlaneAdded(plane);
                         }
 
+                        
                         planes.push_back(plane);
                     }
 
@@ -193,6 +266,19 @@ namespace ARCore {
 
                 }
 
+            }
+            
+            if(shouldUpdatePlanes && planes.size() > 0){
+                for ( int i=planes.size()-1; i>=0; --i ){
+                    
+                    auto f_it = find_if(uuids.begin(), uuids.end(), [=](const NSUUID * obj) {
+                        return obj == planes[i].uuid;
+                    });
+                    if ( f_it == uuids.end() ){
+                        planes.erase( planes.begin() + i );
+                        //                        [session removeAnchor:planes[i].rawAnchor];
+                    }
+                }
             }
         }
     }
@@ -362,33 +448,60 @@ namespace ARCore {
 
         camera.end();
     }
-
-
-    void ARAnchorManager::drawPlanes(ARCameraMatrices cameraMatrices){
+ 
+    void ARAnchorManager::drawPlaneMeshes(ARCameraMatrices cameraMatrices){
         camera.begin();
-
+        
         ofSetMatrixMode(OF_MATRIX_PROJECTION);
         ofLoadMatrix(cameraMatrices.cameraProjection);
         ofSetMatrixMode(OF_MATRIX_MODELVIEW);
         ofLoadMatrix(cameraMatrices.cameraView);
-
+        
         for(int i = 0; i < getNumPlanes(); ++i){
             PlaneAnchorObject anchor = getPlaneAt(i);
-
-
+            
             ofPushMatrix();
             ofMultMatrix(anchor.transform);
-            ofFill();
-            ofSetColor(102,216,254,100);
-            ofRotateX(90);
-            ofTranslate(anchor.position.x,anchor.position.y);
-            ofDrawRectangle(-anchor.position.x/2,-anchor.position.z/2,0,anchor.width,anchor.height);
-            ofSetColor(255);
+            anchor.planeMesh.draw();
             ofPopMatrix();
-
         }
-
+        
         camera.end();
+    }
+
+    void ARAnchorManager::drawPlanes(ARCameraMatrices cameraMatrices){
+        
+        // if using 11.3+ - use built in plane meshes.
+        // otherwise use oF rectangle
+        if(ARCommon::isIos113()){
+            drawPlaneMeshes(cameraMatrices);
+        }else{
+            
+            camera.begin();
+            
+            ofSetMatrixMode(OF_MATRIX_PROJECTION);
+            ofLoadMatrix(cameraMatrices.cameraProjection);
+            ofSetMatrixMode(OF_MATRIX_MODELVIEW);
+            ofLoadMatrix(cameraMatrices.cameraView);
+            
+            for(int i = 0; i < getNumPlanes(); ++i){
+                PlaneAnchorObject anchor = getPlaneAt(i);
+                
+                
+                ofPushMatrix();
+                ofMultMatrix(anchor.transform);
+                ofFill();
+                ofSetColor(102,216,254,100);
+                ofRotateX(90);
+                ofTranslate(anchor.position.x,anchor.position.y);
+                ofDrawRectangle(-anchor.position.x/2,-anchor.position.z/2,0,anchor.width,anchor.height);
+                ofSetColor(255);
+                ofPopMatrix();
+                
+            }
+            
+            camera.end();
+        }
     }
 
     void ARAnchorManager::onPlaneAdded(std::function<void(PlaneAnchorObject plane)> func){

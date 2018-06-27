@@ -9,22 +9,21 @@
 /* Begin PBXBuildFile section */
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		26E48FA925CB7AB40D972560 /* ARProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16C7F36EEA16280EF694F1CA /* ARProcessor.mm */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		306D06F5C9531F383C48155E /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517B80F49A5C789E90E5131A /* ARKit.framework */; };
 		5326AEA810A23A0500278DE6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5326AEA710A23A0500278DE6 /* CoreLocation.framework */; };
 		53F323EB10A20EDB00E0DAE4 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F323EA10A20EDB00E0DAE4 /* OpenAL.framework */; };
-		678E130817951530005B6D19 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130717951530005B6D19 /* Icon@2x.png */; };
-		678E130A17951536005B6D19 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130917951536005B6D19 /* Icon.png */; };
-		678E130C1795153C005B6D19 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130B1795153C005B6D19 /* Default.png */; };
-		678E130E17951540005B6D19 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130D17951540005B6D19 /* Default@2x.png */; };
-		678E131017951549005B6D19 /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */; };
 		67DFA53619F92A69003B3434 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67DFA53419F92A5E003B3434 /* Accelerate.framework */; };
-		B00AF4F31F44D40B0082DDF8 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00AF4F21F44D40B0082DDF8 /* ARKit.framework */; };
-		B00AF4FC1F44D5180082DDF8 /* MyAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = B00AF4F61F44D4F50082DDF8 /* MyAppDelegate.mm */; };
-		B00AF4FD1F44D5180082DDF8 /* MyAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B00AF4F91F44D4F50082DDF8 /* MyAppViewController.mm */; };
-		B00AF4FE1F44D5180082DDF8 /* OFAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B00AF4FB1F44D4F50082DDF8 /* OFAppViewController.mm */; };
-		B02A0FC01F49D302002A69F3 /* ARAnchorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B02A0FB91F49D298002A69F3 /* ARAnchorManager.mm */; };
-		B02A0FC11F49D302002A69F3 /* ARProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = B02A0FBC1F49D298002A69F3 /* ARProcessor.mm */; };
-		B07F9A411F561D1D0031FC25 /* ARCam.mm in Sources */ = {isa = PBXBuildFile; fileRef = B07F9A401F561D1D0031FC25 /* ARCam.mm */; };
+		8DEE3593CFC3E0A0F3578C2D /* ARCam.mm in Sources */ = {isa = PBXBuildFile; fileRef = DCA11A3992D2441F6D8D2DBD /* ARCam.mm */; };
+		901808C12053638E004A7774 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901808BF2053636F004A7774 /* GLKit.framework */; };
+		966DC6CFF8359AF2BCC8EAFD /* ARAnchorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBAC3A38884A86BA86D4C26D /* ARAnchorManager.mm */; };
+		9936F6101BFA4DEE00891288 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9936F60F1BFA4DEE00891288 /* Images.xcassets */; };
+		9936F6121BFA65F100891288 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9936F6111BFA65F100891288 /* LaunchScreen.storyboard */; };
+		9969E7561C782C4500DEF0F6 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9969E7551C782C4500DEF0F6 /* CoreMotion.framework */; };
+		9CE0E83720E03DCC00FD702E /* MyAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9CE0E83120E03DCC00FD702E /* MyAppDelegate.mm */; };
+		9CE0E83820E03DCC00FD702E /* OFAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9CE0E83520E03DCC00FD702E /* OFAppViewController.mm */; };
+		9CE0E83920E03DCC00FD702E /* MyAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9CE0E83620E03DCC00FD702E /* MyAppViewController.mm */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
 		BBE5EAB80F49AD8400F28951 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */; };
@@ -55,41 +54,38 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09673E6D454686E403C40A18 /* ARUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARUtils.h; path = ../../../addons/ofxARKit/src/ARUtils.h; sourceTree = SOURCE_ROOT; };
+		16C7F36EEA16280EF694F1CA /* ARProcessor.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ARProcessor.mm; path = ../../../addons/ofxARKit/src/ARProcessor.mm; sourceTree = SOURCE_ROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* example-planes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "example-planes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		302A7A61ECBFE243BE2A6D15 /* ARProcessor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARProcessor.h; path = ../../../addons/ofxARKit/src/ARProcessor.h; sourceTree = SOURCE_ROOT; };
 		32CA4F630368D1EE00C91783 /* ofxiOS_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxiOS_Prefix.pch; sourceTree = "<group>"; };
+		517B80F49A5C789E90E5131A /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/ARKit.framework; sourceTree = "<group>"; };
 		5326AEA710A23A0500278DE6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		53F323EA10A20EDB00E0DAE4 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
-		678E130717951530005B6D19 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "bin/data/Icon@2x.png"; sourceTree = "<group>"; };
-		678E130917951536005B6D19 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = bin/data/Icon.png; sourceTree = "<group>"; };
-		678E130B1795153C005B6D19 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = bin/data/Default.png; sourceTree = "<group>"; };
-		678E130D17951540005B6D19 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "bin/data/Default@2x.png"; sourceTree = "<group>"; };
-		678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x~iphone.png"; path = "bin/data/Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
+		581E4B10C1444D6272A60B20 /* ARShaders.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARShaders.h; path = ../../../addons/ofxARKit/src/ARShaders.h; sourceTree = SOURCE_ROOT; };
+		6305FC4AB701AEC8BA64E935 /* ARDebugUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARDebugUtils.h; path = ../../../addons/ofxARKit/src/ARDebugUtils.h; sourceTree = SOURCE_ROOT; };
 		67DFA53419F92A5E003B3434 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		B00AF4F21F44D40B0082DDF8 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
-		B00AF4F51F44D4F50082DDF8 /* MyAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAppDelegate.h; sourceTree = "<group>"; };
-		B00AF4F61F44D4F50082DDF8 /* MyAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAppDelegate.mm; sourceTree = "<group>"; };
-		B00AF4F81F44D4F50082DDF8 /* MyAppViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAppViewController.h; sourceTree = "<group>"; };
-		B00AF4F91F44D4F50082DDF8 /* MyAppViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAppViewController.mm; sourceTree = "<group>"; };
-		B00AF4FA1F44D4F50082DDF8 /* OFAppViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OFAppViewController.h; sourceTree = "<group>"; };
-		B00AF4FB1F44D4F50082DDF8 /* OFAppViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OFAppViewController.mm; sourceTree = "<group>"; };
-		B00EE1A61F44DAB600CF6B93 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
-		B02A0FB71F49D298002A69F3 /* ARShaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARShaders.h; path = ../src/ARShaders.h; sourceTree = "<group>"; };
-		B02A0FB81F49D298002A69F3 /* ARUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARUtils.h; path = ../src/ARUtils.h; sourceTree = "<group>"; };
-		B02A0FB91F49D298002A69F3 /* ARAnchorManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = ARAnchorManager.mm; path = ../src/ARAnchorManager.mm; sourceTree = "<group>"; };
-		B02A0FBA1F49D298002A69F3 /* ARAnchorManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARAnchorManager.h; path = ../src/ARAnchorManager.h; sourceTree = "<group>"; };
-		B02A0FBB1F49D298002A69F3 /* ARProcessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARProcessor.h; path = ../src/ARProcessor.h; sourceTree = "<group>"; };
-		B02A0FBC1F49D298002A69F3 /* ARProcessor.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = ARProcessor.mm; path = ../src/ARProcessor.mm; sourceTree = "<group>"; };
-		B02A0FBD1F49D298002A69F3 /* ofxARKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxARKit.h; path = ../src/ofxARKit.h; sourceTree = "<group>"; };
-		B02A0FBF1F49D2D1002A69F3 /* ARDebugUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARDebugUtils.h; path = ../src/ARDebugUtils.h; sourceTree = "<group>"; };
-		B07F9A3F1F561D1C0031FC25 /* ARCam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARCam.h; path = ../src/ARCam.h; sourceTree = "<group>"; };
-		B07F9A401F561D1D0031FC25 /* ARCam.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = ARCam.mm; path = ../src/ARCam.mm; sourceTree = "<group>"; };
+		8CED944372A372672447BABA /* ARAnchorManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARAnchorManager.h; path = ../../../addons/ofxARKit/src/ARAnchorManager.h; sourceTree = SOURCE_ROOT; };
+		901808BF2053636F004A7774 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		9936F60F1BFA4DEE00891288 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9936F6111BFA65F100891288 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9969E7551C782C4500DEF0F6 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		9CE0E83020E03DCC00FD702E /* MyAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAppDelegate.h; sourceTree = "<group>"; };
+		9CE0E83120E03DCC00FD702E /* MyAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAppDelegate.mm; sourceTree = "<group>"; };
+		9CE0E83320E03DCC00FD702E /* OFAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFAppViewController.h; sourceTree = "<group>"; };
+		9CE0E83420E03DCC00FD702E /* MyAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAppViewController.h; sourceTree = "<group>"; };
+		9CE0E83520E03DCC00FD702E /* OFAppViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OFAppViewController.mm; sourceTree = "<group>"; };
+		9CE0E83620E03DCC00FD702E /* MyAppViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAppViewController.mm; sourceTree = "<group>"; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BB16EBD80F2B2AB500518274 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB24DDC910DA781C00E9C588 /* ofxiOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ofxiOS-Info.plist"; sourceTree = "<group>"; };
+		BBAC3A38884A86BA86D4C26D /* ARAnchorManager.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ARAnchorManager.mm; path = ../../../addons/ofxARKit/src/ARAnchorManager.mm; sourceTree = SOURCE_ROOT; };
 		BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		CC7B4B2B9605C0BF2C8A133C /* ofxARKit.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxARKit.h; path = ../../../addons/ofxARKit/src/ofxARKit.h; sourceTree = SOURCE_ROOT; };
+		DCA11A3992D2441F6D8D2DBD /* ARCam.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ARCam.mm; path = ../../../addons/ofxARKit/src/ARCam.mm; sourceTree = SOURCE_ROOT; };
 		E41D3ED613B38FB500A75A5D /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		E41D3EE513B3906D00A75A5D /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/ios/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
 		E41D400613B39D2100A75A5D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -101,6 +97,10 @@
 		E4D8936B11527B74007E1F53 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = src/main.mm; sourceTree = SOURCE_ROOT; };
 		E4D8936C11527B74007E1F53 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofApp.h; path = src/ofApp.h; sourceTree = SOURCE_ROOT; };
 		E4D8936D11527B74007E1F53 /* ofApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ofApp.mm; path = src/ofApp.mm; sourceTree = SOURCE_ROOT; };
+		E8470187C69FECA34ACE6825 /* ARObjects.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARObjects.h; path = ../../../addons/ofxARKit/src/ARObjects.h; sourceTree = SOURCE_ROOT; };
+		F1FD0B255231DD44AA4B35CA /* ARCam.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARCam.h; path = ../../../addons/ofxARKit/src/ARCam.h; sourceTree = SOURCE_ROOT; };
+		F9BE3DED6B2C36C40E5D4D69 /* ARSessionSetup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARSessionSetup.h; path = ../../../addons/ofxARKit/src/ARSessionSetup.h; sourceTree = SOURCE_ROOT; };
+		FED1B5568E444C5A17968CDE /* ARFaceTrackingBool.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARFaceTrackingBool.h; path = ../../../addons/ofxARKit/src/ARFaceTrackingBool.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +108,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B00AF4F31F44D40B0082DDF8 /* ARKit.framework in Frameworks */,
+				9969E7561C782C4500DEF0F6 /* CoreMotion.framework in Frameworks */,
 				E41D421413B3A95300A75A5D /* libofxiOS_iphoneos_Debug.a in Frameworks */,
+				901808C12053638E004A7774 /* GLKit.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -123,6 +124,7 @@
 				E41D400D13B39D2100A75A5D /* CoreVideo.framework in Frameworks */,
 				E41D400E13B39D2100A75A5D /* MapKit.framework in Frameworks */,
 				67DFA53619F92A69003B3434 /* Accelerate.framework in Frameworks */,
+				306D06F5C9531F383C48155E /* ARKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				65605B10F492D4585BA50B2D /* src */,
+				CBD5F6096361C823AA68D63D /* frameworks */,
 			);
 			name = ofxARKit;
 			sourceTree = "<group>";
@@ -148,17 +151,13 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				678E130917951536005B6D19 /* Icon.png */,
-				678E130717951530005B6D19 /* Icon@2x.png */,
-				678E130B1795153C005B6D19 /* Default.png */,
-				678E130D17951540005B6D19 /* Default@2x.png */,
-				678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */,
+				9936F60E1BFA4DEE00891288 /* mediaAssets */,
 				E4D8936A11527B74007E1F53 /* src */,
 				BB24E1F710DAA51900E9C588 /* openFrameworks */,
 				BB16F26B0F2B646B00518274 /* addons */,
 				BB16E9930F2B1E5900518274 /* libs */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				B00AF4F11F44D40A0082DDF8 /* Frameworks */,
+				901808C02053638E004A7774 /* Frameworks */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -166,20 +165,22 @@
 		29B97323FDCFA39411CA2CEA /* core frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				67DFA53419F92A5E003B3434 /* Accelerate.framework */,
+				901808BF2053636F004A7774 /* GLKit.framework */,
+				BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */,
 				E41D400613B39D2100A75A5D /* AVFoundation.framework */,
+				E4A823A312561BE3002F86A2 /* CoreGraphics.framework */,
+				5326AEA710A23A0500278DE6 /* CoreLocation.framework */,
 				E41D400713B39D2100A75A5D /* CoreMedia.framework */,
+				9969E7551C782C4500DEF0F6 /* CoreMotion.framework */,
 				E41D400813B39D2100A75A5D /* CoreVideo.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				E41D400913B39D2100A75A5D /* MapKit.framework */,
 				53F323EA10A20EDB00E0DAE4 /* OpenAL.framework */,
-				E4A823A312561BE3002F86A2 /* CoreGraphics.framework */,
-				BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */,
-				BB16EBD80F2B2AB500518274 /* QuartzCore.framework */,
 				BB16EBD10F2B2A9500518274 /* OpenGLES.framework */,
+				BB16EBD80F2B2AB500518274 /* QuartzCore.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
-				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
-				5326AEA710A23A0500278DE6 /* CoreLocation.framework */,
-				67DFA53419F92A5E003B3434 /* Accelerate.framework */,
 			);
 			name = "core frameworks";
 			sourceTree = "<group>";
@@ -187,16 +188,19 @@
 		65605B10F492D4585BA50B2D /* src */ = {
 			isa = PBXGroup;
 			children = (
-				B02A0FBA1F49D298002A69F3 /* ARAnchorManager.h */,
-				B02A0FBF1F49D2D1002A69F3 /* ARDebugUtils.h */,
-				B02A0FB91F49D298002A69F3 /* ARAnchorManager.mm */,
-				B02A0FBB1F49D298002A69F3 /* ARProcessor.h */,
-				B07F9A3F1F561D1C0031FC25 /* ARCam.h */,
-				B07F9A401F561D1D0031FC25 /* ARCam.mm */,
-				B02A0FBC1F49D298002A69F3 /* ARProcessor.mm */,
-				B02A0FB71F49D298002A69F3 /* ARShaders.h */,
-				B02A0FB81F49D298002A69F3 /* ARUtils.h */,
-				B02A0FBD1F49D298002A69F3 /* ofxARKit.h */,
+				302A7A61ECBFE243BE2A6D15 /* ARProcessor.h */,
+				BBAC3A38884A86BA86D4C26D /* ARAnchorManager.mm */,
+				F1FD0B255231DD44AA4B35CA /* ARCam.h */,
+				8CED944372A372672447BABA /* ARAnchorManager.h */,
+				E8470187C69FECA34ACE6825 /* ARObjects.h */,
+				16C7F36EEA16280EF694F1CA /* ARProcessor.mm */,
+				581E4B10C1444D6272A60B20 /* ARShaders.h */,
+				DCA11A3992D2441F6D8D2DBD /* ARCam.mm */,
+				FED1B5568E444C5A17968CDE /* ARFaceTrackingBool.h */,
+				F9BE3DED6B2C36C40E5D4D69 /* ARSessionSetup.h */,
+				6305FC4AB701AEC8BA64E935 /* ARDebugUtils.h */,
+				CC7B4B2B9605C0BF2C8A133C /* ofxARKit.h */,
+				09673E6D454686E403C40A18 /* ARUtils.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -208,30 +212,38 @@
 			name = local_addons;
 			sourceTree = "<group>";
 		};
-		B00AF4F11F44D40A0082DDF8 /* Frameworks */ = {
+		901808C02053638E004A7774 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B00AF4F21F44D40B0082DDF8 /* ARKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B00AF4F41F44D4F50082DDF8 /* delegates */ = {
+		9936F60E1BFA4DEE00891288 /* mediaAssets */ = {
 			isa = PBXGroup;
 			children = (
-				B00AF4F51F44D4F50082DDF8 /* MyAppDelegate.h */,
-				B00AF4F61F44D4F50082DDF8 /* MyAppDelegate.mm */,
+				9936F6111BFA65F100891288 /* LaunchScreen.storyboard */,
+				9936F60F1BFA4DEE00891288 /* Images.xcassets */,
+			);
+			path = mediaAssets;
+			sourceTree = "<group>";
+		};
+		9CE0E82F20E03DCC00FD702E /* delegates */ = {
+			isa = PBXGroup;
+			children = (
+				9CE0E83020E03DCC00FD702E /* MyAppDelegate.h */,
+				9CE0E83120E03DCC00FD702E /* MyAppDelegate.mm */,
 			);
 			path = delegates;
 			sourceTree = "<group>";
 		};
-		B00AF4F71F44D4F50082DDF8 /* viewcontrollers */ = {
+		9CE0E83220E03DCC00FD702E /* viewcontrollers */ = {
 			isa = PBXGroup;
 			children = (
-				B00AF4F81F44D4F50082DDF8 /* MyAppViewController.h */,
-				B00AF4F91F44D4F50082DDF8 /* MyAppViewController.mm */,
-				B00AF4FA1F44D4F50082DDF8 /* OFAppViewController.h */,
-				B00AF4FB1F44D4F50082DDF8 /* OFAppViewController.mm */,
+				9CE0E83320E03DCC00FD702E /* OFAppViewController.h */,
+				9CE0E83420E03DCC00FD702E /* MyAppViewController.h */,
+				9CE0E83520E03DCC00FD702E /* OFAppViewController.mm */,
+				9CE0E83620E03DCC00FD702E /* MyAppViewController.mm */,
 			);
 			path = viewcontrollers;
 			sourceTree = "<group>";
@@ -273,6 +285,14 @@
 			name = core;
 			sourceTree = "<group>";
 		};
+		CBD5F6096361C823AA68D63D /* frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				517B80F49A5C789E90E5131A /* ARKit.framework */,
+			);
+			name = frameworks;
+			sourceTree = "<group>";
+		};
 		E41D40FE13B3A0D800A75A5D /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,12 +304,11 @@
 		E4D8936A11527B74007E1F53 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				B00AF4F41F44D4F50082DDF8 /* delegates */,
-				B00AF4F71F44D4F50082DDF8 /* viewcontrollers */,
+				9CE0E82F20E03DCC00FD702E /* delegates */,
+				9CE0E83220E03DCC00FD702E /* viewcontrollers */,
 				E4D8936B11527B74007E1F53 /* main.mm */,
 				E4D8936D11527B74007E1F53 /* ofApp.mm */,
 				E4D8936C11527B74007E1F53 /* ofApp.h */,
-				B00EE1A61F44DAB600CF6B93 /* README.md */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -325,7 +344,7 @@
 				LastUpgradeCheck = 0600;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = TW4BB5ETMV;
+						DevelopmentTeam = 5645D62QLN;
 					};
 				};
 			};
@@ -369,11 +388,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				678E130817951530005B6D19 /* Icon@2x.png in Resources */,
-				678E130A17951536005B6D19 /* Icon.png in Resources */,
-				678E130C1795153C005B6D19 /* Default.png in Resources */,
-				678E130E17951540005B6D19 /* Default@2x.png in Resources */,
-				678E131017951549005B6D19 /* Default-568h@2x~iphone.png in Resources */,
+				9936F6101BFA4DEE00891288 /* Images.xcassets in Resources */,
+				9936F6121BFA65F100891288 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,14 +416,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B02A0FC01F49D302002A69F3 /* ARAnchorManager.mm in Sources */,
-				B02A0FC11F49D302002A69F3 /* ARProcessor.mm in Sources */,
-				B00AF4FC1F44D5180082DDF8 /* MyAppDelegate.mm in Sources */,
-				B00AF4FD1F44D5180082DDF8 /* MyAppViewController.mm in Sources */,
-				B07F9A411F561D1D0031FC25 /* ARCam.mm in Sources */,
-				B00AF4FE1F44D5180082DDF8 /* OFAppViewController.mm in Sources */,
 				E4D8936E11527B74007E1F53 /* main.mm in Sources */,
 				E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */,
+				9CE0E83720E03DCC00FD702E /* MyAppDelegate.mm in Sources */,
+				9CE0E83820E03DCC00FD702E /* OFAppViewController.mm in Sources */,
+				9CE0E83920E03DCC00FD702E /* MyAppViewController.mm in Sources */,
+				966DC6CFF8359AF2BCC8EAFD /* ARAnchorManager.mm in Sources */,
+				26E48FA925CB7AB40D972560 /* ARProcessor.mm in Sources */,
+				8DEE3593CFC3E0A0F3578C2D /* ARCam.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,13 +442,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				DEVELOPMENT_TEAM = TW4BB5ETMV;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				DEVELOPMENT_TEAM = 5645D62QLN;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ofxiOS_Prefix.pch;
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
 				INFOPLIST_FILE = "ofxiOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.level;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				PRODUCT_BUNDLE_IDENTIFIER = org.xoio;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
@@ -442,13 +465,20 @@
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = TW4BB5ETMV;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				DEVELOPMENT_TEAM = 5645D62QLN;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ofxiOS_Prefix.pch;
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
 				INFOPLIST_FILE = "ofxiOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.level;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				PRODUCT_BUNDLE_IDENTIFIER = org.xoio;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
@@ -477,10 +507,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
+					src,
 					../../../addons/ofxARKit/src,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
-				ONLY_ACTIVE_ARCH = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -510,9 +541,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
+					src,
 					../../../addons/ofxARKit/src,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;

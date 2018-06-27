@@ -27,9 +27,9 @@ public:
     void gotMemoryWarning();
     void deviceOrientationChanged(int newOrientation);
     
-  
+   
     ofTrueTypeFont font;
-
+    
     
     // ====== AR STUFF ======== //
     ARSession * session;
@@ -39,6 +39,8 @@ public:
     ofShader shader;
     ofCamera camera;
     ofMesh sphere;
+
+    
 };
 
 

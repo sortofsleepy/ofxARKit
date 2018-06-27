@@ -7,19 +7,27 @@
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-bool \hyperlink{struct_a_r_core_1_1_format_state_aa0a60606a98ec7d4cbd082904b3d4fc1}{use\+Face\+Tracking} = false
+bool \mbox{\hyperlink{struct_a_r_core_1_1_format_state_aa0a60606a98ec7d4cbd082904b3d4fc1}{use\+Face\+Tracking}} = false
 \item 
-bool \hyperlink{struct_a_r_core_1_1_format_state_a3ed73d33c14ba54c0503f78100a527a5}{use\+Plane\+Tracking} = false
+bool \mbox{\hyperlink{struct_a_r_core_1_1_format_state_a3ed73d33c14ba54c0503f78100a527a5}{use\+Plane\+Tracking}} = false
 \item 
-bool \hyperlink{struct_a_r_core_1_1_format_state_a2d8528cbe8eb9cbc8c1367081eb215d8}{use\+Light\+Estimation} = false
+bool \mbox{\hyperlink{struct_a_r_core_1_1_format_state_ab4d746df3ebec6e8aa5e51c9f4b038f4}{use\+Image\+Detection}} = false
 \item 
-bool \hyperlink{struct_a_r_core_1_1_format_state_aad1419c4a9db8a4384525c3501013893}{use\+Audio} = false
+bool \mbox{\hyperlink{struct_a_r_core_1_1_format_state_a2d8528cbe8eb9cbc8c1367081eb215d8}{use\+Light\+Estimation}} = false
 \item 
-N\+S\+Object$<$ A\+R\+Session\+Delegate $>$ $\ast$ \hyperlink{struct_a_r_core_1_1_format_state_a2ac08b9efa1d91b0a5a431e3d0a73aaa}{delegate\+Class} = N\+U\+LL
+bool \mbox{\hyperlink{struct_a_r_core_1_1_format_state_aad1419c4a9db8a4384525c3501013893}{use\+Audio}} = false
 \item 
-A\+R\+World\+Alignment \hyperlink{struct_a_r_core_1_1_format_state_ab2a8b009f4af119e4c3ac45553e7e579}{world\+Alignment} = A\+R\+World\+Alignment\+Gravity
+bool \mbox{\hyperlink{struct_a_r_core_1_1_format_state_a9eefdf566362abb593816374a895daea}{use\+High\+Res}} = true
 \item 
-A\+R\+Plane\+Detection \hyperlink{struct_a_r_core_1_1_format_state_a6dd9d1dd804e9765309d88c5c1447449}{plane\+Detection\+Type}
+bool \mbox{\hyperlink{struct_a_r_core_1_1_format_state_ad74d52eb61f674a82384b580a6a1931f}{use\+Auto\+Focus}} = true
+\item 
+N\+S\+Object$<$ A\+R\+Session\+Delegate $>$ $\ast$ \mbox{\hyperlink{struct_a_r_core_1_1_format_state_a2ac08b9efa1d91b0a5a431e3d0a73aaa}{delegate\+Class}} = N\+U\+LL
+\item 
+A\+R\+World\+Alignment \mbox{\hyperlink{struct_a_r_core_1_1_format_state_ab2a8b009f4af119e4c3ac45553e7e579}{world\+Alignment}} = A\+R\+World\+Alignment\+Gravity
+\item 
+A\+R\+Plane\+Detection \mbox{\hyperlink{struct_a_r_core_1_1_format_state_a6dd9d1dd804e9765309d88c5c1447449}{plane\+Detection\+Type}}
+\item 
+string \mbox{\hyperlink{struct_a_r_core_1_1_format_state_aca381af749dc847470ebaa27fb8e8c2c}{image\+Bundle\+Name}} = \char`\"{}AR Resources\char`\"{}
 \end{DoxyCompactItemize}
 
 
@@ -29,6 +37,12 @@ A\+R\+Plane\+Detection \hyperlink{struct_a_r_core_1_1_format_state_a6dd9d1dd804e
 \index{delegate\+Class@{delegate\+Class}!A\+R\+Core\+::\+Format\+State@{A\+R\+Core\+::\+Format\+State}}
 \subsubsection{\texorpdfstring{delegate\+Class}{delegateClass}}
 {\footnotesize\ttfamily N\+S\+Object$<$A\+R\+Session\+Delegate$>$$\ast$ A\+R\+Core\+::\+Format\+State\+::delegate\+Class = N\+U\+LL}
+
+\mbox{\Hypertarget{struct_a_r_core_1_1_format_state_aca381af749dc847470ebaa27fb8e8c2c}\label{struct_a_r_core_1_1_format_state_aca381af749dc847470ebaa27fb8e8c2c}} 
+\index{A\+R\+Core\+::\+Format\+State@{A\+R\+Core\+::\+Format\+State}!image\+Bundle\+Name@{image\+Bundle\+Name}}
+\index{image\+Bundle\+Name@{image\+Bundle\+Name}!A\+R\+Core\+::\+Format\+State@{A\+R\+Core\+::\+Format\+State}}
+\subsubsection{\texorpdfstring{image\+Bundle\+Name}{imageBundleName}}
+{\footnotesize\ttfamily string A\+R\+Core\+::\+Format\+State\+::image\+Bundle\+Name = \char`\"{}AR Resources\char`\"{}}
 
 \mbox{\Hypertarget{struct_a_r_core_1_1_format_state_a6dd9d1dd804e9765309d88c5c1447449}\label{struct_a_r_core_1_1_format_state_a6dd9d1dd804e9765309d88c5c1447449}} 
 \index{A\+R\+Core\+::\+Format\+State@{A\+R\+Core\+::\+Format\+State}!plane\+Detection\+Type@{plane\+Detection\+Type}}
@@ -42,11 +56,29 @@ A\+R\+Plane\+Detection \hyperlink{struct_a_r_core_1_1_format_state_a6dd9d1dd804e
 \subsubsection{\texorpdfstring{use\+Audio}{useAudio}}
 {\footnotesize\ttfamily bool A\+R\+Core\+::\+Format\+State\+::use\+Audio = false}
 
+\mbox{\Hypertarget{struct_a_r_core_1_1_format_state_ad74d52eb61f674a82384b580a6a1931f}\label{struct_a_r_core_1_1_format_state_ad74d52eb61f674a82384b580a6a1931f}} 
+\index{A\+R\+Core\+::\+Format\+State@{A\+R\+Core\+::\+Format\+State}!use\+Auto\+Focus@{use\+Auto\+Focus}}
+\index{use\+Auto\+Focus@{use\+Auto\+Focus}!A\+R\+Core\+::\+Format\+State@{A\+R\+Core\+::\+Format\+State}}
+\subsubsection{\texorpdfstring{use\+Auto\+Focus}{useAutoFocus}}
+{\footnotesize\ttfamily bool A\+R\+Core\+::\+Format\+State\+::use\+Auto\+Focus = true}
+
 \mbox{\Hypertarget{struct_a_r_core_1_1_format_state_aa0a60606a98ec7d4cbd082904b3d4fc1}\label{struct_a_r_core_1_1_format_state_aa0a60606a98ec7d4cbd082904b3d4fc1}} 
 \index{A\+R\+Core\+::\+Format\+State@{A\+R\+Core\+::\+Format\+State}!use\+Face\+Tracking@{use\+Face\+Tracking}}
 \index{use\+Face\+Tracking@{use\+Face\+Tracking}!A\+R\+Core\+::\+Format\+State@{A\+R\+Core\+::\+Format\+State}}
 \subsubsection{\texorpdfstring{use\+Face\+Tracking}{useFaceTracking}}
 {\footnotesize\ttfamily bool A\+R\+Core\+::\+Format\+State\+::use\+Face\+Tracking = false}
+
+\mbox{\Hypertarget{struct_a_r_core_1_1_format_state_a9eefdf566362abb593816374a895daea}\label{struct_a_r_core_1_1_format_state_a9eefdf566362abb593816374a895daea}} 
+\index{A\+R\+Core\+::\+Format\+State@{A\+R\+Core\+::\+Format\+State}!use\+High\+Res@{use\+High\+Res}}
+\index{use\+High\+Res@{use\+High\+Res}!A\+R\+Core\+::\+Format\+State@{A\+R\+Core\+::\+Format\+State}}
+\subsubsection{\texorpdfstring{use\+High\+Res}{useHighRes}}
+{\footnotesize\ttfamily bool A\+R\+Core\+::\+Format\+State\+::use\+High\+Res = true}
+
+\mbox{\Hypertarget{struct_a_r_core_1_1_format_state_ab4d746df3ebec6e8aa5e51c9f4b038f4}\label{struct_a_r_core_1_1_format_state_ab4d746df3ebec6e8aa5e51c9f4b038f4}} 
+\index{A\+R\+Core\+::\+Format\+State@{A\+R\+Core\+::\+Format\+State}!use\+Image\+Detection@{use\+Image\+Detection}}
+\index{use\+Image\+Detection@{use\+Image\+Detection}!A\+R\+Core\+::\+Format\+State@{A\+R\+Core\+::\+Format\+State}}
+\subsubsection{\texorpdfstring{use\+Image\+Detection}{useImageDetection}}
+{\footnotesize\ttfamily bool A\+R\+Core\+::\+Format\+State\+::use\+Image\+Detection = false}
 
 \mbox{\Hypertarget{struct_a_r_core_1_1_format_state_a2d8528cbe8eb9cbc8c1367081eb215d8}\label{struct_a_r_core_1_1_format_state_a2d8528cbe8eb9cbc8c1367081eb215d8}} 
 \index{A\+R\+Core\+::\+Format\+State@{A\+R\+Core\+::\+Format\+State}!use\+Light\+Estimation@{use\+Light\+Estimation}}
@@ -70,4 +102,4 @@ A\+R\+Plane\+Detection \hyperlink{struct_a_r_core_1_1_format_state_a6dd9d1dd804e
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-src/\hyperlink{_a_r_session_setup_8h}{A\+R\+Session\+Setup.\+h}\end{DoxyCompactItemize}
+src/\mbox{\hyperlink{_a_r_session_setup_8h}{A\+R\+Session\+Setup.\+h}}\end{DoxyCompactItemize}

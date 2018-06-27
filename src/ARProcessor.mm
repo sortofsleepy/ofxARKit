@@ -11,14 +11,14 @@ using namespace ARCore;
 
 ARProcessor::ARProcessor(ARSession * session){
     this->session = session;
-
+    
     debugInfo = ARDebugUtils::ARDebugInfo(session);
 }
 
 ARProcessor::~ARProcessor(){
     pauseSession();
     session = nullptr;
-
+    
     // remove this instance of the ARCam - if there are other ARCams around, they will still be in memory
     camera.reset();
     anchorController.reset();
@@ -58,14 +58,18 @@ void ARProcessor::update(){
     if(debugMode){
         pointCloud.updatePointCloud(session.currentFrame);
     }
-
+    
     anchorController->update();
+    
 }
 
 void ARProcessor::updatePlanes(){
     anchorController->updatePlanes();
 }
 
+void ARProcessor::updateImages(){
+    anchorController->updateImageAnchors();
+}
 
 void ARProcessor::drawFrame(){
     draw();
@@ -122,10 +126,19 @@ void ARProcessor::addAnchor(float zZoom){
 
 void ARProcessor::addAnchor(ofVec3f position){
     auto matrices = getCameraMatrices();
-
+ 
     ofMatrix4x4 model = toMat4(session.currentFrame.camera.transform);
     anchorController->addAnchor(position,matrices.cameraProjection,model * getCameraMatrices().cameraView);
 }
+//! Draws the current set of planes
+void ARProcessor::drawPlanes(){
+    anchorController->drawPlanes(camera->getCameraMatrices());
+}
+
+//! Draws the current set of plane meshes
+//! TODO - who made this example again? Not sure what should go here - Joe
+void ARProcessor::drawPlaneMeshes(){}
+
 
 void ARProcessor::drawHorizontalPlanes(){
     anchorController->drawPlanes(camera->getCameraMatrices());
@@ -141,6 +154,23 @@ void ARProcessor::updateFaces(){
 }
 #endif
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_3
+vector<ARReferenceImage *> & ARProcessor::getARReferenceImages(){
+    if ( arRefImages.empty() ){
+        ARConfiguration * config = session.configuration;
+        if([config isKindOfClass:[ARWorldTrackingConfiguration class]]){
+            ARWorldTrackingConfiguration * wConfig = (ARWorldTrackingConfiguration*) session.configuration;
+            
+            NSSet<ARReferenceImage *> * images = wConfig.detectionImages;
+            for(ARReferenceImage * img in images) {
+                arRefImages.push_back( img );
+            }
+        }
+    }
+    
+    return arRefImages;
+}
+#endif
 // ======== DEBUG API =========== //
 
 void ARProcessor::drawPointCloud(){

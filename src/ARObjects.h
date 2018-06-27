@@ -1,6 +1,7 @@
 //  ARObjects.hpp
 //
 //  Created by Joseph Chow on 8/25/17.
+//  With additional help by contributors.
 //
 
 #ifndef ARObjects_hpp
@@ -8,9 +9,11 @@
 
 #include <stdio.h>
 #include "ofMain.h"
+#include "ARFaceTrackingBool.h"
 
 namespace ARObjects {
     
+    //! This defines the basic data structure of a Plane
     //! This defines the basic data structure of a Plane
     typedef struct {
         ofVec3f position;
@@ -18,8 +21,52 @@ namespace ARObjects {
         float height;
         ofMatrix4x4 transform;
         NSUUID * uuid;
-        ARPlaneAnchor * rawAnchor;        
+        ARPlaneAnchor * rawAnchor;
+        ARPlaneAnchorAlignment alignment;
+        
+        ARPlaneAnchorAlignment getAlignment(){
+            return alignment;
+        }
+        
+        // here for convinience, but you may want to build your own.
+        ofMesh planeMesh;
+        
+        
+        
+        // reference to vertices
+        vector<glm::vec3> vertices;
+        
+        // reference to uvs
+        vector<glm::vec2> uvs;
+        
+        // reference to indices
+        vector<uint16_t> indices;
+        
+        // colors, just for fun
+        ofFloatColor debugColor;
+        vector<ofFloatColor> colors;
+        
+        void buildMesh(){
+            
+         
+            // clear previous contents
+            planeMesh.clear();
+            planeMesh.addVertices(vertices);
+            planeMesh.addTexCoords(uvs);
+            planeMesh.addIndices(indices);
+            planeMesh.addColors(colors);
+        }
     }PlaneAnchorObject;
+    
+    typedef struct {
+        ofVec3f position;
+        std::string imageName;
+        float width;
+        float height;
+        ofMatrix4x4 transform;
+        NSUUID * uuid;
+        ARImageAnchor * rawAnchor;
+    }ImageAnchorObject;
     
     //! The base class you can use to build your AR object. Provides a model matrix and a mesh for easy tracking by ARKit.
     typedef struct {

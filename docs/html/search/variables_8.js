@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['raw',['raw',['../struct_a_r_objects_1_1_face_anchor_object.html#afe6a909f9e2add9d832b8dc3016aa043',1,'ARObjects::FaceAnchorObject']]],
-  ['rawanchor',['rawAnchor',['../struct_a_r_objects_1_1_plane_anchor_object.html#a4d6b3acc9e0a17fe3f5357f99a176101',1,'ARObjects::PlaneAnchorObject::rawAnchor()'],['../struct_a_r_objects_1_1_a_r_object.html#a50fb9ac03adddf5d00783c7e10c8e1d8',1,'ARObjects::ARObject::rawAnchor()']]]
+  ['shouldupdateplanes',['shouldUpdatePlanes',['../class_a_r_core_1_1_a_r_anchor_manager.html#af67de0a611ff8a2786891eabb0ca571f',1,'ARCore::ARAnchorManager']]],
+  ['systemadded',['systemAdded',['../struct_a_r_objects_1_1_a_r_object.html#abb84b8f934ab23b396cc1904ba5c5569',1,'ARObjects::ARObject']]]
 ];

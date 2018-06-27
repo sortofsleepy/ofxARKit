@@ -2,6 +2,7 @@
 //  ARUtils
 //
 //  Created by Joseph Chow on 8/16/17.
+//  With additional help by contributors.
 //
 #pragma once
 
@@ -32,8 +33,17 @@ namespace ARCommon {
         return ret;
     }
     
+    //! Helper function to determine if user is running at least ios 11.3
+    static bool isIos113(){
+        if(@available(iOS 11.3, *)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
     //! convert to oF mat4
-    static const ofMatrix4x4 static inline toMat4( const matrix_float4x4& mat ) {
+    static inline const ofMatrix4x4 toMat4( const matrix_float4x4& mat ) {
         return convert<matrix_float4x4, ofMatrix4x4>(mat);
     }
     
