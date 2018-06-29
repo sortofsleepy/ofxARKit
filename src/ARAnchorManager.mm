@@ -178,6 +178,7 @@ namespace ARCore {
         // if we aren't tracking the maximum number of planes or we want to track all possible planes,
         // run the for loop.
         if(getNumPlanes() < maxTrackedPlanes || maxTrackedPlanes == 0){
+          
             
             // track UUIDs in array
             vector<NSUUID *> uuids;
@@ -207,6 +208,7 @@ namespace ARCore {
                     // if that's the case, then add it.
                     if(it == planes.end()){
 
+                        ofLog()<<"Plane added";
                         PlaneAnchorObject plane;
 
                         plane.transform = paTransform;
@@ -247,12 +249,14 @@ namespace ARCore {
                         
                         planes.push_back(plane);
                     }
+                    
+                
 
                     // this block triggers when a plane we're already tracking is found,
                     // check to see if we need to update and update if need be
                     if(it != planes.end()){
                         if(shouldUpdatePlanes){
-
+                            auto plane = planes[index];
                             planes[index].transform = paTransform;
 
                             planes[index].position.x = -extent.x / 2;
@@ -261,6 +265,29 @@ namespace ARCore {
                             planes[index].height = extent.z;
                             planes[index].uuid = anchor.identifier;
                             planes[index].rawAnchor = pa;
+                            
+                            if (ARCommon::isIos113()) {
+                                ARPlaneGeometry * geo = pa.geometry;
+                                // transform vertices and uvs
+                                for(NSInteger i = 0; i < geo.vertexCount; ++i){
+                                    vector_float3 vert = geo.vertices[i];
+                                    vector_float2 uv = geo.textureCoordinates[i];
+                                    plane.vertices.push_back(convert<vector_float3, glm::vec3>(vert));
+                                    plane.uvs.push_back(convert<vector_float2, glm::vec2>(uv));
+                                    plane.colors.push_back(plane.debugColor);
+                                }
+                                
+                                //set indices
+                                for (NSInteger i=0; i < geo.triangleCount; i++){
+                                    plane.indices.push_back(geo.triangleIndices[ i*3 + 0 ]);
+                                    plane.indices.push_back(geo.triangleIndices[ i*3 + 1 ]);
+                                    plane.indices.push_back(geo.triangleIndices[ i*3 + 2 ]);
+                                }
+                                plane.buildMesh();
+                            } else {
+                                // Fallback on earlier versions
+                            }
+                            
                         }
                     }
 
@@ -268,18 +295,26 @@ namespace ARCore {
 
             }
             
-            if(shouldUpdatePlanes && planes.size() > 0){
-                for ( int i=planes.size()-1; i>=0; --i ){
-                    
-                    auto f_it = find_if(uuids.begin(), uuids.end(), [=](const NSUUID * obj) {
-                        return obj == planes[i].uuid;
-                    });
-                    if ( f_it == uuids.end() ){
-                        planes.erase( planes.begin() + i );
-                        //                        [session removeAnchor:planes[i].rawAnchor];
-                    }
-                }
-            }
+            
+        
+      
+            /*
+             TODO @robotconscience - do you happen to remember why you added this? Seems to cause
+             issues with having planes appear.
+             if(shouldUpdatePlanes && planes.size() > 0){
+             for ( int i=planes.size()-1; i>=0; --i ){
+             
+             auto f_it = find_if(uuids.begin(), uuids.end(), [=](const NSUUID * obj) {
+             return obj == planes[i].uuid;
+             });
+             if ( f_it == uuids.end() ){
+             planes.erase( planes.begin() + i );
+             //                        [session removeAnchor:planes[i].rawAnchor];
+             }
+             }
+             }
+             */
+        
         }
     }
 
