@@ -96,13 +96,13 @@ namespace ARObjects {
         ARFaceAnchor * raw;
         
         // reference to vertices
-        vector<ofVec3f> vertices;
+        vector<glm::vec3> vertices;
         
         int vertexCount;
         int triangleCount;
         
         // reference to uvs
-        vector<ofVec2f> uvs;
+        vector<glm::vec2> uvs;
         
         // reference to indices
         vector<uint16_t> indices;
@@ -112,8 +112,8 @@ namespace ARObjects {
         // here for convinience, but you may want to build your own.
         ofMesh faceMesh;
         
+        
         void rebuildFace(){
-            
             // clear previous contents
             faceMesh.clear();
             
