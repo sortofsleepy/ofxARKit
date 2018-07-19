@@ -89,6 +89,27 @@ For example in the screenshot below
 
 You'll see I added it to the very end. If the permission isn't there, all you need to do is over over one of the items already in the list and click on the plus sign. This will add a new field and you can just start typing `Privacy - Camera Usage Description`. Xcode will attempt to autocomplete as well. 
 
+# Deploying to the App Store
+
+By default `#AR_FACE_TRACKING` is turned on, allowing you to try out examples
+such as `example-face-tracking` (if you have an iPhone X). We keep this
+variable on by default in order to make the plugin easy to experiment with, but if **you're
+not using the TrueDepth API for face tracking in your app** then you'll get [issues trying to
+publish to th Apple App Store](https://forum.unity.com/threads/submitting-arkit-apps-to-appstore-without-face-tracking.504572/):
+
+> "We noticed your app contains the TrueDepth APIs but we were unable to locate these features in your app. Please provide information about how your app uses the TrueDepth APIs."
+
+To avoid this if you're not using TrueDepth & going to publish to the App Store change the macro defined in `ARFaceTrackingBool.h` in your OpenFrameworks plugins directory to `false`:
+
+```diff
+// Line 2 of ARFaceTrackingBool.h
+-  #define AR_FACE_TRACKING true
++  #define AR_FACE_TRACKING false
+```
+
+This will remove the code from compilation so you don't get flagged by Apple
+for including code you're not using.
+
 # Contributing
 As I certainly am not the most knowledgeable on many of the topics required to work in AR, that and with ARKit still being in beta; if there's something you feel you can contribute, by all means, feel free to make PR's!
 
