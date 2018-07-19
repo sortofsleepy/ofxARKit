@@ -31,8 +31,6 @@ namespace ARObjects {
         // here for convinience, but you may want to build your own.
         ofMesh planeMesh;
         
-        
-        
         // reference to vertices
         vector<glm::vec3> vertices;
         
@@ -112,14 +110,18 @@ namespace ARObjects {
         // here for convinience, but you may want to build your own.
         ofMesh faceMesh;
         
-        
         void rebuildFace(){
+            
             // clear previous contents
             faceMesh.clear();
             
             faceMesh.addVertices(vertices);
             faceMesh.addTexCoords(uvs);
             faceMesh.addIndices(indices);
+        }
+        
+        float getBlendShape(ARBlendShapeLocation blendShapeLocation) {
+            return raw.blendShapes[blendShapeLocation].floatValue;
         }
         
     }FaceAnchorObject;

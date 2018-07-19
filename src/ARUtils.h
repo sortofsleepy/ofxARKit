@@ -52,6 +52,13 @@ namespace ARCommon {
         return convert<ofMatrix4x4,matrix_float4x4>(mat);
     }
     
+    
+    //! convert
+    glm::mat4 toGlmMat4( const matrix_float4x4 & mat ) {
+        return convert<matrix_float4x4, glm::mat4>(mat);
+    }
+    
+    
     //! Extracts the xyz position from a matrix. It's assumed that the matrix you pass in
     //! is based off of a ARKit transform matrix which appears to switch some things around.
     static ofVec3f getAnchorXYZ(ofMatrix4x4 mat){
