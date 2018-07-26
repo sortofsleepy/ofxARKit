@@ -11,7 +11,6 @@
 #import <OpenGLES/ES2/glext.h>
 #import <MetalKit/MetalKit.h>
 #import "MetalCam.h"
-#include "ofMain.h"
 
 #define GL_UNSIGNED_INT_8_8_8_8_REV 0x8367
 

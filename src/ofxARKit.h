@@ -18,5 +18,6 @@
 #include "lib/ARShaders.h"
 #include "lib/ARCam.h"
 #include "lib/ARSessionSetup.h"
+#include "lib/MetalCam.h"
 
 #endif /* ofxARKit_h */
