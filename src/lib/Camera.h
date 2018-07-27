@@ -85,10 +85,18 @@ namespace ofxARKit {
             static CameraRef create(ARSession * session){
                 return CameraRef(new Camera(session));
             }
+            
+            //TODO see about converting to ofTexture
             CVOpenGLESTextureRef getTexture();
             
-            ofxARKit::common::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far);
+            ARTrackingStateReason getTrackingState();
             
+            glm::mat4 getProjectionMatrix();
+            glm::mat4 getViewMatrix();
+            glm::mat4 getTransformMatrix();
+            
+            ofxARKit::common::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far);
+            ofxARKit::common::ARCameraMatrices getCameraMatrices();
             void updateInterfaceOrientation(int newOrientation);
             void setARCameraMatrices();
             void logTrackingState();

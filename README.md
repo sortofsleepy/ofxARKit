@@ -16,13 +16,13 @@ __then__
 * start a new project with the project generator. 
 
 __After you've opened up the project file__
-* add the ARKit framework to your project
-
-<img width="872" alt="screen shot 2017-09-02 at 2 25 32 pm" src="https://user-images.githubusercontent.com/308302/29998867-ac9d93a0-8fea-11e7-8059-06beba7a172f.png">
-
 * add a permission setting in your `ofxIOS-Info.plist` file. See Permissions below.
-* set the project target for IOS 11
+* set the project target for IOS 11 / 12
 <img width="848" alt="screen shot 2017-09-02 at 2 25 22 pm" src="https://user-images.githubusercontent.com/308302/29998868-ac9e216c-8fea-11e7-95e2-7ff4fb218166.png">
+* you may need to do two things with the `Shader.metal` file
+   * add it to the compiled sources
+   * make sure to set the file designation back to it's default(for some reason it's treated as "Data" in the projectGenerator generated project)
+
 
 Note that you may have to repeat these steps if you make any changes to your project via the generator.
 

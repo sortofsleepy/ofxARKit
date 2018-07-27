@@ -113,7 +113,7 @@ void ofApp::gotMemoryWarning(){
 
 //--------------------------------------------------------------
 void ofApp::deviceOrientationChanged(int newOrientation){
-    
+    processor->deviceOrientationChanged(newOrientation);
 }
 
 

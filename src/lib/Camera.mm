@@ -43,13 +43,19 @@ namespace ofxARKit {
             
             getMatricesForOrientation(orientation, near, far);
         }
-        
+        ofxARKit::common::ARCameraMatrices Camera::getCameraMatrices(){
+            return cameraMatrices;
+        }
         common::ARCameraMatrices Camera::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
             
             cameraMatrices.cameraView = toMat4([session.currentFrame.camera viewMatrixForOrientation:orientation]);
             cameraMatrices.cameraProjection = toMat4([session.currentFrame.camera projectionMatrixForOrientation:orientation viewportSize:viewport.size zNear:(CGFloat)near zFar:(CGFloat)far]);
             
             return cameraMatrices;
+        }
+        
+        ARTrackingStateReason Camera::getTrackingState(){
+            return session.currentFrame.camera.trackingStateReason;
         }
         
         void Camera::logTrackingState(){
@@ -148,6 +154,19 @@ namespace ofxARKit {
                 
                 shader.end();
             }
+        }
+        
+        // TODO move all ARCameraMatrices stuff to glm - using conversion function in the meantime. 
+        
+        glm::mat4 Camera::getProjectionMatrix(){
+            return convert<ofMatrix4x4, glm::mat4>(cameraMatrices.cameraProjection);
+        }
+        glm::mat4 Camera::getViewMatrix(){
+            return convert<ofMatrix4x4, glm::mat4>(cameraMatrices.cameraView);
+        }
+        
+        glm::mat4 Camera::getTransformMatrix(){
+             return convert<ofMatrix4x4, glm::mat4>(cameraMatrices.cameraTransform);
         }
     }
 }

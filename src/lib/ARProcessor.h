@@ -87,7 +87,7 @@ namespace ofxARKit {
         ofxARKit::core::CameraRef camera;
         
         //! Returns the current tracking state of the ARKit framework.
-        ARTrackingState getTrackingState();
+        ARTrackingStateReason getTrackingState();
         
         //! Logs the current tracking state of the ARKit framework.
         void logTrackingState();
@@ -168,14 +168,8 @@ namespace ofxARKit {
         //! rotation of the camera image depending on the orientation.
         void deviceOrientationChanged(int newOrientation);
         
-        //! Forces the camera frame to rotate.
-        void rotateCameraFrame(float angle);
-        
-        //! Get the light intensity currently detected.
-        float getLightIntensity();
-        
         //! Returns the camera's current transform matrix as a vec3.
-        ofVec3f getCameraPosition();
+        glm::vec3 getCameraPosition();
         
         //! Helper to quickly set up ARKit projection and view matrices for 2D drawing in oF
         void setARCameraMatrices();

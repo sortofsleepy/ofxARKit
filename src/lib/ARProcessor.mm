@@ -86,8 +86,8 @@ namespace ofxARKit {
         camera->setARCameraMatrices();
     }
     
-    ofVec3f ARProcessor::getCameraPosition(){
-        //return ARCommon::getAnchorXYZ(camera->getTransformMatrix());
+    glm::vec3 ARProcessor::getCameraPosition(){
+        return getAnchorXYZ(camera->getTransformMatrix());
     }
     
     ofTexture ARProcessor::getCameraTexture(){
@@ -95,21 +95,13 @@ namespace ofxARKit {
     }
     
     ofxARKit::common::ARCameraMatrices ARProcessor::getCameraMatrices(){
-        //return camera->getCameraMatrices();
+        return camera->getCameraMatrices();
     }
     
-    float ARProcessor::getLightIntensity(){
-        //return camera->getAmbientIntensity();
+    ARTrackingStateReason ARProcessor::getTrackingState(){
+        return camera->getTrackingState();
     }
-    
-    ARTrackingState ARProcessor::getTrackingState(){
-        //return camera->getTrackingState();
-    }
-    
-    void ARProcessor::rotateCameraFrame(float angle){
-        //camera->updateRotationMatrix(angle);
-    }
-    
+
     
     ofxARKit::common::ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
         //return camera->getMatricesForOrientation(orientation,near,far);
@@ -133,7 +125,7 @@ namespace ofxARKit {
     }
     //! Draws the current set of planes
     void ARProcessor::drawPlanes(){
-        //anchorController->drawPlanes(camera->getCameraMatrices());
+        anchorController->drawPlanes(camera->getCameraMatrices());
     }
     
     //! Draws the current set of plane meshes
@@ -142,7 +134,7 @@ namespace ofxARKit {
     
     
     void ARProcessor::drawHorizontalPlanes(){
-        //anchorController->drawPlanes(camera->getCameraMatrices());
+        anchorController->drawPlanes(camera->getCameraMatrices());
     }
     
 #if AR_FACE_TRACKING
@@ -176,7 +168,7 @@ namespace ofxARKit {
     
     void ARProcessor::drawPointCloud(){
         if(debugMode){
-            //pointCloud.draw(camera->getProjectionMatrix(), camera->getViewMatrix());
+            pointCloud.draw(camera->getProjectionMatrix(), camera->getViewMatrix());
         } else {
             ofLog(OF_LOG_WARNING, "Debug Mode not set");
         }
