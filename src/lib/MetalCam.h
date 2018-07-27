@@ -101,7 +101,7 @@ typedef struct {
 namespace ofxARKit {
     namespace core {
         class MetalCamRenderer {
-            
+        protected:
             MetalCamView * _view;
             ARSession * session;
             CGRect viewport;

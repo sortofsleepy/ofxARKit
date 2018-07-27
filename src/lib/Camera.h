@@ -20,13 +20,13 @@ namespace ofxARKit {
         
         typedef std::shared_ptr<class Camera> CameraRef;
         
-        class Camera {
+        class Camera : public MetalCamRenderer{
             
             ofShader shader;
             ofMesh mesh;
             
-            MetalCamView * _view;
-            ARSession * session;
+            //MetalCamView * _view;
+            //ARSession * session;
             CGRect viewport;
             
             UIInterfaceOrientation orientation;

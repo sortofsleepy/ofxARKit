@@ -425,6 +425,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
     }
     
     _cameraTexture = CVMetalTextureGetTexture(_cameraImage);
+    
 }
 
 - (CVOpenGLESTextureRef) getConvertedTexture{

@@ -16,19 +16,9 @@ namespace ofxARKit {
         Camera::Camera(ARSession * session){
             this->session = session;
             viewport = CGRectMake(0,0,ofGetWindowWidth(),ofGetWindowHeight());
-            this->session = session;
-            
-            
-            _view = [[MetalCamView alloc] initWithFrame:viewport device:MTLCreateSystemDefaultDevice()];
-            _view.session = session;
-            _view.framebufferOnly = NO;
-            _view.paused = YES;
-            _view.enableSetNeedsDisplay = NO;
-            
             auto context = ofxiOSGetGLView().context;
             
-            [_view loadMetal];
-            [_view setupOpenGLCompatibility:context];
+            setup(session,viewport,context);
             
             mesh = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
             shader.setupShaderFromSource(GL_VERTEX_SHADER, vertex);
@@ -36,7 +26,7 @@ namespace ofxARKit {
             
             shader.linkProgram();
             
-            near = 1.0f;
+            near = 0.1f;
             far = 1000.0f;
         }
         
@@ -103,6 +93,7 @@ namespace ofxARKit {
             auto width = ofGetWindowWidth();
             auto height = ofGetWindowHeight();
             
+            // this might be an oF thing - but values seem to be reversed after the first call when calling ofGetWindowWidth
             switch(orientation){
                 case UIInterfaceOrientationPortrait:
                     

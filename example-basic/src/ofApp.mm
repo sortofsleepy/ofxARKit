@@ -87,7 +87,7 @@ void ofApp::draw() {
                 ofSetColor(255);
                 ofRotate(90,0,0,1);
                 
-                img.draw(-0.025 / 2, -0.025 / 2,0.025,0.025);
+                img.draw(-0.25 / 2, -0.25 / 2,0.25,0.25);
                 
                 
                 ofPopMatrix();
