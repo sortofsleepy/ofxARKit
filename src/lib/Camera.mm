@@ -36,19 +36,22 @@ namespace ofxARKit {
             
             shader.linkProgram();
             
-            near = 0.1f;
+            near = 1.0f;
             far = 1000.0f;
         }
         
         CVOpenGLESTextureRef Camera::getTexture(){
+            
+            // remember - you'll need to flip the uv on the y-axis to get the correctly oriented image.
             return [_view getConvertedTexture];
         }
         
         void Camera::update(){
             [_view draw];
+            
             cameraMatrices.cameraTransform = convert<matrix_float4x4,ofMatrix4x4>(session.currentFrame.camera.transform);
             
-            getMatricesForOrientation([[UIApplication sharedApplication] statusBarOrientation], near, far);
+            getMatricesForOrientation(orientation, near, far);
         }
         
         ARCameraMatrices Camera::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
@@ -93,6 +96,54 @@ namespace ofxARKit {
             ofSetMatrixMode(OF_MATRIX_MODELVIEW);
             ofLoadMatrix(cameraMatrices.cameraView);
         }
+        
+        void Camera::updateInterfaceOrientation(int newOrientation){
+            orientation = (UIInterfaceOrientation)newOrientation;
+          
+            auto width = ofGetWindowWidth();
+            auto height = ofGetWindowHeight();
+            
+            switch(orientation){
+                case UIInterfaceOrientationPortrait:
+                    
+                    if(width > height){
+                        viewport = CGRectMake(0,0,ofGetWindowHeight(),ofGetWindowWidth());
+                    }
+                    break;
+                    
+                case UIInterfaceOrientationLandscapeLeft:
+                    
+                    if(width < height){
+                        viewport = CGRectMake(0,0,ofGetWindowHeight(),ofGetWindowWidth());
+                    }
+                    break;
+                    
+                case UIInterfaceOrientationLandscapeRight:
+                    
+                    if(width < height){
+                        viewport = CGRectMake(0,0,ofGetWindowHeight(),ofGetWindowWidth());
+                    }
+                    break;
+                    
+                case UIInterfaceOrientationUnknown:
+                    
+                    if(width > height){
+                        viewport = CGRectMake(0,0,ofGetWindowHeight(),ofGetWindowWidth());
+                    }
+                    break;
+                    
+                case UIInterfaceOrientationPortraitUpsideDown:
+                    
+                    if(width > height){
+                        viewport = CGRectMake(0,0,ofGetWindowHeight(),ofGetWindowWidth());
+                    }
+                    break;
+                    
+            }
+            
+            //NSLog(@"view is %@",NSStringFromCGRect(viewport));
+        }
+        
         void Camera::draw(){
             
             

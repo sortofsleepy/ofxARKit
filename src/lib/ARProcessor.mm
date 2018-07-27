@@ -108,17 +108,14 @@ void ARProcessor::rotateCameraFrame(float angle){
     //camera->updateRotationMatrix(angle);
 }
 
-void ARProcessor::updateDeviceInterfaceOrientation(){
-    //camera->updateInterfaceOrientation();
-}
 
 ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
     return camera->getMatricesForOrientation(orientation,near,far);
 }
 
 
-void ARProcessor::deviceOrientationChanged(){
-    //camera->updateDeviceOrientation();
+void ARProcessor::deviceOrientationChanged(int newOrientation){
+    camera->updateInterfaceOrientation(newOrientation);
 }
 
 // ======= ANCHOR API ========= //

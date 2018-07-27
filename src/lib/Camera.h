@@ -29,6 +29,7 @@ namespace ofxARKit {
             ARSession * session;
             CGRect viewport;
             
+            UIInterfaceOrientation orientation;
             ARCommon::ARCameraMatrices cameraMatrices;
             float near,far;
             
@@ -88,6 +89,7 @@ namespace ofxARKit {
             
             ARCommon::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far);
             
+            void updateInterfaceOrientation(int newOrientation);
             void setARCameraMatrices();
             void logTrackingState();
             void update();

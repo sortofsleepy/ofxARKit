@@ -164,11 +164,7 @@ public:
     
     //! Signals when the device orientation has changed - which also adjusts
     //! rotation of the camera image depending on the orientation.
-    void deviceOrientationChanged();
-    
-    //! Updates the interface orientation based on the current device orientation. This is to ensure
-    //! The camera matrices remain correctly oriented to the current orientation.
-    void updateDeviceInterfaceOrientation();
+    void deviceOrientationChanged(int newOrientation);
     
     //! Forces the camera frame to rotate.
     void rotateCameraFrame(float angle);
@@ -206,10 +202,6 @@ public:
         //eturn camera->getTransformMatrix();
     }
     
-    //! Returns the camera's FBO.
-    ofFbo getFBO(){
-       // return camera->getFBO();
-    }
 };
 
 
