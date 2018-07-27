@@ -30,7 +30,7 @@ namespace ofxARKit {
             CGRect viewport;
             
             UIInterfaceOrientation orientation;
-            ARCommon::ARCameraMatrices cameraMatrices;
+            ofxARKit::common::ARCameraMatrices cameraMatrices;
             float near,far;
             
             std::string vertex = STRINGIFY(
@@ -87,7 +87,7 @@ namespace ofxARKit {
             }
             CVOpenGLESTextureRef getTexture();
             
-            ARCommon::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far);
+            ofxARKit::common::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far);
             
             void updateInterfaceOrientation(int newOrientation);
             void setARCameraMatrices();

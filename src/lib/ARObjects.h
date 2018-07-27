@@ -11,7 +11,7 @@
 #include "ofMain.h"
 #include "ARFaceTrackingBool.h"
 
-namespace ARObjects {
+namespace ofxARKit {
     
     //! This defines the basic data structure of a Plane
     //! This defines the basic data structure of a Plane

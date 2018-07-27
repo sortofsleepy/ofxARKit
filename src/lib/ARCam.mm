@@ -7,7 +7,7 @@
 #include "ARCam.h"
 #include "ofxiOS.h"
 using namespace std;
-using namespace ARCommon;
+using namespace ofxARKit::common;
 
 namespace ARCore {
     ARCam::ARCam(ARSession * session){
@@ -19,7 +19,7 @@ namespace ARCore {
     }
     
     void ARCam::setup(bool debugMode){
-        nativeDimensions = ARCommon::getDeviceDimensions(true);
+        nativeDimensions = getDeviceDimensions(true);
         ambientIntensity = 0.0;
         orientation = UIInterfaceOrientationPortrait;
         shouldBuildCameraFrame = true;
@@ -256,7 +256,7 @@ namespace ARCore {
         
         rotation.makeIdentityMatrix();
         
-        ofVec2f _viewport = ARCommon::getDeviceDimensions();
+        ofVec2f _viewport = getDeviceDimensions();
         viewportSize.width = _viewport.x;
         viewportSize.height = _viewport.y;
         

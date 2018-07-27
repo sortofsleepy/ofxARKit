@@ -1,6 +1,6 @@
 //
 //  ARCam.hpp
-//
+//  @deprecated
 //  Created by Joseph Chow on 8/29/17
 //  Additional support from contributors.
 //
@@ -93,7 +93,7 @@ namespace ARCore {
         ofMatrix4x4 rotation;
         
         //! joined object of both the transform and projection matrices
-        ARCommon::ARCameraMatrices cameraMatrices;
+        ofxARKit::common::ARCameraMatrices cameraMatrices;
         
         //! a reference to the current frame in the scene
         ARFrame * currentFrame;
@@ -203,7 +203,7 @@ namespace ARCore {
         void updateInterfaceOrientation();
         
         //! Returns Projection and View matrices for the specified orientation.
-        ARCommon::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=1.0,float far=1000.0);
+        ofxARKit::common::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=1.0,float far=1000.0);
         
         //! returns the current projection matrix from the camera
         ofMatrix4x4 getProjectionMatrix(){
@@ -221,7 +221,7 @@ namespace ARCore {
         }
         
         //! returns a reference to the current set of camera matrices as seen by ARKit
-        ARCommon::ARCameraMatrices getCameraMatrices(){
+        ofxARKit::common::ARCameraMatrices getCameraMatrices(){
             return cameraMatrices;
         }
         

@@ -19,7 +19,7 @@
 #include "ofMain.h"
 #endif
 
-namespace ARDebugUtils {
+namespace ofxARKit {
     
     class ARDebugInfo {
       

@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include "Camera.h"
 
-using namespace ARCommon;
+using namespace ofxARKit::common;
 
 namespace ofxARKit {
     namespace core {
@@ -39,12 +39,12 @@ namespace ofxARKit {
         void Camera::update(){
             [_view draw];
             
-            cameraMatrices.cameraTransform = convert<matrix_float4x4,ofMatrix4x4>(session.currentFrame.camera.transform);
+            cameraMatrices.cameraTransform = common::convert<matrix_float4x4,ofMatrix4x4>(session.currentFrame.camera.transform);
             
             getMatricesForOrientation(orientation, near, far);
         }
         
-        ARCameraMatrices Camera::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
+        common::ARCameraMatrices Camera::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
             
             cameraMatrices.cameraView = toMat4([session.currentFrame.camera viewMatrixForOrientation:orientation]);
             cameraMatrices.cameraProjection = toMat4([session.currentFrame.camera projectionMatrixForOrientation:orientation viewportSize:viewport.size zNear:(CGFloat)near zFar:(CGFloat)far]);
