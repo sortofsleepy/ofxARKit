@@ -86,8 +86,8 @@ typedef struct {
 - (CVPixelBufferRef) getSharedPixelbuffer;
 - (CVOpenGLESTextureRef) convertToOpenGLTexture:(CVPixelBufferRef) pixelBuffer;
 - (CVOpenGLESTextureRef) getConvertedTexture;
-- (void) _grabPixels;
-- (void) _updateSharedPixelbuffer;
+- (void) _setupTextures;
+- (void) _updateOpenGLTexture;
 - (void) _drawCapturedImageWithCommandEncoder:(id<MTLRenderCommandEncoder>)renderEncoder;
 - (void) _updateImagePlaneWithFrame;
 - (void) _updateCameraImage;

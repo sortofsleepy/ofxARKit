@@ -102,7 +102,6 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
         CVBufferRelease(capturedImageTextureYRef);
         CVBufferRelease(capturedImageTextureCbCrRef);
         
-        [self _grabPixels];
     }];
     
     
@@ -144,7 +143,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
     //update shared OpenGL pixelbuffer
     // if running in openFrameworks
     if(openglMode){
-        [self _updateSharedPixelbuffer];
+        [self _updateOpenGLTexture];
     }
    
     
@@ -241,6 +240,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
     
 }
 - (void) loadMetal {
+
     self._inFlightSemaphore = dispatch_semaphore_create(kMaxBuffersInFlight);
     
     self.depthStencilPixelFormat = MTLPixelFormatDepth32Float_Stencil8;
@@ -320,135 +320,123 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
     // stop initialization.
     pixelBufferBuilt = YES;
     
-    
+    [self _setupTextures];
 }
 
 // =========== OPENGL COMPATIBILTY =========== //
 
--(void) _grabPixels {}
-
-- (CVOpenGLESTextureRef) getConvertedTexture{
-    return openglTexture;
-}
-- (void) _updateSharedPixelbuffer {
+-(void) _setupTextures {
     
     auto width = 0;
     auto height = 0;
     
+    /**
+     TODO values are currently a bit fudged. Probably need to figure out better solution
+     
+     Figuring out the pixelBuffer size to get an accurate representation from the Metal frame.
+     For some reason - default image is really zoomed in compared to when using the MTKView on it's own.
+     Making the sharedPixelBuffer size to be larger fixes the issue, the problem now is coming up
+     with an accurate value.
+     
+     Multiplying the bounds of the screen by the scale doesn't work oddly enough, it results in an
+     error during OpenGL texture creation due to the resulting height being larger than the max texture size of 4096.
+     
+     Multiplying the bounds by 2 seems to do the trick though it's unclear if it's accurate or not at the moment.
+     
+     Testing results. Note all values are divided by 2
+     1. when using scale - width is 1620 and height is 2880
+     
+     2. when using nativeScale - 1408 and height is 2504
+     
+     3. no scaling(note values are multiplied by 2 here) - Width is 2160 and height is 3840
+     
+     Taking
+     <full frame width * scale> - <native width> and <full frame height * scale> - <native height> seems
+     to be the best solution.
+     
+     */
     
     
     
+    // Still zoomed in here - also need to flip width/height otherwise it looks like there's distortion
+    //width = CVPixelBufferGetHeight(_session.currentFrame.capturedImage);
+    //height = CVPixelBufferGetWidth(_session.currentFrame.capturedImage);
+    
+    // note that imageResolution is returned in a way as if the camera were in landscape mode so you may need to reverse values. Also note that this is not updated automatically, so probably gonna stick with native bounds of screen.
+    //CGSize bounds = _session.configuration.videoFormat.imageResolution;
+    
+    CGRect screenBounds = [[UIScreen mainScreen] nativeBounds];
+    
+    // this is probably a more reasonable approach.
+    width = self.currentDrawable.texture.width - screenBounds.size.width;
+    height = self.currentDrawable.texture.height - screenBounds.size.height;
+    
+    //NSLog(@"Width is %i and height is %i",width,height);
+    
+    
+    /**
+     Setup some things here. We do it in an update loop to ensure that we get an
+     image as close as possible to what the camera is seeing, the MTKView's currentDrawable isn't
+     available until the loop starts.
+     
+     */
+    // setup the shared pixel buffer so we can send this to OpenGL
+    CVReturn cvret = CVPixelBufferCreate(kCFAllocatorDefault,
+                                         width,height,
+                                         formatInfo.cvPixelFormat,
+                                         (__bridge CFDictionaryRef)cvBufferProperties,
+                                         &_sharedPixelBuffer);
+    
+    if(cvret != kCVReturnSuccess)
+    {
+        assert(!"Failed to create shared opengl pixel buffer");
+    }
+    
+    pixelBufferBuilt = YES;
+    
+    // set the region we want to capture in the Metal frame
+    captureRegion = MTLRegionMake2D(0, 0, width, height);
+    
+    
+    // 1. Create a Metal Core Video texture cache from the pixel buffer.
+    cvret = CVMetalTextureCacheCreate(
+                                      kCFAllocatorDefault,
+                                      nil,
+                                      self.device,
+                                      nil,
+                                      &_combinedCameraTextureCache);
+    if(cvret != kCVReturnSuccess)
+    {
+        
+        assert(!"Issue initiailizing metal texture cache for combined image.");
+    }
+    // 2. Create a CoreVideo pixel buffer backed Metal texture image from the texture cache.
+    cvret = CVMetalTextureCacheCreateTextureFromImage(
+                                                      kCFAllocatorDefault,
+                                                      _combinedCameraTextureCache,
+                                                      _sharedPixelBuffer, nil,
+                                                      formatInfo.mtlFormat,
+                                                      width, height,
+                                                      0,
+                                                      &_cameraImage);
+    if(cvret != kCVReturnSuccess)
+    {
+        assert(!"Failed to create Metal texture cache");
+    }
+    
+    _cameraTexture = CVMetalTextureGetTexture(_cameraImage);
+}
+
+- (CVOpenGLESTextureRef) getConvertedTexture{
+    return openglTexture;
+}
+- (void) _updateOpenGLTexture{
     
     if(self.currentDrawable && _session.currentFrame.capturedImage){
         
-        /**
-            TODO values are currently a bit fudged. Probably need to figure out better solution
-         
-            Figuring out the pixelBuffer size to get an accurate representation from the Metal frame.
-            For some reason - default image is really zoomed in compared to when using the MTKView on it's own.
-            Making the sharedPixelBuffer size to be larger fixes the issue, the problem now is coming up
-            with an accurate value.
-         
-            Multiplying the bounds of the screen by the scale doesn't work oddly enough, it results in an
-            error during OpenGL texture creation due to the resulting height being larger than the max texture size of 4096.
-         
-            Multiplying the bounds by 2 seems to do the trick though it's unclear if it's accurate or not at the moment.
-         
-            Testing results. Note all values are divided by 2
-            1. when using scale - width is 1620 and height is 2880
-         
-            2. when using nativeScale - 1408 and height is 2504
-         
-            3. no scaling(note values are multiplied by 2 here) - Width is 2160 and height is 3840
-         
-            Taking
-            <full frame width * scale> - <native width> and <full frame height * scale> - <native height> seems
-            to be the best solution.
-         */
-        
-        
-        
-        // Still zoomed in here - also need to flip width/height otherwise it looks like there's distortion
-        //width = CVPixelBufferGetHeight(_session.currentFrame.capturedImage);
-        //height = CVPixelBufferGetWidth(_session.currentFrame.capturedImage);
-        
-        // note that imageResolution is returned in a way as if the camera were in landscape mode so you may need to reverse values. Also note that this is not updated automatically, so probably gonna stick with native bounds of screen.
-        //CGSize bounds = _session.configuration.videoFormat.imageResolution;
-        
-        CGRect screenBounds = [[UIScreen mainScreen] nativeBounds];
-       
-        // this is probably a more reasonable approach.
-        width = self.currentDrawable.texture.width - screenBounds.size.width;
-        height = self.currentDrawable.texture.height - screenBounds.size.height;
-        
-        //NSLog(@"Width is %i and height is %i",width,height);
-        
-        // TODO if orientation changes, set pixelBufferBuilt to NO so we can get the correct scaling.
-        // If the pixel buffer hasn't been built yet - build it.
-        // Note that this needs to be in an if statement because otherwise you run out of memory, previous buffer contents aren't overwritten for some reason even though we're pointing to the same pixel buffer.
-        // Also setting the pixel buffer width / height to match the drawable doesn't work for some reason. Too large?
-        
-        
-        /**
-         Setup some necessary things here. We do it in an update loop to ensure that we get an
-         image as close as possible to what the camera is seeing.
-         */
-        if(pixelBufferBuilt == NO){
-            // setup the shared pixel buffer so we can send this to OpenGL
-            CVReturn cvret = CVPixelBufferCreate(kCFAllocatorDefault,
-                                                 width,height,
-                                                 formatInfo.cvPixelFormat,
-                                                 (__bridge CFDictionaryRef)cvBufferProperties,
-                                                 &_sharedPixelBuffer);
-            
-            if(cvret != kCVReturnSuccess)
-            {
-                assert(!"Failed to create shared opengl pixel buffer");
-            }
-            
-            pixelBufferBuilt = YES;
-            
-            // set the region we want to capture in the Metal frame
-            captureRegion = MTLRegionMake2D(0, 0, width, height);
-            
-        
-            // 1. Create a Metal Core Video texture cache from the pixel buffer.
-            cvret = CVMetalTextureCacheCreate(
-                                              kCFAllocatorDefault,
-                                              nil,
-                                              self.device,
-                                              nil,
-                                              &_combinedCameraTextureCache);
-            if(cvret != kCVReturnSuccess)
-            {
-                
-                assert(!"Issue initiailizing metal texture cache for combined image.");
-            }
-            // 2. Create a CoreVideo pixel buffer backed Metal texture image from the texture cache.
-            cvret = CVMetalTextureCacheCreateTextureFromImage(
-                                                              kCFAllocatorDefault,
-                                                              _combinedCameraTextureCache,
-                                                              _sharedPixelBuffer, nil,
-                                                              formatInfo.mtlFormat,
-                                                              width, height,
-                                                              0,
-                                                              &_cameraImage);
-            if(cvret != kCVReturnSuccess)
-            {
-                assert(!"Failed to create Metal texture cache");
-            }
-            
-            _cameraTexture = CVMetalTextureGetTexture(_cameraImage);
-        }
         
         CVPixelBufferLockBaseAddress(_sharedPixelBuffer, 0);
       
-        // set the bytes per row
-        NSInteger bytesPerRow = CVPixelBufferGetBytesPerRow(_sharedPixelBuffer);
-        
-        // grab texture data from Metal
-        //[self.currentDrawable.texture getBytes:CVPixelBufferGetBaseAddress(_sharedPixelBuffer) bytesPerRow:bytesPerRow fromRegion:captureRegion mipmapLevel:0];
-        
         // convert shared pixel buffer into an OpenGL texture
         openglTexture = [self convertToOpenGLTexture:_sharedPixelBuffer];
         
