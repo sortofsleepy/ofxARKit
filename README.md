@@ -18,7 +18,6 @@ __then__
 __After you've opened up the project file__
 * add a permission setting in your `ofxIOS-Info.plist` file. See Permissions below.
 * set the project target for IOS 11 / 12
-<img width="848" alt="screen shot 2017-09-02 at 2 25 22 pm" src="https://user-images.githubusercontent.com/308302/29998868-ac9e216c-8fea-11e7-95e2-7ff4fb218166.png">
 * you may need to do two things with the `Shader.metal` file
    * add it to the compiled sources
    * make sure to set the file designation back to it's default(for some reason it's treated as "Data" in the projectGenerator generated project)
@@ -31,7 +30,7 @@ To get started, you need to initialize the ARKit framework. This can be done a c
 
 __SessionSetup__
 ```c++
-    ARCore::SFormat format;
+    ofxARKit::core::SFormat format;
     format.enablePlaneTracking().enableLighting();
     auto session = ARCore::generateNewSession(format);
 ```
