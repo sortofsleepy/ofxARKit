@@ -26,6 +26,7 @@
 		9CE0E8C0210A318300FD702E /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CE0E8BF210A318300FD702E /* MetalKit.framework */; };
 		9CE0E8C3210A31D400FD702E /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CE0E8C2210A31D400FD702E /* Metal.framework */; };
 		9CE0E8C7210A344C00FD702E /* Shaders.metal in Resources */ = {isa = PBXBuildFile; fileRef = B729AD4738DF85419E1482B7 /* Shaders.metal */; };
+		9CE0E8CA210A730E00FD702E /* Camera.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9CE0E8C9210A730E00FD702E /* Camera.mm */; };
 		9E673C9B5C273A43D291B6E2 /* ARCam.mm in Sources */ = {isa = PBXBuildFile; fileRef = 439452471C213D52227910C1 /* ARCam.mm */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
@@ -90,6 +91,8 @@
 		9CE0E8BB210A312900FD702E /* MyAppViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAppViewController.mm; sourceTree = "<group>"; };
 		9CE0E8BF210A318300FD702E /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		9CE0E8C2210A31D400FD702E /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		9CE0E8C8210A55D200FD702E /* Camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Camera.h; path = ../src/lib/Camera.h; sourceTree = "<group>"; };
+		9CE0E8C9210A730E00FD702E /* Camera.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = Camera.mm; path = ../src/lib/Camera.mm; sourceTree = "<group>"; };
 		AAB89E05B8488BEE5EF244FC /* MetalCam.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = MetalCam.mm; path = ../../../addons/ofxARKit/src/lib/MetalCam.mm; sourceTree = SOURCE_ROOT; };
 		B729AD4738DF85419E1482B7 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = Shaders.metal; path = ../../../addons/ofxARKit/src/lib/Shaders.metal; sourceTree = SOURCE_ROOT; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -216,6 +219,8 @@
 				9B281FF686BA0D026AE2ED84 /* ARSessionSetup.h */,
 				15D8116F6AD9D0F2F4213B11 /* ARDebugUtils.h */,
 				895BB2DC8F64D074767B4A8C /* ARUtils.h */,
+				9CE0E8C8210A55D200FD702E /* Camera.h */,
+				9CE0E8C9210A730E00FD702E /* Camera.mm */,
 			);
 			name = lib;
 			sourceTree = "<group>";
@@ -452,6 +457,7 @@
 				D449374B32245018E4A8FCCC /* ARProcessor.mm in Sources */,
 				9CE0E8BC210A312900FD702E /* MyAppDelegate.mm in Sources */,
 				9E673C9B5C273A43D291B6E2 /* ARCam.mm in Sources */,
+				9CE0E8CA210A730E00FD702E /* Camera.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

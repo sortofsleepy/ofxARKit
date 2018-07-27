@@ -13,6 +13,8 @@ ARProcessor::ARProcessor(ARSession * session){
     this->session = session;
     
     debugInfo = ARDebugUtils::ARDebugInfo(session);
+    
+    camera = ofxARKit::core::Camera::create(session);
 }
 
 ARProcessor::~ARProcessor(){
@@ -20,7 +22,7 @@ ARProcessor::~ARProcessor(){
     session = nullptr;
     
     // remove this instance of the ARCam - if there are other ARCams around, they will still be in memory
-    camera.reset();
+    //camera.reset();
     anchorController.reset();
 }
 
@@ -45,8 +47,6 @@ void ARProcessor::restartSession(){
 void ARProcessor::setup(bool debugMode){
     this->debugMode = debugMode;
     anchorController = ARAnchorManager::create(session);
-    camera = ARCam::create(session);
-    camera->setup(this->debugMode);
 }
 
 void ARProcessor::draw(){
@@ -54,7 +54,9 @@ void ARProcessor::draw(){
 }
 
 void ARProcessor::update(){
+    
     camera->update();
+    
     if(debugMode){
         pointCloud.updatePointCloud(session.currentFrame);
     }
@@ -76,38 +78,38 @@ void ARProcessor::drawFrame(){
 }
 // =========== CAMERA API ============ //
 void ARProcessor::forceInterfaceOrientation(UIInterfaceOrientation orientation){
-    camera->setInterfaceOrientation(orientation);
+    //camera->setInterfaceOrientation(orientation);
 }
 void ARProcessor::setARCameraMatrices(){
     camera->setARCameraMatrices();
 }
 
 ofVec3f ARProcessor::getCameraPosition(){
-    return ARCommon::getAnchorXYZ(camera->getTransformMatrix());
+    //return ARCommon::getAnchorXYZ(camera->getTransformMatrix());
 }
 
 ofTexture ARProcessor::getCameraTexture(){
-   return camera->getCameraTexture();
+   //return camera->getCameraTexture();
 }
 
 ARCommon::ARCameraMatrices ARProcessor::getCameraMatrices(){
-     return camera->getCameraMatrices();
+     //return camera->getCameraMatrices();
 }
 
 float ARProcessor::getLightIntensity(){
-    return camera->getAmbientIntensity();
+    //return camera->getAmbientIntensity();
 }
 
 ARTrackingState ARProcessor::getTrackingState(){
-    return camera->getTrackingState();
+    //return camera->getTrackingState();
 }
 
 void ARProcessor::rotateCameraFrame(float angle){
-    camera->updateRotationMatrix(angle);
+    //camera->updateRotationMatrix(angle);
 }
 
 void ARProcessor::updateDeviceInterfaceOrientation(){
-    camera->updateInterfaceOrientation();
+    //camera->updateInterfaceOrientation();
 }
 
 ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
@@ -116,7 +118,7 @@ ARCameraMatrices ARProcessor::getMatricesForOrientation(UIInterfaceOrientation o
 
 
 void ARProcessor::deviceOrientationChanged(){
-    camera->updateDeviceOrientation();
+    //camera->updateDeviceOrientation();
 }
 
 // ======= ANCHOR API ========= //
@@ -132,7 +134,7 @@ void ARProcessor::addAnchor(ofVec3f position){
 }
 //! Draws the current set of planes
 void ARProcessor::drawPlanes(){
-    anchorController->drawPlanes(camera->getCameraMatrices());
+    //anchorController->drawPlanes(camera->getCameraMatrices());
 }
 
 //! Draws the current set of plane meshes
@@ -141,7 +143,7 @@ void ARProcessor::drawPlaneMeshes(){}
 
 
 void ARProcessor::drawHorizontalPlanes(){
-    anchorController->drawPlanes(camera->getCameraMatrices());
+    //anchorController->drawPlanes(camera->getCameraMatrices());
 }
 
 #if AR_FACE_TRACKING
@@ -175,7 +177,7 @@ vector<ARReferenceImage *> & ARProcessor::getARReferenceImages(){
 
 void ARProcessor::drawPointCloud(){
     if(debugMode){
-        pointCloud.draw(camera->getProjectionMatrix(), camera->getViewMatrix());
+        //pointCloud.draw(camera->getProjectionMatrix(), camera->getViewMatrix());
     } else {
         ofLog(OF_LOG_WARNING, "Debug Mode not set");
     }

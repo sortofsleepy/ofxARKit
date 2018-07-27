@@ -10,6 +10,8 @@
 #import <MetalKit/MetalKit.h>
 #import <ARKit/ARKit.h>
 
+#pragma once
+
 NS_ASSUME_NONNULL_BEGIN
 @protocol RenderDestinationProvider
 @property (nonatomic, readonly, nullable) MTLRenderPassDescriptor *currentRenderPassDescriptor;
@@ -42,21 +44,23 @@ typedef struct {
     id <MTLTexture> _renderTarget;
     id <MTLCommandQueue> _commandQueue;
     id <MTLBuffer> _sharedUniformBuffer;
-    id <MTLBuffer> _anchorUniformBuffer;
     id <MTLBuffer> _imagePlaneVertexBuffer;
     id <MTLRenderPipelineState> _capturedImagePipelineState;
     id <MTLDepthStencilState> _capturedImageDepthState;
-    id <MTLRenderPipelineState> _anchorPipelineState;
-    id <MTLDepthStencilState> _anchorDepthState;
     
     CVMetalTextureRef _capturedImageTextureYRef;
     CVMetalTextureRef _capturedImageTextureCbCrRef;
+    
+    //! Combined camera image that gets rendered onto
+    CVMetalTextureRef _cameraImage;
+    
+    id<MTLTexture> _cameraTexture;
     
     //! Shared camera texture that's used to hold a converted MetalTexture
     CVOpenGLESTextureRef openglTexture;
     
     // Captured image texture cache
-    CVMetalTextureCacheRef _capturedImageTextureCache;
+    CVMetalTextureCacheRef _capturedImageTextureCache,_combinedCameraTextureCache;
     
     // Flag for viewport size changes
     BOOL _viewportSizeDidChange;
@@ -72,11 +76,8 @@ typedef struct {
     CVOpenGLESTextureCacheRef _videoTextureCache;
     CVPixelBufferRef _sharedPixelBuffer;
     BOOL pixelBufferBuilt;
-    
+    MTLRegion captureRegion;
     BOOL openglMode;
-    
-    // this affects how zoomed in the final image is.
-    float zoomFactor;
 }
 @property(nonatomic,retain)dispatch_semaphore_t _inFlightSemaphore;
 @property(nonatomic,retain)ARSession * session;
@@ -85,6 +86,7 @@ typedef struct {
 - (CVPixelBufferRef) getSharedPixelbuffer;
 - (CVOpenGLESTextureRef) convertToOpenGLTexture:(CVPixelBufferRef) pixelBuffer;
 - (CVOpenGLESTextureRef) getConvertedTexture;
+- (void) _grabPixels;
 - (void) _updateSharedPixelbuffer;
 - (void) _drawCapturedImageWithCommandEncoder:(id<MTLRenderCommandEncoder>)renderEncoder;
 - (void) _updateImagePlaneWithFrame;

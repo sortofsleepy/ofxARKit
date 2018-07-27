@@ -17,8 +17,8 @@
 #include "ARShaders.h"
 #include "ARAnchorManager.h"
 #include "ARDebugUtils.h"
-#include "ARCam.h"
 #include "ARSessionSetup.h"
+#include "Camera.h"
 
 typedef std::shared_ptr<class ARProcessor>ARRef;
 
@@ -82,7 +82,7 @@ public:
     ARDebugUtils::ARDebugInfo debugInfo;
     
     //! A class to handle camera functionality.
-    ARCore::ARCamRef camera;
+    ofxARKit::core::CameraRef camera;
     
     //! Returns the current tracking state of the ARKit framework.
     ARTrackingState getTrackingState();
@@ -193,22 +193,22 @@ public:
     
     // returns the current projection matrix from the camera
     ofMatrix4x4 getProjectionMatrix(){
-        return camera->getProjectionMatrix();
+        //return camera->getProjectionMatrix();
     }
     
     //! returns the current view matrix from the camera
     ofMatrix4x4 getViewMatrix(){
-        return camera->getViewMatrix();
+        //return camera->getViewMatrix();
     }
     
     //! Returns the camera's current transform matrix.
     ofMatrix4x4 getCameraTransformMatrix(){
-        return camera->getTransformMatrix();
+        //eturn camera->getTransformMatrix();
     }
     
     //! Returns the camera's FBO.
     ofFbo getFBO(){
-        return camera->getFBO();
+       // return camera->getFBO();
     }
 };
 
