@@ -21,15 +21,13 @@ This is an open\+Frameworks addon that provides some helper classes for working 
 
 {\bfseries After you\textquotesingle{}ve opened up the project file}
 \begin{DoxyItemize}
-\item add the A\+R\+Kit framework to your project
-\end{DoxyItemize}
-
-
-
-
-\begin{DoxyItemize}
 \item add a permission setting in your {\ttfamily ofx\+I\+O\+S-\/\+Info.\+plist} file. See Permissions below.
-\item set the project target for I\+OS 11 
+\item set the project target for I\+OS 11 / 12
+\item you may need to do two things with the {\ttfamily Shader.\+metal} file
+\begin{DoxyItemize}
+\item add it to the compiled sources
+\item make sure to set the file designation back to it\textquotesingle{}s default(for some reason it\textquotesingle{}s treated as \char`\"{}\+Data\char`\"{} in the project\+Generator generated project)
+\end{DoxyItemize}
 \end{DoxyItemize}
 
 Note that you may have to repeat these steps if you make any changes to your project via the generator.
@@ -41,13 +39,13 @@ To get started, you need to initialize the A\+R\+Kit framework. This can be done
 {\bfseries Session\+Setup} 
 \begin{DoxyCode}
 \{c++\}
-    ARCore::SFormat format;
+    ofxARKit::core::SFormat format;
     format.enablePlaneTracking().enableLighting();
     auto session = ARCore::generateNewSession(format);
 \end{DoxyCode}
 
 
-the {\ttfamily S\+Format} object is a way to enable various features of A\+R\+Kit in a more straightforward manner. Passing an instance of an {\ttfamily S\+Format} object to {\ttfamily \mbox{\hyperlink{namespace_a_r_core_a66ae704f1eff4b085765cc73635db8eb}{A\+R\+Core\+::generate\+New\+Session}}} will automatically generate a new {\ttfamily A\+R\+Session} object, while ensuring the specified features are useable on your device.
+the {\ttfamily S\+Format} object is a way to enable various features of A\+R\+Kit in a more straightforward manner. Passing an instance of an {\ttfamily S\+Format} object to {\ttfamily A\+R\+Core\+::generate\+New\+Session} will automatically generate a new {\ttfamily A\+R\+Session} object, while ensuring the specified features are useable on your device.
 
 You can of course, write things by hand which isn\textquotesingle{}t too difficult either.
 

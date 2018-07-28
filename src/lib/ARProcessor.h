@@ -112,6 +112,9 @@ namespace ofxARKit {
             
         }
         
+        float getLightTemperature();
+        float getLightIntensity();
+        
         //! Draw horizontal planes
         void drawHorizontalPlanes();
         

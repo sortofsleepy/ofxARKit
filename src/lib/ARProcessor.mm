@@ -78,6 +78,14 @@ namespace ofxARKit {
     void ARProcessor::drawFrame(){
         draw();
     }
+    
+    float ARProcessor::getLightIntensity() {
+        return session.currentFrame.lightEstimate.ambientIntensity / 1000;
+    }
+    
+    float ARProcessor::getLightTemperature() {
+        return session.currentFrame.lightEstimate.ambientColorTemperature;
+    }
     // =========== CAMERA API ============ //
     void ARProcessor::forceInterfaceOrientation(UIInterfaceOrientation orientation){
         //camera->setInterfaceOrientation(orientation);
