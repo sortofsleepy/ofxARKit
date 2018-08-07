@@ -8,6 +8,8 @@
 #import "OFAppViewController.h"
 #import "ofApp.h"
 
+using namespace ofxARKit::core;
+
 @interface MyAppViewController()
 @property (nonatomic, strong) ARSession *session;
 @end
@@ -18,9 +20,9 @@
 - (void)loadView {
     [super loadView];
 
-    ARCore::SFormat format;
+    SFormat format;
     format.enablePlaneTracking().enableLighting();
-    self.session = ARCore::generateNewSession(format);
+    self.session = generateNewSession(format);
     
     
     OFAppViewController *viewController;

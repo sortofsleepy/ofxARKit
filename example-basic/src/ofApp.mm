@@ -1,6 +1,6 @@
 #include "ofApp.h"
 
-
+using namespace ofxARKit::common;
 
 void logSIMD(const simd::float4x4 &matrix)
 {
@@ -45,6 +45,7 @@ void ofApp::setup() {
     processor = ARProcessor::create(session);
     processor->setup();
     
+    
 }
 
 
@@ -81,13 +82,13 @@ void ofApp::draw() {
                 // Not important for this example but something good to remember.
                 
                 ofPushMatrix();
-                ofMatrix4x4 mat = ARCommon::convert<matrix_float4x4, ofMatrix4x4>(anchor.transform);
+                ofMatrix4x4 mat = convert<matrix_float4x4, ofMatrix4x4>(anchor.transform);
                 ofMultMatrix(mat);
                 
                 ofSetColor(255);
                 ofRotate(90,0,0,1);
                 
-                img.draw(-0.025 / 2, -0.025 / 2,0.025,0.025);
+                img.draw(-0.25 / 2, -0.25 / 2,0.25,0.25);
                 
                 
                 ofPopMatrix();
@@ -157,9 +158,8 @@ void ofApp::gotMemoryWarning(){
 
 //--------------------------------------------------------------
 void ofApp::deviceOrientationChanged(int newOrientation){
-    processor->updateDeviceInterfaceOrientation();
-    processor->deviceOrientationChanged();
-    
+  
+    processor->deviceOrientationChanged(newOrientation);
 }
 
 

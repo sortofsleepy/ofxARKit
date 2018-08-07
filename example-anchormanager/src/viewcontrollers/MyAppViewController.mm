@@ -18,9 +18,9 @@
 - (void)loadView {
     [super loadView];
 
-    ARCore::SFormat format;
+    ofxARKit::core::SFormat format;
     format.enablePlaneTracking().enableLighting();
-    self.session = ARCore::generateNewSession(format);
+    self.session = ofxARKit::core::generateNewSession(format);
     
     
     OFAppViewController *viewController;
