@@ -9,24 +9,28 @@
 /* Begin PBXBuildFile section */
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		26E48FA925CB7AB40D972560 /* ARProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16C7F36EEA16280EF694F1CA /* ARProcessor.mm */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		306D06F5C9531F383C48155E /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517B80F49A5C789E90E5131A /* ARKit.framework */; };
 		5326AEA810A23A0500278DE6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5326AEA710A23A0500278DE6 /* CoreLocation.framework */; };
 		53F323EB10A20EDB00E0DAE4 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F323EA10A20EDB00E0DAE4 /* OpenAL.framework */; };
+		5885C14C987D28A87F4D36FE /* ARAnchorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 06CBB8EB438EF0E6876CF3A9 /* ARAnchorManager.mm */; };
 		67DFA53619F92A69003B3434 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67DFA53419F92A5E003B3434 /* Accelerate.framework */; };
-		8DEE3593CFC3E0A0F3578C2D /* ARCam.mm in Sources */ = {isa = PBXBuildFile; fileRef = DCA11A3992D2441F6D8D2DBD /* ARCam.mm */; };
+		8057689E9DA4FB99C9612446 /* MetalCam.mm in Sources */ = {isa = PBXBuildFile; fileRef = AAB89E05B8488BEE5EF244FC /* MetalCam.mm */; };
 		901808C12053638E004A7774 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901808BF2053636F004A7774 /* GLKit.framework */; };
-		966DC6CFF8359AF2BCC8EAFD /* ARAnchorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBAC3A38884A86BA86D4C26D /* ARAnchorManager.mm */; };
 		9936F6101BFA4DEE00891288 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9936F60F1BFA4DEE00891288 /* Images.xcassets */; };
 		9936F6121BFA65F100891288 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9936F6111BFA65F100891288 /* LaunchScreen.storyboard */; };
 		9969E7561C782C4500DEF0F6 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9969E7551C782C4500DEF0F6 /* CoreMotion.framework */; };
-		9CE0E7E920DD792000FD702E /* OFAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9CE0E7E420DD791F00FD702E /* OFAppViewController.mm */; };
-		9CE0E7EA20DD792000FD702E /* MyAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9CE0E7E520DD791F00FD702E /* MyAppViewController.mm */; };
-		9CE0E7EB20DD792000FD702E /* MyAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9CE0E7E820DD792000FD702E /* MyAppDelegate.mm */; };
+		9CE0E8CF210A8DA400FD702E /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CE0E8CD210A8DA300FD702E /* Metal.framework */; };
+		9CE0E8D0210A8DA400FD702E /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CE0E8CE210A8DA300FD702E /* MetalKit.framework */; };
+		9CE0E8D1210A8DC600FD702E /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = B729AD4738DF85419E1482B7 /* Shaders.metal */; };
+		9CE0E8DA210A8DFF00FD702E /* OFAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9CE0E8D5210A8DFF00FD702E /* OFAppViewController.mm */; };
+		9CE0E8DB210A8DFF00FD702E /* MyAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9CE0E8D6210A8DFF00FD702E /* MyAppViewController.mm */; };
+		9CE0E8DC210A8DFF00FD702E /* MyAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9CE0E8D9210A8DFF00FD702E /* MyAppDelegate.mm */; };
+		9E673C9B5C273A43D291B6E2 /* ARCam.mm in Sources */ = {isa = PBXBuildFile; fileRef = 439452471C213D52227910C1 /* ARCam.mm */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
 		BBE5EAB80F49AD8400F28951 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */; };
+		D449374B32245018E4A8FCCC /* ARProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = C920D6EC10E102E2983C196A /* ARProcessor.mm */; };
 		E41D400B13B39D2100A75A5D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41D400613B39D2100A75A5D /* AVFoundation.framework */; };
 		E41D400C13B39D2100A75A5D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41D400713B39D2100A75A5D /* CoreMedia.framework */; };
 		E41D400D13B39D2100A75A5D /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41D400813B39D2100A75A5D /* CoreVideo.framework */; };
@@ -34,6 +38,7 @@
 		E41D421413B3A95300A75A5D /* libofxiOS_iphoneos_Debug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E41D410213B3A0D800A75A5D /* libofxiOS_iphoneos_Debug.a */; };
 		E4D8936E11527B74007E1F53 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4D8936B11527B74007E1F53 /* main.mm */; };
 		E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4D8936D11527B74007E1F53 /* ofApp.mm */; };
+		F8A4F8053822AAC282134326 /* Camera.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16943177FB9C48093D420339 /* Camera.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,38 +59,49 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		09673E6D454686E403C40A18 /* ARUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARUtils.h; path = ../../../addons/ofxARKit/src/ARUtils.h; sourceTree = SOURCE_ROOT; };
-		16C7F36EEA16280EF694F1CA /* ARProcessor.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ARProcessor.mm; path = ../../../addons/ofxARKit/src/ARProcessor.mm; sourceTree = SOURCE_ROOT; };
+		06CBB8EB438EF0E6876CF3A9 /* ARAnchorManager.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ARAnchorManager.mm; path = ../../../addons/ofxARKit/src/lib/ARAnchorManager.mm; sourceTree = SOURCE_ROOT; };
+		15D8116F6AD9D0F2F4213B11 /* ARDebugUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARDebugUtils.h; path = ../../../addons/ofxARKit/src/lib/ARDebugUtils.h; sourceTree = SOURCE_ROOT; };
+		16943177FB9C48093D420339 /* Camera.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = Camera.mm; path = ../../../addons/ofxARKit/src/lib/Camera.mm; sourceTree = SOURCE_ROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* example-basic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "example-basic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		302A7A61ECBFE243BE2A6D15 /* ARProcessor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARProcessor.h; path = ../../../addons/ofxARKit/src/ARProcessor.h; sourceTree = SOURCE_ROOT; };
+		2D9AF60D169D375473180BED /* ARObjects.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARObjects.h; path = ../../../addons/ofxARKit/src/lib/ARObjects.h; sourceTree = SOURCE_ROOT; };
 		32CA4F630368D1EE00C91783 /* ofxiOS_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxiOS_Prefix.pch; sourceTree = "<group>"; };
+		439452471C213D52227910C1 /* ARCam.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ARCam.mm; path = ../../../addons/ofxARKit/src/lib/ARCam.mm; sourceTree = SOURCE_ROOT; };
 		517B80F49A5C789E90E5131A /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/ARKit.framework; sourceTree = "<group>"; };
 		5326AEA710A23A0500278DE6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		53F323EA10A20EDB00E0DAE4 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
-		581E4B10C1444D6272A60B20 /* ARShaders.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARShaders.h; path = ../../../addons/ofxARKit/src/ARShaders.h; sourceTree = SOURCE_ROOT; };
-		6305FC4AB701AEC8BA64E935 /* ARDebugUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARDebugUtils.h; path = ../../../addons/ofxARKit/src/ARDebugUtils.h; sourceTree = SOURCE_ROOT; };
+		67A84E67C5883741A1917131 /* MetalCam.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = MetalCam.h; path = ../../../addons/ofxARKit/src/lib/MetalCam.h; sourceTree = SOURCE_ROOT; };
 		67DFA53419F92A5E003B3434 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		8CED944372A372672447BABA /* ARAnchorManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARAnchorManager.h; path = ../../../addons/ofxARKit/src/ARAnchorManager.h; sourceTree = SOURCE_ROOT; };
+		6B4856EAC09E12DF4215247B /* ShaderTypes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ShaderTypes.h; path = ../../../addons/ofxARKit/src/lib/ShaderTypes.h; sourceTree = SOURCE_ROOT; };
+		6E997AD4D5DFA6F2279FED97 /* ARShaders.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARShaders.h; path = ../../../addons/ofxARKit/src/lib/ARShaders.h; sourceTree = SOURCE_ROOT; };
+		83FBF24C589717ECA7DC1D15 /* ARCam.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARCam.h; path = ../../../addons/ofxARKit/src/lib/ARCam.h; sourceTree = SOURCE_ROOT; };
+		895BB2DC8F64D074767B4A8C /* ARUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARUtils.h; path = ../../../addons/ofxARKit/src/lib/ARUtils.h; sourceTree = SOURCE_ROOT; };
 		901808BF2053636F004A7774 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		9288F98A4FBE0DB0656BABC1 /* ARProcessor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARProcessor.h; path = ../../../addons/ofxARKit/src/lib/ARProcessor.h; sourceTree = SOURCE_ROOT; };
 		9936F60F1BFA4DEE00891288 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9936F6111BFA65F100891288 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9969E7551C782C4500DEF0F6 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		9CE0E7E220DD791F00FD702E /* OFAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFAppViewController.h; sourceTree = "<group>"; };
-		9CE0E7E320DD791F00FD702E /* MyAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAppViewController.h; sourceTree = "<group>"; };
-		9CE0E7E420DD791F00FD702E /* OFAppViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OFAppViewController.mm; sourceTree = "<group>"; };
-		9CE0E7E520DD791F00FD702E /* MyAppViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAppViewController.mm; sourceTree = "<group>"; };
-		9CE0E7E720DD792000FD702E /* MyAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAppDelegate.h; sourceTree = "<group>"; };
-		9CE0E7E820DD792000FD702E /* MyAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAppDelegate.mm; sourceTree = "<group>"; };
+		9B281FF686BA0D026AE2ED84 /* ARSessionSetup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARSessionSetup.h; path = ../../../addons/ofxARKit/src/lib/ARSessionSetup.h; sourceTree = SOURCE_ROOT; };
+		9CE0E8CD210A8DA300FD702E /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		9CE0E8CE210A8DA300FD702E /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		9CE0E8D3210A8DFF00FD702E /* OFAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFAppViewController.h; sourceTree = "<group>"; };
+		9CE0E8D4210A8DFF00FD702E /* MyAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAppViewController.h; sourceTree = "<group>"; };
+		9CE0E8D5210A8DFF00FD702E /* OFAppViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OFAppViewController.mm; sourceTree = "<group>"; };
+		9CE0E8D6210A8DFF00FD702E /* MyAppViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAppViewController.mm; sourceTree = "<group>"; };
+		9CE0E8D8210A8DFF00FD702E /* MyAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAppDelegate.h; sourceTree = "<group>"; };
+		9CE0E8D9210A8DFF00FD702E /* MyAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAppDelegate.mm; sourceTree = "<group>"; };
+		AAB89E05B8488BEE5EF244FC /* MetalCam.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = MetalCam.mm; path = ../../../addons/ofxARKit/src/lib/MetalCam.mm; sourceTree = SOURCE_ROOT; };
+		B729AD4738DF85419E1482B7 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = Shaders.metal; path = ../../../addons/ofxARKit/src/lib/Shaders.metal; sourceTree = SOURCE_ROOT; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BB16EBD80F2B2AB500518274 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB24DDC910DA781C00E9C588 /* ofxiOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ofxiOS-Info.plist"; sourceTree = "<group>"; };
-		BBAC3A38884A86BA86D4C26D /* ARAnchorManager.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ARAnchorManager.mm; path = ../../../addons/ofxARKit/src/ARAnchorManager.mm; sourceTree = SOURCE_ROOT; };
 		BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		BD48F05A6623BFAAA3FA0258 /* ARAnchorManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARAnchorManager.h; path = ../../../addons/ofxARKit/src/lib/ARAnchorManager.h; sourceTree = SOURCE_ROOT; };
+		C920D6EC10E102E2983C196A /* ARProcessor.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ARProcessor.mm; path = ../../../addons/ofxARKit/src/lib/ARProcessor.mm; sourceTree = SOURCE_ROOT; };
 		CC7B4B2B9605C0BF2C8A133C /* ofxARKit.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxARKit.h; path = ../../../addons/ofxARKit/src/ofxARKit.h; sourceTree = SOURCE_ROOT; };
-		DCA11A3992D2441F6D8D2DBD /* ARCam.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ARCam.mm; path = ../../../addons/ofxARKit/src/ARCam.mm; sourceTree = SOURCE_ROOT; };
+		E01E92B16305D6FD8300185B /* ARFaceTrackingBool.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARFaceTrackingBool.h; path = ../../../addons/ofxARKit/src/lib/ARFaceTrackingBool.h; sourceTree = SOURCE_ROOT; };
 		E41D3ED613B38FB500A75A5D /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		E41D3EE513B3906D00A75A5D /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/ios/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
 		E41D400613B39D2100A75A5D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -97,10 +113,7 @@
 		E4D8936B11527B74007E1F53 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = src/main.mm; sourceTree = SOURCE_ROOT; };
 		E4D8936C11527B74007E1F53 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofApp.h; path = src/ofApp.h; sourceTree = SOURCE_ROOT; };
 		E4D8936D11527B74007E1F53 /* ofApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ofApp.mm; path = src/ofApp.mm; sourceTree = SOURCE_ROOT; };
-		E8470187C69FECA34ACE6825 /* ARObjects.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARObjects.h; path = ../../../addons/ofxARKit/src/ARObjects.h; sourceTree = SOURCE_ROOT; };
-		F1FD0B255231DD44AA4B35CA /* ARCam.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARCam.h; path = ../../../addons/ofxARKit/src/ARCam.h; sourceTree = SOURCE_ROOT; };
-		F9BE3DED6B2C36C40E5D4D69 /* ARSessionSetup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARSessionSetup.h; path = ../../../addons/ofxARKit/src/ARSessionSetup.h; sourceTree = SOURCE_ROOT; };
-		FED1B5568E444C5A17968CDE /* ARFaceTrackingBool.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARFaceTrackingBool.h; path = ../../../addons/ofxARKit/src/ARFaceTrackingBool.h; sourceTree = SOURCE_ROOT; };
+		FD094D8DA0BE3634DF6BAA3B /* Camera.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Camera.h; path = ../../../addons/ofxARKit/src/lib/Camera.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +121,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CE0E8CF210A8DA400FD702E /* Metal.framework in Frameworks */,
+				9CE0E8D0210A8DA400FD702E /* MetalKit.framework in Frameworks */,
 				9969E7561C782C4500DEF0F6 /* CoreMotion.framework in Frameworks */,
 				E41D421413B3A95300A75A5D /* libofxiOS_iphoneos_Debug.a in Frameworks */,
 				901808C12053638E004A7774 /* GLKit.framework in Frameworks */,
@@ -185,22 +200,36 @@
 			name = "core frameworks";
 			sourceTree = "<group>";
 		};
+		2BE8196F15BC9A701C1D1807 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				9288F98A4FBE0DB0656BABC1 /* ARProcessor.h */,
+				AAB89E05B8488BEE5EF244FC /* MetalCam.mm */,
+				67A84E67C5883741A1917131 /* MetalCam.h */,
+				06CBB8EB438EF0E6876CF3A9 /* ARAnchorManager.mm */,
+				83FBF24C589717ECA7DC1D15 /* ARCam.h */,
+				16943177FB9C48093D420339 /* Camera.mm */,
+				BD48F05A6623BFAAA3FA0258 /* ARAnchorManager.h */,
+				FD094D8DA0BE3634DF6BAA3B /* Camera.h */,
+				2D9AF60D169D375473180BED /* ARObjects.h */,
+				C920D6EC10E102E2983C196A /* ARProcessor.mm */,
+				6E997AD4D5DFA6F2279FED97 /* ARShaders.h */,
+				439452471C213D52227910C1 /* ARCam.mm */,
+				B729AD4738DF85419E1482B7 /* Shaders.metal */,
+				E01E92B16305D6FD8300185B /* ARFaceTrackingBool.h */,
+				6B4856EAC09E12DF4215247B /* ShaderTypes.h */,
+				9B281FF686BA0D026AE2ED84 /* ARSessionSetup.h */,
+				15D8116F6AD9D0F2F4213B11 /* ARDebugUtils.h */,
+				895BB2DC8F64D074767B4A8C /* ARUtils.h */,
+			);
+			name = lib;
+			sourceTree = "<group>";
+		};
 		65605B10F492D4585BA50B2D /* src */ = {
 			isa = PBXGroup;
 			children = (
-				302A7A61ECBFE243BE2A6D15 /* ARProcessor.h */,
-				BBAC3A38884A86BA86D4C26D /* ARAnchorManager.mm */,
-				F1FD0B255231DD44AA4B35CA /* ARCam.h */,
-				8CED944372A372672447BABA /* ARAnchorManager.h */,
-				E8470187C69FECA34ACE6825 /* ARObjects.h */,
-				16C7F36EEA16280EF694F1CA /* ARProcessor.mm */,
-				581E4B10C1444D6272A60B20 /* ARShaders.h */,
-				DCA11A3992D2441F6D8D2DBD /* ARCam.mm */,
-				FED1B5568E444C5A17968CDE /* ARFaceTrackingBool.h */,
-				F9BE3DED6B2C36C40E5D4D69 /* ARSessionSetup.h */,
-				6305FC4AB701AEC8BA64E935 /* ARDebugUtils.h */,
+				2BE8196F15BC9A701C1D1807 /* lib */,
 				CC7B4B2B9605C0BF2C8A133C /* ofxARKit.h */,
-				09673E6D454686E403C40A18 /* ARUtils.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -215,6 +244,8 @@
 		901808C02053638E004A7774 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9CE0E8CD210A8DA300FD702E /* Metal.framework */,
+				9CE0E8CE210A8DA300FD702E /* MetalKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -228,22 +259,22 @@
 			path = mediaAssets;
 			sourceTree = "<group>";
 		};
-		9CE0E7E120DD791F00FD702E /* viewcontrollers */ = {
+		9CE0E8D2210A8DFF00FD702E /* viewcontrollers */ = {
 			isa = PBXGroup;
 			children = (
-				9CE0E7E220DD791F00FD702E /* OFAppViewController.h */,
-				9CE0E7E320DD791F00FD702E /* MyAppViewController.h */,
-				9CE0E7E420DD791F00FD702E /* OFAppViewController.mm */,
-				9CE0E7E520DD791F00FD702E /* MyAppViewController.mm */,
+				9CE0E8D3210A8DFF00FD702E /* OFAppViewController.h */,
+				9CE0E8D4210A8DFF00FD702E /* MyAppViewController.h */,
+				9CE0E8D5210A8DFF00FD702E /* OFAppViewController.mm */,
+				9CE0E8D6210A8DFF00FD702E /* MyAppViewController.mm */,
 			);
 			path = viewcontrollers;
 			sourceTree = "<group>";
 		};
-		9CE0E7E620DD792000FD702E /* delegates */ = {
+		9CE0E8D7210A8DFF00FD702E /* delegates */ = {
 			isa = PBXGroup;
 			children = (
-				9CE0E7E720DD792000FD702E /* MyAppDelegate.h */,
-				9CE0E7E820DD792000FD702E /* MyAppDelegate.mm */,
+				9CE0E8D8210A8DFF00FD702E /* MyAppDelegate.h */,
+				9CE0E8D9210A8DFF00FD702E /* MyAppDelegate.mm */,
 			);
 			path = delegates;
 			sourceTree = "<group>";
@@ -304,9 +335,9 @@
 		E4D8936A11527B74007E1F53 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				9CE0E7E620DD792000FD702E /* delegates */,
-				9CE0E7E120DD791F00FD702E /* viewcontrollers */,
 				E4D8936B11527B74007E1F53 /* main.mm */,
+				9CE0E8D7210A8DFF00FD702E /* delegates */,
+				9CE0E8D2210A8DFF00FD702E /* viewcontrollers */,
 				E4D8936D11527B74007E1F53 /* ofApp.mm */,
 				E4D8936C11527B74007E1F53 /* ofApp.h */,
 			);
@@ -416,14 +447,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CE0E7EA20DD792000FD702E /* MyAppViewController.mm in Sources */,
+				9CE0E8DB210A8DFF00FD702E /* MyAppViewController.mm in Sources */,
+				9CE0E8D1210A8DC600FD702E /* Shaders.metal in Sources */,
 				E4D8936E11527B74007E1F53 /* main.mm in Sources */,
-				9CE0E7EB20DD792000FD702E /* MyAppDelegate.mm in Sources */,
-				9CE0E7E920DD792000FD702E /* OFAppViewController.mm in Sources */,
 				E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */,
-				966DC6CFF8359AF2BCC8EAFD /* ARAnchorManager.mm in Sources */,
-				26E48FA925CB7AB40D972560 /* ARProcessor.mm in Sources */,
-				8DEE3593CFC3E0A0F3578C2D /* ARCam.mm in Sources */,
+				8057689E9DA4FB99C9612446 /* MetalCam.mm in Sources */,
+				9CE0E8DC210A8DFF00FD702E /* MyAppDelegate.mm in Sources */,
+				9CE0E8DA210A8DFF00FD702E /* OFAppViewController.mm in Sources */,
+				5885C14C987D28A87F4D36FE /* ARAnchorManager.mm in Sources */,
+				F8A4F8053822AAC282134326 /* Camera.mm in Sources */,
+				D449374B32245018E4A8FCCC /* ARProcessor.mm in Sources */,
+				9E673C9B5C273A43D291B6E2 /* ARCam.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,7 +489,7 @@
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
 				INFOPLIST_FILE = "ofxiOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				PRODUCT_BUNDLE_IDENTIFIER = org.xoio;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.xoio.example-basic";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
@@ -478,7 +512,7 @@
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
 				INFOPLIST_FILE = "ofxiOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				PRODUCT_BUNDLE_IDENTIFIER = org.xoio;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.xoio.example-basic";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
@@ -508,6 +542,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					../../../addons/ofxARKit/src,
+					../../../addons/ofxARKit/src/lib,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
@@ -541,6 +576,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					../../../addons/ofxARKit/src,
+					../../../addons/ofxARKit/src/lib,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;

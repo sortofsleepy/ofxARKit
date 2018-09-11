@@ -7,7 +7,7 @@
 
 #import "OFAppViewController.h"
 #import "ofApp.h"
-
+using namespace ofxARKit::core;
 @interface MyAppViewController()
 @property (nonatomic, strong) ARSession *session;
 @end
@@ -18,13 +18,13 @@
 - (void)loadView {
     [super loadView];
     
-    ARCore::SFormat format;
+    SFormat format;
     
     // here is where you enable image detection
     // you can pass a different name to this function
     // by default it is "AR Resources"
     format.enableLighting().enableImageDetection();
-    self.session = ARCore::generateNewSession(format);
+    self.session = generateNewSession(format);
     
     OFAppViewController *viewController;
     viewController = [[[OFAppViewController alloc] initWithFrame:[[UIScreen mainScreen] bounds]

@@ -8,15 +8,16 @@
 #ifndef ofxARKit_h
 #define ofxARKit_h
 
-#include "ARFaceTrackingBool.h"
+#include "lib/ARFaceTrackingBool.h"
 
 #include <ARKit/ARKit.h>
-#include "ARUtils.h"
-#include "ARDebugUtils.h"
-#include "ARProcessor.h"
-#include "ARAnchorManager.h"
-#include "ARShaders.h"
-#include "ARCam.h"
-#include "ARSessionSetup.h"
+#include "lib/ARUtils.h"
+#include "lib/ARDebugUtils.h"
+#include "lib/ARProcessor.h"
+#include "lib/ARAnchorManager.h"
+#include "lib/ARShaders.h"
+#include "lib/ARCam.h"
+#include "lib/ARSessionSetup.h"
+#include "lib/MetalCam.h"
 
 #endif /* ofxARKit_h */

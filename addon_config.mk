@@ -44,7 +44,7 @@ common:
 	# ADDON_PKG_CONFIG_LIBRARIES =
 	
 	# osx/iOS only, any framework that should be included in the project
-	ADDON_FRAMEWORKS = ARKit
+	ADDON_FRAMEWORKS = ARKit MetalKit Metal
 	
 	# source files, these will be usually parsed from the file system looking
 	# in the src folders in libs and the root of the addon. if your addon needs

@@ -40,6 +40,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSCameraUsageDescription</key>
-	<string>ARKit stuffs</string>
+	<string>camera stuff</string>
 </dict>
 </plist>

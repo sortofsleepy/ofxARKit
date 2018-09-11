@@ -1,4 +1,5 @@
 #include "ofApp.h"
+using namespace ofxARKit::common;
 //--------------------------------------------------------------
 ofApp :: ofApp (ARSession * session){
     ARFaceTrackingConfiguration *configuration = [ARFaceTrackingConfiguration new];
@@ -94,7 +95,7 @@ void ofApp::draw() {
 
     for (auto & face : processor->getFaces()){
         ofFill();
-        ofMatrix4x4 temp = ARCommon::toMat4(face.raw.transform);
+        ofMatrix4x4 temp = toMat4(face.raw.transform);
 
         ofPushMatrix();
         ofMultMatrix(temp);
@@ -145,8 +146,7 @@ void ofApp::gotFocus(){}
 void ofApp::gotMemoryWarning(){}
 
 void ofApp::deviceOrientationChanged(int newOrientation){
-    processor->updateDeviceInterfaceOrientation();
-    processor->deviceOrientationChanged();
+    processor->deviceOrientationChanged(newOrientation);
 }
 
 void ofApp::touchCancelled(ofTouchEventArgs& args){}
