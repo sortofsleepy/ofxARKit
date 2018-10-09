@@ -325,13 +325,11 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
 
 // =========== OPENGL COMPATIBILTY =========== //
 
+#define OPENGL_MAX_TEXTURE_SIZE 4096
+
 -(void) _setupTextures {
-    
-    auto width = 0;
-    auto height = 0;
-    
     /**
-     TODO values are currently a bit fudged. Probably need to figure out better solution
+     TODO width/height values are currently a bit fudged. Probably need to figure out better solution
      
      Figuring out the pixelBuffer size to get an accurate representation from the Metal frame.
      For some reason - default image is really zoomed in compared to when using the MTKView on it's own.
@@ -355,30 +353,21 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
      to be the best solution.
      
      */
-    
-    
-    
-    // Still zoomed in here - also need to flip width/height otherwise it looks like there's distortion
-    //width = CVPixelBufferGetHeight(_session.currentFrame.capturedImage);
-    //height = CVPixelBufferGetWidth(_session.currentFrame.capturedImage);
-    
     // note that imageResolution is returned in a way as if the camera were in landscape mode so you may need to reverse values. Also note that this is not updated automatically, so probably gonna stick with native bounds of screen.
     //CGSize bounds = _session.configuration.videoFormat.imageResolution;
-    
     CGRect screenBounds = [[UIScreen mainScreen] nativeBounds];
-    
     // this is probably a more reasonable approach.
-    width = self.currentDrawable.texture.width - screenBounds.size.width;
-    height = self.currentDrawable.texture.height - screenBounds.size.height;
-    
-    //NSLog(@"Width is %i and height is %i",width,height);
-    
-    
+    auto width = self.currentDrawable.texture.width - screenBounds.size.width;
+    auto height = self.currentDrawable.texture.height - screenBounds.size.height;
+
+    width = (width > OPENGL_MAX_TEXTURE_SIZE) ? OPENGL_MAX_TEXTURE_SIZE : width;
+    height = (height > OPENGL_MAX_TEXTURE_SIZE) ? OPENGL_MAX_TEXTURE_SIZE : height;
+
+    // NSLog(@"Width is %i and height is %i",width,height);
     /**
      Setup some things here. We do it in an update loop to ensure that we get an
      image as close as possible to what the camera is seeing, the MTKView's currentDrawable isn't
      available until the loop starts.
-     
      */
     // setup the shared pixel buffer so we can send this to OpenGL
     CVReturn cvret = CVPixelBufferCreate(kCFAllocatorDefault,
