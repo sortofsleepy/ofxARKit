@@ -55,7 +55,7 @@ namespace ofxARKit {
         
         
         //! convert
-        glm::mat4 toGlmMat4( const matrix_float4x4 & mat ) {
+        static glm::mat4 toGlmMat4( const matrix_float4x4 & mat ) {
             return convert<matrix_float4x4, glm::mat4>(mat);
         }
         
