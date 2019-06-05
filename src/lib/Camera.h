@@ -88,6 +88,7 @@ namespace ofxARKit {
             
             //TODO see about converting to ofTexture
             CVOpenGLESTextureRef getTexture();
+            ofTexture getOfTexture();
             
             ARTrackingStateReason getTrackingState();
             
@@ -102,6 +103,7 @@ namespace ofxARKit {
             void logTrackingState();
             void update();
             void draw();
+
             
             
         };

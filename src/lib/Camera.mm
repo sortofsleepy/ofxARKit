@@ -168,5 +168,30 @@ namespace ofxARKit {
         glm::mat4 Camera::getTransformMatrix(){
              return convert<ofMatrix4x4, glm::mat4>(cameraMatrices.cameraTransform);
         }
+        
+        
+        ofTexture Camera::getOfTexture(){
+            
+            CVOpenGLESTextureRef ref = [_view getConvertedTexture];
+            unsigned int textureCacheID = CVOpenGLESTextureGetName(ref);
+            
+            ofTexture ofTex;
+            //hardcoded vals for better speed
+            ofTex.allocate(1920, 1080, GL_RGBA);
+            ofTex.setUseExternalTextureID(textureCacheID);
+            
+            
+            ofTex.setTextureMinMagFilter(GL_LINEAR, GL_LINEAR);
+            ofTex.setTextureWrap(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+            
+            if(!ofIsGLProgrammableRenderer()) {
+                ofTex.bind();
+                glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+                ofTex.unbind();
+            }
+            
+            return ofTex;
+            
+        }
     }
 }

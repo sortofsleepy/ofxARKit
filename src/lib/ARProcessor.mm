@@ -99,7 +99,7 @@ namespace ofxARKit {
     }
     
     ofTexture ARProcessor::getCameraTexture(){
-        //return camera->getCameraTexture();
+        return camera->getOfTexture();
     }
     
     ofxARKit::common::ARCameraMatrices ARProcessor::getCameraMatrices(){
