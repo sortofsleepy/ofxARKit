@@ -81,7 +81,8 @@ If you see the message pop up, the ARKit api offers a limited function set to se
 Note that in order for those functions to work, you'll need to call the `setup` function of either of `ARCam` or `ARProcessor` and pass in the boolean `true`
 
 # ARKit 3 
-Note that with the changes to ARKit upcoming in version 3, you'll need a device with an A12 processor. 
+Note that with the changes to ARKit upcoming in version 3, you'll need a device with an A12 processor in order to take advantage of newer features. According to Apple 
+`People Occlusion and the use of motion capture, simultaneous front and back camera, and multiple face tracking are supported on devices with A12/A12X Bionic chips, ANE, and TrueDepth Camera.`
 
 # Permissions
 For ARKit - You'll have to enable the `Privacy - Camera Usage Description` in your `ofxiOS-Info.plist` file. The value for this field is just the string you want to show users when you ask for camera permissions. If you've never touched a plist file before, no worries! Its very easy to change. 
