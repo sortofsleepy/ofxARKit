@@ -11,7 +11,7 @@ __First__
 * [get the latest version of iOS](https://www.apple.com/ios)
 
 __then__
-* Download openFrameworks [here](https://openframeworks.cc/versions/v0.10.0/of_v0.10.0_ios_release.zip)
+* Download openFrameworks [here](https://openframeworks.cc/versions/v0.10.1/of_v0.10.1_ios_release.zip)
 * clone this repo into your addons folder
 * start a new project with the project generator. 
 
@@ -79,6 +79,9 @@ If you see the message pop up, the ARKit api offers a limited function set to se
 * `ARProcessor` provides a `debugInfo` object which is an instance of `ARDebugInfo` which can be used as well. Using this will also provide information about FPS, etc.
 
 Note that in order for those functions to work, you'll need to call the `setup` function of either of `ARCam` or `ARProcessor` and pass in the boolean `true`
+
+# ARKit 3 
+Note that with the changes to ARKit upcoming in version 3, you'll need a device with an A12 processor. 
 
 # Permissions
 For ARKit - You'll have to enable the `Privacy - Camera Usage Description` in your `ofxiOS-Info.plist` file. The value for this field is just the string you want to show users when you ask for camera permissions. If you've never touched a plist file before, no worries! Its very easy to change. 
