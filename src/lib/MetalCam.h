@@ -78,6 +78,19 @@ typedef struct {
     BOOL pixelBufferBuilt;
     MTLRegion captureRegion;
     BOOL openglMode;
+    
+    // ===== OCCLUSION RELATED ======= //
+    
+    // pre-processor defs can be used it seems
+    // https://stackoverflow.com/questions/25290547/checking-ios-version-through-preprocessor
+#ifdef __IPHONE_13_0
+    ARMatteGenerator matteGenerator;
+    
+    // textures used to calculate depth information
+    MTLTexture alphaTexture;
+    MTLTexture dilatedDepthTexture;
+    
+#endif
 }
 @property(nonatomic,retain)dispatch_semaphore_t _inFlightSemaphore;
 @property(nonatomic,retain)ARSession * session;
@@ -95,11 +108,16 @@ typedef struct {
 - (void) setViewport:(CGRect) _viewport;
 - (void) loadMetal;
 
+#ifdef __IPHONE_13_0
+- (void) loadMatteGenerator;
+- (void) updateMatteTextures(id<MTLCommandBuffer>)commandBuffer;
+#endif
+
 @end
 
 // ========= Implement the renderer ========= //
-namespace ofxARKit {
-    namespace core {
+namespace ofxARKit { namespace core {
+    
         class MetalCamRenderer {
         protected:
             MetalCamView * _view;

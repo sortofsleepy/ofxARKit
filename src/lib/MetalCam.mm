@@ -464,7 +464,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
 - (CVPixelBufferRef) getSharedPixelbuffer{
     return _sharedPixelBuffer;
 }
-- (CVOpenGLESTextureRef) convertToOpenGLTexture:(CVPixelBufferRef) pixelBuffer{
+- (CVOpenGLESTextureRef) convertToOpenGLTexture:(CVPixelBufferRef) pixelBuffer {
     CVOpenGLESTextureRef texture = NULL;
     
     CVPixelBufferLockBaseAddress(_sharedPixelBuffer, 0);
@@ -512,6 +512,20 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
     return texture;
     
 }
+
+#ifdef __IPHONE_13_0
+- (void) loadMatteGenerator {
+    matteGenerator = [[ARMatteGenerator alloc] initWithDevice device:[self device] matteResolution:ARMatteResolutionHalf];
+}
+
+- (void) updateMatteTextures commandBuffer:MTLCommandBuffer {
+    alphaTexture = [matteGenerator generateMatte from:_session.currentFrame commandBuffer:commandBuffer];
+    //alphaTexture = matteGenerator.generateMatte(from: currentFrame, commandBuffer: commandBuffer)
+    
+    //dilatedDepthTexture = matteGenerator.generateDilatedDepth(from: currentFrame, commandBuffer: commandBuffer)
+    
+}
+#endif
 @end
 
 
