@@ -14,7 +14,6 @@
 namespace ofxARKit {
     
     //! This defines the basic data structure of a Plane
-    //! This defines the basic data structure of a Plane
     typedef struct {
         ofVec3f position;
         float width;

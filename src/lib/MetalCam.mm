@@ -101,12 +101,18 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
         dispatch_semaphore_signal(block_sema);
         CVBufferRelease(capturedImageTextureYRef);
         CVBufferRelease(capturedImageTextureCbCrRef);
-        
+
+#ifdef __IPHONE_13_0
+        // update depth textures
+        [self updateMatteTextures commandBuffer:buffer];
+#endif
     }];
     
     
     // update camera image
     [self _updateCameraImage];
+    
+
     
     // Obtain a renderPassDescriptor generated from the view's drawable textures
     MTLRenderPassDescriptor* renderPassDescriptor = self.currentRenderPassDescriptor;
@@ -126,7 +132,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
         // Create a render command encoder so we can render into something
         id <MTLRenderCommandEncoder> renderEncoder =
         [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
-        renderEncoder.label = @"MyRenderEncoder";
+        renderEncoder.label = @"MetalCamRenderEncoder";
         
         // DRAW PRIMATIVE
     
@@ -163,7 +169,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
     }
     
     // Push a debug group allowing us to identify render commands in the GPU Frame Capture tool
-    [renderEncoder pushDebugGroup:@"DrawCapturedImage"];
+    [renderEncoder pushDebugGroup:@"MetalCamCapturedImage"];
     
     // Set render command encoder state
     [renderEncoder setCullMode:MTLCullModeNone];
@@ -257,7 +263,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
     // Create a vertex buffer with our image plane vertex data.
     _imagePlaneVertexBuffer = [self.device newBufferWithBytes:&kImagePlaneVertexData length:sizeof(kImagePlaneVertexData) options:MTLResourceCPUCacheModeDefaultCache];
     
-    _imagePlaneVertexBuffer.label = @"ImagePlaneVertexBuffer";
+    _imagePlaneVertexBuffer.label = @"MetalCamPlaneVertexBuffer";
     
     // Load all the shader files with a metal file extension in the project
     // NOTE - this line will throw an exception if you don't have a .metal file as part of your compiled sources.
@@ -288,7 +294,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
     
     // Create a pipeline state for rendering the captured image
     MTLRenderPipelineDescriptor *capturedImagePipelineStateDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
-    capturedImagePipelineStateDescriptor.label = @"MyCapturedImagePipeline";
+    capturedImagePipelineStateDescriptor.label = @"MetalCamImagePipeline";
     capturedImagePipelineStateDescriptor.sampleCount = self.sampleCount;
     capturedImagePipelineStateDescriptor.vertexFunction = capturedImageVertexFunction;
     capturedImagePipelineStateDescriptor.fragmentFunction = capturedImageFragmentFunction;
@@ -520,12 +526,28 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
 
 - (void) updateMatteTextures commandBuffer:MTLCommandBuffer {
     alphaTexture = [matteGenerator generateMatte from:_session.currentFrame commandBuffer:commandBuffer];
-    //alphaTexture = matteGenerator.generateMatte(from: currentFrame, commandBuffer: commandBuffer)
-    
-    //dilatedDepthTexture = matteGenerator.generateDilatedDepth(from: currentFrame, commandBuffer: commandBuffer)
-    
+    dilatedDepthTexture = [matteGenerator generateDilatedDepth from:_session.currentFrame commandBuffer:commandBuffer];
+}
+
+- (void*) getDepthTextureData {
+    // TODO unsure of how many channels the texture is, assuming RGB
+    return [dilatedDepthTexture getBytes 
+            bytesPerRow:3 * dilatedDepthTexture.width
+            fromRegion:MTLRegionMake2D(0, 0, dilatedDepthTexture.width,dilatedDepthTexture.height)
+            mipmapLevel:0];
+}
+
+- (void*) getAlphaTextureData {
+
+    // TODO unsure of how many channels the texture is, assuming RGB
+    return [alphaTexture getBytes 
+            bytesPerRow:3 * alphaTexture.width
+            fromRegion:MTLRegionMake2D(0, 0, alphaTexture.width,alphaTexture.height)
+            mipmapLevel:0];
 }
 #endif
+
+
 @end
 
 
