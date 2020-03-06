@@ -31,7 +31,13 @@ typedef struct {
 } AAPLTextureFormatInfo;
 
 
+/*
 
+    Reminder note that OpenGL is planned for deprecation at some point. 
+    https://www.anandtech.com/show/12894/apple-deprecates-opengl-across-all-oses
+
+    Shifting any texture information getters to return "void *" for more flexible handling of things.
+*/
 @interface MetalCamView : MTKView {
     
     // Reference to the current session
@@ -78,6 +84,19 @@ typedef struct {
     BOOL pixelBufferBuilt;
     MTLRegion captureRegion;
     BOOL openglMode;
+    
+    // ===== OCCLUSION RELATED ======= //
+    
+    // pre-processor defs can be used it seems
+    // https://stackoverflow.com/questions/25290547/checking-ios-version-through-preprocessor
+#ifdef __IPHONE_13_0
+    ARMatteGenerator matteGenerator;
+    
+    // textures used to calculate depth information
+    MTLTexture alphaTexture;
+    MTLTexture dilatedDepthTexture;
+    
+#endif
 }
 @property(nonatomic,retain)dispatch_semaphore_t _inFlightSemaphore;
 @property(nonatomic,retain)ARSession * session;
@@ -95,11 +114,18 @@ typedef struct {
 - (void) setViewport:(CGRect) _viewport;
 - (void) loadMetal;
 
+#ifdef __IPHONE_13_0
+- (void) loadMatteGenerator;
+- (void) updateMatteTextures(id<MTLCommandBuffer>)commandBuffer;
+- (void*) getDepthTextureData;
+- (void*) getAlphaTextureData;
+#endif
+
 @end
 
 // ========= Implement the renderer ========= //
-namespace ofxARKit {
-    namespace core {
+namespace ofxARKit { namespace core {
+    
         class MetalCamRenderer {
         protected:
             MetalCamView * _view;
@@ -107,13 +133,18 @@ namespace ofxARKit {
             CGRect viewport;
             CVEAGLContext context;
         public:
-            MetalCamRenderer(){}
-            ~MetalCamRenderer(){}
+            MetalCamRenderer() = default;
+
+            // TODO probably should tear stuff down but seems to be fine for now. 
+            ~MetalCamRenderer() = default;
             
+            //! Returns a reference to the Metal view object that handles the camera input.
             MetalCamView* getView(){
                 return _view;
             }
             
+            //! Returns the OpenGL texture id for the camera 
+            //! TODO convert to something more oF friendly.
             CVOpenGLESTextureRef getTexture(){
                 return [_view getConvertedTexture];
             }
