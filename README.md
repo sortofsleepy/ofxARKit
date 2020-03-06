@@ -11,13 +11,13 @@ __First__
 * [get the latest version of iOS](https://www.apple.com/ios)
 
 __then__
-* Download openFrameworks [here](https://openframeworks.cc/versions/v0.10.1/of_v0.10.1_ios_release.zip)
+* Download openFrameworks [here](https://openframeworks.cc/versions/v0.11.0/of_v0.11.0_ios_release.zip)
 * clone this repo into your addons folder
 * start a new project with the project generator. 
 
 __After you've opened up the project file__
 * add a permission setting in your `ofxIOS-Info.plist` file. See Permissions below.
-* set the project target for IOS 11 / 12
+* set the project target for IOS 11 / 12 / 13
 * you may need to do two things with the `Shader.metal` file
    * add it to the compiled sources
    * make sure to set the file designation back to it's default(for some reason it's treated as "Data" in the projectGenerator generated project)
@@ -114,7 +114,7 @@ This will remove the code from compilation so you don't get flagged by Apple
 for including code you're not using.
 
 # Contributing
-As I certainly am not the most knowledgeable on many of the topics required to work in AR, that and with ARKit still being in beta; if there's something you feel you can contribute, by all means, feel free to make PR's!
+As I certainly am not the most knowledgeable on many of the topics required to work in AR much less the full scope of the ARKit api; if there's something you feel you can contribute, by all means, feel free to make PR's!
 
 As long as it doesn't break anything I'll most likely accept it. Please make all PRs against the `develop` branch
 

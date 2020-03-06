@@ -14,8 +14,7 @@
 #include "ARFaceTrackingBool.h"
 
 
-namespace ofxARKit {
-    namespace common{
+namespace ofxARKit { namespace common{
         //! joined camera matrices as one object.
         typedef struct {
             ofMatrix4x4 cameraTransform;
