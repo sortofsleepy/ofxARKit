@@ -103,8 +103,11 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
         CVBufferRelease(capturedImageTextureCbCrRef);
 
 #ifdef __IPHONE_13_0
-        // update depth textures
-        [self updateMatteTextures commandBuffer:buffer];
+    
+        if(ARBodyTrackingConfiguration.isSupported){
+            // update depth textures
+            [self updateMatteTextures commandBuffer:buffer];
+        }
 #endif
     }];
     
@@ -521,29 +524,43 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
 
 #ifdef __IPHONE_13_0
 - (void) loadMatteGenerator {
-    matteGenerator = [[ARMatteGenerator alloc] initWithDevice device:[self device] matteResolution:ARMatteResolutionHalf];
+   
+    if(ARBodyTrackingConfiguration.isSupported){
+         matteGenerator = [[ARMatteGenerator alloc] initWithDevice device:[self device] matteResolution:ARMatteResolutionHalf];
+    }
 }
 
 - (void) updateMatteTextures commandBuffer:MTLCommandBuffer {
-    alphaTexture = [matteGenerator generateMatte from:_session.currentFrame commandBuffer:commandBuffer];
-    dilatedDepthTexture = [matteGenerator generateDilatedDepth from:_session.currentFrame commandBuffer:commandBuffer];
+    if(ARBodyTrackingConfiguration.isSupported){
+        alphaTexture = [matteGenerator generateMatte from:_session.currentFrame commandBuffer:commandBuffer];
+        dilatedDepthTexture = [matteGenerator generateDilatedDepth from:_session.currentFrame commandBuffer:commandBuffer];
+    }
 }
 
 - (void*) getDepthTextureData {
-    // TODO unsure of how many channels the texture is, assuming RGB
-    return [dilatedDepthTexture getBytes 
-            bytesPerRow:3 * dilatedDepthTexture.width
-            fromRegion:MTLRegionMake2D(0, 0, dilatedDepthTexture.width,dilatedDepthTexture.height)
-            mipmapLevel:0];
+    
+    if(ARBodyTrackingConfiguration.isSupported){
+        // TODO unsure of how many channels the texture is, assuming RGB
+        return [dilatedDepthTexture getBytes
+                bytesPerRow:3 * dilatedDepthTexture.width
+                fromRegion:MTLRegionMake2D(0, 0, dilatedDepthTexture.width,dilatedDepthTexture.height)
+                mipmapLevel:0];
+    }else{
+        return NULL;
+    }
 }
 
 - (void*) getAlphaTextureData {
 
-    // TODO unsure of how many channels the texture is, assuming RGB
-    return [alphaTexture getBytes 
-            bytesPerRow:3 * alphaTexture.width
-            fromRegion:MTLRegionMake2D(0, 0, alphaTexture.width,alphaTexture.height)
-            mipmapLevel:0];
+    if(ARBodyTrackingConfiguration.isSupported){
+        // TODO unsure of how many channels the texture is, assuming RGB
+        return [alphaTexture getBytes
+                bytesPerRow:3 * alphaTexture.width
+                fromRegion:MTLRegionMake2D(0, 0, alphaTexture.width,alphaTexture.height)
+                mipmapLevel:0];
+    }else {
+        return NULL;
+    }
 }
 #endif
 
