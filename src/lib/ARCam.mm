@@ -13,6 +13,11 @@ namespace ARCore {
     ARCam::ARCam(ARSession * session){
         this->session = session;
     }
+
+ARCam::ARCam(ARSession * session, UIDevice * device){
+        this->session = session;
+        this->device = device;
+    }
     
     void ARCam::toggleDebug(){
         debugMode = !debugMode;
@@ -91,6 +96,7 @@ namespace ARCore {
         // TODO perf tests - is 4000x4000 too big? Memory seems minimaly imapacted if at all.
         cameraFbo.allocate(4000,4000, GL_RGBA);
         cameraFbo.getTexture().getTextureData().bFlipTexture = true;
+        
         
     }
     void ARCam::setCameraImageDimensions(float x, float y ){

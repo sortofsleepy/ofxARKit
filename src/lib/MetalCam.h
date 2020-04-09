@@ -10,6 +10,8 @@
 #import <MetalKit/MetalKit.h>
 #import <ARKit/ARKit.h>
 
+#import "ARBodyTrackingBool.h"
+
 #pragma once
 
 NS_ASSUME_NONNULL_BEGIN
@@ -45,8 +47,15 @@ typedef struct {
     id <MTLCommandQueue> _commandQueue;
     id <MTLBuffer> _sharedUniformBuffer;
     id <MTLBuffer> _imagePlaneVertexBuffer;
+    id <MTLBuffer> _scenePlaneVertexBuffer;
     id <MTLRenderPipelineState> _capturedImagePipelineState;
     id <MTLDepthStencilState> _capturedImageDepthState;
+    
+    // body extraction
+    id<MTLTexture> alphaTexture;
+    id<MTLTexture> dilatedDepthTexture;
+    id<MTLTexture> sceneDepthTexture;
+
     
     CVMetalTextureRef _capturedImageTextureYRef;
     CVMetalTextureRef _capturedImageTextureCbCrRef;
@@ -57,7 +66,7 @@ typedef struct {
     id<MTLTexture> _cameraTexture;
     
     //! Shared camera texture that's used to hold a converted MetalTexture
-    CVOpenGLESTextureRef openglTexture;
+    CVOpenGLESTextureRef openglTexture, alphaTextureMatteGLES, depthTextureMatteGLES, depthTextureGLES;
     
     // Captured image texture cache
     CVMetalTextureCacheRef _capturedImageTextureCache,_combinedCameraTextureCache;
@@ -72,20 +81,44 @@ typedef struct {
     // stores formating info that allows interop between OpenGL / Metal
     AAPLTextureFormatInfo formatInfo;
     
+    // ======= STUFF FOR MATTE ========= //
+    ARMatteGenerator* matteDepthTexture;
+    CVPixelBufferRef pixel_bufferAlphaMatte, pixel_bufferDepth, pixel_bufferDepthMatte;
+    float *compositeVertexData;
+    
+    
     // ======= STUFF FOR OPENGL COMPATIBILITY ========= //
     CVOpenGLESTextureCacheRef _videoTextureCache;
     CVPixelBufferRef _sharedPixelBuffer;
     BOOL pixelBufferBuilt;
-    MTLRegion captureRegion;
     BOOL openglMode;
 }
 @property(nonatomic,retain)dispatch_semaphore_t _inFlightSemaphore;
 @property(nonatomic,retain)ARSession * session;
 
+
 - (void) setupOpenGLCompatibility:(CVEAGLContext) eaglContext;
 - (CVPixelBufferRef) getSharedPixelbuffer;
-- (CVOpenGLESTextureRef) convertToOpenGLTexture:(CVPixelBufferRef) pixelBuffer;
+- (CVOpenGLESTextureRef) convertToOpenGLTexture:(CVPixelBufferRef) pixelBuffer _videoTextureCache:(CVOpenGLESTextureCacheRef)vidTextureCache;
+// return types
 - (CVOpenGLESTextureRef) getConvertedTexture;
+- (CVOpenGLESTextureRef) getConvertedTextureMatteAlpha;
+- (CVOpenGLESTextureRef) getConvertedTextureMatteDepth;
+- (CVOpenGLESTextureRef) getConvertedTextureDepth;
+- (CGAffineTransform) getAffineCameraTransform;
+
+
+
+// Matte Texturing
+- (void) _initMatteTexture;
+- (void) _updateMatteTextures:(id<MTLCommandBuffer>) commandBuffer;
+
+// convert
+- (CVOpenGLESTextureRef) convertFromMTLToOpenGL:(id<MTLTexture>) texture  pixel_buffer:(CVPixelBufferRef)pixel_buffer _videoTextureCache:(CVOpenGLESTextureCacheRef)vidTextureCache;
+- (CVOpenGLESTextureRef) convertFromPixelBufferToOpenGL:(CVPixelBufferRef)pixel_buffer _videoTextureCache:(CVOpenGLESTextureCacheRef)vidTextureCache;
+
+
+
 - (void) _setupTextures;
 - (void) _updateOpenGLTexture;
 - (void) _drawCapturedImageWithCommandEncoder:(id<MTLRenderCommandEncoder>)renderEncoder;
@@ -116,6 +149,14 @@ namespace ofxARKit {
             
             CVOpenGLESTextureRef getTexture(){
                 return [_view getConvertedTexture];
+            }
+            
+//            CVOpenGLESTextureRef getTextureAlpha(){
+//                return[_view getConvertedTextureAlpha];
+//            }
+            
+            CVOpenGLESTextureRef getTextureDepth(){
+                return[_view getConvertedTextureDepth];
             }
             
             void draw(){

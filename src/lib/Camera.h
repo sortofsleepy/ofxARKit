@@ -25,48 +25,116 @@ namespace ofxARKit {
             ofShader shader;
             ofMesh mesh;
             
-            //MetalCamView * _view;
+//            MetalCamView * _view;
             //ARSession * session;
             CGRect viewport;
             
             UIInterfaceOrientation orientation;
             ofxARKit::common::ARCameraMatrices cameraMatrices;
             float near,far;
-            
             std::string vertex = STRINGIFY(
+
                                           
                                                    attribute vec2 position;
                                                    varying vec2 vUv;
-                                          
-                                          
                                           
                                                    const vec2 scale = vec2(0.5,0.5);
                                                    void main(){
                                                        
                                                        
-                                                       vUv = position.xy * scale + scale;
+                                                        vec2 uV = position.xy * scale + scale;
+                                                        vUv = vec2(uV.s, 1.0 - uV.t);
+                                                                                                               
+                                                        gl_Position = vec4(position,0.0,1.0);
                                                        
                                                        
                                                        
-                                                       gl_Position = vec4(position,0.0,1.0);
-                                                       
-                                                       
-                                                       
-                                                   }
-                                          
-                                                   );
+                                                   });
             
             std::string fragment = STRINGIFY(
                                                      precision highp float;
                                                      varying vec2 vUv;
+                                             
                                                      uniform sampler2D tex;
+                                             
                                                      void main(){
+                                                        
+                                                        gl_FragColor = texture2D(tex, vUv);
+                
+                                                     }
+                                                     );
+            
+            
+            std::string vertexMatte = STRINGIFY(
+
+                                          
+                                                   attribute vec2 position;
+
+                                                   uniform vec4 cAffineCamABCD;
+                                                   uniform vec2 cAffineCamTxTy;
+                                           
+                                                   varying vec2 vUv;
+                                                   varying vec2 vUvCam;
+
+                                                   // https://developer.apple.com/documentation/coregraphics/cgaffinetransform
+                                                   vec2 affineTransform(vec2 uv, vec4 coeff, vec2 offset){
+                                                        return vec2(uv.s * coeff.x + uv.t * coeff.z + offset.x,
+                                                                    uv.s * coeff.y + uv.t * coeff.w + offset.y);
+                                                   }
+                                          
+                                                   const vec2 scale = vec2(0.5,0.5);
+                                                   void main(){
+                                                       
+                                                       
+                                                        vec2 uV = position.xy * scale + scale;
+                                                        vUv = vec2(uV.s, 1.0 - uV.t);
+                                                        vUvCam = affineTransform(vUv, cAffineCamABCD, cAffineCamTxTy);
+                                                                                                               
+                                                        gl_Position = vec4(position,0.0,1.0);
+                                                       
+                                                       
+                                                       
+                                                   });
+            
+            std::string fragmentMatte = STRINGIFY(
+                                                     precision highp float;
+                                                     varying vec2 vUv;
+                                                     varying vec2 vUvCam;
+                                             
+                                                     uniform sampler2D tex;
+                                                     uniform sampler2D texAlphaBody;
+                                                     uniform sampler2D texDepthBody;
+                                                     uniform sampler2D texDepth;
+                                             
+                                                     uniform mat4 u_CameraProjectionMat;
+                                             
+                                                     uniform float u_time;
+                                             
+                                                     void main(){
+                
+                
                                                          
-                                                         vec2 uv = vec2(vUv.s, 1.0 - vUv.t);
-                                                         
-                                                         
-                                                         vec4 _tex = texture2D(tex,uv);
-                                                         gl_FragColor = _tex;
+                vec4 sceneColor = texture2D(tex, vUv);
+                float sceneDepth = texture2D(texDepth, vUvCam).r;
+                
+                
+                float alpha = texture2D( texAlphaBody, vUvCam).r;
+                float dilatedLinearDepth = texture2D(texDepthBody, vUvCam).r;
+                
+                float dilatedDepth = clamp((u_CameraProjectionMat[2][2] * - dilatedLinearDepth + u_CameraProjectionMat[3][2]) / (u_CameraProjectionMat[2][3] * -dilatedLinearDepth + u_CameraProjectionMat[3][3]), 0.0, 1.0);
+                
+                float showOccluder = 1.0;
+                showOccluder = step(dilatedDepth, sceneDepth); // forwardZ case
+                
+                
+                // camera Color is a sine of the actual color * time
+                vec4 cameraColor = vec4(sceneColor.r + abs(sin(u_time)), sceneColor.g + abs(cos(u_time)), sceneColor.b, sceneColor.a) * dilatedDepth;
+
+                vec4 occluderResult = mix(sceneColor, cameraColor, alpha);
+                vec4 mattingResult = mix(sceneColor, occluderResult, showOccluder);
+                gl_FragColor = occluderResult;
+                
+
                                                      }
                                                      );
             
@@ -88,7 +156,15 @@ namespace ofxARKit {
             
             //TODO see about converting to ofTexture
             CVOpenGLESTextureRef getTexture();
-            ofTexture getOfTexture();
+            
+            //======== MATTE API ============ //
+#ifdef ARBodyTrackingBool_h
+
+                     CVOpenGLESTextureRef getTextureMatteAlpha();
+                     CVOpenGLESTextureRef getTextureMatteDepth();
+                     CVOpenGLESTextureRef getTextureDepth();
+                     ofMatrix3x3 getAffineTransform();
+#endif
             
             ARTrackingStateReason getTrackingState();
             
@@ -103,7 +179,6 @@ namespace ofxARKit {
             void logTrackingState();
             void update();
             void draw();
-
             
             
         };

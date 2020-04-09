@@ -52,6 +52,7 @@ namespace ARCore {
         
         //! a reference to an ARSession object
         ARSession * session;
+        UIDevice * device;
         
         //! the current ambient light intensity
         float ambientIntensity;
@@ -63,7 +64,7 @@ namespace ARCore {
         CGSize viewportSize;
         
         //! fbo to process and render camera manager into
-        ofFbo cameraFbo,cameraRenderFbo;
+        ofFbo cameraFbo;
         
         //! flag to let the shader know if we need to tweak perspective
         bool needsPerspectiveAdjustment;
@@ -124,6 +125,8 @@ namespace ARCore {
     public:
         
         ARCam(ARSession * session);
+        
+        ARCam(ARSession * session, UIDevice * device);
         
         //! Creates a new ARCam reference
         static ARCamRef create(ARSession * session){

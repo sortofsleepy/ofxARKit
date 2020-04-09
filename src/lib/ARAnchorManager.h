@@ -41,6 +41,7 @@ namespace ofxARKit {
             //! Reference to all currently found faces
             std::vector<FaceAnchorObject> faces;
 #endif
+
             
             //! The number of anchors currently found
             NSInteger anchorInstanceCount;

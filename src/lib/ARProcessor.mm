@@ -98,8 +98,8 @@ namespace ofxARKit {
         return getAnchorXYZ(camera->getTransformMatrix());
     }
     
-    ofTexture ARProcessor::getCameraTexture(){
-        return camera->getOfTexture();
+    CVOpenGLESTextureRef ARProcessor::getCameraTexture(){
+        return camera->getTexture();
     }
     
     ofxARKit::common::ARCameraMatrices ARProcessor::getCameraMatrices(){
@@ -152,6 +152,25 @@ namespace ofxARKit {
     }
     void ARProcessor::updateFaces(){
         anchorController->updateFaces();
+    }
+#endif
+
+
+                
+        //======== MATTE API ============ //
+#ifdef ARBodyTrackingBool_h
+    CVOpenGLESTextureRef ARProcessor::getTextureMatteAlpha(){
+        return camera->getTextureMatteAlpha();
+    }
+    CVOpenGLESTextureRef ARProcessor::getTextureMatteDepth(){
+        return camera->getTextureMatteDepth();
+    }
+    CVOpenGLESTextureRef ARProcessor::getTextureDepth(){
+        return camera->getTextureDepth();
+        
+    }
+    ofMatrix3x3 ARProcessor::getAffineTransform(){
+        return camera->getAffineTransform();
     }
 #endif
     

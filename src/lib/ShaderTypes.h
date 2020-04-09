@@ -52,6 +52,7 @@ typedef struct {
     vector_float3 directionalLightDirection;
     vector_float3 directionalLightColor;
     float materialShininess;
+    
 } SharedUniforms;
 
 // Structure shared between shader and C code to ensure the layout of instance uniform data accessed in

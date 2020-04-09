@@ -22,7 +22,8 @@ namespace ofxARKit  {
         ARAnchorManager::ARAnchorManager(ARSession * session):
         shouldUpdatePlanes(true),
         maxTrackedPlanes(0){
-            this->session = session;
+        this->session = session;
+            
         }
         
         int ARAnchorManager::getNumPlanes(){
@@ -402,7 +403,7 @@ namespace ofxARKit  {
             }
         }
 #endif
-        
+            
         void ARAnchorManager::setNumberOfPlanesToTrack(int num){
             maxTrackedPlanes = num;
         }

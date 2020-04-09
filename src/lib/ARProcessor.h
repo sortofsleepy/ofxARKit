@@ -159,6 +159,16 @@ namespace ofxARKit {
         void updateFaces();
         std::vector<FaceAnchorObject> getFaces();
 #endif
+
+                
+        //======== MATTE API ============ //
+#ifdef ARBodyTrackingBool_h
+        
+         CVOpenGLESTextureRef getTextureMatteAlpha();
+         CVOpenGLESTextureRef getTextureMatteDepth();
+         CVOpenGLESTextureRef getTextureDepth();
+        ofMatrix3x3 getAffineTransform();
+#endif
         
         
         //======== CAMERA API ============ //
@@ -181,7 +191,7 @@ namespace ofxARKit {
         ofxARKit::common::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=0.01,float far=1000.0);
         
         //! Return the camera image as a texture.
-        ofTexture getCameraTexture();
+        CVOpenGLESTextureRef getCameraTexture();
         
         //! Get the camera matrix set
         ofxARKit::common::ARCameraMatrices getCameraMatrices();
@@ -198,7 +208,7 @@ namespace ofxARKit {
         
         //! Returns the camera's current transform matrix.
         ofMatrix4x4 getCameraTransformMatrix(){
-            //eturn camera->getTransformMatrix();
+            //return camera->getTransformMatrix();
         }
         
     };

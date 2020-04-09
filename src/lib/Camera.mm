@@ -21,13 +21,25 @@ namespace ofxARKit {
             setup(session,viewport,context);
             
             mesh = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
+            
+
+#ifdef ARBodyTrackingBool_h
+
+            shader.setupShaderFromSource(GL_VERTEX_SHADER, vertexMatte);
+            shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragmentMatte);
+
+#else
+
             shader.setupShaderFromSource(GL_VERTEX_SHADER, vertex);
             shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragment);
+
+#endif
             
             shader.linkProgram();
             
             near = 0.1f;
             far = 1000.0f;
+            orientation = (UIInterfaceOrientation)(UIDevice.currentDevice.orientation);
         }
         
         CVOpenGLESTextureRef Camera::getTexture(){
@@ -35,6 +47,38 @@ namespace ofxARKit {
             // remember - you'll need to flip the uv on the y-axis to get the correctly oriented image.
             return [_view getConvertedTexture];
         }
+
+                //======== MATTE API ============ //
+#ifdef ARBodyTrackingBool_h
+                        
+    CVOpenGLESTextureRef Camera::getTextureMatteAlpha(){
+        return [_view getConvertedTextureMatteAlpha];
+    }
+    CVOpenGLESTextureRef Camera::getTextureMatteDepth(){
+        return [_view getConvertedTextureMatteDepth];
+    }
+    CVOpenGLESTextureRef Camera::getTextureDepth(){
+        return [_view getConvertedTextureDepth];
+    }
+    ofMatrix3x3 Camera::getAffineTransform(){
+        
+        // correspondance CGAffineTransform --> ofMatrix3x3 :
+        //                    a  b  0       |     a  b  c
+        //                    c  d  0       |     d  e  f
+        //                    tx ty 1       |     g  h  i
+        
+        CGAffineTransform cAffine = [_view getAffineCameraTransform];
+        ofMatrix3x3 matTransAffine;
+        matTransAffine.a = cAffine.a;
+        matTransAffine.b = cAffine.b;
+        matTransAffine.d = cAffine.c;
+        matTransAffine.e = cAffine.d;
+        matTransAffine.g = cAffine.tx;
+        matTransAffine.h = cAffine.ty;
+        
+        return matTransAffine;
+    }
+#endif
         
         void Camera::update(){
             [_view draw];
@@ -96,6 +140,7 @@ namespace ofxARKit {
         void Camera::updateInterfaceOrientation(int newOrientation){
             orientation = (UIInterfaceOrientation)newOrientation;
           
+//            cout << "new UIDeviceOrientation is : " << ofToString(orientation) << endl;
             auto width = ofGetWindowWidth();
             auto height = ofGetWindowHeight();
             
@@ -137,19 +182,38 @@ namespace ofxARKit {
                     break;
                     
             }
-            
-            //NSLog(@"view is %@",NSStringFromCGRect(viewport));
         }
         
         void Camera::draw(){
             
-            
-            // get and draw texture
+
+            // get and draw textures
             auto _tex = [_view getConvertedTexture];
+
+#ifdef ARBodyTrackingBool_h
             
+            auto _texMatteAlpha = [_view getConvertedTextureMatteAlpha];
+            auto _texMatteDepth = [_view getConvertedTextureMatteDepth];
+            auto _texDepth = [_view getConvertedTextureDepth];
+            // remap Matte Textures
+            CGAffineTransform cAffine = [_view getAffineCameraTransform];
+#endif
             if(_tex){
                 shader.begin();
                 shader.setUniformTexture("tex", CVOpenGLESTextureGetTarget(_tex), CVOpenGLESTextureGetName(_tex), 0);
+
+#ifdef ARBodyTrackingBool_h
+
+                if(_texMatteAlpha)shader.setUniformTexture("texAlphaBody", CVOpenGLESTextureGetTarget(_texMatteAlpha), CVOpenGLESTextureGetName(_texMatteAlpha), 1);
+                if(_texMatteDepth)shader.setUniformTexture("texDepthBody", CVOpenGLESTextureGetTarget(_texMatteDepth), CVOpenGLESTextureGetName(_texMatteDepth), 2);
+                if(_texDepth)shader.setUniformTexture("texDepth", CVOpenGLESTextureGetTarget(_texDepth), CVOpenGLESTextureGetName(_texDepth), 3);
+                // textures affine coordinates
+                shader.setUniform4f("cAffineCamABCD", float(cAffine.a), float(cAffine.b), float(cAffine.c), float(cAffine.d));
+                shader.setUniform2f("cAffineCamTxTy", float(cAffine.tx), float(cAffine.ty));
+                
+                shader.setUniform1f("u_time", ofGetElapsedTimef());
+                shader.setUniformMatrix4f("u_CameraProjectionMat", getProjectionMatrix());
+#endif
                 mesh.draw();
                 
                 shader.end();
@@ -167,31 +231,6 @@ namespace ofxARKit {
         
         glm::mat4 Camera::getTransformMatrix(){
              return convert<ofMatrix4x4, glm::mat4>(cameraMatrices.cameraTransform);
-        }
-        
-        
-        ofTexture Camera::getOfTexture(){
-            
-            CVOpenGLESTextureRef ref = [_view getConvertedTexture];
-            unsigned int textureCacheID = CVOpenGLESTextureGetName(ref);
-            
-            ofTexture ofTex;
-            //hardcoded vals for better speed
-            ofTex.allocate(1920, 1080, GL_RGBA);
-            ofTex.setUseExternalTextureID(textureCacheID);
-            
-            
-            ofTex.setTextureMinMagFilter(GL_LINEAR, GL_LINEAR);
-            ofTex.setTextureWrap(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
-            
-            if(!ofIsGLProgrammableRenderer()) {
-                ofTex.bind();
-                glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-                ofTex.unbind();
-            }
-            
-            return ofTex;
-            
         }
     }
 }

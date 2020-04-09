@@ -21,6 +21,7 @@ namespace ofxARKit {
             bool useAudio = false;
             bool useHighRes = true;
             bool useAutoFocus = true;
+            bool useARFrameSemanticPersonSegmentationWithDepth = true;
             
             NSObject<ARSessionDelegate> * delegateClass = NULL;
             
@@ -45,6 +46,8 @@ namespace ofxARKit {
         public:
             SFormat(){};
             
+            ARMatteGenerator *matState;
+            
             
             // Returns the current state
             FormatState getState(){
@@ -60,7 +63,23 @@ namespace ofxARKit {
             //! Enables face tracking for the session.
             //! TODO does face tracking affect other things like lighting and plane detection?
             SFormat& enableFaceTracking(){
-                state.useFaceTracking = true;
+                state.useFaceTracking = false;
+                return *this;
+            }
+            
+            SFormat& enableSementicTracking(){
+                
+                if([ARWorldTrackingConfiguration supportsFrameSemantics]){
+                    if (@available(iOS 13.0, *)) {
+                        state.useARFrameSemanticPersonSegmentationWithDepth = true;
+
+                    } else {
+                        // Fallback on earlier versions
+                        NSLog(@"Update this device to a more recent version >= 13.0 unable to use sementic tracking");
+                    }
+                }else {
+                    NSLog(@"This device is unfortunately unable to use sementic tracking");
+                }
                 return *this;
             }
             
@@ -162,6 +181,7 @@ namespace ofxARKit {
                         }
                     }
                     
+                    
                     [session runWithConfiguration:config];
                     
                     return session;
@@ -170,12 +190,31 @@ namespace ofxARKit {
                 }
             }
 #endif
+            ///============================================================
+
+            // Create a session configuration
+//            auto configuration = ARWorldTrackingConfiguration();
+//
+//            // Enable frame semantics
+//            // .personSegmentation or .personSegmentationWithDepth
+//            [configuration frameSemantics] = .personSegmentationWithDepth;
+//
+            ///============================================================
             
             // if face tracking is not available, should pass through to here where we
             // figure out regular configuration, starting with determining if we can do plane detection.
             if([ARWorldTrackingConfiguration isSupported]){
                 
                 ARWorldTrackingConfiguration * config = [ARWorldTrackingConfiguration new];
+                
+                if(state.useARFrameSemanticPersonSegmentationWithDepth){
+//                    config.frameSemantics = 2;
+                    
+                    config.frameSemantics = ARFrameSemanticPersonSegmentationWithDepth;
+                    
+                    
+                }
+                
                 
                 if(state.usePlaneTracking){
                     config.planeDetection = state.planeDetectionType;
@@ -184,6 +223,7 @@ namespace ofxARKit {
                 if(state.useLightEstimation){
                     config.lightEstimationEnabled = YES;
                 }
+                
                 
                 // image detection
                 if (@available(iOS 11.3, *)) {
