@@ -20,6 +20,7 @@ namespace ofxARKit { namespace core {
             bool useAudio = false;
             bool useHighRes = true;
             bool useAutoFocus = true;
+            bool useARFrameSemanticPersonSegmentationWithDepth = true;
             
             NSObject<ARSessionDelegate> * delegateClass = NULL;
             
@@ -63,6 +64,22 @@ namespace ofxARKit { namespace core {
             //! TODO does face tracking affect other things like lighting and plane detection?
             SessionFormat& enableFaceTracking(){
                 state.useFaceTracking = true;
+                return *this;
+            }
+            
+            SessionFormat& enableSementicTracking(){
+                
+                if([ARWorldTrackingConfiguration supportsFrameSemantics]){
+                    if (@available(iOS 13.0, *)) {
+                        state.useARFrameSemanticPersonSegmentationWithDepth = true;
+
+                    } else {
+                        // Fallback on earlier versions
+                        NSLog(@"Update this device to a more recent version >= 13.0 unable to use sementic tracking");
+                    }
+                }else {
+                    NSLog(@"This device is unfortunately unable to use sementic tracking");
+                }
                 return *this;
             }
             
@@ -178,6 +195,13 @@ namespace ofxARKit { namespace core {
             if([ARWorldTrackingConfiguration isSupported]){
                 
                 ARWorldTrackingConfiguration * config = [ARWorldTrackingConfiguration new];
+
+                //======== MATTE API ============ //
+#ifdef ARBodyTrackingBool_h
+                if(state.useARFrameSemanticPersonSegmentationWithDepth && (@available(iOS 13.0, *)) ) {
+                    config.frameSemantics = ARFrameSemanticPersonSegmentationWithDepth;
+                }
+#endif
                 
                 if(state.usePlaneTracking){
                     config.planeDetection = state.planeDetectionType;

@@ -81,8 +81,8 @@ namespace ARCore {
         // ========== SHADER SETUP  ============= //
         // setup plane and shader in order to draw the camera feed
         vMesh.setVertexData(kImagePlaneVertexData, 4, 16, GL_DYNAMIC_DRAW);
-        cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARShaders::camera_convert_vertex);
-        cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::camera_convert_fragment);
+        cameraConvertShader.setupShaderFromSource(GL_VERTEX_SHADER, ARShaders::point_cloud_vertex);
+        cameraConvertShader.setupShaderFromSource(GL_FRAGMENT_SHADER, ARShaders::point_cloud_fragment);
         cameraConvertShader.linkProgram();
         
         
