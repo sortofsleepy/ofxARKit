@@ -240,6 +240,10 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
         // Create two textures (Y and CbCr) from the provided frame's captured image
         CVPixelBufferRef pixelBuffer = _session.currentFrame.capturedImage;
         
+#if defined(__IPHONE_13_0) && defined(ARBodyTrackingBool_h)
+        depthTextureGLES = [self convertFromPixelBufferToOpenGL:_session.currentFrame.estimatedDepthData _videoTextureCache:_videoTextureCache];
+#endif
+        
         CVBufferRelease(_capturedImageTextureYRef);
         CVBufferRelease(_capturedImageTextureCbCrRef);
         _capturedImageTextureYRef = [self _createTextureFromPixelBuffer:pixelBuffer pixelFormat:MTLPixelFormatR8Unorm planeIndex:0];

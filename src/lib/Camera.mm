@@ -21,11 +21,10 @@ namespace ofxARKit {
             setup(session,viewport,context);
             
             mesh = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
-#ifdef ARBodyTrackingBool_h
 
+#if defined( __IPHONE_13_0 ) && defined( ARBodyTrackingBool_h )
             shader.setupShaderFromSource(GL_VERTEX_SHADER, vertexMatte);
             shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragmentMatte);
-
 #else
 
             shader.setupShaderFromSource(GL_VERTEX_SHADER, vertex);
@@ -46,7 +45,7 @@ namespace ofxARKit {
         }
     
         //======== MATTE API ============ //
-#ifdef ARBodyTrackingBool_h
+#if defined( __IPHONE_13_0 ) && defined( ARBodyTrackingBool_h )
                     
         CVOpenGLESTextureRef Camera::getTextureMatteAlpha(){
             return [_view getConvertedTextureMatteAlpha];
@@ -188,7 +187,8 @@ namespace ofxARKit {
             // get and draw texture
             auto _tex = [_view getConvertedTexture];
             
-#ifdef ARBodyTrackingBool_h
+
+#if defined( __IPHONE_13_0 ) && defined( ARBodyTrackingBool_h )
             auto _texMatteAlpha = [_view getConvertedTextureMatteAlpha];
             auto _texMatteDepth = [_view getConvertedTextureMatteDepth];
             auto _texDepth = [_view getConvertedTextureDepth];
@@ -200,7 +200,8 @@ namespace ofxARKit {
                 shader.begin();
                 shader.setUniformTexture("tex", CVOpenGLESTextureGetTarget(_tex), CVOpenGLESTextureGetName(_tex), 0);
 
-#ifdef ARBodyTrackingBool_h
+
+#if defined( __IPHONE_13_0 ) && defined( ARBodyTrackingBool_h )
                 if(_texMatteAlpha)shader.setUniformTexture("texAlphaBody", CVOpenGLESTextureGetTarget(_texMatteAlpha), CVOpenGLESTextureGetName(_texMatteAlpha), 1);
                 if(_texMatteDepth)shader.setUniformTexture("texDepthBody", CVOpenGLESTextureGetTarget(_texMatteDepth), CVOpenGLESTextureGetName(_texMatteDepth), 2);
                 if(_texDepth)shader.setUniformTexture("texDepth", CVOpenGLESTextureGetTarget(_texDepth), CVOpenGLESTextureGetName(_texDepth), 3);
