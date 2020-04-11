@@ -148,7 +148,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
         [self _updateOpenGLTexture];
     }
 
-#if defined(__IPHONE_13_0) && defined(ARBodyTrackingBool_h)
+#if defined(__IPHONE_13_0)
     if(ARBodyTrackingConfiguration.isSupported){
         // update depth textures
         [self _updateMatteTextures: commandBuffer];
@@ -240,7 +240,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
         // Create two textures (Y and CbCr) from the provided frame's captured image
         CVPixelBufferRef pixelBuffer = _session.currentFrame.capturedImage;
         
-#if defined(__IPHONE_13_0) && defined(ARBodyTrackingBool_h)
+#if defined(__IPHONE_13_0)
         depthTextureGLES = [self convertFromPixelBufferToOpenGL:_session.currentFrame.estimatedDepthData _videoTextureCache:_videoTextureCache];
 #endif
         
@@ -428,7 +428,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
     
     _cameraTexture = CVMetalTextureGetTexture(_cameraImage);
     
-#if defined(__IPHONE_13_0) && defined(ARBodyTrackingBool_h)
+#if defined(__IPHONE_13_0)
     //=================================================================================
     // create a pixel buffer with the size and pixel format corresponding to :
     // MTLTexture Alpha --> with (full resolution) : 1920 x 1440
@@ -473,7 +473,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
 - (CVOpenGLESTextureRef) getConvertedTexture{
     return openglTexture;
 }
-#if defined(__IPHONE_13_0) && defined(ARBodyTrackingBool_h)
+#if defined(__IPHONE_13_0)
 // return
 - (CVOpenGLESTextureRef) getConvertedTextureMatteAlpha{
     return alphaTextureMatteGLES;

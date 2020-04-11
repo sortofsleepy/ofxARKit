@@ -226,9 +226,9 @@ namespace ARCore {
         }
         
         //! Returns the converted texture coming from ARKit after converting both layers to a single image.
-        ofTexture getCameraTexture(){
-            return cameraFbo.getTexture();
-        }
+//        ofTexture getCameraTexture(){
+//            return cameraFbo.getTexture();
+//        }
         
         //! Returns the FBO used to join the camera image.
         ofFbo getFBO(){

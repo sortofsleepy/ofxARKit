@@ -10,7 +10,6 @@
 #import <MetalKit/MetalKit.h>
 #import <ARKit/ARKit.h>
 
-#include "ARBodyTrackingBool.h"
 
 
 #pragma once
@@ -82,7 +81,7 @@ typedef struct {
     AAPLTextureFormatInfo formatInfo;
     
     // ======= MATTE TEXTURING ========= //
-#if defined( __IPHONE_13_0 ) && defined( ARBodyTrackingBool_h )
+#if defined( __IPHONE_13_0 )
     ARMatteGenerator* matteDepthTexture;
     // Matte texturing
     id<MTLTexture> alphaTexture, dilatedDepthTexture, sceneDepthTexture;
@@ -113,7 +112,7 @@ typedef struct {
 - (void) setViewport:(CGRect) _viewport;
 - (void) loadMetal;
 
-#if defined( __IPHONE_13_0 ) && defined( ARBodyTrackingBool_h )
+#if defined( __IPHONE_13_0 )
 // return types
 - (CVOpenGLESTextureRef) getConvertedTexture;
 - (CVOpenGLESTextureRef) getConvertedTextureMatteAlpha;

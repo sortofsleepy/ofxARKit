@@ -197,11 +197,11 @@ namespace ofxARKit { namespace core {
                 ARWorldTrackingConfiguration * config = [ARWorldTrackingConfiguration new];
 
                 //======== MATTE API ============ //
-#ifdef ARBodyTrackingBool_h
-                if(state.useARFrameSemanticPersonSegmentationWithDepth && (@available(iOS 13.0, *)) ) {
-                    config.frameSemantics = ARFrameSemanticPersonSegmentationWithDepth;
+                if(state.useARFrameSemanticPersonSegmentationWithDepth && [ARBodyTrackingConfiguration isSupported] ){
+                    if(@available(iOS 13.0, *)){
+                        config.frameSemantics = ARFrameSemanticPersonSegmentationWithDepth;
+                    }
                 }
-#endif
                 
                 if(state.usePlaneTracking){
                     config.planeDetection = state.planeDetectionType;

@@ -9,7 +9,6 @@
 #define ofxARKit_h
 
 #include "lib/ARFaceTrackingBool.h"
-#include "lib/ARBodyTrackingBool.h"
 
 #include <ARKit/ARKit.h>
 #include "lib/ARUtils.h"

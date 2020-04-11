@@ -22,7 +22,7 @@ namespace ofxARKit {
             
             mesh = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
 
-#if defined( __IPHONE_13_0 ) && defined( ARBodyTrackingBool_h )
+#if defined( __IPHONE_13_0 )
             shader.setupShaderFromSource(GL_VERTEX_SHADER, vertexMatte);
             shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragmentMatte);
 #else
@@ -45,7 +45,7 @@ namespace ofxARKit {
         }
     
         //======== MATTE API ============ //
-#if defined( __IPHONE_13_0 ) && defined( ARBodyTrackingBool_h )
+#if defined( __IPHONE_13_0 )
                     
         CVOpenGLESTextureRef Camera::getTextureMatteAlpha(){
             return [_view getConvertedTextureMatteAlpha];
@@ -63,14 +63,14 @@ namespace ofxARKit {
             //                    c  d  0       |     d  e  f
             //                    tx ty 1       |     g  h  i
             
-//            CGAffineTransform cAffine = [_view getAffineCameraTransform];
+            CGAffineTransform cAffine = [_view getAffineCameraTransform];
             ofMatrix3x3 matTransAffine;
-//            matTransAffine.a = cAffine.a;
-//            matTransAffine.b = cAffine.b;
-//            matTransAffine.d = cAffine.c;
-//            matTransAffine.e = cAffine.d;
-//            matTransAffine.g = cAffine.tx;
-//            matTransAffine.h = cAffine.ty;
+            matTransAffine.a = cAffine.a;
+            matTransAffine.b = cAffine.b;
+            matTransAffine.d = cAffine.c;
+            matTransAffine.e = cAffine.d;
+            matTransAffine.g = cAffine.tx;
+            matTransAffine.h = cAffine.ty;
             
             return matTransAffine;
         }
@@ -188,7 +188,7 @@ namespace ofxARKit {
             auto _tex = [_view getConvertedTexture];
             
 
-#if defined( __IPHONE_13_0 ) && defined( ARBodyTrackingBool_h )
+#if defined( __IPHONE_13_0 )
             auto _texMatteAlpha = [_view getConvertedTextureMatteAlpha];
             auto _texMatteDepth = [_view getConvertedTextureMatteDepth];
             auto _texDepth = [_view getConvertedTextureDepth];
@@ -201,7 +201,7 @@ namespace ofxARKit {
                 shader.setUniformTexture("tex", CVOpenGLESTextureGetTarget(_tex), CVOpenGLESTextureGetName(_tex), 0);
 
 
-#if defined( __IPHONE_13_0 ) && defined( ARBodyTrackingBool_h )
+#if defined( __IPHONE_13_0 )
                 if(_texMatteAlpha)shader.setUniformTexture("texAlphaBody", CVOpenGLESTextureGetTarget(_texMatteAlpha), CVOpenGLESTextureGetName(_texMatteAlpha), 1);
                 if(_texMatteDepth)shader.setUniformTexture("texDepthBody", CVOpenGLESTextureGetTarget(_texMatteDepth), CVOpenGLESTextureGetName(_texMatteDepth), 2);
                 if(_texDepth)shader.setUniformTexture("texDepth", CVOpenGLESTextureGetTarget(_texDepth), CVOpenGLESTextureGetName(_texDepth), 3);

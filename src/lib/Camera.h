@@ -159,7 +159,7 @@ namespace ofxARKit {
             CVOpenGLESTextureRef getTexture();
                         
             //======== MATTE API ============ //
-#if defined( __IPHONE_13_0 ) && defined( ARBodyTrackingBool_h )
+#if defined( __IPHONE_13_0 )
              CVOpenGLESTextureRef getTextureMatteAlpha();
              CVOpenGLESTextureRef getTextureMatteDepth();
              CVOpenGLESTextureRef getTextureDepth();
