@@ -60,11 +60,11 @@ void ofApp::update(){
 #if defined(__IPHONE_13_0)
 
     // check Camera.h for shader using those :
-//     CVOpenGLESTextureRef _tex = processor->camera->getCameraTexture();
-//     CVOpenGLESTextureRef matteAlpha = processor->camera->getTextureMatteAlpha();
-//     CVOpenGLESTextureRef matteDepth = processor->camera->getTextureMatteDepth();
-//     CVOpenGLESTextureRef depth = processor->camera->getTextureDepth();
-//     ofMatrix3x3 affineCoeff = processor->camera->getAffineTransform();
+//     CVOpenGLESTextureRef _tex = processor->getCameraTexture();
+//     CVOpenGLESTextureRef matteAlpha = processor->getTextureMatteAlpha();
+//     CVOpenGLESTextureRef matteDepth = processor->getTextureMatteDepth();
+//     CVOpenGLESTextureRef depth = processor->getTextureDepth();
+//     ofMatrix3x3 affineCoeff = processor->getAffineTransform();
     
 #endif
     

@@ -83,7 +83,6 @@
 		895BB2DC8F64D074767B4A8C /* ARUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARUtils.h; path = ../../../addons/ofxARKit/src/lib/ARUtils.h; sourceTree = SOURCE_ROOT; };
 		901808BF2053636F004A7774 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		9288F98A4FBE0DB0656BABC1 /* ARProcessor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARProcessor.h; path = ../../../addons/ofxARKit/src/lib/ARProcessor.h; sourceTree = SOURCE_ROOT; };
-		98031334243F8F6700DD7367 /* ARBodyTrackingBool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARBodyTrackingBool.h; path = ../src/lib/ARBodyTrackingBool.h; sourceTree = "<group>"; };
 		9936F60F1BFA4DEE00891288 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9936F6111BFA65F100891288 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9969E7551C782C4500DEF0F6 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -217,7 +216,6 @@
 				439452471C213D52227910C1 /* ARCam.mm */,
 				15D8116F6AD9D0F2F4213B11 /* ARDebugUtils.h */,
 				E01E92B16305D6FD8300185B /* ARFaceTrackingBool.h */,
-				98031334243F8F6700DD7367 /* ARBodyTrackingBool.h */,
 				2D9AF60D169D375473180BED /* ARObjects.h */,
 				9288F98A4FBE0DB0656BABC1 /* ARProcessor.h */,
 				C920D6EC10E102E2983C196A /* ARProcessor.mm */,

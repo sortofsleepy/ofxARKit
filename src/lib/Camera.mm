@@ -22,15 +22,15 @@ namespace ofxARKit {
             
             mesh = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
 
-#if defined( __IPHONE_13_0 )
-            shader.setupShaderFromSource(GL_VERTEX_SHADER, vertexMatte);
-            shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragmentMatte);
-#else
+            if(this->session.configuration.frameSemantics == ARFrameSemanticPersonSegmentationWithDepth){
+                
+                shader.setupShaderFromSource(GL_VERTEX_SHADER, vertexMatte);
+                shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragmentMatte);
+            }else{
 
-            shader.setupShaderFromSource(GL_VERTEX_SHADER, vertex);
-            shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragment);
-
-#endif
+                shader.setupShaderFromSource(GL_VERTEX_SHADER, vertex);
+                shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragment);
+            }
             
             shader.linkProgram();
             
@@ -188,30 +188,28 @@ namespace ofxARKit {
             auto _tex = [_view getConvertedTexture];
             
 
-#if defined( __IPHONE_13_0 )
             auto _texMatteAlpha = [_view getConvertedTextureMatteAlpha];
             auto _texMatteDepth = [_view getConvertedTextureMatteDepth];
             auto _texDepth = [_view getConvertedTextureDepth];
             // remap Matte Textures
             CGAffineTransform cAffine = [_view getAffineCameraTransform];
-#endif
             
             if(_tex){
                 shader.begin();
                 shader.setUniformTexture("tex", CVOpenGLESTextureGetTarget(_tex), CVOpenGLESTextureGetName(_tex), 0);
 
 
-#if defined( __IPHONE_13_0 )
-                if(_texMatteAlpha)shader.setUniformTexture("texAlphaBody", CVOpenGLESTextureGetTarget(_texMatteAlpha), CVOpenGLESTextureGetName(_texMatteAlpha), 1);
-                if(_texMatteDepth)shader.setUniformTexture("texDepthBody", CVOpenGLESTextureGetTarget(_texMatteDepth), CVOpenGLESTextureGetName(_texMatteDepth), 2);
-                if(_texDepth)shader.setUniformTexture("texDepth", CVOpenGLESTextureGetTarget(_texDepth), CVOpenGLESTextureGetName(_texDepth), 3);
-                // textures affine coordinates
-                shader.setUniform4f("cAffineCamABCD", float(cAffine.a), float(cAffine.b), float(cAffine.c), float(cAffine.d));
-                shader.setUniform2f("cAffineCamTxTy", float(cAffine.tx), float(cAffine.ty));
+                if(this->session.configuration.frameSemantics == ARFrameSemanticPersonSegmentationWithDepth){
+                    if(_texMatteAlpha)shader.setUniformTexture("texAlphaBody", CVOpenGLESTextureGetTarget(_texMatteAlpha), CVOpenGLESTextureGetName(_texMatteAlpha), 1);
+                    if(_texMatteDepth)shader.setUniformTexture("texDepthBody", CVOpenGLESTextureGetTarget(_texMatteDepth), CVOpenGLESTextureGetName(_texMatteDepth), 2);
+                    if(_texDepth)shader.setUniformTexture("texDepth", CVOpenGLESTextureGetTarget(_texDepth), CVOpenGLESTextureGetName(_texDepth), 3);
+                    // textures affine coordinates
+                    shader.setUniform4f("cAffineCamABCD", float(cAffine.a), float(cAffine.b), float(cAffine.c), float(cAffine.d));
+                    shader.setUniform2f("cAffineCamTxTy", float(cAffine.tx), float(cAffine.ty));
 
-                shader.setUniform1f("u_time", ofGetElapsedTimef());
-                shader.setUniformMatrix4f("u_CameraProjectionMat", getProjectionMatrix());
-#endif
+                    shader.setUniform1f("u_time", ofGetElapsedTimef());
+                    shader.setUniformMatrix4f("u_CameraProjectionMat", getProjectionMatrix());
+                }
                 
                 mesh.draw();
                 shader.end();

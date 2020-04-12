@@ -140,11 +140,6 @@ namespace ofxARKit {
     void ARProcessor::drawHorizontalPlanes(){
         anchorController->drawPlanes(camera->getCameraMatrices());
     }
-
-    CVOpenGLESTextureRef ARProcessor::getCameraTexture(){
-        camera->getTexture();
-        
-    }
     
 #if AR_FACE_TRACKING
     // ======= FACE API ========= //
@@ -154,13 +149,6 @@ namespace ofxARKit {
     void ARProcessor::updateFaces(){
         anchorController->updateFaces();
     }
-#endif
-
-#if defined( __IPHONE_13_0 ) && defined( ARBodyTrackingBool_h )
-CVOpenGLESTextureRef ARProcessor::getTextureMatteAlpha(){ camera->getTextureMatteAlpha();}
-      CVOpenGLESTextureRef ARProcessor::getTextureMatteDepth(){ camera->getTextureMatteDepth();}
-      CVOpenGLESTextureRef ARProcessor::getTextureDepth(){ camera->getTextureDepth();}
-      ofMatrix3x3 ARProcessor::getAffineTransform(){ camera->getAffineTransform();}
 #endif
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_3

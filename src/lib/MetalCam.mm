@@ -148,12 +148,12 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
         [self _updateOpenGLTexture];
     }
 
-#if defined(__IPHONE_13_0)
-    if(ARBodyTrackingConfiguration.isSupported){
+//    if(ARBodyTrackingConfiguration.isSupported){
+    if(ARBodyTrackingConfiguration.isSupported && _session.configuration.frameSemantics == ARFrameSemanticPersonSegmentationWithDepth){
+
         // update depth textures
         [self _updateMatteTextures: commandBuffer];
     }
-#endif
    
     
     // Schedule a present once the framebuffer is complete using the current drawable
@@ -608,7 +608,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
 {
      int width = (int) texture.width;
      int height = (int) texture.height;
-     MTLPixelFormat texPixelFormat = texture.pixelFormat;
+//     MTLPixelFormat texPixelFormat = texture.pixelFormat;
 //    NSLog(@"texture PixelFormat : %lu width : %d height : %d", (unsigned long)texPixelFormat, width, height);
     
 
