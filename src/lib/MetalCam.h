@@ -10,6 +10,8 @@
 #import <MetalKit/MetalKit.h>
 #import <ARKit/ARKit.h>
 
+
+
 #pragma once
 
 NS_ASSUME_NONNULL_BEGIN
@@ -78,25 +80,21 @@ typedef struct {
     // stores formating info that allows interop between OpenGL / Metal
     AAPLTextureFormatInfo formatInfo;
     
+    // ======= MATTE TEXTURING ========= //
+#if defined( __IPHONE_13_0 )
+    ARMatteGenerator* matteDepthTexture;
+    // Matte texturing
+    id<MTLTexture> alphaTexture, dilatedDepthTexture, sceneDepthTexture;
+    CVOpenGLESTextureRef alphaTextureMatteGLES, depthTextureMatteGLES, depthTextureGLES;
+    CVPixelBufferRef pixel_bufferAlphaMatte, pixel_bufferDepth, pixel_bufferDepthMatte;
+#endif
+    
     // ======= STUFF FOR OPENGL COMPATIBILITY ========= //
     CVOpenGLESTextureCacheRef _videoTextureCache;
     CVPixelBufferRef _sharedPixelBuffer;
     BOOL pixelBufferBuilt;
     MTLRegion captureRegion;
     BOOL openglMode;
-    
-    // ===== OCCLUSION RELATED ======= //
-    
-    // pre-processor defs can be used it seems
-    // https://stackoverflow.com/questions/25290547/checking-ios-version-through-preprocessor
-#ifdef __IPHONE_13_0
-    ARMatteGenerator matteGenerator;
-    
-    // textures used to calculate depth information
-    MTLTexture alphaTexture;
-    MTLTexture dilatedDepthTexture;
-    
-#endif
 }
 @property(nonatomic,retain)dispatch_semaphore_t _inFlightSemaphore;
 @property(nonatomic,retain)ARSession * session;
@@ -114,11 +112,23 @@ typedef struct {
 - (void) setViewport:(CGRect) _viewport;
 - (void) loadMetal;
 
-#ifdef __IPHONE_13_0
-- (void) loadMatteGenerator;
-- (void) updateMatteTextures(id<MTLCommandBuffer>)commandBuffer;
-- (void*) getDepthTextureData;
-- (void*) getAlphaTextureData;
+#if defined( __IPHONE_13_0 )
+// return types
+- (CVOpenGLESTextureRef) getConvertedTexture;
+- (CVOpenGLESTextureRef) getConvertedTextureMatteAlpha;
+- (CVOpenGLESTextureRef) getConvertedTextureMatteDepth;
+- (CVOpenGLESTextureRef) getConvertedTextureDepth;
+- (CGAffineTransform) getAffineCameraTransform;
+
+
+
+// Matte Texturing
+- (void) _initMatteTexture;
+- (void) _updateMatteTextures:(id<MTLCommandBuffer>) commandBuffer;
+
+// convert
+- (CVOpenGLESTextureRef) convertFromMTLToOpenGL:(id<MTLTexture>) texture  pixel_buffer:(CVPixelBufferRef)pixel_buffer _videoTextureCache:(CVOpenGLESTextureCacheRef)vidTextureCache;
+- (CVOpenGLESTextureRef) convertFromPixelBufferToOpenGL:(CVPixelBufferRef)pixel_buffer _videoTextureCache:(CVOpenGLESTextureCacheRef)vidTextureCache;
 #endif
 
 @end

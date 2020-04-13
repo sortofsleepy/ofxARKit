@@ -160,6 +160,16 @@ namespace ofxARKit {
         std::vector<FaceAnchorObject> getFaces();
 #endif
         
+
+        //======== MATTE API ============ //
+#if defined( __IPHONE_13_0 )
+        CVOpenGLESTextureRef getTextureMatteAlpha(){ return camera->getTextureMatteAlpha();}
+        CVOpenGLESTextureRef getTextureMatteDepth(){ return camera->getTextureMatteDepth();}
+        CVOpenGLESTextureRef getTextureDepth(){ return camera->getTextureDepth();}
+        ofMatrix3x3 getAffineTransform(){ return camera->getAffineTransform();}
+#endif
+        
+        
         
         //======== CAMERA API ============ //
         
@@ -181,7 +191,7 @@ namespace ofxARKit {
         ofxARKit::common::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation=UIInterfaceOrientationPortrait, float near=0.01,float far=1000.0);
         
         //! Return the camera image as a texture.
-        ofTexture getCameraTexture();
+        CVOpenGLESTextureRef getCameraTexture(){return camera->getTexture();}
         
         //! Get the camera matrix set
         ofxARKit::common::ARCameraMatrices getCameraMatrices();

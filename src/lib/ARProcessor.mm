@@ -98,10 +98,6 @@ namespace ofxARKit {
         return getAnchorXYZ(camera->getTransformMatrix());
     }
     
-    ofTexture ARProcessor::getCameraTexture(){
-        //return camera->getCameraTexture();
-    }
-    
     ofxARKit::common::ARCameraMatrices ARProcessor::getCameraMatrices(){
         return camera->getCameraMatrices();
     }
@@ -154,7 +150,7 @@ namespace ofxARKit {
         anchorController->updateFaces();
     }
 #endif
-    
+
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_3
     vector<ARReferenceImage *> & ARProcessor::getARReferenceImages(){
         if ( arRefImages.empty() ){
