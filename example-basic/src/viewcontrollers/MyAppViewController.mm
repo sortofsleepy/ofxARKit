@@ -17,7 +17,7 @@ using namespace ofxARKit::core;
 - (void)loadView {
     [super loadView];
     
-    SFormat format;
+    SessionFormat format;
     format.enableLighting();
     self.session = generateNewSession(format);
     
