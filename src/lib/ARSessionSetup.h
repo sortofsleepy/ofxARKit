@@ -10,8 +10,7 @@
 
 #include <string>
 using namespace std;
-namespace ofxARKit {
-    namespace core {
+namespace ofxARKit { namespace core {
        
         typedef struct {
             bool useFaceTracking = false;
@@ -21,6 +20,7 @@ namespace ofxARKit {
             bool useAudio = false;
             bool useHighRes = true;
             bool useAutoFocus = true;
+            bool useARFrameSemanticPersonSegmentationWithDepth = true;
             
             NSObject<ARSessionDelegate> * delegateClass = NULL;
             
@@ -35,15 +35,18 @@ namespace ofxARKit {
             string imageBundleName = "AR Resources";
             
         }FormatState;
-        
-        class SFormat {
+    
+    
+    
+        //! Helper class for making it more straightforward to set up a new ARKit session
+        class SessionFormat {
             
-            
+            // the options to use for the session
             FormatState state;
             
             
         public:
-            SFormat(){};
+            SessionFormat(){};
             
             
             // Returns the current state
@@ -52,27 +55,43 @@ namespace ofxARKit {
             }
             
             //! Enables light estimation for the session
-            SFormat& enableLighting(){
+            SessionFormat& enableLighting(){
                 state.useLightEstimation = true;
                 return *this;
             }
             
             //! Enables face tracking for the session.
             //! TODO does face tracking affect other things like lighting and plane detection?
-            SFormat& enableFaceTracking(){
+            SessionFormat& enableFaceTracking(){
                 state.useFaceTracking = true;
                 return *this;
             }
             
+            SessionFormat& enableSementicTracking(){
+                
+                if([ARWorldTrackingConfiguration supportsFrameSemantics]){
+                    if (@available(iOS 13.0, *)) {
+                        state.useARFrameSemanticPersonSegmentationWithDepth = true;
+
+                    } else {
+                        // Fallback on earlier versions
+                        NSLog(@"Update this device to a more recent version >= 13.0 unable to use sementic tracking");
+                    }
+                }else {
+                    NSLog(@"This device is unfortunately unable to use sementic tracking");
+                }
+                return *this;
+            }
+            
             //! Enables feature detection
-            SFormat & enableImageDetection(string imageBundleName = "AR Resources"){
+            SessionFormat & enableImageDetection(string imageBundleName = "AR Resources"){
                 state.useImageDetection = true;
                 state.imageBundleName = imageBundleName;
                 return *this;
             }
             
             //! Enables plane detection - vertical and horizontal
-            SFormat& enablePlaneTracking(){
+            SessionFormat& enablePlaneTracking(){
                 // not all devices can support plane tracking, check first to make sure it's supported.
                 if([ARWorldTrackingConfiguration isSupported]){
                     state.usePlaneTracking = true;
@@ -89,7 +108,7 @@ namespace ofxARKit {
             }
             
             //! Enables horizontal plane detection.
-            SFormat& enableHorizontalPlaneTracking(){
+            SessionFormat& enableHorizontalPlaneTracking(){
                 // not all devices can support plane tracking, check first to make sure it's supported.
                 if([ARWorldTrackingConfiguration isSupported]){
                     state.usePlaneTracking = true;
@@ -102,7 +121,7 @@ namespace ofxARKit {
             }
             
             //! Enables vertical plane detection.
-            SFormat& enableVerticalPlaneTracking(){
+            SessionFormat& enableVerticalPlaneTracking(){
                 // not all devices can support plane tracking, check first to make sure it's supported.
                 if([ARWorldTrackingConfiguration isSupported]){
                     state.usePlaneTracking = true;
@@ -120,20 +139,20 @@ namespace ofxARKit {
             }
             
             //! Sets the delegate class for the session.
-            SFormat& setDelegate(NSObject<ARSessionDelegate> * delegateClass){
+            SessionFormat& setDelegate(NSObject<ARSessionDelegate> * delegateClass){
                 state.delegateClass = delegateClass;
                 return *this;
             }
             
-            SFormat& setHighRes( bool bHighRes ){
+            SessionFormat& setHighRes( bool bHighRes ){
                 state.useHighRes = bHighRes;
                 return *this;
             }
         };
         
-        //! Generates a new ARSession object. Pass in a SFormat object describing the
+        //! Generates a new ARSession object. Pass in a SessionFormat object describing the
         //! settings you want to enable on the session.
-        static ARSession * generateNewSession(SFormat format){
+        static ARSession * generateNewSession(SessionFormat format){
             ARSession * session = [ARSession new];
             
             auto state = format.getState();
@@ -176,6 +195,15 @@ namespace ofxARKit {
             if([ARWorldTrackingConfiguration isSupported]){
                 
                 ARWorldTrackingConfiguration * config = [ARWorldTrackingConfiguration new];
+
+                //======== MATTE API ============ //
+                if (@available(iOS 13.0, *)) {
+                    if(state.useARFrameSemanticPersonSegmentationWithDepth && [ARBodyTrackingConfiguration isSupported] ){
+                        config.frameSemantics = ARFrameSemanticPersonSegmentationWithDepth;
+                    }
+                } else {
+                    // Fallback on earlier versions
+                }
                 
                 if(state.usePlaneTracking){
                     config.planeDetection = state.planeDetectionType;
@@ -223,7 +251,6 @@ namespace ofxARKit {
                 
                 [session runWithConfiguration:config];
                 
-                
             }else {
                 // if we can't do plane detection, switch to regular tracking.
                 AROrientationTrackingConfiguration * config = [AROrientationTrackingConfiguration new];
@@ -246,15 +273,8 @@ namespace ofxARKit {
                 
             }
             
-            
-            
-            
             return session;
-            
-            
         }
-
-    }
-}
+}}
 #endif /* SessionSetup_h */
 

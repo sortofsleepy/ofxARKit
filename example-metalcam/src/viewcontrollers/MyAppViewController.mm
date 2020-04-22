@@ -18,7 +18,7 @@
 - (void)loadView {
     [super loadView];
     
-    ARCore::SFormat format;
+    ARCore::SessionFormat format;
     format.enableLighting();
     self.session = ARCore::generateNewSession(format);
     

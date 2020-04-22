@@ -21,8 +21,16 @@ namespace ofxARKit {
             setup(session,viewport,context);
             
             mesh = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
-            shader.setupShaderFromSource(GL_VERTEX_SHADER, vertex);
-            shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragment);
+
+            if(this->session.configuration.frameSemantics == ARFrameSemanticPersonSegmentationWithDepth){
+                
+                shader.setupShaderFromSource(GL_VERTEX_SHADER, vertexMatte);
+                shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragmentMatte);
+            }else{
+
+                shader.setupShaderFromSource(GL_VERTEX_SHADER, vertex);
+                shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragment);
+            }
             
             shader.linkProgram();
             
@@ -35,6 +43,38 @@ namespace ofxARKit {
             // remember - you'll need to flip the uv on the y-axis to get the correctly oriented image.
             return [_view getConvertedTexture];
         }
+    
+        //======== MATTE API ============ //
+#if defined( __IPHONE_13_0 )
+                    
+        CVOpenGLESTextureRef Camera::getTextureMatteAlpha(){
+            return [_view getConvertedTextureMatteAlpha];
+        }
+        CVOpenGLESTextureRef Camera::getTextureMatteDepth(){
+            return [_view getConvertedTextureMatteDepth];
+        }
+        CVOpenGLESTextureRef Camera::getTextureDepth(){
+            return [_view getConvertedTextureDepth];
+        }
+        ofMatrix3x3 Camera::getAffineTransform(){
+            
+            // correspondance CGAffineTransform --> ofMatrix3x3 :
+            //                    a  b  0       |     a  b  c
+            //                    c  d  0       |     d  e  f
+            //                    tx ty 1       |     g  h  i
+            
+            CGAffineTransform cAffine = [_view getAffineCameraTransform];
+            ofMatrix3x3 matTransAffine;
+            matTransAffine.a = cAffine.a;
+            matTransAffine.b = cAffine.b;
+            matTransAffine.d = cAffine.c;
+            matTransAffine.e = cAffine.d;
+            matTransAffine.g = cAffine.tx;
+            matTransAffine.h = cAffine.ty;
+            
+            return matTransAffine;
+        }
+#endif
         
         void Camera::update(){
             [_view draw];
@@ -147,11 +187,31 @@ namespace ofxARKit {
             // get and draw texture
             auto _tex = [_view getConvertedTexture];
             
+
+            auto _texMatteAlpha = [_view getConvertedTextureMatteAlpha];
+            auto _texMatteDepth = [_view getConvertedTextureMatteDepth];
+            auto _texDepth = [_view getConvertedTextureDepth];
+            // remap Matte Textures
+            CGAffineTransform cAffine = [_view getAffineCameraTransform];
+            
             if(_tex){
                 shader.begin();
                 shader.setUniformTexture("tex", CVOpenGLESTextureGetTarget(_tex), CVOpenGLESTextureGetName(_tex), 0);
-                mesh.draw();
+
+
+                if(this->session.configuration.frameSemantics == ARFrameSemanticPersonSegmentationWithDepth){
+                    if(_texMatteAlpha)shader.setUniformTexture("texAlphaBody", CVOpenGLESTextureGetTarget(_texMatteAlpha), CVOpenGLESTextureGetName(_texMatteAlpha), 1);
+                    if(_texMatteDepth)shader.setUniformTexture("texDepthBody", CVOpenGLESTextureGetTarget(_texMatteDepth), CVOpenGLESTextureGetName(_texMatteDepth), 2);
+                    if(_texDepth)shader.setUniformTexture("texDepth", CVOpenGLESTextureGetTarget(_texDepth), CVOpenGLESTextureGetName(_texDepth), 3);
+                    // textures affine coordinates
+                    shader.setUniform4f("cAffineCamABCD", float(cAffine.a), float(cAffine.b), float(cAffine.c), float(cAffine.d));
+                    shader.setUniform2f("cAffineCamTxTy", float(cAffine.tx), float(cAffine.ty));
+
+                    shader.setUniform1f("u_time", ofGetElapsedTimef());
+                    shader.setUniformMatrix4f("u_CameraProjectionMat", getProjectionMatrix());
+                }
                 
+                mesh.draw();
                 shader.end();
             }
         }

@@ -101,12 +101,14 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
         dispatch_semaphore_signal(block_sema);
         CVBufferRelease(capturedImageTextureYRef);
         CVBufferRelease(capturedImageTextureCbCrRef);
-        
+
     }];
     
     
     // update camera image
     [self _updateCameraImage];
+    
+
     
     // Obtain a renderPassDescriptor generated from the view's drawable textures
     MTLRenderPassDescriptor* renderPassDescriptor = self.currentRenderPassDescriptor;
@@ -126,7 +128,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
         // Create a render command encoder so we can render into something
         id <MTLRenderCommandEncoder> renderEncoder =
         [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
-        renderEncoder.label = @"MyRenderEncoder";
+        renderEncoder.label = @"MetalCamRenderEncoder";
         
         // DRAW PRIMATIVE
     
@@ -144,6 +146,13 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
     // if running in openFrameworks
     if(openglMode){
         [self _updateOpenGLTexture];
+    }
+
+//    if(ARBodyTrackingConfiguration.isSupported){
+    if(ARBodyTrackingConfiguration.isSupported && _session.configuration.frameSemantics == ARFrameSemanticPersonSegmentationWithDepth){
+
+        // update depth textures
+        [self _updateMatteTextures: commandBuffer];
     }
    
     
@@ -163,7 +172,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
     }
     
     // Push a debug group allowing us to identify render commands in the GPU Frame Capture tool
-    [renderEncoder pushDebugGroup:@"DrawCapturedImage"];
+    [renderEncoder pushDebugGroup:@"MetalCamCapturedImage"];
     
     // Set render command encoder state
     [renderEncoder setCullMode:MTLCullModeNone];
@@ -231,6 +240,10 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
         // Create two textures (Y and CbCr) from the provided frame's captured image
         CVPixelBufferRef pixelBuffer = _session.currentFrame.capturedImage;
         
+#if defined(__IPHONE_13_0)
+        depthTextureGLES = [self convertFromPixelBufferToOpenGL:_session.currentFrame.estimatedDepthData _videoTextureCache:_videoTextureCache];
+#endif
+        
         CVBufferRelease(_capturedImageTextureYRef);
         CVBufferRelease(_capturedImageTextureCbCrRef);
         _capturedImageTextureYRef = [self _createTextureFromPixelBuffer:pixelBuffer pixelFormat:MTLPixelFormatR8Unorm planeIndex:0];
@@ -257,7 +270,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
     // Create a vertex buffer with our image plane vertex data.
     _imagePlaneVertexBuffer = [self.device newBufferWithBytes:&kImagePlaneVertexData length:sizeof(kImagePlaneVertexData) options:MTLResourceCPUCacheModeDefaultCache];
     
-    _imagePlaneVertexBuffer.label = @"ImagePlaneVertexBuffer";
+    _imagePlaneVertexBuffer.label = @"MetalCamPlaneVertexBuffer";
     
     // Load all the shader files with a metal file extension in the project
     // NOTE - this line will throw an exception if you don't have a .metal file as part of your compiled sources.
@@ -288,7 +301,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
     
     // Create a pipeline state for rendering the captured image
     MTLRenderPipelineDescriptor *capturedImagePipelineStateDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
-    capturedImagePipelineStateDescriptor.label = @"MyCapturedImagePipeline";
+    capturedImagePipelineStateDescriptor.label = @"MetalCamImagePipeline";
     capturedImagePipelineStateDescriptor.sampleCount = self.sampleCount;
     capturedImagePipelineStateDescriptor.vertexFunction = capturedImageVertexFunction;
     capturedImagePipelineStateDescriptor.fragmentFunction = capturedImageFragmentFunction;
@@ -415,11 +428,89 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
     
     _cameraTexture = CVMetalTextureGetTexture(_cameraImage);
     
+#if defined(__IPHONE_13_0)
+    //=================================================================================
+    // create a pixel buffer with the size and pixel format corresponding to :
+    // MTLTexture Alpha --> with (full resolution) : 1920 x 1440
+    // MTLTexture Alpha --> with format (10) MTLPixelFormatR8Unorm corresponding to kCVPixelFormatType_OneComponent8 for  pixel buffer
+    //=================================================================================
+
+    cvret = CVPixelBufferCreate(kCFAllocatorDefault,
+                                         1920, 1440,
+                                         kCVPixelFormatType_OneComponent8,
+                                         (__bridge CFDictionaryRef)cvBufferProperties,
+                                         &pixel_bufferAlphaMatte);
+
+    if(cvret != kCVReturnSuccess)
+    {
+        assert(!"Failed to create shared opengl pixel_bufferAlpha");
+    }
+
+    //=================================================================================
+    // create a pixel buffer with the size and pixel format corresponding to :
+    // MTLTexture Depth --> with (full resolution) : 256 x 192
+    // MTLTexture Depth --> with format (25) MTLPixelFormatR16Float corresponding to kCVPixelFormatType_OneComponent16Half for  pixel buffer
+    //=================================================================================
+    cvret = CVPixelBufferCreate(kCFAllocatorDefault,
+                                         512, 192,
+                                         kCVPixelFormatType_OneComponent16Half,
+                                         (__bridge CFDictionaryRef)cvBufferProperties,
+                                         &pixel_bufferDepthMatte);
+
+    if(cvret != kCVReturnSuccess)
+    {
+        assert(!"Failed to create shared opengl pixel_bufferDepth");
+    }
+
+    //=================================================================================
+
+    
+    [self _initMatteTexture];
+#endif
+    
 }
 
 - (CVOpenGLESTextureRef) getConvertedTexture{
     return openglTexture;
 }
+#if defined(__IPHONE_13_0)
+// return
+- (CVOpenGLESTextureRef) getConvertedTextureMatteAlpha{
+    return alphaTextureMatteGLES;
+}
+
+- (CVOpenGLESTextureRef) getConvertedTextureMatteDepth{
+    return depthTextureMatteGLES;
+}
+
+- (CVOpenGLESTextureRef) getConvertedTextureDepth{
+    return depthTextureGLES;
+}
+- (CGAffineTransform) getAffineCameraTransform
+{
+    return CGAffineTransformInvert([_session.currentFrame displayTransformForOrientation:orientation viewportSize:_viewport.size]);
+}
+-(void) _initMatteTexture{
+    
+    matteDepthTexture = [[ARMatteGenerator alloc] initWithDevice: self.device matteResolution: ARMatteResolutionFull];
+}
+- (void) _updateMatteTextures:(id<MTLCommandBuffer>) commandBuffer {
+    if(self.currentDrawable && _session.currentFrame.capturedImage){
+        
+        dilatedDepthTexture = [matteDepthTexture generateDilatedDepthFromFrame:_session.currentFrame commandBuffer:commandBuffer];
+        alphaTexture = [matteDepthTexture  generateMatteFromFrame:_session.currentFrame commandBuffer:commandBuffer];
+        
+        alphaTextureMatteGLES = [self convertFromMTLToOpenGL: alphaTexture pixel_buffer:pixel_bufferAlphaMatte _videoTextureCache:_videoTextureCache];
+        depthTextureMatteGLES = [self convertFromMTLToOpenGL: dilatedDepthTexture pixel_buffer:pixel_bufferDepthMatte _videoTextureCache:_videoTextureCache];
+        
+
+    }else{
+        return;
+    }
+}
+
+#endif
+
 - (void) _updateOpenGLTexture{
     
     if(self.currentDrawable && _session.currentFrame.capturedImage){
@@ -464,7 +555,7 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
 - (CVPixelBufferRef) getSharedPixelbuffer{
     return _sharedPixelBuffer;
 }
-- (CVOpenGLESTextureRef) convertToOpenGLTexture:(CVPixelBufferRef) pixelBuffer{
+- (CVOpenGLESTextureRef) convertToOpenGLTexture:(CVPixelBufferRef) pixelBuffer {
     CVOpenGLESTextureRef texture = NULL;
     
     CVPixelBufferLockBaseAddress(_sharedPixelBuffer, 0);
@@ -512,6 +603,111 @@ static const NSUInteger AAPLNumInteropFormats = sizeof(AAPLInteropFormatTable) /
     return texture;
     
 }
+
+- (CVOpenGLESTextureRef) convertFromMTLToOpenGL:(id<MTLTexture>) texture  pixel_buffer:(CVPixelBufferRef)pixel_buffer _videoTextureCache:(CVOpenGLESTextureCacheRef)vidTextureCache
+{
+     int width = (int) texture.width;
+     int height = (int) texture.height;
+//     MTLPixelFormat texPixelFormat = texture.pixelFormat;
+//    NSLog(@"texture PixelFormat : %lu width : %d height : %d", (unsigned long)texPixelFormat, width, height);
+    
+
+     CVPixelBufferLockBaseAddress(pixel_buffer, 0);
+     void * CV_NULLABLE pixelBufferBaseAdress = CVPixelBufferGetBaseAddress(pixel_buffer);
+     size_t bytesPerRow = CVPixelBufferGetBytesPerRow(pixel_buffer);
+
+      [texture getBytes:pixelBufferBaseAdress
+                         bytesPerRow:bytesPerRow
+                         fromRegion:MTLRegionMake2D(0, 0, width, height)
+                         mipmapLevel:0];
+
+
+     size_t w = CVPixelBufferGetWidth(pixel_buffer);
+     size_t h = CVPixelBufferGetHeight(pixel_buffer);
+    
+    CVOpenGLESTextureRef texGLES = nil;
+
+     CVReturn err = noErr;
+     err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
+                                                     vidTextureCache,
+                                                     pixel_buffer,
+                                                     nil,
+                                                     GLenum(GL_TEXTURE_2D),
+                                                     GLint(GL_LUMINANCE),
+                                                     w,
+                                                     h,
+                                                     GLenum(GL_LUMINANCE),
+                                                     GLenum(GL_UNSIGNED_BYTE),
+                                                     0,
+                                                     &texGLES);
+
+
+     if (err != kCVReturnSuccess) {
+         CVBufferRelease(pixel_buffer);
+//         NSLog(@"error on CVOpenGLESTextureCacheCreateTextureFromImage");
+     }
+
+     CVPixelBufferUnlockBaseAddress(pixel_buffer, 0);
+     CVOpenGLESTextureCacheFlush(vidTextureCache, 0);
+    
+
+    // correct wrapping and filtering
+    glBindTexture(CVOpenGLESTextureGetTarget(texGLES), CVOpenGLESTextureGetName(texGLES));
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    glBindTexture(CVOpenGLESTextureGetTarget(texGLES), 0);
+    
+    return texGLES;
+}
+
+- (CVOpenGLESTextureRef) convertFromPixelBufferToOpenGL:(CVPixelBufferRef)pixel_buffer _videoTextureCache:(CVOpenGLESTextureCacheRef)vidTextureCache
+{
+
+    CVOpenGLESTextureRef texGLES = nil;
+    size_t w = CVPixelBufferGetWidth(pixel_buffer);
+    size_t h = CVPixelBufferGetHeight(pixel_buffer);
+    CVReturn err = noErr;
+
+    CVPixelBufferLockBaseAddress(pixel_buffer, 0);
+
+
+    err = CVOpenGLESTextureCacheCreateTextureFromImage( kCFAllocatorDefault,
+                                                        _videoTextureCache,
+                                                        pixel_buffer,
+                                                        nil,
+                                                        GLenum(GL_TEXTURE_2D),
+                                                        GLint(GL_RGBA),
+                                                        w,
+                                                        h,
+                                                        GLenum(GL_BGRA_EXT),
+                                                        GLenum(GL_UNSIGNED_BYTE),
+                                                        0,
+                                                        &texGLES);
+
+
+    if (err != kCVReturnSuccess) {
+//        NSLog(@"not working");
+    }else{
+    //            NSLog(@"working fine");
+    }
+
+    CVPixelBufferUnlockBaseAddress(pixel_buffer, 0);
+    CVOpenGLESTextureCacheFlush(_videoTextureCache, 0);
+
+    // correct wrapping and filtering
+    glBindTexture(CVOpenGLESTextureGetTarget(texGLES), CVOpenGLESTextureGetName(texGLES));
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    glBindTexture(CVOpenGLESTextureGetTarget(texGLES), 0);
+
+    return texGLES;
+}
+
+
 @end
 
 

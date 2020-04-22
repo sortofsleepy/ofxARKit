@@ -10,6 +10,8 @@
 #import <MetalKit/MetalKit.h>
 #import <ARKit/ARKit.h>
 
+
+
 #pragma once
 
 NS_ASSUME_NONNULL_BEGIN
@@ -31,7 +33,13 @@ typedef struct {
 } AAPLTextureFormatInfo;
 
 
+/*
 
+    Reminder note that OpenGL is planned for deprecation at some point. 
+    https://www.anandtech.com/show/12894/apple-deprecates-opengl-across-all-oses
+
+    Shifting any texture information getters to return "void *" for more flexible handling of things.
+*/
 @interface MetalCamView : MTKView {
     
     // Reference to the current session
@@ -72,6 +80,15 @@ typedef struct {
     // stores formating info that allows interop between OpenGL / Metal
     AAPLTextureFormatInfo formatInfo;
     
+    // ======= MATTE TEXTURING ========= //
+#if defined( __IPHONE_13_0 )
+    ARMatteGenerator* matteDepthTexture;
+    // Matte texturing
+    id<MTLTexture> alphaTexture, dilatedDepthTexture, sceneDepthTexture;
+    CVOpenGLESTextureRef alphaTextureMatteGLES, depthTextureMatteGLES, depthTextureGLES;
+    CVPixelBufferRef pixel_bufferAlphaMatte, pixel_bufferDepth, pixel_bufferDepthMatte;
+#endif
+    
     // ======= STUFF FOR OPENGL COMPATIBILITY ========= //
     CVOpenGLESTextureCacheRef _videoTextureCache;
     CVPixelBufferRef _sharedPixelBuffer;
@@ -95,11 +112,30 @@ typedef struct {
 - (void) setViewport:(CGRect) _viewport;
 - (void) loadMetal;
 
+#if defined( __IPHONE_13_0 )
+// return types
+- (CVOpenGLESTextureRef) getConvertedTexture;
+- (CVOpenGLESTextureRef) getConvertedTextureMatteAlpha;
+- (CVOpenGLESTextureRef) getConvertedTextureMatteDepth;
+- (CVOpenGLESTextureRef) getConvertedTextureDepth;
+- (CGAffineTransform) getAffineCameraTransform;
+
+
+
+// Matte Texturing
+- (void) _initMatteTexture;
+- (void) _updateMatteTextures:(id<MTLCommandBuffer>) commandBuffer;
+
+// convert
+- (CVOpenGLESTextureRef) convertFromMTLToOpenGL:(id<MTLTexture>) texture  pixel_buffer:(CVPixelBufferRef)pixel_buffer _videoTextureCache:(CVOpenGLESTextureCacheRef)vidTextureCache;
+- (CVOpenGLESTextureRef) convertFromPixelBufferToOpenGL:(CVPixelBufferRef)pixel_buffer _videoTextureCache:(CVOpenGLESTextureCacheRef)vidTextureCache;
+#endif
+
 @end
 
 // ========= Implement the renderer ========= //
-namespace ofxARKit {
-    namespace core {
+namespace ofxARKit { namespace core {
+    
         class MetalCamRenderer {
         protected:
             MetalCamView * _view;
@@ -107,13 +143,18 @@ namespace ofxARKit {
             CGRect viewport;
             CVEAGLContext context;
         public:
-            MetalCamRenderer(){}
-            ~MetalCamRenderer(){}
+            MetalCamRenderer() = default;
+
+            // TODO probably should tear stuff down but seems to be fine for now. 
+            ~MetalCamRenderer() = default;
             
+            //! Returns a reference to the Metal view object that handles the camera input.
             MetalCamView* getView(){
                 return _view;
             }
             
+            //! Returns the OpenGL texture id for the camera 
+            //! TODO convert to something more oF friendly.
             CVOpenGLESTextureRef getTexture(){
                 return [_view getConvertedTexture];
             }

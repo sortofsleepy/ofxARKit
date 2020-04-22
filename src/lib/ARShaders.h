@@ -16,8 +16,57 @@ namespace ofxARKit {
     namespace ARShaders {
         
         
+        const std::string point_cloud_vertex = STRINGIFY(
+                                                         attribute vec3 position;
+                                                         uniform mat4 projectionMatrix;
+                                                         uniform mat4 modelViewMatrix;
+                                                         void main(){
+                                                             mat4 mv = modelViewMatrix;
+                                                             gl_PointSize = 20.0;
+                                                             gl_Position = projectionMatrix * mv * vec4(position,1.0);
+                                                         }
+                                                         
+                                                         );
         
-        // Shaders built with the help of
+        const std::string point_cloud_fragment = STRINGIFY(
+                                                           precision highp float;
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           void main(){
+                                                               vec2 uv = gl_PointCoord.st;
+                                                               uv = step(0.99, sin(uv*3.14) * 0.5 + 0.5);
+                                                               uv += uv.yx;
+                                                               if(uv.x < 0.1){discard;}
+                                                               gl_FragColor = vec4(uv,0.0,1.);
+                                                           }
+                                                           
+                                                           
+                                                           
+                                                           );
+    }
+}
+#endif /* ARShaders_h */
+
+/*
+ // if we need to correct perspective distortion,
+ if(needsCorrection){
+ 
+ 
+ 
+ //this method sort of works -
+ //https://stackoverflow.com/questions/24651369/blend-textures-of-different-size-coordinates-in-glsl/24654919#24654919
+ 
+vec2 fromCenter = vUv - scale;
+vec2 scaleFromCenter = fromCenter * vec2(zoomRatio);
+
+vUv -= scaleFromCenter;
+}
+*/
+
+/*
+ // Shaders built with the help of
         // https://github.com/BradLarson/GPUImage
         
         //Specifically between these couple files
@@ -110,52 +159,4 @@ namespace ofxARKit {
                                                               
                                                               
                                                               );
-        
-        const std::string point_cloud_vertex = STRINGIFY(
-                                                         attribute vec3 position;
-                                                         uniform mat4 projectionMatrix;
-                                                         uniform mat4 modelViewMatrix;
-                                                         void main(){
-                                                             mat4 mv = modelViewMatrix;
-                                                             gl_PointSize = 20.0;
-                                                             gl_Position = projectionMatrix * mv * vec4(position,1.0);
-                                                         }
-                                                         
-                                                         );
-        
-        const std::string point_cloud_fragment = STRINGIFY(
-                                                           precision highp float;
-                                                           
-                                                           
-                                                           
-                                                           
-                                                           void main(){
-                                                               vec2 uv = gl_PointCoord.st;
-                                                               uv = step(0.99, sin(uv*3.14) * 0.5 + 0.5);
-                                                               uv += uv.yx;
-                                                               if(uv.x < 0.1){discard;}
-                                                               gl_FragColor = vec4(uv,0.0,1.);
-                                                           }
-                                                           
-                                                           
-                                                           
-                                                           );
-    }
-}
-#endif /* ARShaders_h */
-
-/*
- // if we need to correct perspective distortion,
- if(needsCorrection){
- 
- 
- 
- //this method sort of works -
- //https://stackoverflow.com/questions/24651369/blend-textures-of-different-size-coordinates-in-glsl/24654919#24654919
- 
-vec2 fromCenter = vUv - scale;
-vec2 scaleFromCenter = fromCenter * vec2(zoomRatio);
-
-vUv -= scaleFromCenter;
-}
-*/
+                                                              */

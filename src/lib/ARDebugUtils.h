@@ -31,15 +31,14 @@ namespace ofxARKit {
             this->session = session;
             this->x = x;
             this->y = y;
-            
         }
+
+        //! Renders debugging information 
         void drawDebugInformation(ofTrueTypeFont font){
             
             // get tracking state reason
             ARTrackingStateReason trackingStateReason = session.currentFrame.camera.trackingStateReason;
             
-    
-          
             // ============== DRAW GENERAL DEBUG INFO ===================== //
             font.drawString("frame num      = " + ofToString( ofGetFrameNum() ),    x, y);
             font.drawString("frame rate     = " + ofToString( ofGetFrameRate() ),   x, y + 25);
