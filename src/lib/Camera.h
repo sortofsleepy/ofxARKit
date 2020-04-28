@@ -32,7 +32,76 @@ namespace ofxARKit {
             UIInterfaceOrientation orientation;
             ofxARKit::common::ARCameraMatrices cameraMatrices;
             float near,far;
+       
             
+        public:
+            //! The current tracking state of the camera
+            ARTrackingState trackingState;
+            
+            //! The reason for when a tracking state might be limited.
+            ARTrackingStateReason trackingStateReason;
+            
+            //! Flag for turning debug mode on/off
+            bool debugMode;
+            
+            Camera(ARSession * session);
+            
+            static CameraRef create(ARSession * session){
+                return CameraRef(new Camera(session));
+            }
+            
+            //TODO see about converting to ofTexture
+            CVOpenGLESTextureRef getTexture();
+                        
+            //======== MATTE API ============ //
+#if defined( __IPHONE_13_0 )
+             CVOpenGLESTextureRef getTextureMatteAlpha();
+             CVOpenGLESTextureRef getTextureMatteDepth();
+             CVOpenGLESTextureRef getTextureDepth();
+             ofMatrix3x3 getAffineTransform();
+#endif
+            
+            ARTrackingStateReason getTrackingState();
+            
+            //! returns the projection matrix
+            glm::mat4 getProjectionMatrix();
+
+            //! Returns the view matrix 
+            glm::mat4 getViewMatrix();
+
+            //! Returns the transform matrix. 
+            glm::mat4 getTransformMatrix();
+            
+            //! Returns the current set of camera matrices for the given device orientation.
+            ofxARKit::common::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far);
+            
+            //! Returns the current set of camera matrices
+            ofxARKit::common::ARCameraMatrices getCameraMatrices();
+
+            //! Update the interface orientation of the device. 
+            void updateInterfaceOrientation(int newOrientation);
+
+            //! Sets the current camera matrices as the current global camera projection and view matrices. 
+            void setARCameraMatrices();
+
+            //! Logs the current tracking state of the camera. 
+            void logTrackingState();
+
+            //! Updates the camera view
+            //! @deprecated ?
+            void update();
+
+            //! Render the camera image
+            void draw();
+
+            //! Renders the camera image along with a segmented person image. 
+            //! intended to be used for debugging purposes. 
+            void drawDebugPersonSegmentation();
+            
+        };
+        
+        private:
+             
             std::string vertex = STRINGIFY(
 
                                           
@@ -138,51 +207,6 @@ namespace ofxARKit {
 
                                                      }
                                                      );
-            
-        public:
-            //! The current tracking state of the camera
-            ARTrackingState trackingState;
-            
-            //! The reason for when a tracking state might be limited.
-            ARTrackingStateReason trackingStateReason;
-            
-            //! Flag for turning debug mode on/off
-            bool debugMode;
-            
-            Camera(ARSession * session);
-            
-            static CameraRef create(ARSession * session){
-                return CameraRef(new Camera(session));
-            }
-            
-            //TODO see about converting to ofTexture
-            CVOpenGLESTextureRef getTexture();
-                        
-            //======== MATTE API ============ //
-#if defined( __IPHONE_13_0 )
-             CVOpenGLESTextureRef getTextureMatteAlpha();
-             CVOpenGLESTextureRef getTextureMatteDepth();
-             CVOpenGLESTextureRef getTextureDepth();
-             ofMatrix3x3 getAffineTransform();
-#endif
-            
-            ARTrackingStateReason getTrackingState();
-            
-            glm::mat4 getProjectionMatrix();
-            glm::mat4 getViewMatrix();
-            glm::mat4 getTransformMatrix();
-            
-            ofxARKit::common::ARCameraMatrices getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far);
-            ofxARKit::common::ARCameraMatrices getCameraMatrices();
-            void updateInterfaceOrientation(int newOrientation);
-            void setARCameraMatrices();
-            void logTrackingState();
-            void update();
-            void draw();
-            
-            
-        };
-        
        
     }
 }
