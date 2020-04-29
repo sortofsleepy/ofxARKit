@@ -59,6 +59,51 @@ namespace ofxARKit {
              CVOpenGLESTextureRef getTextureMatteDepth();
              CVOpenGLESTextureRef getTextureDepth();
              ofMatrix3x3 getAffineTransform();
+
+             //! returns vertex shader source suitable for doing things with person occlusion
+            std::string getDefaultMatteVertexShader(){ return vertexMatte; }
+
+              //! a helper to allow you to more easily integrate your own shader source with person occlusion. 
+            //! @param source the main portion of the shader you want to create
+            //! @return chunk the final composed shader source.
+            std::string composeMatteCompatibleFragmentShader(std::string source){
+                std::string chunk = STRINGIFY(
+                    precision highp float;
+                    varying vec2 vUv;
+                    varying vec2 vUvCam;
+                                             
+                    uniform sampler2D tex;
+                    uniform sampler2D texAlphaBody;
+                    uniform sampler2D texDepthBody;
+                    uniform sampler2D texDepth;
+                                             
+                    uniform mat4 u_CameraProjectionMat;
+                                             
+                    uniform float u_time;
+                                             
+                    void main(){
+
+                        vec4 sceneColor = texture2D(tex, vUv);
+                        float sceneDepth = texture2D(texDepth, vUvCam).r;
+
+
+                        float alpha = texture2D( texAlphaBody, vUvCam).r;
+                        float dilatedLinearDepth = texture2D(texDepthBody, vUvCam).r;
+
+                        float dilatedDepth = clamp((u_CameraProjectionMat[2][2] * - dilatedLinearDepth + u_CameraProjectionMat[3][2]) / (u_CameraProjectionMat[2][3] * -dilatedLinearDepth + u_CameraProjectionMat[3][3]), 0.0, 1.0);
+
+                                                        
+                        float showOccluder = step(dilatedDepth, sceneDepth); // forwardZ case
+                );
+
+                chunk += source;
+                chunk += "}"
+                return chunk;
+            }
+
+              //! Renders the camera image along with a segmented person image. 
+            //! intended to be used for debugging purposes. 
+            void drawDebugPersonSegmentation();
 #endif
             
             ARTrackingStateReason getTrackingState();
@@ -94,13 +139,15 @@ namespace ofxARKit {
             //! Render the camera image
             void draw();
 
-            //! Renders the camera image along with a segmented person image. 
-            //! intended to be used for debugging purposes. 
-            void drawDebugPersonSegmentation();
+        
+
+          
             
         };
         
         private:
+
+            
              
             std::string vertex = STRINGIFY(
 
@@ -134,7 +181,7 @@ namespace ofxARKit {
                                                      }
                                                      );
             
-            
+#if defined( __IPHONE_13_0 )
             std::string vertexMatte = STRINGIFY(
 
                                           
@@ -193,20 +240,22 @@ namespace ofxARKit {
 
                                                         float dilatedDepth = clamp((u_CameraProjectionMat[2][2] * - dilatedLinearDepth + u_CameraProjectionMat[3][2]) / (u_CameraProjectionMat[2][3] * -dilatedLinearDepth + u_CameraProjectionMat[3][3]), 0.0, 1.0);
 
-                                                        float showOccluder = 1.0;
-                                                        showOccluder = step(dilatedDepth, sceneDepth); // forwardZ case
-
+                                                        
+                                                        float showOccluder = step(dilatedDepth, sceneDepth); // forwardZ case
 
                                                         // camera Color is a sine of the actual color * time
                                                         vec4 cameraColor = vec4(sceneColor.r + abs(sin(u_time)), sceneColor.g + abs(cos(u_time)), sceneColor.b, sceneColor.a) * dilatedDepth;
 
                                                         vec4 occluderResult = mix(sceneColor, cameraColor, alpha);
                                                         vec4 mattingResult = mix(sceneColor, occluderResult, showOccluder);
+
                                                         gl_FragColor = occluderResult;
                 
 
                                                      }
                                                      );
+
+#endif
        
     }
 }

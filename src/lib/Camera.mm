@@ -212,7 +212,7 @@ namespace ofxARKit {
             auto _texDepth = [_view getConvertedTextureDepth];
             
             // remap Matte Textures
-             CGAffineTransform cAffine = [_view getAffineCameraTransform];
+            CGAffineTransform cAffine = [_view getAffineCameraTransform];
                     
             if(_tex){
                 shader.begin();
