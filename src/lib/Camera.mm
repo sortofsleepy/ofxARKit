@@ -13,7 +13,7 @@ using namespace ofxARKit::common;
 namespace ofxARKit {
     namespace core {
         
-        Camera::Camera(ARSession * session){
+        Camera::Camera(ARSession * session):debugMatteShaderBuilt(false){
             this->session = session;
             viewport = CGRectMake(0,0,ofGetWindowWidth(),ofGetWindowHeight());
             auto context = ofxiOSGetGLView().context;
@@ -22,15 +22,8 @@ namespace ofxARKit {
             
             mesh = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
 
-            if(this->session.configuration.frameSemantics == ARFrameSemanticPersonSegmentationWithDepth){
-                
-                shader.setupShaderFromSource(GL_VERTEX_SHADER, vertexMatte);
-                shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragmentMatte);
-            }else{
-
-                shader.setupShaderFromSource(GL_VERTEX_SHADER, vertex);
-                shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragment);
-            }
+            shader.setupShaderFromSource(GL_VERTEX_SHADER, vertex);
+            shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragment);
             
             shader.linkProgram();
             
@@ -83,9 +76,13 @@ namespace ofxARKit {
             
             getMatricesForOrientation(orientation, near, far);
         }
+
+
         ofxARKit::common::ARCameraMatrices Camera::getCameraMatrices(){
             return cameraMatrices;
         }
+
+
         common::ARCameraMatrices Camera::getMatricesForOrientation(UIInterfaceOrientation orientation,float near, float far){
             
             cameraMatrices.cameraView = toMat4([session.currentFrame.camera viewMatrixForOrientation:orientation]);
@@ -186,23 +183,44 @@ namespace ofxARKit {
             
             // get and draw texture
             auto _tex = [_view getConvertedTexture];
-            
-
-            auto _texMatteAlpha = [_view getConvertedTextureMatteAlpha];
-            auto _texMatteDepth = [_view getConvertedTextureMatteDepth];
-            auto _texDepth = [_view getConvertedTextureDepth];
-            // remap Matte Textures
-            CGAffineTransform cAffine = [_view getAffineCameraTransform];
+        
             
             if(_tex){
                 shader.begin();
                 shader.setUniformTexture("tex", CVOpenGLESTextureGetTarget(_tex), CVOpenGLESTextureGetName(_tex), 0);
+                
+                mesh.draw();
+                shader.end();
+            }
+        }
+        
+        void Camera::drawDebugPersonSegmentation(){
 
+            if(!debugMatteShaderBuilt){
+                shader = getDefaultMatteShader();
+                debugMatteShaderBuilt = true;
+            }
 
+            // get and draw texture
+           auto _tex = [_view getConvertedTexture];
+                    
+
+            auto _texMatteAlpha = [_view getConvertedTextureMatteAlpha];
+            auto _texMatteDepth = [_view getConvertedTextureMatteDepth];
+            auto _texDepth = [_view getConvertedTextureDepth];
+            
+            // remap Matte Textures
+            CGAffineTransform cAffine = [_view getAffineCameraTransform];
+                    
+            if(_tex){
+                shader.begin();
+                shader.setUniformTexture("tex", CVOpenGLESTextureGetTarget(_tex), CVOpenGLESTextureGetName(_tex), 0);
+                        
                 if(this->session.configuration.frameSemantics == ARFrameSemanticPersonSegmentationWithDepth){
                     if(_texMatteAlpha)shader.setUniformTexture("texAlphaBody", CVOpenGLESTextureGetTarget(_texMatteAlpha), CVOpenGLESTextureGetName(_texMatteAlpha), 1);
                     if(_texMatteDepth)shader.setUniformTexture("texDepthBody", CVOpenGLESTextureGetTarget(_texMatteDepth), CVOpenGLESTextureGetName(_texMatteDepth), 2);
                     if(_texDepth)shader.setUniformTexture("texDepth", CVOpenGLESTextureGetTarget(_texDepth), CVOpenGLESTextureGetName(_texDepth), 3);
+                    
                     // textures affine coordinates
                     shader.setUniform4f("cAffineCamABCD", float(cAffine.a), float(cAffine.b), float(cAffine.c), float(cAffine.d));
                     shader.setUniform2f("cAffineCamTxTy", float(cAffine.tx), float(cAffine.ty));
@@ -210,12 +228,13 @@ namespace ofxARKit {
                     shader.setUniform1f("u_time", ofGetElapsedTimef());
                     shader.setUniformMatrix4f("u_CameraProjectionMat", getProjectionMatrix());
                 }
-                
+                        
                 mesh.draw();
                 shader.end();
             }
+
         }
-        
+
         // TODO move all ARCameraMatrices stuff to glm - using conversion function in the meantime. 
         
         glm::mat4 Camera::getProjectionMatrix(){

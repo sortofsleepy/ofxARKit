@@ -38,7 +38,7 @@ public:
     UIDevice * device;
     ARRef processor;
 
-    
+    ofShader meshShader;
 };
 
 

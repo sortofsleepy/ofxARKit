@@ -15,6 +15,7 @@
 
 
 namespace ofxARKit { namespace common{
+    
         //! joined camera matrices as one object.
         typedef struct {
             ofMatrix4x4 cameraTransform;

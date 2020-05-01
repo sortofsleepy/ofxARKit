@@ -72,6 +72,7 @@ namespace ofxARKit {
         
         //! Toggles debug mode
         void toggleDebug();
+
         // ========== OBJECTS ==================== //
         
         //! An ARAnchorManager deals with handling Anchor objects in ARKit
@@ -115,6 +116,8 @@ namespace ofxARKit {
         float getLightTemperature();
         float getLightIntensity();
         
+     
+
         //! Draw horizontal planes
         void drawHorizontalPlanes();
         
@@ -163,10 +166,21 @@ namespace ofxARKit {
 
         //======== MATTE API ============ //
 #if defined( __IPHONE_13_0 )
+
+        //! Returns the alpha texture from matte generator
         CVOpenGLESTextureRef getTextureMatteAlpha(){ return camera->getTextureMatteAlpha();}
+
+        //! Returns the depth texture from the matte generator
         CVOpenGLESTextureRef getTextureMatteDepth(){ return camera->getTextureMatteDepth();}
+
+        //! returns the depth texture from the camera
         CVOpenGLESTextureRef getTextureDepth(){ return camera->getTextureDepth();}
+
+        // Returns the affine transformation matrix used to do person segmentation.
         ofMatrix3x3 getAffineTransform(){ return camera->getAffineTransform();}
+
+        //! Draws a debug view of camera image along with person segmentation
+        void drawCameraDebugPersonSegmentation(){ camera->drawDebugPersonSegmentation(); }
 #endif
         
         
@@ -198,17 +212,18 @@ namespace ofxARKit {
         
         // returns the current projection matrix from the camera
         ofMatrix4x4 getProjectionMatrix(){
-            //return camera->getProjectionMatrix();
+            return camera->getCameraMatrices().cameraProjection;
+            
         }
         
         //! returns the current view matrix from the camera
         ofMatrix4x4 getViewMatrix(){
-            //return camera->getViewMatrix();
+            return camera->getCameraMatrices().cameraView;
         }
         
         //! Returns the camera's current transform matrix.
         ofMatrix4x4 getCameraTransformMatrix(){
-            //eturn camera->getTransformMatrix();
+            return camera->getCameraMatrices().cameraTransform;
         }
         
     };
