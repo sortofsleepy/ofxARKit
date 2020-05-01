@@ -2,25 +2,12 @@
 
 using namespace ofxARKit::common;
 
-void logSIMD(const simd::float4x4 &matrix)
-{
-    std::stringstream output;
-    int columnCount = sizeof(matrix.columns) / sizeof(matrix.columns[0]);
-    for (int column = 0; column < columnCount; column++) {
-        int rowCount = sizeof(matrix.columns[column]) / sizeof(matrix.columns[column][0]);
-        for (int row = 0; row < rowCount; row++) {
-            output << std::setfill(' ') << std::setw(9) << matrix.columns[column][row];
-            output << ' ';
-        }
-        output << std::endl;
-    }
-    output << std::endl;
-}
 
 //--------------------------------------------------------------
 ofApp :: ofApp (ARSession * session){
     this->session = session;
     cout << "creating ofApp" << endl;
+    
 }
 
 
@@ -76,7 +63,11 @@ void ofApp::draw() {
     ofEnableAlphaBlending();
     
     ofDisableDepthTest();
-    processor->draw();
+    // being a little lazy here but in your own app, you would ideally compose the
+    // image yourself. This will draw the camera image with a default look when a person
+    // is detected.
+    processor->drawCameraDebugPersonSegmentation();
+   
     ofEnableDepthTest();
     
     

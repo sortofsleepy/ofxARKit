@@ -13,7 +13,7 @@ using namespace ofxARKit::common;
 namespace ofxARKit {
     namespace core {
         
-        Camera::Camera(ARSession * session){
+        Camera::Camera(ARSession * session):debugMatteShaderBuilt(false){
             this->session = session;
             viewport = CGRectMake(0,0,ofGetWindowWidth(),ofGetWindowHeight());
             auto context = ofxiOSGetGLView().context;
@@ -22,15 +22,8 @@ namespace ofxARKit {
             
             mesh = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
 
-            if(this->session.configuration.frameSemantics == ARFrameSemanticPersonSegmentationWithDepth){
-                
-                shader.setupShaderFromSource(GL_VERTEX_SHADER, vertexMatte);
-                shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragmentMatte);
-            }else{
-
-                shader.setupShaderFromSource(GL_VERTEX_SHADER, vertex);
-                shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragment);
-            }
+            shader.setupShaderFromSource(GL_VERTEX_SHADER, vertex);
+            shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragment);
             
             shader.linkProgram();
             
@@ -202,6 +195,11 @@ namespace ofxARKit {
         }
         
         void Camera::drawDebugPersonSegmentation(){
+
+            if(!debugMatteShaderBuilt){
+                shader = getDefaultMatteShader();
+                debugMatteShaderBuilt = true;
+            }
 
             // get and draw texture
            auto _tex = [_view getConvertedTexture];

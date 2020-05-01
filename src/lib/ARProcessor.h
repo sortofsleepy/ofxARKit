@@ -212,7 +212,8 @@ namespace ofxARKit {
         
         // returns the current projection matrix from the camera
         ofMatrix4x4 getProjectionMatrix(){
-            return camera->getCameraMatrices().cameraProjection;s
+            return camera->getCameraMatrices().cameraProjection;
+            
         }
         
         //! returns the current view matrix from the camera
