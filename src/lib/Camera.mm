@@ -24,8 +24,8 @@ namespace ofxARKit {
 
             if(this->session.configuration.frameSemantics == ARFrameSemanticPersonSegmentationWithDepth){
                 
-                shader.setupShaderFromSource(GL_VERTEX_SHADER, vertexMatte);
-                shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragmentMatte);
+                shader.setupShaderFromSource(GL_VERTEX_SHADER, vertex);
+                shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragment);
             }else{
 
                 shader.setupShaderFromSource(GL_VERTEX_SHADER, vertex);
