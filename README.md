@@ -17,13 +17,17 @@ __then__
 
 __After you've opened up the project file__
 * add a permission setting in your `ofxIOS-Info.plist` file. See Permissions below.
-* set the project target for IOS 11 / 12 / 13
+* set the project target for IOS 11 / 12 / 13 / 14
 * you may need to do two things with the `Shader.metal` file
-   * add it to the compiled sources
-   * make sure to set the file designation back to it's default(for some reason it's treated as "Data" in the projectGenerator generated project)
+   * Add it to the list of compiled sources
+   * You will also likely need to make sure to set the file designation back to it's default(for some reason it's marked as "Data" in the projectGenerator generated project)
 
 
 Note that you may have to repeat these steps if you make any changes to your project via the generator.
+
+# Possible Device limitations
+Note that with recent versions of ARKit, there are some advanced features that only work on more recent devices like human occlusion. According to Apple
+`People Occlusion and the use of motion capture, simultaneous front and back camera, and multiple face tracking are supported on devices with A12/A12X Bionic chips, ANE, and TrueDepth Camera.`
 
 # Initializing ARKit
 To get started, you need to initialize the ARKit framework. This can be done a couple of different ways. ofxARKit provides a helper api to quickly initialize a session without too much fuss.
@@ -35,7 +39,8 @@ __SessionSetup__
     auto session = ARCore::generateNewSession(format);
 ```
 
-the `SessionFormat` object is a way to enable various features of ARKit in a more straightforward manner. Passing an instance of an `SessionFormat` object to `ARCore::generateNewSession` will automatically generate a new `ARSession` object, while ensuring the specified features are useable on your device.
+The `SessionFormat` object is a way to enable various features of ARKit in a more straightforward manner. Passing an instance of an `SessionFormat` object to `ARCore::generateNewSession` will automatically generate a new `ARSession` object, while ensuring the specified features are useable on your device.
+
 
 You can of course, write things by hand which isn't too difficult either.
 
@@ -77,12 +82,9 @@ If you see the message pop up, the ARKit api offers a limited function set to se
 
 Note that in order for those functions to work, you'll need to call the `setup` function of either of `ARCam` or `ARProcessor` and pass in the boolean `true`
 
-# ARKit 3
-Note that with the changes to ARKit upcoming in version 3, you'll need a device with an A12 processor in order to take advantage of newer features. According to Apple
-`People Occlusion and the use of motion capture, simultaneous front and back camera, and multiple face tracking are supported on devices with A12/A12X Bionic chips, ANE, and TrueDepth Camera.`
-
 # Permissions
 For ARKit and iOS in general,a there are several permissions you may need to request from the user depending on the kinds of features you're looking to utilize. At a minimum you'll have to enable the `Privacy - Camera Usage Description` in your `ofxiOS-Info.plist` file. The value for this field is just the string you want to show users when you ask for camera permissions. If you've never touched a plist file before, no worries! Its very easy to change.
+
 
 For example in the screenshot below
 <img width="853" alt="screen shot 2017-09-02 at 2 12 39 pm" src="https://user-images.githubusercontent.com/308302/29998801-f4f1ca7e-8fe8-11e7-8f5a-39cdb4097ef2.png">
@@ -114,6 +116,7 @@ for including code you're not using.
 
 # Contributing
 For me, time is unfortunately a luxury as creative coding is sadly not my day job; I can only hunt and peck at small things here and there. All that as well as a general lack of knowledge on topics required to work effectively with AR all contribute to making it difficult to keep this up to date as I ought to; sooo, if there's something you feel you can contribute, by all means, feel free to make PR's!
+
 
 As long as it doesn't break anything I'll most likely accept it.
 

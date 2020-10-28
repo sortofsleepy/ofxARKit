@@ -19,7 +19,7 @@ using namespace ofxARKit::core;
 - (void)loadView {
     [super loadView];
   
-    SFormat format;
+    SessionFormat format;
     format.enablePlaneTracking().enableLighting();
     self.session = generateNewSession(format);
     

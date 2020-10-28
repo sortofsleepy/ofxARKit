@@ -18,7 +18,7 @@ using namespace ofxARKit::core;
 - (void)loadView {
     [super loadView];
     
-    SFormat format;
+    SessionFormat format;
     
     // here is where you enable image detection
     // you can pass a different name to this function
