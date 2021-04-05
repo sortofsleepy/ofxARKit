@@ -19,6 +19,8 @@
 #include "ARDebugUtils.h"
 #include "ARSessionSetup.h"
 #include "Camera.h"
+#include "ARAirPodMoves.h"
+
 
 
 namespace ofxARKit {
@@ -180,8 +182,17 @@ namespace ofxARKit {
         ofMatrix3x3 getAffineTransform(){ return camera->getAffineTransform();}
 
         //! Draws a debug view of camera image along with person segmentation
-        void drawCameraDebugPersonSegmentation(){ camera->drawDebugPersonSegmentation(); }
+
+//        void drawCameraDebugPersonSegmentation(){ camera->drawDebugPersonSegmentation(); }
+
 #endif
+        
+        // ===== AIRPOD PRO ===== //
+        airPProMoves * airPodPro = &airPProMoves::Get();
+        
+        glm::quat getAirPodsQuaternion();
+        glm::vec3 getAirPodsAcceleration();
+        // ===== AIRPOD PRO ===== //
         
         
         

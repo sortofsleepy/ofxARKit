@@ -22,8 +22,15 @@ namespace ofxARKit {
             
             mesh = ofMesh::plane(ofGetWindowWidth(), ofGetWindowHeight());
 
-            shader.setupShaderFromSource(GL_VERTEX_SHADER, vertex);
-            shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragment);
+ if(this->session.configuration.frameSemantics == ARFrameSemanticPersonSegmentationWithDepth){
+                
+                shader.setupShaderFromSource(GL_VERTEX_SHADER, vertex);
+                shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragment);
+            }else{
+
+                shader.setupShaderFromSource(GL_VERTEX_SHADER, vertex);
+                shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragment);
+            }
             
             shader.linkProgram();
             
