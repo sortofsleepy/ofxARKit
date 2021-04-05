@@ -182,7 +182,9 @@ namespace ofxARKit {
         ofMatrix3x3 getAffineTransform(){ return camera->getAffineTransform();}
 
         //! Draws a debug view of camera image along with person segmentation
+
 //        void drawCameraDebugPersonSegmentation(){ camera->drawDebugPersonSegmentation(); }
+
 #endif
         
         // ===== AIRPOD PRO ===== //
