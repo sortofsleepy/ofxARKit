@@ -68,15 +68,6 @@ configuration.planeDetection = ARPlaneDetectionHorizontal;
 
 As to where to initialize, it really doesn't matter all that much, if your project setup is more in the form of a traditional IOS objective-c app, you can set things up in your view controller, or if your app is more like a normal oF app, you should be able to just as easily set things up in your `setup` function.
 
-### Debugging tips
-The ARKit api offers a limited function set to see what the reason might be in the degredation of tracking quality. You can log the current tracking status by
-
-* calling `logTrackingState` in `ARCam`. Will log to the console a basic string describing the status.
-* you can also call `getTrackingState` in either class to get the raw tracking state from ARKit.
-* `ARProcessor` provides a `debugInfo` object which is an instance of `ARDebugInfo` which can be used as well. Using this will also provide information about FPS, etc.
-
-Note that in order for those functions to work, you'll need to call the `setup` function of either of `ARCam` or `ARProcessor` and pass in the boolean `true`
-
 # Permissions
 For ARKit and iOS in general,a there are several permissions you may need to request from the user depending on the kinds of features you're looking to utilize. At a minimum you'll have to enable the `Privacy - Camera Usage Description` in your `ofxiOS-Info.plist` file. The value for this field is just the string you want to show users when you ask for camera permissions. If you've never touched a plist file before, no worries! Its very easy to change.
 
