@@ -11,13 +11,13 @@ __First__
 * [get the latest version of iOS](https://www.apple.com/ios)
 
 __then__
-* Download openFrameworks [here](https://openframeworks.cc/versions/v0.11.0/of_v0.11.0_ios_release.zip)
+* Download openFrameworks [here](https://openframeworks.cc/versions/v0.11.2/of_v0.11.2_ios_release.zip)
 * clone this repo into your addons folder
 * start a new project with the project generator.
 
 __After you've opened up the project file__
 * add a permission setting in your `ofxIOS-Info.plist` file. See Permissions below.
-* set the project target for IOS 11 / 12 / 13 / 14
+* set the project target for IOS 11 / 12 / 13 / 14 +
 * you may need to do two things with the `Shader.metal` file
    * Add it to the list of compiled sources
    * You will also likely need to make sure to set the file designation back to it's default(for some reason it's marked as "Data" in the projectGenerator generated project)
@@ -26,8 +26,7 @@ __After you've opened up the project file__
 Note that you may have to repeat these steps if you make any changes to your project via the generator.
 
 # Possible Device limitations
-Note that with recent versions of ARKit, there are some advanced features that only work on more recent devices like human occlusion. According to Apple
-`People Occlusion and the use of motion capture, simultaneous front and back camera, and multiple face tracking are supported on devices with A12/A12X Bionic chips, ANE, and TrueDepth Camera.`
+Note that while most features are generally supported across all devices that support ARKit, there may be some features that require specific hardware. [See the ARKit website](https://developer.apple.com/augmented-reality/arkit/) for more details. You should see any limitations listed at the bottom of the page in the footer.
 
 # Initializing ARKit
 To get started, you need to initialize the ARKit framework. This can be done a couple of different ways. ofxARKit provides a helper api to quickly initialize a session without too much fuss.
@@ -69,12 +68,8 @@ configuration.planeDetection = ARPlaneDetectionHorizontal;
 
 As to where to initialize, it really doesn't matter all that much, if your project setup is more in the form of a traditional IOS objective-c app, you can set things up in your view controller, or if your app is more like a normal oF app, you should be able to just as easily set things up in your `setup` function.
 
-### Potential Hurdles in setup of ARKit
-Though ARKit is supported on all devices with an A9 chip(6s onwards I believe) - it is helpful to have a fairly recent device or you may experience near immediate degradation of tracking performance. That being said - ARKit is helpful in that manner by warning you of when you're loosing performance by spitting out a message to the effect of `...tracking performance reduced due to resource constraints...`
-
-FPS appears to be minimally affected, but like the message says, things might not work as well.
-
-If you see the message pop up, the ARKit api offers a limited function set to see what the reason might be in the degredation of tracking quality. You can log the current tracking status by
+### Debugging tips
+The ARKit api offers a limited function set to see what the reason might be in the degredation of tracking quality. You can log the current tracking status by
 
 * calling `logTrackingState` in `ARCam`. Will log to the console a basic string describing the status.
 * you can also call `getTrackingState` in either class to get the raw tracking state from ARKit.
@@ -103,7 +98,7 @@ publish to th Apple App Store](https://forum.unity.com/threads/submitting-arkit-
 
 > "We noticed your app contains the TrueDepth APIs but we were unable to locate these features in your app. Please provide information about how your app uses the TrueDepth APIs."
 
-To avoid this if you're not using TrueDepth & going to publish to the App Store change the macro defined in `ARFaceTrackingBool.h` in your OpenFrameworks plugins directory to `false`:
+To avoid this if you're not using TrueDepth & going to publish to the App Store change the macro defined in `ofxARKit.h` in your OpenFrameworks plugins directory to `false`:
 
 ```diff
 // Line 2 of ARFaceTrackingBool.h

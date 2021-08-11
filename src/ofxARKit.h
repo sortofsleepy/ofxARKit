@@ -8,7 +8,13 @@
 #ifndef ofxARKit_h
 #define ofxARKit_h
 
-#include "lib/ARFaceTrackingBool.h"
+#ifndef AR_FACE_TRACKING
+#define AR_FACE_TRACKING true
+#endif
+
+#ifdef AIRPODS 
+#define AIRPODS
+#endif 
 
 #include <ARKit/ARKit.h>
 #include "lib/ARUtils.h"
