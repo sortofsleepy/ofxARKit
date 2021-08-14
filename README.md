@@ -18,15 +18,20 @@ __then__
 __After you've opened up the project file__
 * add a permission setting in your `ofxIOS-Info.plist` file. See Permissions below.
 * set the project target for IOS 11 / 12 / 13 / 14 +
-* you may need to do two things with the `Shader.metal` file
-   * Add it to the list of compiled sources
-   * You will also likely need to make sure to set the file designation back to it's default(for some reason it's marked as "Data" in the projectGenerator generated project)
+* You may need to do two things with the `Shader.metal` file, see the next section
 
 
 Note that you may have to repeat these steps if you make any changes to your project via the generator.
 
+# Important note about setup 
+This addon involves use of Apple's Metal framework to handle camera imaging and processing. In the src files there is a `Shader.metal` file included. At the time of this writing, for some reason, `projectGenerator` does not treat `.metal` files correctly and labels it as a Data file instead of a Metal file. You will likely have to change it to it's correct designation by using the file inspector in XCode. 
+
+`projectGenerator` also does not automatically add it to the list of compiled sources for a project so you will have to do that as well. 
+
+![changing .metal file types](https://forum.openframeworks.cc/uploads/default/original/2X/0/0e068b5bdcbc267176cc5e10afcc64becffdd397.jpeg)
+
 # Possible Device limitations
-Note that while most features are generally supported across all devices that support ARKit, there may be some features that require specific hardware. [See the ARKit website](https://developer.apple.com/augmented-reality/arkit/) for more details. You should see any limitations listed at the bottom of the page in the footer.
+While most features are generally supported across all devices that support ARKit, there may be some features that require specific hardware. [See the ARKit website](https://developer.apple.com/augmented-reality/arkit/) for more details. You should see any limitations listed at the bottom of the page in the footer.
 
 # Initializing ARKit
 To get started, you need to initialize the ARKit framework. This can be done a couple of different ways. ofxARKit provides a helper api to quickly initialize a session without too much fuss.
