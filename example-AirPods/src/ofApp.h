@@ -3,6 +3,7 @@
 #include "ofxiOS.h"
 #include <ARKit/ARKit.h>
 #include "ofxARKit.h"
+#include "ARAirPodMoves.h"
 class ofApp : public ofxiOSApp {
     
 public:
@@ -36,6 +37,11 @@ public:
     // ====== AR STUFF ======== //
     ARSession * session;
     ARRef processor;
+    airPProMoves * airPodPro;
+    
+    glm::quat getAirPodsQuaternion();
+    glm::vec3 getAirPodsAcceleration();
+    
     
     // ==== AIRPODS ==== //
     void processAirPods();
