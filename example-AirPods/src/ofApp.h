@@ -39,14 +39,23 @@ public:
     ARRef processor;
     airPProMoves * airPodPro;
     
-    glm::quat getAirPodsQuaternion();
-    glm::vec3 getAirPodsAcceleration();
+    glm::quat getAirPodsQuaternion(){
+          
+        CMQuaternion quat = airPodPro->quat();
+        return glm::quat(quat.x, quat.y, quat.z, quat.w);
+          
+    }
+    glm::vec3 getAirPodsAcceleration(){
+          
+          accAirPods acc = airPodPro->acc();
+          return  glm::vec3(acc.x, acc.y, acc.z);
+    }
     
     
     // ==== AIRPODS ==== //
     void processAirPods();
     glm::quat quatAirPods;
-    glm::vec3 accAirPods;
+    glm::vec3 _accAirPods;
 
     
 };
