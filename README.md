@@ -12,7 +12,7 @@ __First__
 
 __then__
 * Download openFrameworks [here](https://openframeworks.cc/versions/v0.11.2/of_v0.11.2_ios_release.zip)
-* clone this repo into your addons folder
+* clone this repo into your addons folder. If you're looking for an older version you can find that in the list of Releases.
 * start a new project with the project generator.
 
 __After you've opened up the project file__
