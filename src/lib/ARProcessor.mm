@@ -49,9 +49,7 @@ namespace ofxARKit {
     void ARProcessor::setup(bool debugMode){
         this->debugMode = debugMode;
         anchorController = ARAnchorManager::create(session);
-        
-        // ==== AirPods Pro ==== //
-        airPodPro->setup();
+
     }
     
     void ARProcessor::draw(){
@@ -67,8 +65,7 @@ namespace ofxARKit {
         }
         
         anchorController->update();
-        
-        // ==== AIRPODS ==== //
+     
         
     }
     
@@ -183,19 +180,7 @@ namespace ofxARKit {
         }
     }
     
-    // ==== AIRPOD PRO ==== //
-    glm::quat ARProcessor::getAirPodsQuaternion(){
-        
-        CMQuaternion quat = airPodPro->quat();
-        return glm::quat(quat.x, quat.y, quat.z, quat.w);
-        
-    }
-    glm::vec3 ARProcessor::getAirPodsAcceleration(){
-        
-        accAirPods acc = airPodPro->acc();
-        return  glm::vec3(acc.x, acc.y, acc.z);
-    }
-    // ==== AIRPOD PRO ==== //
+
         
     
 

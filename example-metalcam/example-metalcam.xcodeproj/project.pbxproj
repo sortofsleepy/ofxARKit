@@ -27,7 +27,6 @@
 		9CE0E8C3210A31D400FD702E /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CE0E8C2210A31D400FD702E /* Metal.framework */; };
 		9CE0E8C7210A344C00FD702E /* Shaders.metal in Resources */ = {isa = PBXBuildFile; fileRef = B729AD4738DF85419E1482B7 /* Shaders.metal */; };
 		9CE0E8CA210A730E00FD702E /* Camera.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9CE0E8C9210A730E00FD702E /* Camera.mm */; };
-		9E673C9B5C273A43D291B6E2 /* ARCam.mm in Sources */ = {isa = PBXBuildFile; fileRef = 439452471C213D52227910C1 /* ARCam.mm */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
 		BBE5EAB80F49AD8400F28951 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */; };
@@ -66,7 +65,6 @@
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2D9AF60D169D375473180BED /* ARObjects.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARObjects.h; path = ../../../addons/ofxARKit/src/lib/ARObjects.h; sourceTree = SOURCE_ROOT; };
 		32CA4F630368D1EE00C91783 /* ofxiOS_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxiOS_Prefix.pch; sourceTree = "<group>"; };
-		439452471C213D52227910C1 /* ARCam.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ARCam.mm; path = ../../../addons/ofxARKit/src/lib/ARCam.mm; sourceTree = SOURCE_ROOT; };
 		517B80F49A5C789E90E5131A /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/ARKit.framework; sourceTree = "<group>"; };
 		5326AEA710A23A0500278DE6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		53F323EA10A20EDB00E0DAE4 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -74,7 +72,6 @@
 		67DFA53419F92A5E003B3434 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		6B4856EAC09E12DF4215247B /* ShaderTypes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ShaderTypes.h; path = ../../../addons/ofxARKit/src/lib/ShaderTypes.h; sourceTree = SOURCE_ROOT; };
 		6E997AD4D5DFA6F2279FED97 /* ARShaders.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARShaders.h; path = ../../../addons/ofxARKit/src/lib/ARShaders.h; sourceTree = SOURCE_ROOT; };
-		83FBF24C589717ECA7DC1D15 /* ARCam.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARCam.h; path = ../../../addons/ofxARKit/src/lib/ARCam.h; sourceTree = SOURCE_ROOT; };
 		895BB2DC8F64D074767B4A8C /* ARUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARUtils.h; path = ../../../addons/ofxARKit/src/lib/ARUtils.h; sourceTree = SOURCE_ROOT; };
 		901808BF2053636F004A7774 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		9288F98A4FBE0DB0656BABC1 /* ARProcessor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ARProcessor.h; path = ../../../addons/ofxARKit/src/lib/ARProcessor.h; sourceTree = SOURCE_ROOT; };
@@ -204,12 +201,10 @@
 				9288F98A4FBE0DB0656BABC1 /* ARProcessor.h */,
 				AAB89E05B8488BEE5EF244FC /* MetalCam.mm */,
 				06CBB8EB438EF0E6876CF3A9 /* ARAnchorManager.mm */,
-				83FBF24C589717ECA7DC1D15 /* ARCam.h */,
 				BD48F05A6623BFAAA3FA0258 /* ARAnchorManager.h */,
 				2D9AF60D169D375473180BED /* ARObjects.h */,
 				C920D6EC10E102E2983C196A /* ARProcessor.mm */,
 				6E997AD4D5DFA6F2279FED97 /* ARShaders.h */,
-				439452471C213D52227910C1 /* ARCam.mm */,
 				B729AD4738DF85419E1482B7 /* Shaders.metal */,
 				E01E92B16305D6FD8300185B /* ARFaceTrackingBool.h */,
 				6B4856EAC09E12DF4215247B /* ShaderTypes.h */,
@@ -373,7 +368,7 @@
 				LastUpgradeCheck = 0600;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = P723G8RKN3;
+						DevelopmentTeam = 5645D62QLN;
 					};
 				};
 			};
@@ -454,7 +449,6 @@
 				9CE0E8BE210A312900FD702E /* MyAppViewController.mm in Sources */,
 				D449374B32245018E4A8FCCC /* ARProcessor.mm in Sources */,
 				9CE0E8BC210A312900FD702E /* MyAppDelegate.mm in Sources */,
-				9E673C9B5C273A43D291B6E2 /* ARCam.mm in Sources */,
 				9CE0E8CA210A730E00FD702E /* Camera.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -476,11 +470,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				DEVELOPMENT_TEAM = P723G8RKN3;
+				DEVELOPMENT_TEAM = 5645D62QLN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ofxiOS_Prefix.pch;
@@ -498,11 +491,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				DEVELOPMENT_TEAM = P723G8RKN3;
+				DEVELOPMENT_TEAM = 5645D62QLN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ofxiOS_Prefix.pch;

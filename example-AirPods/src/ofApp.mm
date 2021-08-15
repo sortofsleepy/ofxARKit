@@ -21,6 +21,9 @@ void logSIMD(const simd::float4x4 &matrix)
 ofApp :: ofApp (ARSession * session){
     this->session = session;
     cout << "creating ofApp" << endl;
+    
+    airPProMoves * airPodPro = &airPProMoves::Get();
+            
 }
 
 ofApp::ofApp(){}
@@ -33,7 +36,7 @@ ofApp :: ~ofApp () {
 //--------------------------------------------------------------
 void ofApp::setup() {
     ofBackground(127);
-    
+    airPodPro->setup();
     img.load("OpenFrameworks.png");
     
     int fontSize = 8;
@@ -118,10 +121,10 @@ void ofApp::draw() {
 //--------------------------------------------------------------
 void ofApp::processAirPods(){
     
-    accAirPods = processor->getAirPodsAcceleration();
-    quatAirPods  = processor->getAirPodsQuaternion();
+    _accAirPods = getAirPodsAcceleration();
+    quatAirPods  = getAirPodsQuaternion();
     
-    cout << "accAirPods = " << ofToString(accAirPods) << endl;
+    cout << "accAirPods = " << ofToString(_accAirPods) << endl;
 }
 
 //--------------------------------------------------------------
