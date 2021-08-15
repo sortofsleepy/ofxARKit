@@ -2,7 +2,7 @@
 //  ARFaceTrackingBool.h
 //  example-basic
 //
-//  Created by sortofsleepy on 8/14/21.
+//  Created by @cwervo 
 //
 
 #ifndef AR_FACE_TRACKING
