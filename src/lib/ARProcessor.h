@@ -19,7 +19,6 @@
 #include "ARDebugUtils.h"
 #include "ARSessionSetup.h"
 #include "Camera.h"
-#include "ARAirPodMoves.h"
 
 
 
@@ -187,13 +186,7 @@ namespace ofxARKit {
 
 #endif
         
-        // ===== AIRPOD PRO ===== //
-        airPProMoves * airPodPro = &airPProMoves::Get();
-        
-        glm::quat getAirPodsQuaternion();
-        glm::vec3 getAirPodsAcceleration();
-        // ===== AIRPOD PRO ===== //
-        
+    
         
         
         //======== CAMERA API ============ //

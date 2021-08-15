@@ -66,7 +66,7 @@ void ofApp::draw() {
     // being a little lazy here but in your own app, you would ideally compose the
     // image yourself. This will draw the camera image with a default look when a person
     // is detected.
-    processor->drawCameraDebugPersonSegmentation();
+    //processor->drawCameraDebugPersonSegmentation();
    
     ofEnableDepthTest();
     
