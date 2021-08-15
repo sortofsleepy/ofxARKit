@@ -23,6 +23,8 @@ __After you've opened up the project file__
 
 Note that you may have to repeat these steps if you make any changes to your project via the generator.
 
+See the Wiki for general tips and how to get started. 
+
 # Important note about setup 
 This addon involves use of Apple's Metal framework to handle camera imaging and processing. In the src files there is a `Shader.metal` file included. At the time of this writing, for some reason, `projectGenerator` does not treat `.metal` files correctly and labels it as a Data file instead of a Metal file. You will likely have to change it to it's correct designation by using the file inspector in XCode. 
 
@@ -32,46 +34,6 @@ This addon involves use of Apple's Metal framework to handle camera imaging and 
 
 # Possible Device limitations
 While most features are generally supported across all devices that support ARKit, there may be some features that require specific hardware. [See the ARKit website](https://developer.apple.com/augmented-reality/arkit/) for more details. You should see any limitations listed at the bottom of the page in the footer.
-
-# Initializing ARKit
-To get started, you need to initialize the ARKit framework. This can be done a couple of different ways. ofxARKit provides a helper api to quickly initialize a session without too much fuss.
-
-__SessionSetup__
-```c++
-    ofxARKit::core::SessionFormat format;
-    format.enablePlaneTracking().enableLighting();
-    auto session = ARCore::generateNewSession(format);
-```
-
-The `SessionFormat` object is a way to enable various features of ARKit in a more straightforward manner. Passing an instance of an `SessionFormat` object to `ARCore::generateNewSession` will automatically generate a new `ARSession` object, while ensuring the specified features are useable on your device.
-
-
-You can of course, write things by hand which isn't too difficult either.
-
-__Raw Objective-C__
-```objective-c
-@interface <your view controller name>()
-@property (nonatomic, strong) ARSession *session;
-@end
-
-
-// then somewhere in your implementation block...
-// official example shows you ought to declare the session in viewWillLoad and initialize in viewWillAppear but it probably doesn't matter.
-
-self.session = [ARSession new];
-
-// World tracking is used for 6DOF, there are other tracking configurations as well, see
-// https://developer.apple.com/documentation/arkit/arconfiguration
-ARWorldTrackingConfiguration *configuration = [ARWorldTrackingConfiguration new];
-
-// setup horizontal plane detection - note that this is optional
-configuration.planeDetection = ARPlaneDetectionHorizontal;
-
-// start the session
-[self.session runWithConfiguration:configuration];
-```
-
-As to where to initialize, it really doesn't matter all that much, if your project setup is more in the form of a traditional IOS objective-c app, you can set things up in your view controller, or if your app is more like a normal oF app, you should be able to just as easily set things up in your `setup` function.
 
 # Permissions
 For ARKit and iOS in general,a there are several permissions you may need to request from the user depending on the kinds of features you're looking to utilize. At a minimum you'll have to enable the `Privacy - Camera Usage Description` in your `ofxiOS-Info.plist` file. The value for this field is just the string you want to show users when you ask for camera permissions. If you've never touched a plist file before, no worries! Its very easy to change.
@@ -104,6 +66,9 @@ To avoid this if you're not using TrueDepth & going to publish to the App Store 
 
 This will remove the code from compilation so you don't get flagged by Apple
 for including code you're not using.
+
+# If you run into issues 
+Please feel free to open up a ticket as I don't visit the openFrameworks forum all that often and will likely miss things. 
 
 # Contributing
 For me, time is unfortunately a luxury as creative coding is sadly not my day job; I can only hunt and peck at small things here and there. All that as well as a general lack of knowledge on topics required to work effectively with AR all contribute to making it difficult to keep this up to date as I ought to; sooo, if there's something you feel you can contribute, by all means, feel free to make PR's!
