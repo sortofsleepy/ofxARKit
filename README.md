@@ -26,11 +26,13 @@ Note that you may have to repeat these steps if you make any changes to your pro
 See the Wiki for general tips and how to get started. 
 
 # Important note about setup 
-This addon involves use of Apple's Metal framework to handle camera imaging and processing. In the src files there is a `Shader.metal` file included. At the time of this writing, for some reason, `projectGenerator` does not treat `.metal` files correctly and labels it as a Data file instead of a Metal file. You will likely have to change it to it's correct designation by using the file inspector in XCode. 
+This addon involves use of Apple's Metal framework to handle camera imaging and processing as the raw feed from your phone/tablet's camera comes in unprocessed. In the src files there is a `Shader.metal` file included which handles turning that unprocessed image into something more recognizeable. There is also Metal code that takes care of translating the resulting Metal textures to OpenGL compatible ones. At the time of this writing, for some reason, `projectGenerator` does not treat `.metal` files correctly and labels it as a Data file instead of a Metal file. You will likely have to change it to it's correct designation by using the file inspector in XCode. 
 
 `projectGenerator` also does not automatically add it to the list of compiled sources for a project so you will have to do that as well. 
 
 ![changing .metal file types](https://forum.openframeworks.cc/uploads/default/original/2X/0/0e068b5bdcbc267176cc5e10afcc64becffdd397.jpeg)
+
+On a related note - you will likely see what appear to be OpenGL ES related warnings - that is expected and should, for the moment at least, not cause your application to fail to compile or run.
 
 # Possible Device limitations
 While most features are generally supported across all devices that support ARKit, there may be some features that require specific hardware. [See the ARKit website](https://developer.apple.com/augmented-reality/arkit/) for more details. You should see any limitations listed at the bottom of the page in the footer.
