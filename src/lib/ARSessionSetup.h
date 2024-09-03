@@ -69,7 +69,7 @@ namespace ofxARKit { namespace core {
             
             SessionFormat& enableSementicTracking(){
                 
-                if([ARWorldTrackingConfiguration supportsFrameSemantics]){
+              if([ARWorldTrackingConfiguration supportsFrameSemantics:ARFrameSemanticSceneDepth]){
                     if (@available(iOS 13.0, *)) {
                         state.useARFrameSemanticPersonSegmentationWithDepth = true;
 
